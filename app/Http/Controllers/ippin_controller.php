@@ -11,10 +11,15 @@ class ippin_controller extends Controller
 
     public function show()
     { 
-        $outputs = $this->generate_menu();
+        $APs = $this->generate_menu('AP');
+        $TMs = $this->generate_menu('TM');
+        $FSs = $this->generate_menu('FS');
+        $MTs = $this->generate_menu('MT');
+
         $num_items = ippin::where('is_on_menu','=','Y')->count();
         
-        return view('food_menu/ippins', ['outputs' => $outputs], ['num_items' => $num_items]);
+        //return view('food_menu/ippins', ['APs' => $APs], ['TMs' => $TMs], ['FSs' => $FSs],['MTs' => $MTs],['num_items' => $num_items]);
+        return view('food_menu/ippins', compact('APs', 'TMs', 'FSs', 'MTs', 'num_items'));
     }
 
     public function search(Request $request)
@@ -22,23 +27,19 @@ class ippin_controller extends Controller
         if($request->ajax())
         { 
             $output="";    
-            $ippin_items=DB::table('ippins')->where('name','LIKE','%'.$request->search."%")
-            // ->orWhere('jpn_name','LIKE','%'.$request->search."%")
-            ->get();
+            $ippin_items = DB::table('ippins')->where('name','LIKE','%'.$request->search."%")->get();
          
             if($ippin_items)
             {   
                 $output.=
                     "<p id='new_item'>&#43; add</p>";
                 foreach ($ippin_items as $key => $ippin_item) {    
-                    $output.=
-                    "<p class='is_on_menu";
+                    $output.= "<p class='is_on_menu";
                     if($ippin_item->is_on_menu == 'N')
                     {
                         $output .= "_not";
                     }
-                    
-                    $output .= "' id='$ippin_item->ippin_id-searchkey' data-id='$ippin_item->ippin_id'>$ippin_item->eng_name / $ippin_item->jpn_name $ippin_item->origin</p>";
+                    $output .= "' id='$ippin_item->ippin_id-searchkey' data-id='$ippin_item->ippin_id'>$ippin_item->name</p>";
                     $output .= "<button id='$ippin_item->ippin_id-editkey' class='edit' data-id='$ippin_item->ippin_id'> edit</button>";
                 }
             }
@@ -63,32 +64,35 @@ class ippin_controller extends Controller
             DB::table('ippins')->where('ippin_id', $ippin_id)->update(['is_on_menu' => 'Y']);
 
         }
+        $APs = $this->generate_menu('AP');
+        $TMs = $this->generate_menu('TM');
+        $FSs = $this->generate_menu('FS');
+        $MTs = $this->generate_menu('MT');
 
-        return Response($this->generate_menu());
+        return Response([$APs, $TMs, $FSs, $MTs]);
         
     }
 
-    public function generate_menu($category)
+    public function generate_menu($category='AP')
     { 
-        $category = DB::table('ippins')->where('category', $category)->where('is_on_menu', 'Y')->get();
+        ${$category . 's'} = DB::table('ippins')->where('category', $category)->where('is_on_menu', 'Y')->get();
 
         $output = [];
-        foreach ($category as $category) {
+        foreach (${$category . 's'} as $category) {
             $item = '';
-            $item .="<div class='gf";
-            
-            if($ippin->is_gf == 'Y')
+            $item .="<li id='$category->ippin_id' class='sortable'><div class='gf'";
+            if($category->is_sustainable == 'Y')
             {
-                $item .= "_y";
+                $item .="data-sust='sustainable'";
+            }
+            $item .=">";
+            if($category->is_gf == 'Y')
+            {
+                $item .= "GF";
             }
 
-            $item .="></div><div class='sustainable";
+            $item .="</div>";
 
-            if($ippin->is_sustainable == 'Y')
-            {
-                $item .= "_y";
-            }
-            $item = "></div><li id='$category->ippin_id class='sortable'>";
             $item .="<div class='ippin_menu'>$category->name / $category->price</div></li>";
 
             array_push($output, $item);
@@ -96,6 +100,35 @@ class ippin_controller extends Controller
         
         return $output;
     }
+
+    // public function generate_menu()
+    // { 
+    //     $APs = DB::table('ippins')->where('category', 'AP')->where('is_on_menu', 'Y')->get();
+
+    //     $output = [];
+    //     foreach ($APs as $AP) {
+    //         $item = '';
+    //         $item .="<div class='gf";
+            
+    //         if($ippin->is_gf == 'Y')
+    //         {
+    //             $item .= "_y";
+    //         }
+
+    //         $item .="></div><div class='sustainable";
+
+    //         if($ippin->is_sustainable == 'Y')
+    //         {
+    //             $item .= "_y";
+    //         }
+    //         $item = "></div><li id='$AP->ippin_id class='sortable'>";
+    //         $item .="<div class='ippin_menu'>$AP->name / $AP->price</div></li>";
+
+    //         array_push($output, $item);
+    //     }
+    //     dd($output);
+    //     //return $output;
+    // }
 
     // public function show_test(){
     //     return view('main');
@@ -171,13 +204,12 @@ class ippin_controller extends Controller
     public function validate_form($input)
     {
         $data = [];
-        $data['eng_name'] =  $this->style_name($input['eng_name']);
-        $data['jpn_name'] =  $this->style_name($input['jpn_name']);
-        $data['origin'] =  $this->style_name($input['origin']); 
-        $data['nigiri_price'] = $input['nigiri_price'];
-        $data['sashimi_price'] = $input['sashimi_price'];
+        $data['name'] =  $input['name'];
+        $data['price'] = $input['price'];
         $data['is_sustainable'] = $input['is_sustainable'];
         $data['is_raw'] = $input['is_raw'];
+        $data['is_gf'] = $input['is_gf'];
+        $data['category'] = $input['category'];
         $data['is_special'] = $input['is_special'];
         $data['is_on_menu'] = $input['is_on_menu']; 
         

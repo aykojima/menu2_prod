@@ -28,9 +28,16 @@
     Route::get('/ippin/edit', 'ippin_controller@show_edit_form')->name('ippin_edit');
     Route::post('/ippin/edit', 'ippin_controller@edit_menu')->name('ippin_edit_submit');
     
+    //roll
+    Route::get('/roll', 'roll_controller@show')->name('roll');
+    Route::post('/roll', 'roll_controller@add_new')->name('roll_add_new');
+    Route::get('/roll/search', 'roll_controller@search')->name('roll_search');
+    Route::get('/roll/update', 'roll_controller@update')->name('roll_update');
+    Route::get('/roll/edit', 'roll_controller@show_edit_form')->name('roll_edit');
+    Route::post('/roll/edit', 'roll_controller@edit_menu')->name('roll_edit_submit');
 
     //test
-    Route::get('/create', 'sb_controller@create')->name('create');
+    Route::get('/test', 'ippin_controller@generate_menu')->name('test');
     Route::post('/create', 'sb_controller@store')->name('store');
     Route::get('/test_show', 'sb_controller@test_show')->name('test_show');
     

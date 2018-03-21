@@ -134,6 +134,11 @@
         $('.result').html('');
     });
 
+    $(document).on("click", "#container", function(event){
+    $('input[type="text"]').val('');
+    $('.result').html('');
+});
+
     // Add New Modal
 
     $(document).on("click", "#new_item", function(){   
@@ -150,6 +155,7 @@
         $('#edit_modal').css('display', 'none');
     });
 
+    
     $(window).click(function(event) {
         if (event.target == $('#add_new_modal')[0]) {
             $('#add_new_modal').css('display', 'none');
