@@ -837,6 +837,83 @@ div.additionals::after{
   clear:both;
 }
 
+div.courses_divs{
+  clear:both;
+}
+
+h2.course_titles{
+  padding: 0px;
+  float: left;
+  margin: 0px;
+}
+
+p.course_prices{
+  float: right;
+  font-size: 1em;
+  color: $skt_color;
+}
+div.additionals{
+  margin-bottom: 10px;
+  line-height: 0.9em;
+}
+
+p.add_name{
+  color:#cccccc;
+  display: block;
+  float: left;
+  clear: both;
+}
+
+p.add_price{
+  color:#cccccc;
+  display: block;
+  float: right;
+}
+
+div.courses{
+  ul{
+    list-style: none;
+    clear: both;
+    line-height: 1em;
+
+    li{
+      // margin-left: 55px;
+      margin-bottom: 6px;
+      clear: both;
+    }
+     
+  }
+}
+p.choices{
+  display: block;
+  float: left;
+  clear: both;
+  color: #cccccc;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+div.items{
+  margin-left: 62px;
+}
+p.item_names{
+  display: block;
+  float: left;
+  font-size: 0.9em;
+}
+
+p.item_prices{
+  display: block;
+  float: right;
+}
+
+div.descriptions{
+  margin-left: 62px;
+  clear: both;
+  font-size: 0.8em;
+  color: #cccccc;
+  line-height: 0.9em;
+}
 
 div#trash{
   visibility:hidden;

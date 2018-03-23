@@ -36,8 +36,11 @@
     Route::get('/roll/edit', 'roll_controller@show_edit_form')->name('roll_edit');
     Route::post('/roll/edit', 'roll_controller@edit_menu')->name('roll_edit_submit');
 
+    //course
+    Route::get('/course', 'course_controller@show')->name('course');
+
     //test
-    Route::get('/test', 'ippin_controller@generate_menu')->name('test');
+    Route::get('/test', 'course_controller@show')->name('test');
     Route::post('/create', 'sb_controller@store')->name('store');
     Route::get('/test_show', 'sb_controller@test_show')->name('test_show');
     
