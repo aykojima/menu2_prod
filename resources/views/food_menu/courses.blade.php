@@ -8,14 +8,13 @@
         <div id='show_result_course'>
         @foreach($courses as $course)
             <div id="two" class="course_divs">
-                <h2 id="{{ $course->course_id }}_course_title" class="course_titles" contentEditable="true" onblur="javascript: edit_content(this, 'course', 'title', '{{ $course->course_id }}');">
-                    
+                <h2 id="{{ $course->course_id }}_course_title" class="course_titles" contentEditable="true" data-id="{{ $course->course_id }}" data-column="title" data-model="course">    
                     {{ $course->title }}</h2>
                 <p class="course_prices">{{ $course->price }}</p>
                 <div class="additionals">
                     @foreach($course->c_add_on_items as $add_on)
-                        <p class="add_name">{{ $add_on->description }}</p>
-                        <p class="add_price">{{ $add_on->price }}</p>
+                        <p class="add_name" contentEditable="true" data-id="{{ $add_on->c_add_on_id }}" data-column="description" data-model="c_add_on_item">{{ $add_on->description }}</p>
+                        <p class="add_price" contentEditable="true" data-id="{{ $add_on->c_add_on_id }}" data-column="price" data-model="c_add_on_item">{{ $add_on->price }}</p>
                     @endforeach
                 </div>
     
@@ -57,25 +56,74 @@
 </div>
 
 <script>
-    //$("#1_course_title").onblur = function() {  
-    function edit_content(contents, model_name, column, id){
-      $(contents).css("background","#FFF");
-      var string = contents.innerHTML;
-      if(string.includes("&nbsp;") == true){
-          //console.log("stripping the space");
-          string = string.replace("&nbsp;", "").trim();
-      }
-      console.log(string);
-    //   $.ajax({
-    //       type: 'post',
-    //       url: '{{ URL::to('course/edit') }}',
-    //       data:'column='+column+'&editval='+string+'&id='+id,
-    //       success: function(data){
-    //           console.log(data);
-    //           $(contents).css("background","#FDFDFD");
-    //       }        
-    //  });
-  }
+
+$(".course_titles").click(function (event) {    
+    var inline_edit = $(this),
+        current_value = $.trim(inline_edit.text()),
+        column = $(this).data('column'),
+        model = $(this).data('model'),
+        id = $(this).data('id');      
+        
+    inline_edit.on("blur", function () {
+        var inline_edit = $(this),
+        new_value = $.trim(inline_edit.text());
+        $(this).trigger("contentchange", [ column, model, id, current_value, new_value ]);
+    })
+    .on("keydown", function (event) {
+        // console.log(event);
+        if (event.keyCode == 13) 
+        {
+            $(this).trigger("contentchange", [ column, model, id, current_value, new_value ]);
+        }
+    })
+    .on("contentchange", function (event, column, model, id, current_value, new_value) {
+        //.on("contentchange", function () { 
+        var me = $(this);
+        event.preventDefault();
+        
+        if ( me.data('requestRunning') ) {
+            return;
+        }
+
+        me.data('requestRunning', true);
+
+        if (new_value === current_value) {
+            $inline_edit
+                .text(current_value);
+                // .removeClass('ajax');
+        }else 
+        {
+            edit_contents({
+                column: column, 
+                model: model, 
+                id: id,
+                contents: new_value
+            }).done(function (data) {
+                //console.log(data);
+                $inline_edit.text(data);
+            }).complete(function (){
+                me.data('requestRunning', false);
+            }).fail(function () {
+                $inline_edit.text(current_value);
+            });
+        }
+    })
+    .focus();
+});
+
+function edit_contents(params) {
+    return $.ajax({
+        url: '{{ URL::to('course/edit') }}',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        },
+        type: "post",
+        data: params,
+    }).fail(function(xhr, status, error) {
+        console.warn(xhr.responseText);
+        alert(error);
+    });
+}
   </script>
 
 @endsection

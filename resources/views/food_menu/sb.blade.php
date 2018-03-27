@@ -94,7 +94,7 @@
         var value=$(this).val();
             $.ajax({
                 type : 'get',
-                url : '{{URL::to('search')}}',
+                url : '{{URL::to('sb/search')}}',
                 data:{'search':value},
                 success:function(data){
                     $('.result').html(data);
@@ -105,7 +105,7 @@
     $(document).on("click", ".result p", function(event){
         $.ajax({
             type:'get',
-            url: '{{URL::to('update')}}',
+            url: '{{URL::to('sb/update')}}',
             data: {'item_id': $(this).data('id')},
             success:function(data){     
                 var string_data = JSON.stringify(data);
@@ -169,7 +169,7 @@
         $('#edit_modal').css('display', 'block');
         $.ajax({
             type : 'get',
-            url : '{{URL::to('edit')}}',
+            url : '{{URL::to('sb/edit')}}',
             data:{'sb_id':$(this).data('id')},
             success:function(data){
                 console.log(data);
@@ -191,7 +191,7 @@
         //var form_data = $('#edit_form').serialize();
             $.ajax({
             type: 'patch',
-            url : '{{URL::to('edit_submit')}}',
+            url : '{{URL::to('sb/edit')}}',
             data: {'sb_id': $('#edit_form input[name=sb_id]').val(),
                     'eng_name': $('#edit_form input[name=eng_name]').val(),
                     'jpn_name': $('#edit_form input[name=jpn_name]').val(),
@@ -202,10 +202,6 @@
                     'is_raw': $('#edit_form input[name=is_raw]').val(),
                     'is_special': $('#edit_form input[name=is_special]').val(),
                     'is_on_menu': $('#edit_form input[name=is_on_menu]').val()
-            },
-            success: function(data) {
-                console.log(data);
-                
             }
         });
 });

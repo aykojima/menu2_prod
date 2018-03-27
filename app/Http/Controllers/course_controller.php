@@ -12,47 +12,34 @@ class course_controller extends Controller
 {
     public function show()
     { 
-        // $post = App\Post::find(1);
-        //$SP_Rs = $this->generate_menu('SP_R');
-        //$courses = DB::table('courses')->get();
-        //$courses = $course->get();
-        //$c_add_on_items = $course::find(1)->c_add_on_items();
         $courses = course::all();
-        //$courses = course::find(1);
-        //dd($courses);
-        //$c_add_on_items = course::with('c_add_on_item')->get();
-        //$comments = App\Post::find(1)->comments;
-        //$num_items = roll::where('is_on_menu','=','Y')->count();
-        
         return view('food_menu/courses', compact('courses'));
     }
 
-    public function generate_menu($category='SP_R')
-    { 
-        ${$category . 's'} = DB::table('rolls')->where('category', $category)->where('is_on_menu', 'Y')->get();
-
-        $output = [];
-        foreach (${$category . 's'} as $category) {
-            $item = '';
-            $item .="<li id='$category->roll_id' class='sortable'><div class='gf'";
-            if($category->is_sustainable == 'Y')
-            {
-                $item .="data-sust='sustainable'";
-            }
-            $item .=">";
-            // if($category->is_gf == 'Y')
-            // {
-            //     $item .= "GF";
-            // }
-
-            $item .="</div>";
-
-            $item .="<div class='roll_menu'>$category->name / $category->price</div>";
-            $item .="<div class='roll_description'>$category->description</div></li>";
-
-            array_push($output, $item);
-        }
+    public function save_content(Request $request)
+    {    
+        if($request->ajax()){
+    
+            $model_name = '\\App\\Models\\'.$request->model;
+            $model = new $model_name;
+            //$model_name = $model->find($request->id)->update(array($request->column => $request->contents));
+            // $model->delete();
+            // sactivity('delete')->performedOn($model_name)->log('');
+            // return "success";
+            
+            //dd($request->column);
+            //$course_item = $request->model_name::findOrFail ( $request->course_id );
+            // $model_name = $request->model;
+            $course_item = $model::findOrFail ( $request->id );
+            $new_contents = $request->contents;
+            $course_item->{$request->column} = $new_contents;
+            $course_item->save();
+            // $input = $request->all();
+            // $id = $request->model;
+            // $data = $this->validate_form($input);
+            // $ippin_item->update($data);
+        return ($new_contents);
         
-        return $output;
+        }
     }
 }

@@ -14,10 +14,10 @@
     //sushi bar pages
     Route::get('/sb', 'sb_controller@show')->name('sb');
     Route::post('/sb', 'sb_controller@add_new')->name('add_new');
-    Route::get('/search', 'sb_controller@search')->name('search');
-    Route::get('/update', 'sb_controller@update')->name('update');
-    Route::get('/edit', 'sb_controller@show_edit_form')->name('edit');
-    Route::post('/edit', 'sb_controller@edit_menu')->name('edit_submit');
+    Route::get('/sb/search', 'sb_controller@search')->name('search');
+    Route::get('/sb/update', 'sb_controller@update')->name('update');
+    Route::get('/sb/edit', 'sb_controller@show_edit_form')->name('edit');
+    Route::post('/sb/edit', 'sb_controller@edit_menu')->name('edit_submit');
     
 
     //ippin
@@ -38,6 +38,7 @@
 
     //course
     Route::get('/course', 'course_controller@show')->name('course');
+    Route::post('/course/edit', 'course_controller@save_content')->name('save_content');
 
     //test
     Route::get('/test', 'course_controller@show')->name('test');

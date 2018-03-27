@@ -101,39 +101,6 @@ class ippin_controller extends Controller
         return $output;
     }
 
-    // public function generate_menu()
-    // { 
-    //     $APs = DB::table('ippins')->where('category', 'AP')->where('is_on_menu', 'Y')->get();
-
-    //     $output = [];
-    //     foreach ($APs as $AP) {
-    //         $item = '';
-    //         $item .="<div class='gf";
-            
-    //         if($ippin->is_gf == 'Y')
-    //         {
-    //             $item .= "_y";
-    //         }
-
-    //         $item .="></div><div class='sustainable";
-
-    //         if($ippin->is_sustainable == 'Y')
-    //         {
-    //             $item .= "_y";
-    //         }
-    //         $item = "></div><li id='$AP->ippin_id class='sortable'>";
-    //         $item .="<div class='ippin_menu'>$AP->name / $AP->price</div></li>";
-
-    //         array_push($output, $item);
-    //     }
-    //     dd($output);
-    //     //return $output;
-    // }
-
-    // public function show_test(){
-    //     return view('main');
-    // }
-
     public function add_new(Request $request)
     { 
         $data = [];
@@ -148,23 +115,6 @@ class ippin_controller extends Controller
         return $this->show();
         
     }
-
-    
-    // public function edit($ippin_id = 9)
-    // {
-    //     $ippin_item = ippin::findOrFail($ippin_id);
-    //     return view('main', compact('ippin_item'));
-    // }
-
-
-    // public function edit_submit(Request $request, $ippin_id)
-    // {
-    //     $ippin_item = ippin::findOrFail($ippin_id);
-    //     $input = Request::all();
-    //     $data = [$this->validate_form($input)];
-    //     $ippin_item->update($data);
-    //     return redirect('ippin');
-    // }
 
     public function show_edit_form(Request $request)
     {
