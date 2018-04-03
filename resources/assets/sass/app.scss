@@ -818,7 +818,7 @@ h1.rolls{
   max-height: 100%
 }
 
-ddiv#show_result_rolls div#gf{
+div#show_result_rolls div#gf{
   display: inline-block;
   vertical-align: top;
   width: 17px;
@@ -837,8 +837,26 @@ div.additionals::after{
   clear:both;
 }
 
-div.courses_divs{
+div.course_divs{
   clear:both;
+  position: relative;
+}
+
+.edit_circle {
+  display: none;
+  position: absolute;
+  top: 28%;
+  right: 36%;
+  z-index: 10;
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
+  background: #ffffff;
+  color: #cccccc;
+  // border: 1px solid #CCC;
+  line-height: 100px;
+  text-align: center;
+  cursor: pointer;
 }
 
 h2.course_titles{
@@ -846,6 +864,8 @@ h2.course_titles{
   float: left;
   margin: 0px;
 }
+
+
 
 p.course_prices{
   float: right;
@@ -857,14 +877,14 @@ div.additionals{
   line-height: 0.9em;
 }
 
-p.add_name{
+.add_name{
   color:#cccccc;
   display: block;
   float: left;
   clear: both;
 }
 
-p.add_price{
+.add_price{
   color:#cccccc;
   display: block;
   float: right;
@@ -884,7 +904,7 @@ div.courses{
      
   }
 }
-p.choices{
+.choices{
   display: block;
   float: left;
   clear: both;
@@ -893,26 +913,128 @@ p.choices{
   font-style: italic;
 }
 
-div.items{
+.items{
   margin-left: 62px;
 }
-p.item_names{
+.item_names{
   display: block;
   float: left;
   font-size: 0.9em;
 }
 
-p.item_prices{
+.item_prices{
   display: block;
   float: right;
 }
 
-div.descriptions{
+.descriptions{
   margin-left: 62px;
   clear: both;
   font-size: 0.8em;
   color: #cccccc;
   line-height: 0.9em;
+}
+
+#show_result_course input {
+  border: 1px dotted #cccccc;
+  font-size: 0.9em;
+  display: none;
+}
+
+input.add_price, input.item_prices {
+  width: 7%;
+  text-align: right;
+}
+
+#show_result_course input.choices {
+  width: 14%;
+  font-size:0.7em;
+}
+
+
+// course form
+.addon_fields_wrap, .item_fields_wrap {
+  padding: 2%;
+  width: 80%;
+  margin: auto;
+  border: 2px dotted #CCC;
+}
+
+.addon_fields_wrap {
+  .div_column_medium{
+    border: 1px #ccc dotted;
+    margin: 1%;
+    padding: 1%;
+    width: 97%;
+    position: relative;
+  }
+
+  .div_column_medium > :first-child {
+    width: 75%;
+  }
+
+  .div_column_medium > :nth-child(2) {
+    width: 10%;
+  }
+
+  .div_column_medium .form_column_medium {
+    margin: 6% 1% 6% 0;
+  }
+}
+
+.item_fields_wrap > div {
+  border: 1px #ccc dotted;
+  margin: 1%;
+  padding: 1%;
+  position: relative;
+}
+
+.item_fields_wrap{
+  .div_column_medium{
+    width: 98%;
+  }
+
+  .div_column_medium > :first-child {
+    width: 77%;
+  }
+
+  .div_column_medium > :nth-child(2) {
+    width: 10%;
+  }
+
+  .div_column_medium .form_column_medium {
+    margin: 1% 1% 0 0;
+  }
+
+  .form_column_long {
+    display: inline-block;
+    width: 91%;
+    margin-left: 1%;
+    height: 80px;
+  }
+
+  #sustainable{
+    width: 80%;
+    //margin: auto;
+  }
+
+  #sustainable .div_label_checkbox{
+    text-align: left;
+  }
+
+}
+.new_section {
+  margin: 3% 0 2% 10%;
+  cursor: pointer;
+}
+
+.remove_field {
+  // display: block;
+  // float: right;
+  // margin: 4% 1% 0px 0px;
+  position: absolute;
+  top: 8%;
+  right: 1%;
 }
 
 div#trash{
