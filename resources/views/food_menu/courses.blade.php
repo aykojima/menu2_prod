@@ -135,7 +135,7 @@ $(window).click(function(event) {
 });
 
 $(document).ready(function(){      
-      var i=1, j=1; 
+      var i=0, j=0; 
 
       $('#add_more_addons').click(function(e){  
           e.preventDefault();
@@ -153,8 +153,8 @@ $(document).ready(function(){
            j++;  
            $('.item_fields_wrap').append('<div><div id= "sustainable"><div class="div_label_checkbox">' +
                 '<label for="choice">Choice of</label>' +
-                '<input id="choice" type="hidden" value="N" name="choice[]"></input>' + 
-                '<input id="choice" type="checkbox" value="Y" name="choice[]"></input></div></div>' + 
+                '<input id="choice" type="hidden" value="N" name="choice[' + j + ']"></input>' + 
+                '<input id="choice" type="checkbox" value="Y" name="choice[' + j + ']"></input></div></div>' + 
                 '<div class="div_column_medium">' +
                 '<input type="text" name="item_name[]" placeholder="Item (e.g. Sushi combo)"' + 
                 'class="form_column_medium" />' +
@@ -164,7 +164,7 @@ $(document).ready(function(){
                 'class="form_column_long" />' +
                 '<button type="button" name="remove" id="'+i+'" class="remove_field">&times;</button></div>');  
       });
-      
+
       $(".addon_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); i--;
         });
@@ -172,6 +172,10 @@ $(document).ready(function(){
       $(".item_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
          e.preventDefault(); $(this).parent('div').remove(); j--;
         });
+    //   $("input[value='save']").click(function(e){  
+    //      e.preventDefault();
+    //      $('.choice_checkbox').append('<input id="choice" type="checkbox" value="N" name="choice[]">');
+    //     })
 });
 
 

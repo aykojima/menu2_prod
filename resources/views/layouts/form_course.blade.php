@@ -14,8 +14,9 @@
                 <div id= "sustainable">
                     <div class="div_label_checkbox">
                         {!! Form::label('choice', 'Choice of') !!}
-                        {!! Form::hidden('choice[]', 'N') !!}
-                        {!! Form::checkbox('choice[]', 'Y') !!}
+                        {!! Form::hidden('choice[0]', 'N') !!}
+                        {!! Form::checkbox('choice[0]', 'Y', null, ['class' => 'choice_checkbox']) !!}
+
                     </div>
                 </div>
                 <div class='div_column_medium'>
