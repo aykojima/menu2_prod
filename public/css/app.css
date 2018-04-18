@@ -561,6 +561,27 @@ input[type="new_submit"] {
   padding: 2px;
   margin-bottom: 15%; }
 
+.buttons {
+  margin-bottom: 15%; }
+
+.buttons input[type="submit"] {
+  float: left;
+  margin: 1% 0 0 37%; }
+
+.buttons a {
+  display: block;
+  text-decoration: none;
+  border: 1px solid #cccccc;
+  padding: 1%;
+  border-radius: 5px;
+  color: #cccccc;
+  float: right;
+  margin-right: 10%; }
+
+.buttons a:hover {
+  background-color: #ffffff;
+  color: #000000; }
+
 /**ippin form**/
 input#price {
   padding: 2%;
@@ -703,6 +724,13 @@ div.course_divs {
   text-align: center;
   cursor: pointer; }
 
+.edit_circle a {
+  text-decoration: none;
+  color: #b0b1b2; }
+
+.edit_circle a:hover {
+  background-color: #ffffff; }
+
 h2.course_titles {
   padding: 0px;
   float: left;
@@ -776,72 +804,126 @@ input.add_price, input.item_prices {
   width: 14%;
   font-size: 0.7em; }
 
-.addon_fields_wrap, .item_fields_wrap {
-  padding: 2%;
+.course_form input, .course_form textarea, .edit_course_form input, .edit_course_form textarea {
+  border: none; }
+.course_form input:focus, .course_form textarea:focus, .edit_course_form input:focus, .edit_course_form textarea:focus {
+  border: 1px solid #cccccc; }
+
+.edit_course_form {
   width: 80%;
-  margin: auto;
-  border: 2px dotted #CCC; }
+  margin: 3% 10% auto;
+  border: 1px solid #cccccc; }
+
+.div_course_title {
+  padding: 2%;
+  width: 85%;
+  margin: auto; }
+  .div_course_title .form_column_medium:first-child {
+    width: 75%;
+    margin: 0 3% 0 0;
+    text-align: left;
+    font-size: 1.5em; }
+  .div_course_title .form_column_medium {
+    width: 10%;
+    text-align: right;
+    color: #CF671F;
+    font-size: 1em; }
+
+.addon_fields_wrap, .item_fields_wrap {
+  margin: auto; }
 
 .addon_fields_wrap .div_column_medium {
-  border: 1px #ccc dotted;
-  margin: 1%;
-  padding: 1%;
-  width: 97%;
   position: relative; }
+.addon_fields_wrap .div_column_medium input {
+  color: #cccccc; }
 .addon_fields_wrap .div_column_medium > :first-child {
   width: 75%; }
 .addon_fields_wrap .div_column_medium > :nth-child(2) {
-  width: 10%; }
-.addon_fields_wrap .div_column_medium .form_column_medium {
-  margin: 6% 1% 6% 0; }
+  width: 10%;
+  text-align: right; }
 
 .item_fields_wrap > div {
-  border: 1px #ccc dotted;
-  margin: 1%;
+  width: 85%;
+  margin: 1% auto;
   padding: 1%;
   position: relative; }
 
-.item_fields_wrap .div_column_medium {
-  width: 98%; }
-.item_fields_wrap .div_column_medium > :first-child {
-  width: 77%; }
-.item_fields_wrap .div_column_medium > :nth-child(2) {
-  width: 10%; }
-.item_fields_wrap .div_column_medium .form_column_medium {
-  margin: 1% 1% 0 0; }
-.item_fields_wrap .form_column_long {
-  display: inline-block;
-  width: 91%;
-  margin-left: 1%;
-  height: 80px; }
-.item_fields_wrap #sustainable {
-  width: 80%; }
-.item_fields_wrap #sustainable .div_label_checkbox {
-  text-align: left; }
+.item_fields_wrap {
+  position: relative; }
+  .item_fields_wrap .div_column_medium {
+    width: 98%; }
+  .item_fields_wrap .div_column_medium > :first-child {
+    width: 75%; }
+  .item_fields_wrap .div_column_medium > :nth-child(2) {
+    width: 10%;
+    text-align: right; }
+  .item_fields_wrap .div_column_medium .form_column_medium {
+    margin: 1% 1% 0 0; }
+  .item_fields_wrap .form_column_long {
+    display: inline-block;
+    width: 91%;
+    margin-left: 1%;
+    height: 80px;
+    position: relative; }
+  .item_fields_wrap #sustainable {
+    width: 80%; }
+  .item_fields_wrap .div_choice .div_label_checkbox {
+    text-align: left; }
+    .item_fields_wrap .div_choice .div_label_checkbox label {
+      font-style: italic;
+      color: #cccccc;
+      font-size: 0.8em; }
+  .item_fields_wrap textarea[name="item_description[]"],
+  .item_fields_wrap textarea[name="edit_item_description[]"] {
+    display: none;
+    color: #cccccc;
+    font-family: "PT Sans", sans-serif; }
 
 .new_section {
-  margin: 3% 0 2% 10%;
+  position: relative;
+  border: none;
+  background-color: #ffffff;
+  font-size: 1em;
+  color: #cccccc;
   cursor: pointer; }
 
-.remove_field {
+.new_section:hover {
+  color: #000000; }
+
+.new_section:hover .new_section_text {
+  display: inline-block; }
+
+.new_section_text {
+  background-color: #cccccc;
+  color: #ffffff;
+  padding: 3%;
+  font-size: 0.8em;
+  display: none;
+  border-radius: 5px;
   position: absolute;
-  top: 8%;
-  right: 1%; }
+  width: 162px;
+  margin: 3px 0 0 10px;
+  transition: 1s; }
 
-div#trash {
-  visibility: hidden;
-  height: 100%;
-  width: 650px;
-  background-color: #ccc;
-  position: fixed;
-  left: 950px;
-  z-index: -1; }
+.remove_field, .remove_description_field {
+  position: absolute;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-size: 1em;
+  color: #cccccc; }
 
-div#trash.hover {
-  visibility: visible; }
+.remove_field:hover, .remove_description_field:hover {
+  color: #000000; }
 
-div#trash.highlight {
-  background-color: yellow; }
+.remove_field {
+  top: 22%;
+  right: -7%; }
+
+.remove_description_field {
+  display: none;
+  right: -6%;
+  top: 66%; }
 
 .right_div {
   position: absolute;

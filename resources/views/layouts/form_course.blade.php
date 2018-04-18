@@ -1,7 +1,7 @@
 
+        <div class="addon_fields_wrap">
         {!! Form::text('title', null, ['placeholder' => 'Title (e.g. Two Course)',
              'class' => 'form_column_long']) !!}
-        <div class="addon_fields_wrap">
             <div class='div_column_medium'>
                 {!! Form::text('addon_description[]', null, ['placeholder' => 'Add-ons (e.g. Served with miso soup)', 'class' => 'form_column_medium']) !!}
                 {!! Form::text('addon_price[]', null, ['placeholder' => 'Price', 'class' => 'form_column_medium']) !!}    

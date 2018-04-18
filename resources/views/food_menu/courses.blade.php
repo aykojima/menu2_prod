@@ -6,19 +6,9 @@
     <div class='modal_content'>        
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'course_add_new']) !!}
-        @include('layouts.form_course')
+        @include('layouts.form_course_new')
         {!! Form::close() !!}
     </div>
- </div>
-
- <div id='edit_modal' class='modal'>
-    <div class='modal_content'>
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'course_edit_submit']) !!}
-        {!! Form::hidden('course_id') !!}
-        @include('layouts.form_course')
-        {!! Form::close() !!}
-    </div>    
  </div>
 
 <div id="container">
@@ -32,7 +22,7 @@
         <div id='show_result_course'>
         @foreach($courses as $course)
             <div class="course_divs">
-                <figure class="edit_circle">Edit</figure>
+                <figure class="edit_circle" data-id="{{ $course->course_id }}"><a href="{{action('course_controller@show_edit_form', $course['course_id'])}}" target="_blank">Edit</a></figure>
                 <h2 id="{{ $course->course_id }}_course_title" class="course_titles" contentEditable="true" data-id="{{ $course->course_id }}" data-column="title" data-model="course" data-edible="edible">    
                     {{ $course->title }}
                 </h2>
@@ -105,37 +95,24 @@
 //     $(this).css("border", "none");
 // })
 
-$(".course_divs").hover(function(){
-    $(this).css("background-color", "#F5F5F5");
-    $(this).find("figure").css("display", "block");
-},
-function(){
-    $(this).css("background-color", "#ffffff");
-    $(this).find("figure").css("display", "none");
-})
-
 // Add New Modal
-
-$(document).on("click", "#new_item", function(){   
+$(document).ready(function(){      
+    $(document).on("click", "#new_item", function(){   
         $('#add_new_modal').css('display', 'block');
+            $('#add_new_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
+            $("#add_new_modal .modal_content form input[name='edit_c_add_on_id[]']").remove();
+            $('#add_new_modal .modal_content form .item_fields_wrap > div').not(':first').remove();   
     });
 
-$(document).on("click", ".close", function(){
-    $('#add_new_modal').css('display', 'none');
-    $('#edit_modal').css('display', 'none');
-});
+    $(document).on("click", "#show_description_box", function(e){
+        e.preventDefault();
+            $(this).next().css('display', 'block');
+            $(this).css('display', 'none');
+            $('.remove_description_field').css('display', 'block');
+    });
 
-
-$(window).click(function(event) {
-    if (event.target == $('#add_new_modal')[0]) {
-        $('#add_new_modal').css('display', 'none');
-    }else if (event.target == $('#edit_modal')[0]) {
-        $('#edit_modal').css('display', 'none');
-    }
-});
-
-$(document).ready(function(){      
-      var i=0, j=0; 
+    
+    var i=0, j=0; 
 
       $('#add_more_addons').click(function(e){  
           e.preventDefault();
@@ -151,7 +128,7 @@ $(document).ready(function(){
       $('#add_more_items').click(function(e){  
           e.preventDefault();
            j++;  
-           $('.item_fields_wrap').append('<div><div id= "sustainable"><div class="div_label_checkbox">' +
+           $('.item_fields_wrap').append('<div><div class="div_choice"><div class="div_label_checkbox">' +
                 '<label for="choice">Choice of</label>' +
                 '<input id="choice" type="hidden" value="N" name="choice[' + j + ']"></input>' + 
                 '<input id="choice" type="checkbox" value="Y" name="choice[' + j + ']"></input></div></div>' + 
@@ -160,10 +137,19 @@ $(document).ready(function(){
                 'class="form_column_medium" />' +
                 '<input type="text" name="item_price[]" placeholder="Price"' + 
                 'class="form_column_medium" /></div>' +
-                '<input type="text" name="item_description[]" placeholder="Description (e.g. Seven pieces of nigiri sushi)"' + 
-                'class="form_column_long" />' +
+                '<button id="show_description_box" class="new_section">&#43;' +
+                '<span class="new_section_text">Add description</span></button>' +
+                '<textarea rows="1" placeholder="Description (e.g. Seven pieces of nigiri sushi)" class="form_column_long" name="item_description[]"></textarea>' + 
+                '<button type="button" name="remove_description" class="remove_description_field">&times;</button>' +
                 '<button type="button" name="remove" id="'+i+'" class="remove_field">&times;</button></div>');  
       });
+
+        $(".item_fields_wrap").on("click", ".remove_description_field", function(e){
+            e.preventDefault();
+            $(this).css('display', 'none');
+            $(this).prev().css('display', 'none');
+            $(this).prev().prev().css('display', 'block');
+        });
 
       $(".addon_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); i--;
@@ -176,7 +162,173 @@ $(document).ready(function(){
     //      e.preventDefault();
     //      $('.choice_checkbox').append('<input id="choice" type="checkbox" value="N" name="choice[]">');
     //     })
+    $(window).click(function(event) {
+        if (event.target == $('#add_new_modal')[0]) {
+            $('#add_new_modal').css('display', 'none');
+            $('#add_new_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
+            $('#add_new_modal .modal_content form .item_fields_wrap > div').not(':first').remove();
+            i=0; j=0;
+        }
+    }); 
+
+    $(document).on("click", "#add_new_modal .modal_content .close", function(){
+        $('#add_new_modal').css('display', 'none');
+        $('#add_new_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
+        $('#add_new_modal .modal_content form .item_fields_wrap > div').not(':first').remove();
+        i=0; j=0; 
+    });        
 });
+
+
+//Edit Modal
+$(document).ready(function(){      
+    $(".course_divs").hover(function(){
+        $(this).css("background-color", "#F5F5F5");
+        $(this).find("figure").css("display", "block");
+    },
+    function(){
+        $(this).css("background-color", "#ffffff");
+        $(this).find("figure").css("display", "none");
+    })
+
+    $(document).on("click", ".edit_circle", function(event){   
+        
+        $('#edit_modal').css('display', 'block');
+        // console.log($(this).data('id'));
+        $.ajax({
+            type : 'get',
+            url : '{{URL::to('course/edit')}}',
+            data:{'course_id':$(this).data('id')},
+            success:function(data){
+                
+                $("#edit_modal .modal_content input[name='edit_title']").val(data.course.title);
+                $("#edit_modal .modal_content input[name='edit_course_id']").val(data.course.course_id);
+                var i=0, j=0;
+
+                $(data.course.c_add_on_items).each(function( index ) {
+                    $("#edit_modal .modal_content input[name='course_id']").val(this.course_id);
+                    if(index == 0)
+                    {
+                        $("#edit_modal .modal_content input[name='edit_addon_description[]']").val(this.description);
+                        $("#edit_modal .modal_content input[name='edit_addon_price[]']").val(this.price);
+                        $("#edit_modal .modal_content input[name='edit_c_add_on_id[]']").val(this.c_add_on_id);
+                        
+                    }
+                    else
+                    {
+                        i++;  
+                        $('.addon_fields_wrap').append('<input type="hidden" name="edit_c_add_on_id[]" value="' + this.c_add_on_id + '">' + 
+                        '<div class="div_column_medium">' +
+                        '<input type="text" name="edit_addon_description[]" value="' + this.description + '" ' + 
+                        'class="form_column_medium" />' +
+                        '<input type="text" name="edit_addon_price[]" placeholder="Price" value="' + this.price + '"' + 
+                        'class="form_column_medium" />'); 
+                        
+                        if(this.price === null)
+                        {
+                            $("input[name='edit_addon_price[]']").val(this.price);
+                        }
+                        var div= i + 1;
+                        $('.addon_fields_wrap .div_column_medium:nth-child(' + div + ')').append('<button type="button" name="edit_remove" id="'+i+'" class="remove_field">&times;</button></div>');  
+                        
+                    }
+                    
+                });
+
+                $(data.course.c_items).each(function( index ) {
+                    
+                    if(index == 0)
+                    {
+                        $("#edit_modal .modal_content input[name='edit_item_name[]']").val(this.name);
+                        $("#edit_modal .modal_content input[name='edit_item_price[]']").val(this.price);
+                        $("#edit_modal .modal_content input[name='edit_item_description[]']").val(this.description);
+                        $("#edit_modal .modal_content input[name='edit_c_item_id[]']").val(this.c_item_id);
+                        this.choice == 'Y' ? $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', true) : $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', false);
+                    }
+                    else
+                    {
+                        j++;  
+                    
+                        $('.item_fields_wrap').append('<div><input type="hidden" name="edit_c_item_id[]" value="' + this.c_item_id + '">' +
+                        '<div class="div_choice"><div class="div_label_checkbox">' +
+                        '<label for="choice">Choice of</label>' +
+                        '<input id="choice" type="hidden" value="N" name="edit_choice[' + j + ']"></input>' + 
+                        '<input id="choice" type="checkbox" value="Y" name="edit_choice[' + j + ']"></input></div></div>' + 
+                        '<div class="div_column_medium">' +
+                        '<input type="text" name="edit_item_name[]" value="' + this.name + '"' + 
+                        'class="form_column_medium" />' +
+                        '<input type="text" name="edit_item_price[]" placeholder="Price" value="' + this.price + '"' + 
+                        'class="form_column_medium" /></div>' +
+                        '<input type="text" name="edit_item_description[]" value="' + this.description + '"' + 
+                        'class="form_column_long" />');
+                        
+                        this.choice == 'Y' ? $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', true) : $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', false);    
+                        if(this.price === null)
+                        {
+                            $("input[name='edit_item_price[]']").val(this.price);
+                        }
+                        var div= j + 1;
+                        $('.item_fields_wrap > div:nth-child(' + div + ')').append('<button type="button" name="edit_remove" id="'+j+'" class="remove_field">&times;</button></div>');  
+                    }
+                });  
+                
+            }
+        });
+        $("#edit_modal .modal_content form .addon_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); i--;
+        });
+
+        $("#edit_modal .modal_content form .item_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); j--;
+        });
+
+        $(window).click(function(event) {
+            if (event.target == $('#edit_modal')[0]) {
+                
+                $('#edit_modal').css('display', 'none');
+                        $('#edit_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
+                        $('#edit_modal .modal_content form .item_fields_wrap > div').not(':first').remove();
+                        
+                        i=0; j=0;
+                     }
+        });
+
+        $(document).on("click", "#edit_modal .modal_content .close", function(){
+            $('#edit_modal').css('display', 'none');
+            $('#edit_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
+            $('#edit_modal .modal_content form .item_fields_wrap > div').not(':first').remove();
+            i=0; j=0;
+        });
+    });   
+});
+
+
+
+
+// $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
+//     //var form_data = $('#edit_form').serialize();
+//         $.ajax({
+//         type: 'patch',
+//         url : '{{URL::to('edit_submit')}}',
+//         data: {'course_id': $('#edit_form input[name=course_id]').val(),
+//                 'name': $('#edit_form input[name=name]').val(),
+//                 'price': $('#edit_form input[name=price]').val(),
+//                 'category': $('#edit_form input[name=category]').val(),
+//                 'is_sustainable': $('#edit_form input[name=is_sustainable]').val(),
+//                 'is_gf': $('#edit_form input[name=is_gf]').val(),
+//                 'is_raw': $('#edit_form input[name=is_raw]').val(),
+//                 'is_special': $('#edit_form input[name=is_special]').val(),
+//                 'is_on_menu': $('#edit_form input[name=is_on_menu]').val()
+//         },
+//         success: function(data) {
+//             console.log(data);
+            
+//         }
+//     });
+// });
+
+
+
 
 
 // $("[data-edible='edible']").click(function (event) {    
@@ -247,7 +399,7 @@ $(document).ready(function(){
 //         alert(error);
 //     });
 // }
-  </script>
+</script>
 
 @endsection
 

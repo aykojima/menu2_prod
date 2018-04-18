@@ -40,8 +40,9 @@
     Route::get('/course', 'course_controller@show')->name('course');
     //Route::post('/course/edit', 'course_controller@save_content')->name('save_content');
     Route::post('/course', 'course_controller@add_new')->name('course_add_new');
-    Route::get('/course/edit', 'course_controller@show_edit_form')->name('course_edit');
-    Route::post('/course/edit', 'course_controller@edit_menu')->name('course_edit_submit');
+    Route::get('/course/edit/{course_id}', 'course_controller@show_edit_form')->name('course_edit');
+    Route::post('/course/edit/{course_id}', 'course_controller@edit_menu')->name('course_edit_submit');
+    Route::get('/course/delete/{course_id}', 'course_controller@delete')->name('delete');
 
     //test
     Route::get('/test', 'course_controller@show')->name('test');
