@@ -851,6 +851,22 @@ div#roll_description {
 
 
 /***course meals***/
+
+
+.commands {
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 200px;
+  span {
+    display: block;
+    padding: 2%;
+    cursor: pointer;
+    text-align: left;
+  }
+}
+
+
 div.additionals::after{
   content: " ";
   height: 0;
@@ -982,7 +998,10 @@ input.add_price, input.item_prices {
   font-size:0.7em;
 }
 
-
+//course sotable
+#show_result_course ul{
+  list-style: none;
+}
 // course form
 
 

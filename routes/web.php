@@ -11,6 +11,7 @@
 |
 */
 
+    Route::get('/', 'sb_controller@main')->name('home');
     //sushi bar pages
     Route::get('/sb', 'sb_controller@show')->name('sb');
     Route::post('/sb', 'sb_controller@add_new')->name('add_new');
@@ -56,5 +57,5 @@
 
 Auth::routes();
 
-Route::get('/generate/password', function(){ return bcrypt('6dO0h*'); });
+Route::get('/generate/password', function(){ return bcrypt('goriki'); });
  

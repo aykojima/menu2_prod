@@ -699,6 +699,17 @@ div#roll_description {
   font-size: .9em; }
 
 /***course meals***/
+.commands {
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 200px; }
+  .commands span {
+    display: block;
+    padding: 2%;
+    cursor: pointer;
+    text-align: left; }
+
 div.additionals::after {
   content: " ";
   height: 0;
@@ -803,6 +814,9 @@ input.add_price, input.item_prices {
 #show_result_course input.choices {
   width: 14%;
   font-size: 0.7em; }
+
+#show_result_course ul {
+  list-style: none; }
 
 .course_form input, .course_form textarea, .edit_course_form input, .edit_course_form textarea {
   border: none; }

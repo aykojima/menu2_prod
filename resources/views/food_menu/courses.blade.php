@@ -11,17 +11,34 @@
     </div>
  </div>
 
+<div class="commands">
+    <span id="new_item">Add New</span>
+    <span class="change_order">Change Order</span>
+    <span class="edit">Edit</span>
+    
+    <div class="edit_list">
+        @foreach($courses as $course)
+        <span class="">
+            <a href="{{action('course_controller@show_edit_form', $course['course_id'])}}" target="_blank">{{ $course->title }}</a>
+        </span>
+        @endforeach
+    </div>
+    
+</div> 
 <div id="container">
     
     <div id="menu">
         <h1 id="ippin">
             Course Meals
-            <button id="new_item" class="new_section">&#43;</button>
+            <!-- <button id="new_item" class="new_section">&#43;</button> -->
         </h1>
         
         <div id='show_result_course'>
+        <ul id="sortables">
         @foreach($courses as $course)
-            <div class="course_divs">
+        
+        <li>
+            <div data-id="{{ $course->course_id }}" class="course_divs">
                 <figure class="edit_circle" data-id="{{ $course->course_id }}"><a href="{{action('course_controller@show_edit_form', $course['course_id'])}}" target="_blank">Edit</a></figure>
                 <h2 id="{{ $course->course_id }}_course_title" class="course_titles" contentEditable="true" data-id="{{ $course->course_id }}" data-column="title" data-model="course" data-edible="edible">    
                     {{ $course->title }}
@@ -65,7 +82,8 @@
                      </ul>
                  </div>
              </div>
-
+        </li>
+        
              <div id="omakase" class="courses">
                 @foreach($course->c_omakases as $omakase)
                     <h3 class="name" contentEditable="true" data-id="{{ $omakase->c_omakase_id }}" data-column="name" data-model="c_omakase" data-edible="edible">{{ $omakase_name }}</h3>
@@ -83,6 +101,7 @@
                 </div> -->
              </div>
         @endforeach
+        </ul>
         </div>
     </div>
 </div>
@@ -94,6 +113,17 @@
 // function(){
 //     $(this).css("border", "none");
 // })
+$(document).ready(function(){
+    var item_with_choice = $(".choices:contains('choice of')").filter(function () {
+                                return ($(this).text().length > 0)
+                            }).parent();
+    var i = 0;
+
+        item_with_choice.children(".descriptions").css("display", "none");
+        item_with_choice.next().children(".descriptions").css("display", "none");
+        item_with_choice.nextAll().eq(3).children(".descriptions").css("display", "block");
+
+})
 
 // Add New Modal
 $(document).ready(function(){      
@@ -181,15 +211,20 @@ $(document).ready(function(){
 
 
 //Edit Modal
-$(document).ready(function(){      
-    $(".course_divs").hover(function(){
-        $(this).css("background-color", "#F5F5F5");
-        $(this).find("figure").css("display", "block");
-    },
-    function(){
-        $(this).css("background-color", "#ffffff");
-        $(this).find("figure").css("display", "none");
-    })
+$(document).ready(function(){
+    $(document).on("click", ".edit", function(){
+        $(".course_divs").css("background-color", "#F5F5F5");
+        $(".course_divs").find("figure").css("display", "block");
+    })      
+
+    // $(".course_divs").hover(function(){
+    //     $(this).css("background-color", "#F5F5F5");
+    //     $(this).find("figure").css("display", "block");
+    // },
+    // function(){
+    //     $(this).css("background-color", "#ffffff");
+    //     $(this).find("figure").css("display", "none");
+    // })
 
     $(document).on("click", ".edit_circle", function(event){   
         
@@ -303,6 +338,41 @@ $(document).ready(function(){
 });
 
 
+//Change order of courses
+$(document).on("click", ".change_order", function(){
+    $(".course_divs").hover(function(){
+        $(this).css("cursor","-webkit-grab");
+    })
+    $(".course_divs").css("background-color", "#F5F5F5");
+    $( "#sortables").sortable({
+        //axis: 'y',
+        cursor: "-webkit-grabbing",
+        revert:true,
+        update: function (event, ui) {
+            var new_order = $(".course_divs").map(function(){
+            return ($(this).data("id"));
+            }).get();
+            console.log(new_order.join(","));
+        }
+        // var list = document.getElementById('sortable_appetizer');
+        // appetizer.menu_list = [];
+        // var another_test = list.childNodes; 
+        // for(var i =0; i < list.childNodes.length; i++)
+        // {
+        //     var list_id = another_test[i].id;
+        //     //console.log(list_id);
+        //     var test = "<li id='" + list_id + "' class='sortable'>" + another_test[i].innerHTML + "</li>"
+        //     appetizer.menu_list.push(test);    
+        // }
+        // //console.log(appetizer);
+        //     //localStorage.setItem("appetizer", JSON.stringify(appetizer));
+        // appetizer.keys = $(this).sortable('toArray', { attribute: 'id' });
+        // console.log('data: ' + appetizer.keys);
+        // var arrays = [appetizer.keys, tempura.keys, fish_dish.keys, meat_dish.keys];
+        // storeKeyInDb(arrays);
+        //     }
+        }); 
+    });
 
 
 // $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {

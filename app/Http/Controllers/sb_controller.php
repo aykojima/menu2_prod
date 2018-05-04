@@ -14,6 +14,10 @@ class sb_controller extends Controller
     //     $this->sb = $sb;
     // }
 
+    public function main(){
+        return view('main');
+    }
+
     public function show()
     { 
         $outputs = $this->generate_menu();
