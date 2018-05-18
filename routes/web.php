@@ -28,6 +28,7 @@
     Route::get('/ippin/update', 'ippin_controller@update')->name('ippin_update');
     Route::get('/ippin/edit', 'ippin_controller@show_edit_form')->name('ippin_edit');
     Route::post('/ippin/edit', 'ippin_controller@edit_menu')->name('ippin_edit_submit');
+    Route::post('/ippin/delete', 'ippin_controller@delete')->name('delete_course_item');
     
     //roll
     Route::get('/roll', 'roll_controller@show')->name('roll');
@@ -44,7 +45,12 @@
     Route::get('/course/edit/{course_id}', 'course_controller@show_edit_form')->name('course_edit');
     Route::post('/course/edit/{course_id}', 'course_controller@edit_menu')->name('course_edit_submit');
     Route::get('/course/delete/{course_id}', 'course_controller@delete')->name('delete');
+    Route::post('/course/save_order', 'course_controller@save_order')->name('save_order');
 
+    //lunch
+    Route::get('/lunch', 'lunch_controller@show')->name('lunch');
+
+    
     //test
     Route::get('/test', 'course_controller@show')->name('test');
     Route::post('/create', 'sb_controller@store')->name('store');

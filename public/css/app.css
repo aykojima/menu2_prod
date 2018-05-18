@@ -166,6 +166,32 @@ div#nav li:hover > ul {
   opacity: 1;
   transform: translateX(0px); }
 
+#notification {
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
+  width: 23%;
+  z-index: 105;
+  text-align: center;
+  font-weight: normal;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #FF7800;
+  padding: 5px; }
+
+#notification span.dismiss {
+  border: 2px solid #FFF;
+  padding: 0 5px;
+  cursor: pointer;
+  float: right;
+  margin-right: 10px; }
+
+#notification a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold; }
+
 /* Formatting search box */
 .is_on_menu {
   color: #000; }
@@ -280,12 +306,6 @@ button#search {
   border: 1px solid #CCCCCC;
   font-size: 14px; }
 
-.result {
-  position: absolute;
-  z-index: 1;
-  top: 63%;
-  left: 0; }
-
 .search-box input[type="text"], .result {
   width: 100%;
   box-sizing: border-box;
@@ -299,18 +319,21 @@ button#search {
   color: red; }
 
 /* Formatting result items */
-.result p {
-  margin: 0;
-  padding: 7px 10px;
-  border: 1px solid #CCCCCC;
-  border-top: none;
-  cursor: pointer; }
-
-.result p:hover {
-  background: #f2f2f2; }
-
-.result p:hover + button {
-  display: block; }
+.result {
+  position: absolute;
+  z-index: 1;
+  top: 67%;
+  left: 0; }
+  .result p {
+    margin: 0;
+    padding: 7px 10px;
+    border: 1px solid #CCCCCC;
+    border-top: none;
+    cursor: pointer; }
+    .result p:hover {
+      background: #f2f2f2; }
+    .result p:hover + button {
+      display: block; }
 
 div#container, div#i_container,
 div#r_container, div#c_container,
@@ -427,7 +450,7 @@ td.name {
   display: inline;
   text-align: left; }
 
-td.origin, td.origin_small {
+td.origin {
   display: inline;
   color: #aaaaaa; }
 
@@ -709,6 +732,19 @@ div#roll_description {
     padding: 2%;
     cursor: pointer;
     text-align: left; }
+  .commands > span {
+    font-size: 1.2em; }
+    .commands > span:hover {
+      background-color: #f5f5f5; }
+
+.change_order_dropdown {
+  display: none;
+  padding-left: 10%; }
+  .change_order_dropdown span {
+    display: inline-block;
+    padding: 2%; }
+    .change_order_dropdown span:hover {
+      border: 1px solid #cccccc; }
 
 div.additionals::after {
   content: " ";
@@ -719,6 +755,18 @@ div.additionals::after {
 div.course_divs {
   clear: both;
   position: relative; }
+
+.edit_list {
+  display: none; }
+  .edit_list span {
+    padding: 2% 2% 2% 10%; }
+    .edit_list span:hover {
+      border: 1px solid #cccccc; }
+    .edit_list span a {
+      text-decoration: none;
+      color: black; }
+      .edit_list span a:hover {
+        background-color: #ffffff; }
 
 .edit_circle {
   display: none;
@@ -814,6 +862,13 @@ input.add_price, input.item_prices {
 #show_result_course input.choices {
   width: 14%;
   font-size: 0.7em; }
+
+#omakase .course_titles {
+  font-size: 1.8em; }
+#omakase .items {
+  color: #CF671F; }
+  #omakase .items .item_names {
+    font-size: 1.2em; }
 
 #show_result_course ul {
   list-style: none; }

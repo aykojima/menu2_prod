@@ -232,6 +232,17 @@
         }
     }
 
+    //Change the font size of origin, so that the item fit in a single row
+    $(document).ready(function(){
+        $("tr").map(function(){
+            var name_length = $(this).children(".name").text().length;
+            var origin_length = $(this).children(".origin").text().length;
+            if(name_length + origin_length > 40)
+            // {console.log($(this).children(".name").text() + $(this).children(".origin").text())}
+            { $(this).children(".origin").addClass("origin_small"); }
+        });
+    })
+
     function style_line_height(){
     var length = $('#showResult tr').length;
     var current_class = $('#showResult').attr('class');

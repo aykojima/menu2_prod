@@ -93,7 +93,15 @@ class ippin_controller extends Controller
 
             $item .="</div>";
 
-            $item .="<div class='ippin_menu'>$category->name / $category->price</div></li>";
+            $item .="<div class='ippin_menu'>$category->name / ";
+            
+            if($category->price == null)
+            {
+                $item .="MP</div></li>";
+            }else
+            {
+                $item .="$category->price</div></li>";
+            }
 
             array_push($output, $item);
         }
@@ -112,7 +120,7 @@ class ippin_controller extends Controller
                
         }
         ippin::create($data);
-        return $this->show();
+        return redirect('ippin');
         
     }
 
@@ -135,6 +143,15 @@ class ippin_controller extends Controller
         return redirect('ippin');
     }
 
+    public function delete(Request $request)
+    {
+        $ippin = ippin::findOrFail ( $request->ippin_id );
+        $ippin->delete();
+
+        return redirect('ippin');
+
+    }
+
     public function style_name($input)
     {
         $output = ucwords($input);
@@ -154,8 +171,16 @@ class ippin_controller extends Controller
     public function validate_form($input)
     {
         $data = [];
-        $data['name'] =  $input['name'];
-        $data['price'] = $input['price'];
+        $data['name'] =  ucfirst( $input['name'] );
+
+        if(is_numeric($input['price']) == false)
+        {
+            $data['price'] = null;   
+        }else
+        {
+            $data['price'] = $input['price'];
+        }
+
         $data['is_sustainable'] = $input['is_sustainable'];
         $data['is_raw'] = $input['is_raw'];
         $data['is_gf'] = $input['is_gf'];

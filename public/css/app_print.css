@@ -7,7 +7,7 @@
   size: 4.25in 14in;
   margin: 0; }
 header, #nav, #new_item, .right_div,
-.modal, .search-box {
+.modal, .search-box, .commands {
   display: none; }
 
 * {
@@ -353,6 +353,9 @@ div.additionals {
   display: block;
   float: right; }
 
+#show_result_course ul {
+  list-style: none; }
+
 div.courses ul {
   list-style: none;
   clear: both;
@@ -400,6 +403,13 @@ input.add_price, input.item_prices {
 #show_result_course input.choices {
   width: 14%;
   font-size: 0.7em; }
+
+#omakase .course_titles {
+  font-size: 1.8em; }
+#omakase .items {
+  color: #CF671F; }
+  #omakase .items .item_names {
+    font-size: 1.2em; }
 
 .course_form input, .course_form textarea, .edit_course_form input, .edit_course_form textarea {
   border: none; }

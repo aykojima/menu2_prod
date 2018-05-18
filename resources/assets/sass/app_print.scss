@@ -54,7 +54,7 @@ $skt_color: #CF671F;
 }
 
 header, #nav, #new_item, .right_div,
-.modal, .search-box{
+.modal, .search-box, .commands{
     display: none;
 }
 *{
@@ -486,6 +486,10 @@ div.additionals{
   float: right;
 }
 
+#show_result_course ul{
+  list-style: none;
+}
+
 div.courses{
   ul{
     list-style: none;
@@ -547,6 +551,17 @@ input.add_price, input.item_prices {
   font-size:0.7em;
 }
 
+#omakase{
+  .course_titles{
+    font-size: 1.8em;
+  }
+  .items{
+    color:$skt_color;
+  .item_names{
+    font-size: 1.2em;
+    }
+  }
+}
 
 // course form
 

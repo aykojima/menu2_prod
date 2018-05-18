@@ -14,7 +14,7 @@ class course_controller extends Controller
 {
     public function show()
     { 
-        $courses = course::all();
+        $courses = course::orderBy("list_order")->get();
         return view('food_menu/courses', compact('courses'));
     }
 
@@ -129,33 +129,49 @@ class course_controller extends Controller
         {
             foreach($request->edit_c_add_on_id as $data_key=>$data_value)
             {
-                DB::table('c_add_on_items')
-                ->where('c_add_on_id', $data_value)
-                ->update([
-                    'description' => $request->edit_addon_description[$data_key],
-                        'price'  => $request->edit_addon_price[$data_key],
-                        'course_id' => $request->course_id
-                ]); 
+                if($request->edit_addon_description[$data_key] == null &
+                   $request->edit_addon_price[$data_key] == null)
+                {
+                    DB::table('c_add_on_items')
+                    ->where('c_add_on_id', $data_value)
+                    ->delete();
+                }
+                else{
+                    DB::table('c_add_on_items')
+                    ->where('c_add_on_id', $data_value)
+                    ->update([
+                        'description' => $request->edit_addon_description[$data_key],
+                            'price'  => $request->edit_addon_price[$data_key],
+                            'course_id' => $request->course_id
+                    ]); 
+                }
             }
         }
         if($request->edit_c_item_id)
         {
             foreach($request->edit_c_item_id as $data_key=>$data_value)
             {
-                DB::table('c_items')
-                ->where('c_item_id', $data_value)
-                ->update([
-                    'name' => $request->edit_item_name[$data_key],
-                    'price'  => $request->edit_item_price[$data_key],
-                    'description'  => $request->edit_item_description[$data_key],
-                    'choice'  => $request->edit_choice[$data_key],
-                    'course_id' => $request->course_id
-                ]);
+                if($request->edit_item_name[$data_key] == null &
+                    $request->edit_item_price[$data_key] == null &
+                    $request->edit_item_description[$data_key] == null)
+                {
+                    DB::table('c_items')
+                    ->where('c_item_id', $data_value)
+                    ->delete();
+                }
+                else{
+                    DB::table('c_items')
+                    ->where('c_item_id', $data_value)
+                    ->update([
+                        'name' => $request->edit_item_name[$data_key],
+                        'price'  => $request->edit_item_price[$data_key],
+                        'description'  => $request->edit_item_description[$data_key],
+                        'choice'  => $request->edit_choice[$data_key],
+                        'course_id' => $request->course_id
+                    ]);
+                }
             }
         }    
-        // $input = $request->all();
-        // $data = $this->validate_form($input);
-        // $course_item->update($data);
         return redirect('course');
     }
 
@@ -202,6 +218,11 @@ class course_controller extends Controller
 
         DB::table('extra')->insert($dataSet);        
         return $dataSet;
+    }
+
+    public function save_order(Request $request)
+    {
+        dd($request->new_order);
     }
 
 }

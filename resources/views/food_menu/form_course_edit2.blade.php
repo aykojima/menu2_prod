@@ -42,7 +42,7 @@
         <div class="item_fields_wrap">
         @foreach($course->c_items as $c_item)
         <div>
-        <input value="$c_item->c_item_id" name="edit_c_item_id[]" type="hidden">
+        <input value="{{ $c_item->c_item_id }}" name="edit_c_item_id[]" type="hidden">
             <div class="div_choice">
                 <div class="div_label_checkbox">
                     <label for="choice">Choice of</label>
@@ -121,7 +121,7 @@ var i=0, j=0;
                 'class="form_column_medium" /></div>' +
                 '<button id="show_description_box" class="new_section">&#43;' +
                 '<span class="new_section_text">Add description</span></button>' +
-                '<textarea rows="1" placeholder="Description (e.g. Seven pieces of nigiri sushi)" class="form_column_long" name="edit_item_description[]"></textarea>' + 
+                '<textarea rows="1" placeholder="Description (e.g. Seven pieces of nigiri sushi)" class="form_column_long" name="item_description[]"></textarea>' + 
                 '<button type="button" name="remove_description" class="remove_description_field">&times;</button>' +
                 '<button type="button" name="remove" id="'+i+'" class="remove_field">&times;</button></div>');  
       });

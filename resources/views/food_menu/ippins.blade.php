@@ -26,6 +26,8 @@
         {!! Form::open(['route' => 'ippin_edit_submit']) !!}
         {!! Form::hidden('ippin_id') !!}
         @include('layouts.form_ippin')
+        {!! Form::button('Delete', array('id' => 'delete')) !!}
+            <!-- <a href="{{action('ippin_controller@delete', 'ippin_id')}}">Delete</a> -->
         {!! Form::close() !!}
     </div>    
  </div>
@@ -102,8 +104,20 @@
     </div>
 </div>
 
+<div id="notification" style="display: none;">
+  <span class="dismiss"><a title="dismiss this notification">x</a></span>
+</div>
+
 
 <script type="text/javascript">
+
+// Notification box
+$("#notification").fadeIn("slow").append('The item is created!');
+$(".dismiss").click(function(){
+       $("#notification").fadeOut("slow");
+});
+
+
 var search_box = $('.search-box input[type="text"]');
 
 // $(document).ready(function(){
@@ -214,7 +228,7 @@ $(window).click(function(event) {
 //Edit Modal
 $(document).on("click", ".edit", function(event){   
     $('#edit_modal').css('display', 'block');
-    console.log($(this).data('id'));
+    
     $.ajax({
         type : 'get',
         url : '{{URL::to('ippin/edit')}}',
@@ -224,7 +238,7 @@ $(document).on("click", ".edit", function(event){
                 $("#edit_modal .modal_content input[name='ippin_id']").val(data.ippin_id),
                 $("#edit_modal .modal_content input[name='name']").val(data.name),
                 $("#edit_modal .modal_content input[name='price']").val(data.price),
-                $("#edit_modal .modal_content input[name='category']").val(data.category),
+                $("#edit_modal .modal_content select[name='category']").val(data.category),
                 data.is_sustainable == 'Y' ? $("#edit_modal .modal_content input[name='is_sustainable']").prop('checked', true) : $("#edit_modal .modal_content input[name='is_sustainable']").prop('checked', false),
                 data.is_gf == 'Y' ? $("#edit_modal .modal_content input[name='is_gf']").prop('checked', true) : $("#edit_modal .modal_content input[name='is_gf']").prop('checked', false),
                 data.is_raw == 'Y' ? $("#edit_modal .modal_content input[name='is_raw']").prop('checked', true) : $("#edit_modal .modal_content input[name='is_raw']").prop('checked', false),
@@ -238,7 +252,7 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('edit_submit')}}',
+        url : '{{URL::to('ippin/edit')}}',
         data: {'ippin_id': $('#edit_form input[name=ippin_id]').val(),
                 'name': $('#edit_form input[name=name]').val(),
                 'price': $('#edit_form input[name=price]').val(),
@@ -248,13 +262,21 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
                 'is_raw': $('#edit_form input[name=is_raw]').val(),
                 'is_special': $('#edit_form input[name=is_special]').val(),
                 'is_on_menu': $('#edit_form input[name=is_on_menu]').val()
-        },
-        success: function(data) {
-            console.log(data);
-            
         }
     });
 });
+
+// $('#edit_modal .modal_content').on('click', '#delete', function() {
+//         $.ajax({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+//         },
+//         type: 'post',
+//         url : '{{URL::to('ippin/delete')}}',
+//         data: {'ippin_id': $('#edit_form input[name=ippin_id]').val()}
+//     });
+// });
+
 
 function add_fish(){
         $("div[data-sust='sustainable']").append('<img id="fish" src="{{ asset('images/fish.png') }}" style="width:15px;"/>');

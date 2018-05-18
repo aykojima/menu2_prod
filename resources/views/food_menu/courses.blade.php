@@ -14,6 +14,10 @@
 <div class="commands">
     <span id="new_item">Add New</span>
     <span class="change_order">Change Order</span>
+    <div class="change_order_dropdown">
+        <span class="save_order">Save</span>
+        <span class="discard">Discard</span>
+    </div>
     <span class="edit">Edit</span>
     
     <div class="edit_list">
@@ -38,7 +42,11 @@
         @foreach($courses as $course)
         
         <li>
-            <div data-id="{{ $course->course_id }}" class="course_divs">
+        @if($course->is_omakase == 'Y')
+        <div data-id="{{ $course->course_id }}" id="omakase" class="course_divs">
+        @else     
+        <div data-id="{{ $course->course_id }}" class="course_divs">
+        @endif
                 <figure class="edit_circle" data-id="{{ $course->course_id }}"><a href="{{action('course_controller@show_edit_form', $course['course_id'])}}" target="_blank">Edit</a></figure>
                 <h2 id="{{ $course->course_id }}_course_title" class="course_titles" contentEditable="true" data-id="{{ $course->course_id }}" data-column="title" data-model="course" data-edible="edible">    
                     {{ $course->title }}
@@ -83,23 +91,6 @@
                  </div>
              </div>
         </li>
-        
-             <div id="omakase" class="courses">
-                @foreach($course->c_omakases as $omakase)
-                    <h3 class="name" contentEditable="true" data-id="{{ $omakase->c_omakase_id }}" data-column="name" data-model="c_omakase" data-edible="edible">{{ $omakase_name }}</h3>
-                    <h3 class="price" contentEditable="true" data-id="{{ $omakase->c_omakase_id }}" data-column="price" data-model="c_omakase" data-edible="edible">{{ $omakase->om_price }}</h3>
-                    <div class="additionals">
-                        <p class='name' contentEditable="true" data-id="{{ $omakase->c_omakase_id }}" data-column="description" data-model="c_omakase" data-edible="edible">{{ $omakase->description }}</p>
-                        <p class="price" contentEditable="true" data-id="{{ $omakase->c_omakase_id }}" data-column="desc_price" data-model="c_omakase" data-edible="edible">{{ $omakase->desc_price }}</p>
-                    </div>
-                @endforeach
-                <!-- <input class="name" placeholder="Omakase name"></input>
-                <input class="price" placeholder="Omakase price"></input>
-                <div class="additionals">
-                    <input class='name' placeholder="Omakase additional name"></input>
-                    <input class="price" placeholder="Omakase additional price"></input>
-                </div> -->
-             </div>
         @endforeach
         </ul>
         </div>
@@ -117,12 +108,22 @@ $(document).ready(function(){
     var item_with_choice = $(".choices:contains('choice of')").filter(function () {
                                 return ($(this).text().length > 0)
                             }).parent();
-    var i = 0;
-
+    // var i = 0;
         item_with_choice.children(".descriptions").css("display", "none");
         item_with_choice.next().children(".descriptions").css("display", "none");
         item_with_choice.nextAll().eq(3).children(".descriptions").css("display", "block");
+    
+    var descriptions = $("#omakase").filter(".descriptions");
+    $("#omakase .descriptions:eq(2)").css("display", "none");
 
+})
+
+$(document).on("click", ".edit", function(){
+    $(".edit_list").slideToggle();
+})
+
+$(document).on("click", ".change_order", function(){
+    $(".change_order_dropdown").slideToggle();
 })
 
 // Add New Modal
@@ -211,148 +212,161 @@ $(document).ready(function(){
 
 
 //Edit Modal
-$(document).ready(function(){
-    $(document).on("click", ".edit", function(){
-        $(".course_divs").css("background-color", "#F5F5F5");
-        $(".course_divs").find("figure").css("display", "block");
-    })      
 
-    // $(".course_divs").hover(function(){
-    //     $(this).css("background-color", "#F5F5F5");
-    //     $(this).find("figure").css("display", "block");
-    // },
-    // function(){
-    //     $(this).css("background-color", "#ffffff");
-    //     $(this).find("figure").css("display", "none");
-    // })
 
-    $(document).on("click", ".edit_circle", function(event){   
+// $(document).ready(function(){
+//     $(document).on("click", ".edit", function(){
+//         $(".course_divs").css("background-color", "#F5F5F5");
+//         $(".course_divs").find("figure").css("display", "block");
+//     })      
+
+//     // $(".course_divs").hover(function(){
+//     //     $(this).css("background-color", "#F5F5F5");
+//     //     $(this).find("figure").css("display", "block");
+//     // },
+//     // function(){
+//     //     $(this).css("background-color", "#ffffff");
+//     //     $(this).find("figure").css("display", "none");
+//     // })
+
+//     $(document).on("click", ".edit_circle", function(event){   
         
-        $('#edit_modal').css('display', 'block');
-        // console.log($(this).data('id'));
-        $.ajax({
-            type : 'get',
-            url : '{{URL::to('course/edit')}}',
-            data:{'course_id':$(this).data('id')},
-            success:function(data){
+//         $('#edit_modal').css('display', 'block');
+//         // console.log($(this).data('id'));
+//         $.ajax({
+//             type : 'get',
+//             url : '{{URL::to('course/edit')}}',
+//             data:{'course_id':$(this).data('id')},
+//             success:function(data){
                 
-                $("#edit_modal .modal_content input[name='edit_title']").val(data.course.title);
-                $("#edit_modal .modal_content input[name='edit_course_id']").val(data.course.course_id);
-                var i=0, j=0;
+//                 $("#edit_modal .modal_content input[name='edit_title']").val(data.course.title);
+//                 $("#edit_modal .modal_content input[name='edit_course_id']").val(data.course.course_id);
+//                 var i=0, j=0;
 
-                $(data.course.c_add_on_items).each(function( index ) {
-                    $("#edit_modal .modal_content input[name='course_id']").val(this.course_id);
-                    if(index == 0)
-                    {
-                        $("#edit_modal .modal_content input[name='edit_addon_description[]']").val(this.description);
-                        $("#edit_modal .modal_content input[name='edit_addon_price[]']").val(this.price);
-                        $("#edit_modal .modal_content input[name='edit_c_add_on_id[]']").val(this.c_add_on_id);
+//                 $(data.course.c_add_on_items).each(function( index ) {
+//                     $("#edit_modal .modal_content input[name='course_id']").val(this.course_id);
+//                     if(index == 0)
+//                     {
+//                         $("#edit_modal .modal_content input[name='edit_addon_description[]']").val(this.description);
+//                         $("#edit_modal .modal_content input[name='edit_addon_price[]']").val(this.price);
+//                         $("#edit_modal .modal_content input[name='edit_c_add_on_id[]']").val(this.c_add_on_id);
                         
-                    }
-                    else
-                    {
-                        i++;  
-                        $('.addon_fields_wrap').append('<input type="hidden" name="edit_c_add_on_id[]" value="' + this.c_add_on_id + '">' + 
-                        '<div class="div_column_medium">' +
-                        '<input type="text" name="edit_addon_description[]" value="' + this.description + '" ' + 
-                        'class="form_column_medium" />' +
-                        '<input type="text" name="edit_addon_price[]" placeholder="Price" value="' + this.price + '"' + 
-                        'class="form_column_medium" />'); 
+//                     }
+//                     else
+//                     {
+//                         i++;  
+//                         $('.addon_fields_wrap').append('<input type="hidden" name="edit_c_add_on_id[]" value="' + this.c_add_on_id + '">' + 
+//                         '<div class="div_column_medium">' +
+//                         '<input type="text" name="edit_addon_description[]" value="' + this.description + '" ' + 
+//                         'class="form_column_medium" />' +
+//                         '<input type="text" name="edit_addon_price[]" placeholder="Price" value="' + this.price + '"' + 
+//                         'class="form_column_medium" />'); 
                         
-                        if(this.price === null)
-                        {
-                            $("input[name='edit_addon_price[]']").val(this.price);
-                        }
-                        var div= i + 1;
-                        $('.addon_fields_wrap .div_column_medium:nth-child(' + div + ')').append('<button type="button" name="edit_remove" id="'+i+'" class="remove_field">&times;</button></div>');  
+//                         if(this.price === null)
+//                         {
+//                             $("input[name='edit_addon_price[]']").val(this.price);
+//                         }
+//                         var div= i + 1;
+//                         $('.addon_fields_wrap .div_column_medium:nth-child(' + div + ')').append('<button type="button" name="edit_remove" id="'+i+'" class="remove_field">&times;</button></div>');  
                         
-                    }
+//                     }
                     
-                });
+//                 });
 
-                $(data.course.c_items).each(function( index ) {
+//                 $(data.course.c_items).each(function( index ) {
                     
-                    if(index == 0)
-                    {
-                        $("#edit_modal .modal_content input[name='edit_item_name[]']").val(this.name);
-                        $("#edit_modal .modal_content input[name='edit_item_price[]']").val(this.price);
-                        $("#edit_modal .modal_content input[name='edit_item_description[]']").val(this.description);
-                        $("#edit_modal .modal_content input[name='edit_c_item_id[]']").val(this.c_item_id);
-                        this.choice == 'Y' ? $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', true) : $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', false);
-                    }
-                    else
-                    {
-                        j++;  
+//                     if(index == 0)
+//                     {
+//                         $("#edit_modal .modal_content input[name='edit_item_name[]']").val(this.name);
+//                         $("#edit_modal .modal_content input[name='edit_item_price[]']").val(this.price);
+//                         $("#edit_modal .modal_content input[name='edit_item_description[]']").val(this.description);
+//                         $("#edit_modal .modal_content input[name='edit_c_item_id[]']").val(this.c_item_id);
+//                         this.choice == 'Y' ? $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', true) : $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', false);
+//                     }
+//                     else
+//                     {
+//                         j++;  
                     
-                        $('.item_fields_wrap').append('<div><input type="hidden" name="edit_c_item_id[]" value="' + this.c_item_id + '">' +
-                        '<div class="div_choice"><div class="div_label_checkbox">' +
-                        '<label for="choice">Choice of</label>' +
-                        '<input id="choice" type="hidden" value="N" name="edit_choice[' + j + ']"></input>' + 
-                        '<input id="choice" type="checkbox" value="Y" name="edit_choice[' + j + ']"></input></div></div>' + 
-                        '<div class="div_column_medium">' +
-                        '<input type="text" name="edit_item_name[]" value="' + this.name + '"' + 
-                        'class="form_column_medium" />' +
-                        '<input type="text" name="edit_item_price[]" placeholder="Price" value="' + this.price + '"' + 
-                        'class="form_column_medium" /></div>' +
-                        '<input type="text" name="edit_item_description[]" value="' + this.description + '"' + 
-                        'class="form_column_long" />');
+//                         $('.item_fields_wrap').append('<div><input type="hidden" name="edit_c_item_id[]" value="' + this.c_item_id + '">' +
+//                         '<div class="div_choice"><div class="div_label_checkbox">' +
+//                         '<label for="choice">Choice of</label>' +
+//                         '<input id="choice" type="hidden" value="N" name="edit_choice[' + j + ']"></input>' + 
+//                         '<input id="choice" type="checkbox" value="Y" name="edit_choice[' + j + ']"></input></div></div>' + 
+//                         '<div class="div_column_medium">' +
+//                         '<input type="text" name="edit_item_name[]" value="' + this.name + '"' + 
+//                         'class="form_column_medium" />' +
+//                         '<input type="text" name="edit_item_price[]" placeholder="Price" value="' + this.price + '"' + 
+//                         'class="form_column_medium" /></div>' +
+//                         '<input type="text" name="edit_item_description[]" value="' + this.description + '"' + 
+//                         'class="form_column_long" />');
                         
-                        this.choice == 'Y' ? $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', true) : $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', false);    
-                        if(this.price === null)
-                        {
-                            $("input[name='edit_item_price[]']").val(this.price);
-                        }
-                        var div= j + 1;
-                        $('.item_fields_wrap > div:nth-child(' + div + ')').append('<button type="button" name="edit_remove" id="'+j+'" class="remove_field">&times;</button></div>');  
-                    }
-                });  
+//                         this.choice == 'Y' ? $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', true) : $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', false);    
+//                         if(this.price === null)
+//                         {
+//                             $("input[name='edit_item_price[]']").val(this.price);
+//                         }
+//                         var div= j + 1;
+//                         $('.item_fields_wrap > div:nth-child(' + div + ')').append('<button type="button" name="edit_remove" id="'+j+'" class="remove_field">&times;</button></div>');  
+//                     }
+//                 });  
                 
-            }
-        });
-        $("#edit_modal .modal_content form .addon_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
-            e.preventDefault(); $(this).parent('div').remove(); i--;
-        });
+//             }
+//         });
+//         $("#edit_modal .modal_content form .addon_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
+//             e.preventDefault(); $(this).parent('div').remove(); i--;
+//         });
 
-        $("#edit_modal .modal_content form .item_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
-            e.preventDefault(); $(this).parent('div').remove(); j--;
-        });
+//         $("#edit_modal .modal_content form .item_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
+//             e.preventDefault(); $(this).parent('div').remove(); j--;
+//         });
 
-        $(window).click(function(event) {
-            if (event.target == $('#edit_modal')[0]) {
+//         $(window).click(function(event) {
+//             if (event.target == $('#edit_modal')[0]) {
                 
-                $('#edit_modal').css('display', 'none');
-                        $('#edit_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
-                        $('#edit_modal .modal_content form .item_fields_wrap > div').not(':first').remove();
+//                 $('#edit_modal').css('display', 'none');
+//                         $('#edit_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
+//                         $('#edit_modal .modal_content form .item_fields_wrap > div').not(':first').remove();
                         
-                        i=0; j=0;
-                     }
-        });
+//                         i=0; j=0;
+//                      }
+//         });
 
-        $(document).on("click", "#edit_modal .modal_content .close", function(){
-            $('#edit_modal').css('display', 'none');
-            $('#edit_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
-            $('#edit_modal .modal_content form .item_fields_wrap > div').not(':first').remove();
-            i=0; j=0;
-        });
-    });   
-});
+//         $(document).on("click", "#edit_modal .modal_content .close", function(){
+//             $('#edit_modal').css('display', 'none');
+//             $('#edit_modal .modal_content form .addon_fields_wrap > div').not(':first').remove();
+//             $('#edit_modal .modal_content form .item_fields_wrap > div').not(':first').remove();
+//             i=0; j=0;
+//         });
+//     });   
+// });
 
 
 //Change order of courses
+// $.ajaxSetup({
+//     headers: {
+//       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//     }
+//   });
+
 $(document).on("click", ".change_order", function(){
+    var new_order = $(".course_divs").map(function(){
+            return ($(this).data("id"));
+            }).get();
+        
     $(".course_divs").hover(function(){
         $(this).css("cursor","-webkit-grab");
     })
     $(".course_divs").css("background-color", "#F5F5F5");
     $( "#sortables").sortable({
         //axis: 'y',
+        disabled: false,
         cursor: "-webkit-grabbing",
         revert:true,
         update: function (event, ui) {
-            var new_order = $(".course_divs").map(function(){
-            return ($(this).data("id"));
-            }).get();
-            console.log(new_order.join(","));
+            // new_order = $(".course_divs").map(function(){
+            // return ($(this).data("id"));
+            // }).get();
+            new_order = $(this).sortable('toArray', {attribute: 'data("id")'});
         }
         // var list = document.getElementById('sortable_appetizer');
         // appetizer.menu_list = [];
@@ -371,9 +385,43 @@ $(document).on("click", ".change_order", function(){
         // var arrays = [appetizer.keys, tempura.keys, fish_dish.keys, meat_dish.keys];
         // storeKeyInDb(arrays);
         //     }
-        }); 
+    });
+    $(".save_order").click(function(){
+        console.log(new_order.join(","));
+        $.ajax({
+            url : '{{URL::to('course/save_order')}}',
+            beforeSend: function (xhr) {
+                var token = $('meta[name="_token"]').attr('content');
+
+                if (token) {
+                        return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                }
+            },
+            type: 'post',
+            data: {new_order: new_order.join(",")},
+            success: function(data) {
+                console.log(data);
+                // $( "#sortables").sortable("disable");
+                // $(".course_divs").hover(function(){
+                //     $(this).css("cursor","default");
+                // })
+                // $(".course_divs").css("background-color", "#ffffff");    
+            }
+        }).fail(function(xhr, status, error) {
+            console.warn(xhr.responseText);
+            alert(error);
+        });
     });
 
+    $(".discard").click(function(){
+        $( "#sortables").sortable("disable");
+        $(".course_divs").hover(function(){
+            $(this).css("cursor","default");
+        })
+        $(".course_divs").css("background-color", "#ffffff");
+    }) 
+});
+    
 
 // $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
 //     //var form_data = $('#edit_form').serialize();

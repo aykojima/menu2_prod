@@ -214,6 +214,33 @@ transform: translateX(0px);
 
 
 
+// Notification box
+#notification {
+  position:fixed;
+  bottom:1%;
+  right:1%; 
+  width:23%;
+  z-index:105;
+  text-align:center;
+  font-weight:normal;
+  font-size:14px;
+  font-weight:bold;
+  color:white;
+  background-color:#FF7800;
+  padding:5px;
+}
+#notification span.dismiss {
+  border:2px solid #FFF;
+  padding:0 5px;
+  cursor:pointer;
+  float:right;
+  margin-right:10px;
+}
+#notification a {
+  color:white;
+  text-decoration:none;
+  font-weight:bold
+}
 
 
 
@@ -345,12 +372,7 @@ button#close_add_new_tab{
       border: 1px solid #CCCCCC;
       font-size: 14px;
           }
-.result{
-      position: absolute;        
-      z-index: 1;
-      top: 63%;
-      left: 0;
-          }
+
 .search-box input[type="text"], .result{
       width: 100%;
       box-sizing: border-box;
@@ -368,19 +390,26 @@ button#close_add_new_tab{
 }
 
 /* Formatting result items */
-.result p{
+.result {
+  position: absolute;        
+  z-index: 1;
+  top: 67%;
+  left: 0;
+  p{
       margin: 0;
       padding: 7px 10px;
       border: 1px solid #CCCCCC;
       border-top: none;
       cursor: pointer;
-      }
-.result p:hover{
-      background: #f2f2f2;
-      }
 
-.result p:hover + button{
-  display: block;
+      &:hover{
+          background: #f2f2f2;
+      }
+      
+      &:hover + button{
+        display: block;
+      }
+  }
 }
 
 
@@ -520,7 +549,7 @@ td.name{
   text-align: left;
 }
 
-td.origin, td.origin_small{
+td.origin{
   display:inline;
   color:#aaaaaa;
 }
@@ -864,8 +893,25 @@ div#roll_description {
     cursor: pointer;
     text-align: left;
   }
+  >span{
+    font-size: 1.2em;
+    &:hover{
+      background-color: #f5f5f5;
+    }
+  }
 }
 
+.change_order_dropdown {
+  display: none;
+  padding-left: 10%;
+  span {
+    display: inline-block;
+    padding: 2%;
+    &:hover{
+      border: 1px solid #cccccc;
+    }
+  }
+}
 
 div.additionals::after{
   content: " ";
@@ -877,6 +923,24 @@ div.additionals::after{
 div.course_divs{
   clear:both;
   position: relative;
+}
+
+.edit_list{
+  display: none;
+  span{
+    padding: 2% 2% 2% 10%;
+    &:hover{
+      border: 1px solid #cccccc;
+    }
+    a{
+      text-decoration: none;
+      color: black;
+      &:hover{
+        background-color: #ffffff;
+      }
+    }
+    
+  }
 }
 
 .edit_circle {
@@ -996,6 +1060,19 @@ input.add_price, input.item_prices {
 #show_result_course input.choices {
   width: 14%;
   font-size:0.7em;
+}
+
+//Omakase
+#omakase{
+  .course_titles{
+    font-size: 1.8em;
+  }
+  .items{
+    color:$skt_color;
+  .item_names{
+    font-size: 1.2em;
+    }
+  }
 }
 
 //course sotable

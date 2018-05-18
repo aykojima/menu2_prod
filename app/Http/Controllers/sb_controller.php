@@ -208,8 +208,23 @@ class sb_controller extends Controller
         $data['eng_name'] =  $this->style_name($input['eng_name']);
         $data['jpn_name'] =  $this->style_name($input['jpn_name']);
         $data['origin'] =  $this->style_name($input['origin']); 
-        $data['nigiri_price'] = $input['nigiri_price'];
-        $data['sashimi_price'] = $input['sashimi_price'];
+
+        if(is_numeric($input['nigiri_price']) == false ) 
+        {
+            $data['nigiri_price'] = null;
+        }else
+        {   
+            $data['nigiri_price'] = $input['nigiri_price'];
+        }
+        
+        if(is_numeric($input['sashimi_price']) == false ) 
+        {
+            $data['sashimi_price'] = null;
+        }else
+        {   
+            $data['sashimi_price'] = $input['sashimi_price'];
+        }
+        
         $data['is_sustainable'] = $input['is_sustainable'];
         $data['is_raw'] = $input['is_raw'];
         $data['is_special'] = $input['is_special'];
