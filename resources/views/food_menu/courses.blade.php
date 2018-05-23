@@ -51,7 +51,9 @@
                 <h2 id="{{ $course->course_id }}_course_title" class="course_titles" contentEditable="true" data-id="{{ $course->course_id }}" data-column="title" data-model="course" data-edible="edible">    
                     {{ $course->title }}
                 </h2>
-                <p class="course_prices" contentEditable="true" data-id="{{ $course->course_id }}" data-column="price" data-model="course" data-edible="edible">{{ $course->price }}</p>
+                <p class="course_prices" contentEditable="true" data-id="{{ $course->course_id }}" data-column="price" data-model="course" data-edible="edible">
+                    {{ $course->price }}
+                </p>
                 <div class="additionals">
                     @foreach($course->c_add_on_items as $add_on)
                         <p class="add_name" contentEditable="true" data-id="{{ $add_on->c_add_on_id }}" data-column="description" data-model="c_add_on_item" data-edible="edible">{{ $add_on->description }}</p>
@@ -97,7 +99,25 @@
     </div>
 </div>
 
+@if(session('status'))
+<div id="notification" style="display: none;">
+  <span class="dismiss"><a title="dismiss this notification">x</a></span>
+  <br>
+  {{ session('status')}}
+  <br>
+  <br>
+  <hr>
+</div>
+@endif
+
 <script>
+
+// Notification box
+$("#notification").fadeIn("slow");
+$(".dismiss").click(function(){
+       $("#notification").fadeOut("slow");
+});
+
 // $("[data-edible='edible']").hover(function(){
 //     $(this).css("border", "1px #cccccc dotted");
 // },
@@ -114,8 +134,11 @@ $(document).ready(function(){
         item_with_choice.nextAll().eq(3).children(".descriptions").css("display", "block");
     
     var descriptions = $("#omakase").filter(".descriptions");
-    $("#omakase .descriptions:eq(2)").css("display", "none");
+    $("#omakase .descriptions:eq(0)").css("display", "none");
+    $("#omakase .descriptions:eq(1)").css("display", "none");
 
+    //add 'MP' to omakase
+    $("#omakase").find(".item_prices:empty").append('MP');
 })
 
 $(document).on("click", ".edit", function(){

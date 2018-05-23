@@ -7,7 +7,7 @@
   size: 4.25in 14in;
   margin: 0; }
 header, #nav, #new_item, .right_div,
-.modal, .search-box, .commands {
+.modal, .search-box, .commands, #notification, #update {
   display: none; }
 
 * {

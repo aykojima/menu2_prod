@@ -146,7 +146,8 @@ class sb_controller extends Controller
                
         }
         sb::create($data);
-        return $this->show();
+        $new_item = $data['eng_name'] . " / " . $data['jpn_name'] . " was successfully created!";
+        return redirect('sb')->with('status', $new_item );
         
     }
 
@@ -183,7 +184,8 @@ class sb_controller extends Controller
         $input = $request->all();
         $data = $this->validate_form($input);
         $sb_item->update($data);
-        return redirect('sb');
+        $edited_item = $data['eng_name'] . " / " . $data['jpn_name'] . " was successfully edited!";
+        return redirect('sb')->with('status', $edited_item );
     }
 
     public function style_name($input)

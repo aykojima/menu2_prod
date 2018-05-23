@@ -104,15 +104,25 @@
     </div>
 </div>
 
-<div id="notification" style="display: none;">
+<div id="update" style="display: none;">
   <span class="dismiss"><a title="dismiss this notification">x</a></span>
 </div>
 
+@if(session('status'))
+<div id="notification" style="display: none;">
+  <span class="dismiss"><a title="dismiss this notification">x</a></span>
+  <br>
+  {{ session('status')}}
+  <br>
+  <br>
+  <hr>
+</div>
+@endif
 
 <script type="text/javascript">
 
 // Notification box
-$("#notification").fadeIn("slow").append('The item is created!');
+$("#notification").fadeIn("slow");
 $(".dismiss").click(function(){
        $("#notification").fadeOut("slow");
 });
@@ -179,10 +189,18 @@ $(document).on("click", ".result p", function(event){
     {
         $(this).css("color", "#ccc");
         $(this).toggleClass('is_on_menu is_on_menu_not');
+        $("#update").fadeIn("slow").append('<br><strong style="color:#CCCCCC;">Removed: </strong> ' + $(this).text() + '<br><br><hr>');
+        $(".dismiss").click(function(){
+            $("#update").fadeOut("slow").html('<span class="dismiss"><a title="dismiss this notification">x</a></span>');
+        });
     }else if(event.target.className == 'is_on_menu_not')
     {
         $(this).css("color", "#000");
         $(this).toggleClass('is_on_menu_not is_on_menu');
+        $("#update").fadeIn("slow").append('<br><strong style="color:#FFE4B5;">Added: </strong>' + $(this).text() + '<br><br><hr>');
+        $(".dismiss").click(function(){
+            $("#update").fadeOut("slow").html('<span class="dismiss"><a title="dismiss this notification">x</a></span>');
+        });
     }else
     {
         $(this).css("color", "#ccc");   

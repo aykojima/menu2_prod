@@ -52,16 +52,19 @@ class ippin_controller extends Controller
     { 
         $ippin_id = $request->item_id;
         $is_on_menu = DB::table('ippins')->where('ippin_id', $ippin_id)->value('is_on_menu');
+        $item_name = DB::table('ippins')->where('ippin_id', $ippin_id)->value('name');
 
         if($is_on_menu == 'Y')
         {
 
             DB::table('ippins')->where('ippin_id', $ippin_id)->update(['is_on_menu' => 'N']);
+            $request->session()->put('key', $item_name );
 
         }else
         {
 
             DB::table('ippins')->where('ippin_id', $ippin_id)->update(['is_on_menu' => 'Y']);
+            $request->session()->put('key', $item_name );
 
         }
         $APs = $this->generate_menu('AP');
@@ -69,6 +72,7 @@ class ippin_controller extends Controller
         $FSs = $this->generate_menu('FS');
         $MTs = $this->generate_menu('MT');
 
+        //$value = $request->session()->get();
         return Response([$APs, $TMs, $FSs, $MTs]);
         
     }
@@ -120,7 +124,8 @@ class ippin_controller extends Controller
                
         }
         ippin::create($data);
-        return redirect('ippin');
+        $new_item = $data['name'] . " was successfully created!";
+        return redirect('ippin')->with('status', $new_item );
         
     }
 
@@ -140,7 +145,8 @@ class ippin_controller extends Controller
         $input = $request->all();
         $data = $this->validate_form($input);
         $ippin_item->update($data);
-        return redirect('ippin');
+        $edited_item = $data['name'] . " was successfully edited!";
+        return redirect('ippin')->with('status', $edited_item );
     }
 
     public function delete(Request $request)

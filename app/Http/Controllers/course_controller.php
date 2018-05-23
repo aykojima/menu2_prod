@@ -81,10 +81,11 @@ class course_controller extends Controller
     public function edit_menu(Request $request, $course_id)
     {        
         $course_item = course::findOrFail ( $course_id );
+        $course_item->title = ucfirst($request->edit_title);
+        $course_item->price = $this->validate_price($request->edit_course_price);
         
-        $course_item->title = $request->edit_title;
-        $course_item->price = $request->edit_course_price;
         $course_item->save();
+
         //Check if there are new fields to save.
         //If there are, save
         if($request->addon_description)
@@ -94,7 +95,7 @@ class course_controller extends Controller
             {
                 $c_add_on_items[] = [
                     'description' => $data_value,
-                     'price'  => $request->addon_price[$data_key],
+                     'price'  => $this->validate_price($request->addon_price[$data_key]),
                      'course_id' => $request->course_id
                 ];
             }
@@ -117,7 +118,7 @@ class course_controller extends Controller
             {
                 $c_items[] = [
                     'name' => $data_value,
-                    'price'  => $request->item_price[$data_key],
+                    'price'  => $this->validate_price($request->item_price[$data_key]),
                     'description'  => $request->item_description[$data_key],
                     'choice'  => $choice[$data_key],
                     'course_id' => $request->course_id
@@ -141,7 +142,7 @@ class course_controller extends Controller
                     ->where('c_add_on_id', $data_value)
                     ->update([
                         'description' => $request->edit_addon_description[$data_key],
-                            'price'  => $request->edit_addon_price[$data_key],
+                            'price'  => $this->validate_price($request->edit_addon_price[$data_key]),
                             'course_id' => $request->course_id
                     ]); 
                 }
@@ -164,7 +165,7 @@ class course_controller extends Controller
                     ->where('c_item_id', $data_value)
                     ->update([
                         'name' => $request->edit_item_name[$data_key],
-                        'price'  => $request->edit_item_price[$data_key],
+                        'price'  => $this->validate_price($request->edit_item_price[$data_key]),
                         'description'  => $request->edit_item_description[$data_key],
                         'choice'  => $request->edit_choice[$data_key],
                         'course_id' => $request->course_id
@@ -172,7 +173,8 @@ class course_controller extends Controller
                 }
             }
         }    
-        return redirect('course');
+        $message = $course_item->title . ' was edited successfully!';
+        return redirect('course')->with('status', $message);
     }
 
     public function delete($course_id)
@@ -200,24 +202,14 @@ class course_controller extends Controller
         }
     }
 
-    public function validate_form($input)
+    public function validate_price($input)
     {
-        $courses = new course;
-        $dataSet = [];
-        foreach ($input as $each_data) {
-            $dataSet[] = [
-                $courses->title => $each_data->title,
-                $courses->c_add_on_items->description => $each_data->addon_description,
-                $courses->c_add_on_items->price => $each_data->addon_price,
-                $courses->c_items->choice => $each_data->choice,
-                $courses->c_items->name => $each_data->item_name,
-                $courses->c_items->price => $each_data->item_price,
-                $courses->c_items->description => $each_data->item_description
-            ];
+        if(is_numeric($input) == false)
+        {
+            return null;
+        }else{
+            return $input;
         }
-
-        DB::table('extra')->insert($dataSet);        
-        return $dataSet;
     }
 
     public function save_order(Request $request)

@@ -77,11 +77,35 @@
             Currently <b style='color: #000;'>{{ $num_items }} </b> items on the menu
     </div>
 </div>
+
+<div id="update" style="display: none;">
+  <span class="dismiss"><a title="dismiss this notification">x</a></span>
+</div>
+
+@if(session('status'))
+<div id="notification" style="display: none;">
+  <span class="dismiss"><a title="dismiss this notification">x</a></span>
+  <br>
+  {{ session('status')}}
+  <br>
+  <br>
+  <hr>
+</div>
+@endif
 <script type="text/javascript">
+
+// Notification box
+$("#notification").fadeIn("slow");
+$(".dismiss").click(function(){
+       $("#notification").fadeOut("slow");
+});
+
 
     $(document).ready(style_prices());
     $(document).ready(style_line_height());
     $(document).ready(add_fish());
+    $(document).ready(style_length());
+    
     var search_box = $('.search-box input[type="text"]');
 
     // function show_edit_div(sb_id){
@@ -113,16 +137,25 @@
                 style_line_height();
                 style_prices();
                 add_fish();
+                style_length();
             }
         });
         if(event.target.className == 'is_on_menu')
         {
             $(this).css("color", "#ccc");
             $(this).toggleClass('is_on_menu is_on_menu_not');
+            $("#update").fadeIn("slow").append('<br><strong style="color:#CCCCCC;">Removed: </strong> ' + $(this).text() + '<br><br><hr>');
+            $(".dismiss").click(function(){
+                $("#update").fadeOut("slow").html('<span class="dismiss"><a title="dismiss this notification">x</a></span>');
+            });
         }else if(event.target.className == 'is_on_menu_not')
         {
             $(this).css("color", "#000");
             $(this).toggleClass('is_on_menu_not is_on_menu');
+            $("#update").fadeIn("slow").append('<br><strong style="color:#FFE4B5;">Added: </strong> ' + $(this).text() + '<br><br><hr>');
+            $(".dismiss").click(function(){
+                $("#update").fadeOut("slow").html('<span class="dismiss"><a title="dismiss this notification">x</a></span>');
+            });
         }else
         {
             $(this).css("color", "#ccc");   
@@ -233,7 +266,17 @@
     }
 
     //Change the font size of origin, so that the item fit in a single row
-    $(document).ready(function(){
+    // $(document).ready(function(){
+    //     $("tr").map(function(){
+    //         var name_length = $(this).children(".name").text().length;
+    //         var origin_length = $(this).children(".origin").text().length;
+    //         if(name_length + origin_length > 40)
+    //         // {console.log($(this).children(".name").text() + $(this).children(".origin").text())}
+    //         { $(this).children(".origin").addClass("origin_small"); }
+    //     });
+    // })
+
+    function style_length(){
         $("tr").map(function(){
             var name_length = $(this).children(".name").text().length;
             var origin_length = $(this).children(".origin").text().length;
@@ -241,8 +284,7 @@
             // {console.log($(this).children(".name").text() + $(this).children(".origin").text())}
             { $(this).children(".origin").addClass("origin_small"); }
         });
-    })
-
+    }
     function style_line_height(){
     var length = $('#showResult tr').length;
     var current_class = $('#showResult').attr('class');
