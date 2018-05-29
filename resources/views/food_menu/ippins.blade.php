@@ -47,7 +47,7 @@
         <h1 id="ippin">Ippins</h1>
         <div id='show_result_ippin'>
             <div id="appetizer">
-            <ul id='sortable_appetizer' class='ui-sortable'>
+            <ul>
                 <?php 
                     foreach ($APs as $AP)
                     {
@@ -57,7 +57,7 @@
             </ul>
             </div>
             <div id="tempura">
-                <ul id='sortable_tempura' class='ui-sortable'>
+                <ul>
                     <?php 
                         foreach ($TMs as $TM)
                         {
@@ -67,7 +67,7 @@
                 </ul>    
             </div>
             <div id="fish_dish">
-                <ul id='sortable_fish_dish' class='ui-sortable'>
+                <ul>
                     <?php 
                         foreach ($FSs as $FS)
                         {
@@ -77,7 +77,7 @@
                 </ul>
             </div>
             <div id="meat_dish">
-                <ul id='sortable_meat_dish' class='ui-sortable'>
+                <ul>
                     <?php 
                         foreach ($MTs as $MT)
                         {
@@ -160,6 +160,7 @@ $(document).on("click", ".result p", function(event){
         url: '{{URL::to('ippin/update')}}',
         data: {'item_id': $(this).data('id')},
         success:function(data){     
+            console.log(data);
             var string_ap = '', string_tm = '', string_fs = '', string_mt = '';
             data.forEach(function(el, index){
                 el.forEach(function(el2){
@@ -178,10 +179,10 @@ $(document).on("click", ".result p", function(event){
                     }
                 });
             });
-            $( "#appetizer" ).html( "<ul id='sortable_appetizer' class='ui-sortable'>" + string_ap + "</ul>");
-            $( "#tempura" ).html( "<ul id='sortable_tempura' class='ui-sortable'>" + string_tm + "</ul>" );
-            $( "#fish_dish" ).html( "<ul id='sortable_tempura' class='ui-sortable'>" + string_fs + "</ul>" );
-            $( "#meat_dish" ).html( "<ul id='sortable_tempura' class='ui-sortable'>" + string_mt + "</ul>" );
+            $( "#appetizer" ).html( "<ul>" + string_ap + "</ul>");
+            $( "#tempura" ).html( "<ul>" + string_tm + "</ul>" );
+            $( "#fish_dish" ).html( "<ul>" + string_fs + "</ul>" );
+            $( "#meat_dish" ).html( "<ul>" + string_mt + "</ul>" );
             add_fish();
         }
     });

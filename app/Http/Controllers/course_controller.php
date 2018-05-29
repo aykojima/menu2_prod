@@ -12,7 +12,7 @@ use App\Models\c_omakase as c_omakase;
 
 class course_controller extends Controller
 {
-    public function show()
+    public function show() 
     { 
         $courses = course::orderBy("list_order")->get();
         return view('food_menu/courses', compact('courses'));

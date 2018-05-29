@@ -539,10 +539,10 @@ td{
   vertical-align: center;
 }
 
-tr:hover {
-  background-color: #f5f5f5;
-  cursor: -webkit-grab;
-}
+// tr:hover {
+//   background-color: #f5f5f5;
+//   cursor: -webkit-grab;
+// }
 
 td.name{
   display:inline;
@@ -779,16 +779,9 @@ div.gf{
   
 }
 
-li.sortable {
+li.items {
   margin: 11px 0;
   list-style: none;
-  cursor:-webkit-grab;
-  
-}
-
-li.sortable:hover{
-  border: 1px solid #CCC;
-
 }
 
 img#fish {
@@ -848,10 +841,6 @@ div.gf_changed_height3{
 
 
 /***Rolls***/
-div.roll_description{
-  color: #ccc;
-  margin-left: 27px;
-}
 
 h1.rolls{
   text-align: left;
@@ -865,18 +854,25 @@ h1.rolls{
   display:block;
   margin:auto;
   width:100%;
-  max-height: 100%
+  max-height: 100%;
+  div ul{
+        list-style: none;
+      li{
+        margin-bottom: 2%;
+      }
+    }
+  div.gf{
+    width: 17px;
+  }
+  div.roll_description {
+    font-size: .9em;
+    line-height: .9em;
+    color: #ccc;
+    margin-left: 22px;
+  }
 }
 
-div#show_result_rolls div#gf{
-  display: inline-block;
-  vertical-align: top;
-  width: 17px;
-}
 
-div#roll_description {
-  font-size: .9em;
-}
 
 
 /***course meals***/

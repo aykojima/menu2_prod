@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id='add_new_modal' class='modal'>
+<div id='add_new_modal' class='modal'> 
     <div class='modal_content'>        
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'course_add_new']) !!}

@@ -1,8 +1,8 @@
 
-        {!! Form::text('name', null, ['placeholder' => 'Name (e.g. )',
+        {!! Form::text('name', null, ['placeholder' => 'Name (e.g. California Roll )',
              'class' => 'form_column_long']) !!}
         
-        {!! Form::text('description', null, ['placeholder' => 'Name (e.g. )',
+        {!! Form::text('description', null, ['placeholder' => 'Description (e.g. Crab, avocado, mayo, cucumber, masago)',
         'class' => 'form_column_long']) !!}
 
         <div class='div_column_medium'>
@@ -12,7 +12,7 @@
                     'VG_R' => 'Vegetable Roll'], 'Special Roll') !!}
         </div>    
         </div>
-        <div id= "sustainable">
+        <div id= "sustainable"> 
             <div class="div_label_checkbox">
                 {!! Form::label('is_sustainable', 'Sustainable') !!}
                 {!! Form::hidden('is_sustainable', 'N') !!}

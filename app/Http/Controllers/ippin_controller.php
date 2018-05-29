@@ -13,7 +13,7 @@ class ippin_controller extends Controller
     { 
         $APs = $this->generate_menu('AP');
         $TMs = $this->generate_menu('TM');
-        $FSs = $this->generate_menu('FS');
+        $FSs = $this->sort_order($this->generate_menu('FS'));
         $MTs = $this->generate_menu('MT');
 
         $num_items = ippin::where('is_on_menu','=','Y')->count();
@@ -69,9 +69,8 @@ class ippin_controller extends Controller
         }
         $APs = $this->generate_menu('AP');
         $TMs = $this->generate_menu('TM');
-        $FSs = $this->generate_menu('FS');
+        $FSs = $this->sort_order($this->generate_menu('FS'));
         $MTs = $this->generate_menu('MT');
-
         //$value = $request->session()->get();
         return Response([$APs, $TMs, $FSs, $MTs]);
         
@@ -84,7 +83,7 @@ class ippin_controller extends Controller
         $output = [];
         foreach (${$category . 's'} as $category) {
             $item = '';
-            $item .="<li id='$category->ippin_id' class='sortable'><div class='gf'";
+            $item .="<li id='$category->ippin_id' class='items'><div class='gf'";
             if($category->is_sustainable == 'Y')
             {
                 $item .="data-sust='sustainable'";
@@ -96,7 +95,7 @@ class ippin_controller extends Controller
             }
 
             $item .="</div>";
-
+ 
             $item .="<div class='ippin_menu'>$category->name / ";
             
             if($category->price == null)
@@ -109,8 +108,40 @@ class ippin_controller extends Controller
 
             array_push($output, $item);
         }
+        //$this->sort_order($output);
         
         return $output;
+    }
+
+    public function sort_order($array)
+    {   
+        $correct_order = array('shio', 'nits', 'arad', 'others');
+        usort($array, function($a, $b) use($correct_order ){
+            if(strpos($a, "shioyaki") !== false)
+            { $a_value = "shio";}
+            else if(strpos($a, "nitsuke") !== false)
+            { $a_value = "nits";}
+            else if(strpos($a, "aradaki") !== false)
+            { $a_value = "arad";}
+            else
+            { $a_value = "others";}
+
+            if(strpos($b, "shioyaki") !== false)
+            { $b_value = "shio";}
+            else if(strpos($b, "nitsuke") !== false)
+            { $b_value = "nits";}
+            else if(strpos($b, "aradaki") !== false)
+            { $b_value = "arad";}
+            else
+            { $b_value = "others";}
+
+            $a_key = array_search($a_value, $correct_order);
+            $b_key = array_search($b_value, $correct_order);
+
+            if($a_key == $b_key) {return 0;}
+            return ($a_key < $b_key) ? -1 : 1;
+        });
+        return $array;
     }
 
     public function add_new(Request $request)

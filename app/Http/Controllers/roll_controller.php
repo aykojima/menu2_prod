@@ -13,10 +13,10 @@ class roll_controller extends Controller
         $SP_Rs = $this->generate_menu('SP_R');
         $Rs = $this->generate_menu('R');
         $VG_Rs = $this->generate_menu('VG_R');
-
-        $num_items = roll::where('is_on_menu','=','Y')->count();
+        $rolls = roll::all();
+        $num_items = roll::where('is_on_menu','=','Y')->count(); 
         
-        return view('food_menu/rolls', compact('SP_Rs', 'Rs', 'VG_Rs', 'num_items'));
+        return view('food_menu/rolls', compact('SP_Rs', 'Rs', 'VG_Rs', 'rolls', 'num_items'));
     }
 
     public function search(Request $request)
@@ -71,7 +71,7 @@ class roll_controller extends Controller
 
     public function generate_menu($category='SP_R')
     { 
-        ${$category . 's'} = DB::table('rolls')->where('category', $category)->where('is_on_menu', 'Y')->get();
+        ${$category . 's'} = DB::table('rolls')->where('category', $category)->where('is_on_menu', 'Y')->orderBy('name')->get();
 
         $output = [];
         foreach (${$category . 's'} as $category) {
@@ -89,8 +89,14 @@ class roll_controller extends Controller
 
             $item .="</div>";
 
-            $item .="<div class='roll_menu'>$category->name / $category->price</div>";
-            $item .="<div class='roll_description'>$category->description</div></li>";
+            $item .="<div class='roll_menu'>" . $category->name;
+            
+            if($category->is_raw == 'Y')
+            {
+                $item .= "*";
+            }
+            $item .= " / " . $category->price . "</div>";
+            $item .="<div class='roll_description'>" . $category->description . "</div></li>";
 
             array_push($output, $item);
         }
@@ -109,7 +115,8 @@ class roll_controller extends Controller
                
         }
         roll::create($data);
-        return $this->show();
+        $new_item = $data['name'] . " was successfully created!";
+        return redirect('roll')->with('status', $new_item );
         
     }
 
@@ -153,7 +160,13 @@ class roll_controller extends Controller
         $data = [];
         $data['name'] =  $input['name'];
         $data['description'] = $input['description'];
-        $data['price'] = $input['price'];
+        
+        if(is_numeric($input['price']) == false)
+        {
+            $data['price'] = null;
+        }else{
+            $data['price'] = $input['price'];
+        }
         $data['is_sustainable'] = $input['is_sustainable'];
         $data['is_raw'] = $input['is_raw'];
         $data['is_gf'] = $input['is_gf'];

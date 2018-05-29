@@ -1,14 +1,23 @@
 @extends('layouts.header')
 
 @section('content')
-<div class="search-box">
-    <input type="text" autocomplete="off" placeholder="Search..." />
-    <button id="clear_search">&times;</button> 
-    <div class="result">    
-        <!-- this is where results show up -->
-    </div>       
+<div class="commands">
+    <span id="new_item">Add New</span>
+    <!-- <span class="change_order">Change Order</span>
+    <div class="change_order_dropdown">
+        <span class="save_order">Save</span>
+        <span class="discard">Discard</span>
+    </div> -->
+    <span class="toggle_edit">Edit</span>
+    
+    <div class="edit_list">
+        @foreach($rolls as $roll)
+        <span class="edit" data-id="{{ $roll->roll_id }}">
+            {{ $roll->name }}
+        </span>
+        @endforeach
+    </div>
 </div>
-
 <div id='add_new_modal' class='modal'>
     <div class='modal_content'>
         <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
@@ -39,31 +48,37 @@
     <div id="menu">
         <div id='show_result_rolls'>
             <h1 class='rolls'>Special Rolls</h1>
-            <div id="special_rolls">
+            <div id="">
+                <ul>
                 <?php 
                     foreach ($SP_Rs as $SP_R)
                     {
                         echo $SP_R;
                     }
                 ?>
+                </ul>
             </div>
             <h1 class='rolls'>Rolls</h1>
-            <div id="rolls">
+            <div id="">
+                <ul>
                 <?php 
                     foreach ($Rs as $R)
                     {
                         echo $R;
                     }
                 ?>
+                </ul>
             </div>
             <h1 class='rolls'>Vegetable Rolls</h1>
-            <div id="vegetable_rolls">
+            <div id="">
+                <ul>
                 <?php 
                     foreach ($VG_Rs as $VG_R)
                     {
                         echo $VG_R;
                     }
                 ?>
+                </ul>
             </div>
         </div>
     </div>
@@ -74,8 +89,37 @@
     </div>
 </div>
 
+<div id="update" style="display: none;">
+  <span class="dismiss"><a title="dismiss this notification">x</a></span>
+</div>
+
+@if(session('status'))
+<div id="notification" style="display: none;">
+  <span class="dismiss"><a title="dismiss this notification">x</a></span>
+  <br>
+  {{ session('status')}}
+  <br>
+  <br>
+  <hr>
+</div>
+@endif
+
+
 <script type="text/javascript">
-var search_box = $('.search-box input[type="text"]');
+// Notification box
+$("#notification").fadeIn("slow");
+$(".dismiss").click(function(){
+       $("#notification").fadeOut("slow");
+});
+
+$(document).on("click", ".toggle_edit", function(){
+    $(".edit_list").slideToggle();
+})
+
+$(document).on("click", ".change_order", function(){
+    $(".change_order_dropdown").slideToggle();
+})
+// var search_box = $('.search-box input[type="text"]');
 
 // $(document).ready(function(){
 //     var categories = ['appetizer', 'tempura', 'fish_dish', 'meat_dish'];
@@ -89,69 +133,69 @@ var search_box = $('.search-box input[type="text"]');
 
 $(document).ready(add_fish());
 
-search_box.on('keyup',function(){
-    var value=$(this).val();
-        $.ajax({
-            type : 'get',
-            url : '{{URL::to('roll/search')}}',
-            data:{'search':value},
-            success:function(data){
-                $('.result').html(data);
-            }
-        });
-})
+// search_box.on('keyup',function(){
+//     var value=$(this).val();
+//         $.ajax({
+//             type : 'get',
+//             url : '{{URL::to('roll/search')}}',
+//             data:{'search':value},
+//             success:function(data){
+//                 $('.result').html(data);
+//             }
+//         });
+// })
 
-$(document).on("click", ".result p", function(event){
-    $.ajax({
-        type:'get',
-        url: '{{URL::to('roll/update')}}',
-        data: {'item_id': $(this).data('id')},
-        success:function(data){     
-            var string_sp = '', string_r = '', string_vg = '';
-            data.forEach(function(el, index){
-                el.forEach(function(el2){
-                    if(index == 0)
-                    {
-                        string_sp += el2;
-                    }else if(index == 1)
-                    {
-                        string_r += el2;
-                    }else if(index == 2)
-                    {
-                        string_vg += el2;
-                    }
-                });
-            });
-            $( "#special_rolls" ).html( "<ul id='sortable_sp' class='ui-sortable'>" + string_sp + "</ul>");
-            $( "#rolls" ).html( "<ul id='sortable_r' class='ui-sortable'>" + string_r + "</ul>" );
-            $( "#vegetable_rolls" ).html( "<ul id='sortable_vg' class='ui-sortable'>" + string_vg + "</ul>" );
+// $(document).on("click", ".result p", function(event){
+//     $.ajax({
+//         type:'get',
+//         url: '{{URL::to('roll/update')}}',
+//         data: {'item_id': $(this).data('id')},
+//         success:function(data){     
+//             var string_sp = '', string_r = '', string_vg = '';
+//             data.forEach(function(el, index){
+//                 el.forEach(function(el2){
+//                     if(index == 0)
+//                     {
+//                         string_sp += el2;
+//                     }else if(index == 1)
+//                     {
+//                         string_r += el2;
+//                     }else if(index == 2)
+//                     {
+//                         string_vg += el2;
+//                     }
+//                 });
+//             });
+//             $( "#special_rolls" ).html( "<ul id='sortable_sp' class='ui-sortable'>" + string_sp + "</ul>");
+//             $( "#rolls" ).html( "<ul id='sortable_r' class='ui-sortable'>" + string_r + "</ul>" );
+//             $( "#vegetable_rolls" ).html( "<ul id='sortable_vg' class='ui-sortable'>" + string_vg + "</ul>" );
             
-            add_fish();
-        }
-    });
-    if(event.target.className == 'is_on_menu')
-    {
-        $(this).css("color", "#ccc");
-        $(this).toggleClass('is_on_menu is_on_menu_not');
-    }else if(event.target.className == 'is_on_menu_not')
-    {
-        $(this).css("color", "#000");
-        $(this).toggleClass('is_on_menu_not is_on_menu');
-    }else
-    {
-        $(this).css("color", "#ccc");   
-    }  
-});
+//             add_fish();
+//         }
+//     });
+//     if(event.target.className == 'is_on_menu')
+//     {
+//         $(this).css("color", "#ccc");
+//         $(this).toggleClass('is_on_menu is_on_menu_not');
+//     }else if(event.target.className == 'is_on_menu_not')
+//     {
+//         $(this).css("color", "#000");
+//         $(this).toggleClass('is_on_menu_not is_on_menu');
+//     }else
+//     {
+//         $(this).css("color", "#ccc");   
+//     }  
+// });
 
-$(document).on("click", "#clear_search", function(){
-    $('input[type="text"]').val('');
-    $('.result').html('');
-});
+// $(document).on("click", "#clear_search", function(){
+//     $('input[type="text"]').val('');
+//     $('.result').html('');
+// });
 
-$(document).on("click", "#container", function(event){
-    $('input[type="text"]').val('');
-    $('.result').html('');
-});
+// $(document).on("click", "#container", function(event){
+//     $('input[type="text"]').val('');
+//     $('.result').html('');
+// });
 
 
 
@@ -159,11 +203,11 @@ $(document).on("click", "#container", function(event){
 
 $(document).on("click", "#new_item", function(){   
     $('#add_new_modal').css('display', 'block');
-    var init_name = search_box.val();      
-    if(init_name !=null)
-    {
-        $("#add_new_modal .modal_content form input[name='name']").val(init_name);
-    }
+    // var init_name = search_box.val();      
+    // if(init_name !=null)
+    // {
+    //     $("#add_new_modal .modal_content form input[name='name']").val(init_name);
+    // }
 });
 
 $(document).on("click", ".close", function(){
