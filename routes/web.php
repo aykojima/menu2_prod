@@ -49,6 +49,11 @@
 
     //lunch
     Route::get('/lunch', 'lunch_controller@show')->name('lunch');
+    Route::post('/lunch', 'lunch_controller@add_new')->name('lunch_add_new');
+    Route::get('/lunch/edit/{lunch_id}', 'lunch_controller@show_edit_form')->name('lunch_edit');
+    Route::post('/lunch/edit/{lunch_id}', 'lunch_controller@edit_menu')->name('lunch_edit_submit');
+    Route::get('/lunch/delete/{lunch_id}', 'lunch_controller@delete')->name('lunch_delete');
+    Route::post('/lunch/save_order', 'lunch_controller@save_order')->name('lunch_save_order');
 
     
     //test

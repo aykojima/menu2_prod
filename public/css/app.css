@@ -863,9 +863,9 @@ input.add_price, input.item_prices {
 #show_result_course ul {
   list-style: none; }
 
-.course_form input, .course_form textarea, .edit_course_form input, .edit_course_form textarea {
+.course_form input, .course_form textarea, .edit_course_form input, .edit_course_form textarea, .lunch_form input, .lunch_form textarea, .edit_lunch_form input, .edit_lunch_form textarea {
   border: none; }
-.course_form input:focus, .course_form textarea:focus, .edit_course_form input:focus, .edit_course_form textarea:focus {
+.course_form input:focus, .course_form textarea:focus, .edit_course_form input:focus, .edit_course_form textarea:focus, .lunch_form input:focus, .lunch_form textarea:focus, .edit_lunch_form input:focus, .edit_lunch_form textarea:focus {
   border: 1px solid #cccccc; }
 
 .edit_course_form {
@@ -992,6 +992,50 @@ input.add_price, input.item_prices {
   border: 1px #ccc solid;
   padding: 1%;
   color: #ccc; }
+
+/*******Lunch*******/
+.combos {
+  clear: both;
+  margin-bottom: 10px;
+  line-height: 0.9em;
+  border: 1px solid #CCCCCC;
+  padding: 10px 2px; }
+  .combos .combo_title {
+    color: #CCCCCC;
+    margin-bottom: 5px; }
+
+.l_items ul {
+  list-style: none;
+  line-height: 1em; }
+  .l_items ul li {
+    margin-bottom: 10px;
+    clear: both; }
+    .l_items ul li .descriptions {
+      margin-left: 0; }
+
+/******lunch form*******/
+.div_lunch_title {
+  padding: 2%;
+  width: 85%;
+  margin: auto; }
+  .div_lunch_title .form_column_medium:first-child {
+    font-size: 1.5em; }
+  .div_lunch_title .form_column_medium {
+    display: inline-block;
+    width: 80%;
+    margin: 0 3% 0 0;
+    text-align: left;
+    color: #CF671F; }
+
+.combo_fields_wrap {
+  padding: 2%;
+  width: 85%;
+  margin: auto; }
+  .combo_fields_wrap .div_column_medium input[type="text"], .combo_fields_wrap textarea {
+    display: inline-block;
+    width: 80%; }
+  .combo_fields_wrap input[type="text"] {
+    color: #cccccc; }
 
 @media only screen and (max-device-width: 765px) {
   div.nav {

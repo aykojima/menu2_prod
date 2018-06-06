@@ -61,7 +61,7 @@
         </table>
 
         <div class="gratuity">
-            <p id='raw'>*raw or undercooked meats, poultry, seafodd, shellfish or eggs 
+            <p id='raw'>*raw or undercooked meats, poultry, seafood, shellfish or eggs 
                 may increase your risk of foodborne illness
             </p>
             <p>We would like to inform our guests that in place of gratuity a 20% service charge is included in the total (excludes take out).

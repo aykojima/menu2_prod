@@ -195,7 +195,7 @@ $(document).ready(function(){
                 '<span class="new_section_text">Add description</span></button>' +
                 '<textarea rows="1" placeholder="Description (e.g. Seven pieces of nigiri sushi)" class="form_column_long" name="item_description[]"></textarea>' + 
                 '<button type="button" name="remove_description" class="remove_description_field">&times;</button>' +
-                '<button type="button" name="remove" id="'+i+'" class="remove_field">&times;</button></div>');  
+                '<button type="button" name="remove" id="'+j+'" class="remove_field">&times;</button></div>');  
       });
 
         $(".item_fields_wrap").on("click", ".remove_description_field", function(e){

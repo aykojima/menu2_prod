@@ -1078,7 +1078,7 @@ input.add_price, input.item_prices {
 // course form
 
 
-.course_form, .edit_course_form{
+.course_form, .edit_course_form, .lunch_form, .edit_lunch_form{
   input, textarea{
     border: none;
   }
@@ -1113,6 +1113,7 @@ input.add_price, input.item_prices {
     font-size: 1em;
   }
 }
+
 
 .addon_fields_wrap, .item_fields_wrap {
   // padding: 2%;
@@ -1275,6 +1276,75 @@ input.add_price, input.item_prices {
   padding: 1%;
   color: #ccc;
 }
+
+
+/*******Lunch*******/
+.combos{
+  clear: both;
+  margin-bottom: 10px;
+  line-height: 0.9em;
+  border: 1px solid #CCCCCC;
+  padding: 10px 2px;
+  .combo_title{
+    color: #CCCCCC;
+    margin-bottom: 5px;
+  }
+}
+
+.l_items{
+  ul{
+    list-style: none;
+    line-height: 1em;
+    li{
+      margin-bottom: 10px;
+      clear: both;
+      .descriptions{
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+
+/******lunch form*******/
+
+.div_lunch_title{
+  padding: 2%;
+  width: 85%;
+  margin: auto;
+
+  .form_column_medium:first-child{
+    font-size: 1.5em;
+  }
+  .form_column_medium{
+    display: inline-block;
+    width: 80%;
+    margin: 0 3% 0 0;
+    text-align: left;
+    color: $skt_color;
+  }
+}
+
+.combo_fields_wrap{
+  padding: 2%;
+  width: 85%;
+  margin: auto;
+  .div_column_medium input[type="text"], textarea{
+    display: inline-block;
+    width: 80%;
+  }
+  input[type="text"]{
+    color:#cccccc;
+  }
+  // .div_column_medium > :first-child {
+  //   width: 80%;
+  // }
+
+  // .div_column_medium > :nth-child(2) {
+  //   width: 10%;
+  //   text-align: right;
+  // }
+  }
 
 @media only screen 
 and (max-device-width : 765px)  { 
