@@ -59,132 +59,85 @@ class lunch_controller extends Controller
 
     public function show_edit_form($lunch_id)
     {
-        //if($request->ajax()){
-            //$course_id = $request->course_id;
-            // return response()->json(['course' => $course]);
-            // return response()->json([
-            //     'course' => $course, 
-            //     'c_add_on_items' => $course->c_add_on_items->all(), 
-            //     'c_items' => $course->c_items->all()
-            //     ]);
-        //}
-
-        $course = course::findOrFail($course_id);
+        $lunch = lunch::findOrFail($lunch_id);
         
-        return view('food_menu.form_course_edit2', [
-            'course_id' => $course_id,
-            'course' => $course, 
-            // 'c_add_on_items' => $course->c_add_on_items->all(), 
-            // 'c_items' => $course->c_items->all()
+        return view('layouts.form_lunch_edit', [
+            'lunch_id' => $lunch_id,
+            'lunch' => $lunch
             ]);
         
     }
 
-    public function edit_menu(Request $request, $course_id)
+    public function edit_menu(Request $request, $lunch_id)
     {        
-        $course_item = course::findOrFail ( $course_id );
-        $course_item->title = ucfirst($request->edit_title);
-        $course_item->price = $this->validate_price($request->edit_course_price);
-        
-        $course_item->save();
+        $lunch_item = lunch::findOrFail ( $lunch_id );
+        $lunch_item->title = ucfirst($request->edit_title);
+        $lunch_item->subtitle = ucfirst($request->edit_subtitle);
+        $lunch_item->combo_title = ucfirst($request->edit_combo_title);
+        $lunch_item->combo_desc = trim(ucfirst($request->edit_combo_desc));
+
+        $lunch_item->save();
 
         //Check if there are new fields to save.
         //If there are, save
-        if($request->addon_description)
+        if($request->item_name)
         {
-            $c_add_on_item = new c_add_on_item;
-            foreach($request->addon_description as $data_key=>$data_value)
-            {
-                $c_add_on_items[] = [
-                    'description' => $data_value,
-                     'price'  => $this->validate_price($request->addon_price[$data_key]),
-                     'course_id' => $request->course_id
-                ];
-            }
-            c_add_on_item::insert($c_add_on_items);   
-        }
-
-        if($request->item_description)
-        {
-            $choice =$request->choice;
-            if(array_key_exists(0, $request->choice) == false)
+            $is_raw =$request->is_raw;
+            if(array_key_exists(0, $request->is_raw) == false)
             {//In case choice array doesn't start with array key = 0
                 $new_array = [];
-                foreach($choice as $data_value)
+                foreach($is_raw as $data_value)
                 {
                     array_push($new_array, $data_value);
                 }
-                $choice = $new_array;
+                $is_raw = $new_array;
             }
             foreach($request->item_name as $data_key=>$data_value)
             {
-                $c_items[] = [
+                $l_items[] = [
                     'name' => $data_value,
                     'price'  => $this->validate_price($request->item_price[$data_key]),
-                    'description'  => $request->item_description[$data_key],
-                    'choice'  => $choice[$data_key],
-                    'course_id' => $request->course_id
+                    'description'  => trim($request->item_description[$data_key]),
+                    'is_raw'  => $is_raw[$data_key],
+                    'lunch_id' => $request->lunch_id
                 ];
             }
-            c_item::insert($c_items);
+            l_item::insert($l_items);
         }
-        if($request->edit_c_add_on_id)
+        if($request->edit_l_item_id)
         {
-            foreach($request->edit_c_add_on_id as $data_key=>$data_value)
-            {
-                if($request->edit_addon_description[$data_key] == null &
-                   $request->edit_addon_price[$data_key] == null)
-                {
-                    DB::table('c_add_on_items')
-                    ->where('c_add_on_id', $data_value)
-                    ->delete();
-                }
-                else{
-                    DB::table('c_add_on_items')
-                    ->where('c_add_on_id', $data_value)
-                    ->update([
-                        'description' => $request->edit_addon_description[$data_key],
-                            'price'  => $this->validate_price($request->edit_addon_price[$data_key]),
-                            'course_id' => $request->course_id
-                    ]); 
-                }
-            }
-        }
-        if($request->edit_c_item_id)
-        {
-            foreach($request->edit_c_item_id as $data_key=>$data_value)
+            foreach($request->edit_l_item_id as $data_key=>$data_value)
             {
                 if($request->edit_item_name[$data_key] == null &
-                    $request->edit_item_price[$data_key] == null &
-                    $request->edit_item_description[$data_key] == null)
+                   $request->edit_item_price[$data_key] == null)
                 {
-                    DB::table('c_items')
-                    ->where('c_item_id', $data_value)
+                    DB::table('l_items')
+                    ->where('l_item_id', $data_value)
                     ->delete();
                 }
                 else{
-                    DB::table('c_items')
-                    ->where('c_item_id', $data_value)
+                    DB::table('l_items')
+                    ->where('l_item_id', $data_value)
                     ->update([
                         'name' => $request->edit_item_name[$data_key],
                         'price'  => $this->validate_price($request->edit_item_price[$data_key]),
-                        'description'  => $request->edit_item_description[$data_key],
-                        'choice'  => $request->edit_choice[$data_key],
-                        'course_id' => $request->course_id
-                    ]);
+                        'description' => trim($request->edit_item_description[$data_key]),
+                        'is_raw'  => $request->edit_is_raw[$data_key],    
+                        'lunch_id' => $request->lunch_id
+                    ]); 
                 }
             }
-        }    
-        $message = $course_item->title . ' was edited successfully!';
-        return redirect('course')->with('status', $message);
+        } 
+        $message = $lunch_item->title . ' was edited successfully!';
+        return redirect('lunch')->with('status', $message);
     }
 
-    public function delete($course_id)
+    public function delete($lunch_id)
     {
-        $course = course::findOrFail ( $course_id );
-        $course->delete();
+        $lunch = lunch::findOrFail ( $lunch_id );
+        $lunch->delete();
 
-        return redirect('course');
+        return redirect('lunch');
 
     }
 

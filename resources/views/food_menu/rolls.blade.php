@@ -2,17 +2,21 @@
 
 @section('content')
 <div class="commands">
-    <span id="new_item">Add New</span>
+    <span id="new_item">
+        <img class="add_new_icons" src="../images/add_icon_active.png">
+    </span>
     <!-- <span class="change_order">Change Order</span>
     <div class="change_order_dropdown">
-        <span class="save_order">Save</span>
-        <span class="discard">Discard</span>
+    <span class="save_order">Save</span>
+    <span class="discard">Discard</span>
     </div> -->
-    <span class="toggle_edit">Edit</span>
+    <span class="edit">
+        <img class="edit_icons" src="../images/edit_icon_active.png">
+    </span>
     
     <div class="edit_list">
         @foreach($rolls as $roll)
-        <span class="edit" data-id="{{ $roll->roll_id }}">
+        <span class="edit_item" data-id="{{ $roll->roll_id }}">
             {{ $roll->name }}
         </span>
         @endforeach
@@ -112,7 +116,7 @@ $(".dismiss").click(function(){
        $("#notification").fadeOut("slow");
 });
 
-$(document).on("click", ".toggle_edit", function(){
+$(document).on("click", ".edit", function(){
     $(".edit_list").slideToggle();
 })
 
@@ -224,7 +228,7 @@ $(window).click(function(event) {
 });
 
 //Edit Modal
-$(document).on("click", ".edit", function(event){   
+$(document).on("click", ".edit_item", function(event){   
     $('#edit_modal').css('display', 'block');
     console.log($(this).data('id'));
     $.ajax({

@@ -41,26 +41,35 @@
 
         <div class="item_fields_wrap">
         @foreach($course->c_items as $c_item)
+        <?php $i=$loop->index; ?>
         <div>
         <input value="{{ $c_item->c_item_id }}" name="edit_c_item_id[]" type="hidden">
             <div class="div_choice">
                 <div class="div_label_checkbox">
                     <label for="choice">Choice of</label>
-                    <input name="edit_choice[]" value="N" type="hidden">
-                    <input class="choice_checkbox" name="edit_choice[]" value="Y" type="checkbox">
+                    <input name="edit_choice[{{$i}}]" value="N" type="hidden">
+                    <input class="choice_checkbox" name="edit_choice[{{$i}}]" value="Y" type="checkbox"
+                    @if($c_item->choice == "Y") checked=checked 
+                    @endif>
                 </div>
             </div>
             <div class="div_column_medium">
                 <input value="{{$c_item->name}}" class="form_column_medium" name="edit_item_name[]" type="text">
                 <input value="{{$c_item->price}}" class="form_column_medium" name="edit_item_price[]" type="text">    
             </div>
-            <button id="show_description_box" class="new_section">&#43;
+            <button id="show_description_box" class="new_section"
+            @if($c_item->description) style='display: none;'
+                @endif>&#43;
                 <span class="new_section_text">Show description</span>
             </button>
-            <textarea rows="1" placeholder="Description (e.g. Seven pieces of nigiri sushi)" class="form_column_long" name="edit_item_description[]">
+            <textarea rows="1" placeholder="Description (e.g. Seven pieces of nigiri sushi)" class="form_column_long" name="edit_item_description[]"
+                @if($c_item->description == null) style='display: none;'
+                @endif>
                 {{$c_item->description}}
             </textarea>
-            <button type="button" name="remove_description" class="remove_description_field">&times;</button>
+            <button type="button" name="remove_description" class="remove_description_field"
+                @if($c_item->description == null) style='display: none;'
+                @endif>&times;</button>
         </div>
         @endforeach
         </div>
@@ -81,16 +90,16 @@ $('#edit_modal').css('display', 'block');
                 
 $(document).on("click", "#show_description_box", function(e){
         e.preventDefault();
-            $(this).next().css('display', 'block');
-            $(this).css('display', 'none');
-            $('.remove_description_field').css('display', 'block');
+        $(this).next().toggle();
+        $(this).toggle();
+        $(this).next().next('.remove_description_field').toggle();
     });
 
 $(".item_fields_wrap").on("click", ".remove_description_field", function(e){
         e.preventDefault();
-        $(this).css('display', 'none');
-        $(this).prev().css('display', 'none');
-        $(this).prev().prev().css('display', 'block');
+        $(this).toggle();
+        $(this).prev().toggle();
+        $(this).prev().prev().toggle();
     });
 // $("#edit_modal .modal_content input[name='edit_title']").val(data.course.title);
 // $("#edit_modal .modal_content input[name='edit_course_id']").val(data.course.course_id);

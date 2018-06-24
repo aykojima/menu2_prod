@@ -12,13 +12,17 @@
  </div>
 
 <div class="commands">
-    <span id="new_item">Add New</span>
-    <span class="change_order">Change Order</span>
+    <span id="new_item">
+    <img class="add_new_icons" src="../images/add_icon_active.png">
+    </span>
+    <!-- <span class="change_order">Change Order</span>
     <div class="change_order_dropdown">
-        <span class="save_order">Save</span>
-        <span class="discard">Discard</span>
-    </div>
-    <span class="edit">Edit</span>
+    <span class="save_order">Save</span>
+    <span class="discard">Discard</span>
+    </div> -->
+    <span class="edit">
+    <img class="edit_icons" src="../images/edit_icon_active.png">
+    </span>
     
     <div class="edit_list">
         @foreach($courses as $course)
@@ -79,7 +83,7 @@
                                 <div class="descriptions" contentEditable="true" data-id="{{ $item->c_item_id }}" data-column="description" data-model="c_item" data-edible="edible">
                                     {{ $item->description }}
                                 </div>  
-                            </li>
+                            </li> 
                          @endforeach
                          <!-- <li>
                              <input class="choices" placeholder="choice of:"></input>

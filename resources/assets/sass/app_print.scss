@@ -498,12 +498,16 @@ div.courses{
 
     li{
       // margin-left: 55px;
-      margin-bottom: 6px;
+      margin-bottom: 3px;
       clear: both;
     }
-     
+  }
+  .descriptions{
+    font-size: 0.8em;
+    margin-left: 62px;
   }
 }
+
 .choices{
   display: block;
   float: left;
@@ -528,9 +532,7 @@ div.courses{
 }
 
 .descriptions{
-  margin-left: 62px;
   clear: both;
-  font-size: 0.8em;
   color: #cccccc;
   line-height: 0.9em;
 }
@@ -563,203 +565,51 @@ input.add_price, input.item_prices {
   }
 }
 
-// course form
 
+/*******Lunch*******/
+.lunch_menu{
+  margin-bottom: 40px;
+}
 
-.course_form, .edit_course_form{
-  input, textarea{
-    border: none;
+.combos{
+  clear: both;
+  margin-bottom: 10px;
+  line-height: 0.9em;
+  border: 1px solid #CCCCCC;
+  padding: 10px 2px;
+  .combo_title{
+    color: #CCCCCC;
+    margin-bottom: 5px;
   }
-  input:focus, textarea:focus{
-    border: 1px solid #cccccc;
+  .combo_desc{
+    line-height: 16px;
   }
 }
 
-.edit_course_form{
-  width: 80%;
-  margin: 3% 10% auto;
-  border: 1px solid #cccccc;
-  
-}
-
-.div_course_title{
-  padding: 2%;
-  width: 85%;
-  margin: auto;
-
-  .form_column_medium:first-child {
-    width: 75%;
-    margin: 0 3% 0 0;
-    text-align: left;
-    font-size: 1.5em;
-  }
-
-  .form_column_medium{
-    width:10%;
-    text-align: right;
-    color: $skt_color;
-    font-size: 1em;
-  }
-}
-
-.addon_fields_wrap, .item_fields_wrap {
-  // padding: 2%;
-  // width: 85%;
-  margin: auto;
-  // border: 2px dotted #CCC
-}
-
-.addon_fields_wrap {
-  // position: relative;
-  .div_column_medium{
-    // border: 1px #ccc dotted;
-    // margin: 1%;
-    // padding: 1%;
-    // width: 97%;
-    position: relative;
-  }
-  .div_column_medium input{
-    color: #cccccc;
-  }
-  .div_column_medium > :first-child {
-    width: 75%;
-  }
-
-  .div_column_medium > :nth-child(2) {
-    width: 10%;
-    text-align: right;
-  }
-
-  // .div_column_medium .form_column_medium {
-  //   margin: 6% 1% 6% 0;
-  // }
-}
-
-.item_fields_wrap > div {
-  width: 85%;
-  margin: 1% auto;
-  padding: 1%;
-  position: relative;
-}
-
-.item_fields_wrap{
-  position: relative;
-  .div_column_medium{
-    width: 98%;
-    // margin-left: 18%;
-  }
-
-  .div_column_medium > :first-child {
-    width: 75%;
-  }
-
-  .div_column_medium > :nth-child(2) {
-    width: 10%;
-    text-align: right;
-  }
-
-  .div_column_medium .form_column_medium {
-    margin: 1% 1% 0 0;
-  }
-
-  .form_column_long {
-    display: inline-block;
-    width: 91%;
-    margin-left: 1%;
-    height: 80px;
-    position: relative;
-  }
-
-  #sustainable{
-    width: 80%;
-    //margin: auto;
-  }
-
-  .div_choice .div_label_checkbox{
-    text-align: left;
-    label{
-      font-style: italic;
-      color: #cccccc;
-      font-size: 0.8em;
+.l_items{
+  ul{
+    list-style: none;
+    line-height: 1em;
+    li{
+      margin-bottom: 10px;
+      clear: both;
     }
   }
-
-  textarea[name="item_description[]"], 
-  textarea[name="edit_item_description[]"]{
-    display: none;
-    color: #cccccc;
-    font-family: $font;
+  .descriptions{
+    line-height: 1em;
+    margin-left: 0;
   }
-
-}
-.new_section {
-  position: relative;
-  border: none;
-  background-color: #ffffff;
-  font-size: 1em;
-  color: #cccccc;
-  cursor: pointer;
 }
 
-.new_section:hover{
-  color: #000000;
+.titles{
+  color:$skt_color;
+  padding:0 0 4px 0;
+  h1{
+    margin: 0;
+    padding: 0;
+  }
+  h4{
+    clear: left;
+  }
 }
 
-.new_section:hover .new_section_text{
-  display: inline-block;
-}
-
-.new_section_text{
-  background-color: #cccccc;
-  color: #ffffff;
-  padding: 3%;
-  font-size: 0.8em;
-  display: none;
-  border-radius: 5px;
-  position: absolute;
-  width: 162px;
-  margin: 3px 0 0 10px;
-  transition: 1s;
-}
-// #add_more_addons{ 
-//   position: absolute;
-// }
-
-// #add_more_items{ 
-//   position: absolute;
-// }
-
-.remove_field, .remove_description_field{
-  position: absolute;
-  border: none;
-  background-color: #ffffff;
-  cursor: pointer;
-  font-size: 1em;
-  color: #cccccc;
-}
-
-.remove_field:hover, .remove_description_field:hover{
-  color: #000000;
-}
-
-.remove_field{
-  top: 22%;
-  right: -7%;
-}
-
-.remove_description_field{
-  display: none;
-  right: -6%;
-  top: 66%;
-} 
-
-
-.right_div {
-  position: absolute;
-  top: 45px;
-  width: 23%;
-  right: 1%;
-  border: 1px #ccc solid;
-  padding: 1%;
-  color: #ccc;
-}

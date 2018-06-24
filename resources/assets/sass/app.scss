@@ -76,6 +76,11 @@ header img{
   width: 15px;
 }
 
+.home_icon{
+  width: 35px;
+}
+
+
 ul#header span{
   width: 100px;
   position: absolute;
@@ -884,7 +889,7 @@ h1.rolls{
   left: 15%;
   width: 200px;
   span {
-    display: block;
+    display: inline-block;
     padding: 2%;
     cursor: pointer;
     text-align: left;
@@ -895,6 +900,14 @@ h1.rolls{
       background-color: #f5f5f5;
     }
   }
+}
+
+.add_new_icons, .edit_icons{
+  width: 30px;
+}
+
+.edit_list span{
+  display: block;
 }
 
 .change_order_dropdown {
@@ -1008,7 +1021,10 @@ div.courses{
       margin-bottom: 3px;
       clear: both;
     }
-     
+  }
+  .descriptions{
+    font-size: 0.8em;
+    margin-left: 62px;
   }
 }
 .choices{
@@ -1035,9 +1051,7 @@ div.courses{
 }
 
 .descriptions{
-  margin-left: 62px;
   clear: both;
-  font-size: 0.8em;
   color: #cccccc;
   line-height: 0.9em;
 }
@@ -1199,7 +1213,7 @@ input.add_price, input.item_prices {
 
   textarea[name="item_description[]"], 
   textarea[name="edit_item_description[]"]{
-    display: none;
+    // display: none;
     color: #cccccc;
     font-family: $font;
   }
@@ -1261,7 +1275,7 @@ input.add_price, input.item_prices {
 }
 
 .remove_description_field{
-  display: none;
+  // display: none;
   right: -6%;
   top: 66%;
 } 
@@ -1279,6 +1293,10 @@ input.add_price, input.item_prices {
 
 
 /*******Lunch*******/
+.lunch_menu{
+  margin-bottom: 40px;
+}
+
 .combos{
   clear: both;
   margin-bottom: 10px;
@@ -1289,6 +1307,9 @@ input.add_price, input.item_prices {
     color: #CCCCCC;
     margin-bottom: 5px;
   }
+  .combo_desc{
+    line-height: 16px;
+  }
 }
 
 .l_items{
@@ -1298,40 +1319,64 @@ input.add_price, input.item_prices {
     li{
       margin-bottom: 10px;
       clear: both;
-      .descriptions{
-        margin-left: 0;
-      }
     }
+  }
+  .descriptions{
+    line-height: 1em;
+    margin-left: 0;
   }
 }
 
+.titles{
+  color:$skt_color;
+  padding:0 0 4px 0;
+  h1{
+    margin: 0;
+    padding: 0;
+  }
+  h4{
+    clear: left;
+  }
+}
 
 /******lunch form*******/
 
 .div_lunch_title{
+  border: 1px #CCCCCC solid;
   padding: 2%;
-  width: 85%;
+  // width: 85%;
+  width:74%;
   margin: auto;
 
   .form_column_medium:first-child{
     font-size: 1.5em;
   }
   .form_column_medium{
-    display: inline-block;
-    width: 80%;
-    margin: 0 3% 0 0;
+    // display: inline-block;
+    display: block;
+    width: 96%;
+    // margin: 0 3% 0 0;
+    margin: auto;
     text-align: left;
     color: $skt_color;
   }
 }
 
 .combo_fields_wrap{
+  
   padding: 2%;
-  width: 85%;
+  // width: 85%;
+  width:90%;
   margin: auto;
-  .div_column_medium input[type="text"], textarea{
-    display: inline-block;
-    width: 80%;
+  .form_column_medium, .form_column_long{
+    display: block;
+    width: 96%;
+    margin: auto;
+    // text-align: left;
+  }
+  .div_column_medium{
+    border: 1px #CCCCCC solid;
+    width: 87%;
   }
   input[type="text"]{
     color:#cccccc;
@@ -1344,6 +1389,34 @@ input.add_price, input.item_prices {
   //   width: 10%;
   //   text-align: right;
   // }
+  }
+
+  .item_fields_wrap{
+    padding: 2%;
+    width:90%;
+    &>div{
+      border: 1px #CCCCCC solid;
+      width: 85%;
+    }
+    .div_choice{
+      clear:both;
+    }
+      .div_column_medium{
+         &> :first-child{
+          display: block;
+          float: left;
+        }
+        &> :nth-child(2){
+          display: block;
+          float: right;
+        }
+      }
+      .form_column_long {
+        width: 95%;
+        &:focus{
+          width: 95%;
+        }
+      }
   }
 
 @media only screen 

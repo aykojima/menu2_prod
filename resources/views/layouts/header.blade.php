@@ -18,8 +18,9 @@
         <ul id="header">
             <li id="logout"><a href ="logout.php">Logout</a></li>
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
+            <li><a href='{{ URL::to('/')}}'><img class="home_icon" src="../images/logo4.png"></a><span>Go to home</span></li>   
             <li id="print"><a href="javascript: window.print()"><img id="header_icons" src="../images/printer.png"></a><span>print</span></li>
-            <!-- <li><a onclick="show_items()"><img id="header_icons" src="../images/search.png"></a><span>search items</span></li>    -->
+            
             <!-- <li id="new_item"><a onclick="show_add_new_div()"><img id="header_icons" src="../images/add.png"></a><span>add new item</span></li>     -->
         </ul>
     </header> 

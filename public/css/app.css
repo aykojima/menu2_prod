@@ -54,6 +54,9 @@ header a:hover {
 header img {
   width: 15px; }
 
+.home_icon {
+  width: 35px; }
+
 ul#header span {
   width: 100px;
   position: absolute;
@@ -718,7 +721,7 @@ h1.rolls {
   left: 15%;
   width: 200px; }
   .commands span {
-    display: block;
+    display: inline-block;
     padding: 2%;
     cursor: pointer;
     text-align: left; }
@@ -726,6 +729,12 @@ h1.rolls {
     font-size: 1.2em; }
     .commands > span:hover {
       background-color: #f5f5f5; }
+
+.add_new_icons, .edit_icons {
+  width: 30px; }
+
+.edit_list span {
+  display: block; }
 
 .change_order_dropdown {
   display: none;
@@ -812,6 +821,9 @@ div.courses ul {
   div.courses ul li {
     margin-bottom: 3px;
     clear: both; }
+div.courses .descriptions {
+  font-size: 0.8em;
+  margin-left: 62px; }
 
 .choices {
   display: block;
@@ -834,9 +846,7 @@ div.courses ul {
   float: right; }
 
 .descriptions {
-  margin-left: 62px;
   clear: both;
-  font-size: 0.8em;
   color: #cccccc;
   line-height: 0.9em; }
 
@@ -934,7 +944,6 @@ input.add_price, input.item_prices {
       font-size: 0.8em; }
   .item_fields_wrap textarea[name="item_description[]"],
   .item_fields_wrap textarea[name="edit_item_description[]"] {
-    display: none;
     color: #cccccc;
     font-family: "PT Sans", sans-serif; }
 
@@ -980,7 +989,6 @@ input.add_price, input.item_prices {
   right: -7%; }
 
 .remove_description_field {
-  display: none;
   right: -6%;
   top: 66%; }
 
@@ -994,6 +1002,9 @@ input.add_price, input.item_prices {
   color: #ccc; }
 
 /*******Lunch*******/
+.lunch_menu {
+  margin-bottom: 40px; }
+
 .combos {
   clear: both;
   margin-bottom: 10px;
@@ -1003,6 +1014,8 @@ input.add_price, input.item_prices {
   .combos .combo_title {
     color: #CCCCCC;
     margin-bottom: 5px; }
+  .combos .combo_desc {
+    line-height: 16px; }
 
 .l_items ul {
   list-style: none;
@@ -1010,32 +1023,66 @@ input.add_price, input.item_prices {
   .l_items ul li {
     margin-bottom: 10px;
     clear: both; }
-    .l_items ul li .descriptions {
-      margin-left: 0; }
+.l_items .descriptions {
+  line-height: 1em;
+  margin-left: 0; }
+
+.titles {
+  color: #CF671F;
+  padding: 0 0 4px 0; }
+  .titles h1 {
+    margin: 0;
+    padding: 0; }
+  .titles h4 {
+    clear: left; }
 
 /******lunch form*******/
 .div_lunch_title {
+  border: 1px #CCCCCC solid;
   padding: 2%;
-  width: 85%;
+  width: 74%;
   margin: auto; }
   .div_lunch_title .form_column_medium:first-child {
     font-size: 1.5em; }
   .div_lunch_title .form_column_medium {
-    display: inline-block;
-    width: 80%;
-    margin: 0 3% 0 0;
+    display: block;
+    width: 96%;
+    margin: auto;
     text-align: left;
     color: #CF671F; }
 
 .combo_fields_wrap {
   padding: 2%;
-  width: 85%;
+  width: 90%;
   margin: auto; }
-  .combo_fields_wrap .div_column_medium input[type="text"], .combo_fields_wrap textarea {
-    display: inline-block;
-    width: 80%; }
+  .combo_fields_wrap .form_column_medium, .combo_fields_wrap .form_column_long {
+    display: block;
+    width: 96%;
+    margin: auto; }
+  .combo_fields_wrap .div_column_medium {
+    border: 1px #CCCCCC solid;
+    width: 87%; }
   .combo_fields_wrap input[type="text"] {
     color: #cccccc; }
+
+.item_fields_wrap {
+  padding: 2%;
+  width: 90%; }
+  .item_fields_wrap > div {
+    border: 1px #CCCCCC solid;
+    width: 85%; }
+  .item_fields_wrap .div_choice {
+    clear: both; }
+  .item_fields_wrap .div_column_medium > :first-child {
+    display: block;
+    float: left; }
+  .item_fields_wrap .div_column_medium > :nth-child(2) {
+    display: block;
+    float: right; }
+  .item_fields_wrap .form_column_long {
+    width: 95%; }
+    .item_fields_wrap .form_column_long:focus {
+      width: 95%; }
 
 @media only screen and (max-device-width: 765px) {
   div.nav {

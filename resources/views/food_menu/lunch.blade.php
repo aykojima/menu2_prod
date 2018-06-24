@@ -12,13 +12,17 @@
  </div>
 
 <div class="commands">
-    <span id="new_item">Add New</span>
-    <span class="change_order">Change Order</span>
+    <span id="new_item">
+        <img class="add_new_icons" src="../images/add_icon_active.png">
+    </span>
+    <!-- <span class="change_order">Change Order</span>
     <div class="change_order_dropdown">
         <span class="save_order">Save</span>
         <span class="discard">Discard</span>
-    </div>
-    <span class="edit">Edit</span>
+    </div> -->
+    <span class="edit">
+        <img class="edit_icons" src="../images/edit_icon_active.png">
+    </span>
     
     <div class="edit_list">
         @foreach($lunches as $lunch)
@@ -31,10 +35,13 @@
 </div> 
 <div id="container">
     <div id="menu">
-        <div id='show_result'>
-            <div id="gozen" class="lunch_menu">  
+        <div id='show_result'>  
             @foreach($lunches as $lunch)  
-                <h1>{{ $lunch->title }}</h1>
+            <div class="lunch_menu">
+                <div class="titles">
+                    <h1>{{ $lunch->title }}</h1>
+                    <h4>{{ $lunch->subtitle }}</h4>
+                </div>
                 @if($lunch->combo_title != null || $lunch->combo_desc != null)
                 <div class="combos">
                     <p class="combo_title">{{ $lunch->combo_title}}</p>
@@ -46,15 +53,19 @@
                     @foreach($lunch->l_items as $l_item)
                         <li>
                             <div>
-                                <p class="name">{{ $l_item->name}} / {{ $l_item->price}}</p>
+                                <p class="name">{{ $l_item->name}}
+                                    @if($l_item->is_raw == "Y")
+                                    *
+                                    @endif
+                                    / {{ $l_item->price}}</p>
                             </div>
                             <div class="descriptions">{{ $l_item->description }}</div>
                         </li>
                     @endforeach
                     </ul>
+                </div>   
+            </div> 
             @endforeach
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -92,6 +103,14 @@ $(document).on("click", ".edit", function(){
 $(document).on("click", ".change_order", function(){
     $(".change_order_dropdown").slideToggle();
 })
+
+var str = $(".combo_desc").text();
+
+for (var i = 0; i < str.length; i++) {
+  if(str.charAt(i) == "+")
+  console.log(str.charAt(i));
+}
+
 
 // Add New Modal
 $(document).ready(function(){      
