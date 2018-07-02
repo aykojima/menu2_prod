@@ -1084,6 +1084,16 @@ input.add_price, input.item_prices {
     .item_fields_wrap .form_column_long:focus {
       width: 95%; }
 
+.drink_name {
+  float: left; }
+
+.drink_price {
+  float: right; }
+
+.drink_details {
+  color: #ccc;
+  clear: both; }
+
 @media only screen and (max-device-width: 765px) {
   div.nav {
     left: -55px;

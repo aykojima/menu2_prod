@@ -1419,6 +1419,19 @@ input.add_price, input.item_prices {
       }
   }
 
+//********drink pages**********//
+.drink_name{
+  float: left;
+}
+
+.drink_price{
+  float: right;
+}
+
+.drink_details{
+  color: #ccc;
+  clear: both;
+}
 @media only screen 
 and (max-device-width : 765px)  { 
   div.nav{

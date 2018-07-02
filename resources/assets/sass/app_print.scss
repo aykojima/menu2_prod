@@ -133,7 +133,7 @@ div#wdl_menu, div#wel_menu {
     margin:2%;
     margin-top:10%;
     padding:2%;
-    margin-left:8%;
+    margin-left:6%;
     // border: solid 1px Blue;
     // height:1195px;
 }
@@ -334,7 +334,7 @@ img#fish {
 
 h1#ippin{
   float: none;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 #show_result_ippin{
@@ -458,7 +458,7 @@ div.course_divs{
 h2.course_titles{
   padding: 0px;
   float: left;
-  margin: 0px;
+  margin: 10px 0 0 0;
 }
 
 
@@ -466,6 +466,7 @@ h2.course_titles{
 p.course_prices{
   float: right;
   font-size: 1em;
+  margin-top: 10px;
   color: $skt_color;
 }
 div.additionals{

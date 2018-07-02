@@ -55,6 +55,8 @@
     Route::get('/lunch/delete/{lunch_id}', 'lunch_controller@delete')->name('lunch_delete');
     Route::post('/lunch/save_order', 'lunch_controller@save_order')->name('lunch_save_order');
 
+    //Sake
+    Route::get('/sake', 'sake_controller@show')->name('sake');
     
     //test
     Route::post('/create', 'sb_controller@store')->name('store');
