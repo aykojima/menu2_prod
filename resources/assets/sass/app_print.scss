@@ -7,9 +7,14 @@
 // }
 // Variables
 @import "variables";
-$font: 'PT Sans', sans-serif;;
+// $font: 'PT Sans', sans-serif;;
 $skt_color: #CF671F;
 
+@font-face {
+  font-family: 'TheSansSemiBoldPlain'; 
+  src: url('/fonts/TheSansSemiBoldPlain.ttf'); 
+  font-weight: lighter;
+}
 
 @mixin font_style{
   text-align: left;
@@ -54,7 +59,8 @@ $skt_color: #CF671F;
 }
 
 header, #nav, #new_item, .right_div,
-.modal, .search-box, .commands, #notification, #update{
+.modal, .search-box, .commands, #notification, #update,
+.add_drinks, .edit_drinks{
     display: none;
 }
 *{
@@ -62,7 +68,10 @@ header, #nav, #new_item, .right_div,
   padding: 0;
 }
 body{
-      font-family: $font;
+    // font-family: $font;
+    font-family: TheSansSemiBoldPlain;
+    font-weight: lighter;
+    font-size: 1em;
   }
 
 

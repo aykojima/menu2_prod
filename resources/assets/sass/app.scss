@@ -7,7 +7,14 @@
 // }
 // Variables
 @import "variables";
-$font: 'PT Sans', sans-serif;;
+// $font: 'PT Sans', sans-serif;;
+
+@font-face {
+  font-family: 'TheSansSemiBoldPlain'; 
+  src: url('/fonts/TheSansSemiBoldPlain.ttf'); 
+  font-weight: lighter;
+}
+
 $skt_color: #CF671F;
 %close_tab_shared {
   background-color: #fff;
@@ -39,9 +46,13 @@ $skt_color: #CF671F;
 *{
   margin: 0;
   padding: 0;
+  
 }
 body{
-      font-family: $font;
+      // font-family: $font;
+      font-family: TheSansSemiBoldPlain;
+      font-size: 1em;
+      font-weight: lighter;
   }
 
 
@@ -512,6 +523,7 @@ h1{
   color:$skt_color;
   float: left;
   clear:left;
+  font-weight: lighter;
 }
 
 h2{
@@ -520,6 +532,7 @@ h2{
   margin:2%;          
   color:$skt_color;
   float: left;
+  font-weight: 400;
 }
 
 /*
@@ -795,7 +808,7 @@ img#fish {
   margin-top: 5px;
 }
 
-h1#ippin{
+h1.page_title{
   float: none;
   margin-bottom: 20px;
 }
@@ -1215,7 +1228,10 @@ input.add_price, input.item_prices {
   textarea[name="edit_item_description[]"]{
     // display: none;
     color: #cccccc;
-    font-family: $font;
+    // font-family: $font;
+    font-family: TheSansSemiBoldPlain;
+    font-weight: lighter;
+    font-size: 1em;
   }
 
 }
@@ -1420,6 +1436,31 @@ input.add_price, input.item_prices {
   }
 
 //********drink pages**********//
+
+%drink_divs{
+  position: relative;
+  margin: 0 0 1% 0;
+}
+
+%drink_icons{
+  position: absolute;
+  width: 20px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.drink_categories{
+ @extend %drink_divs; 
+ margin-bottom: 3%;
+ hr{
+  width: 80%; 
+ }
+}
+
+.products{
+  @extend %drink_divs; 
+}
+
 .drink_name{
   float: left;
 }
@@ -1432,6 +1473,33 @@ input.add_price, input.item_prices {
   color: #ccc;
   clear: both;
 }
+
+img.add_drinks{
+  width: 20px;
+  // @extend %drink_icons;
+  // top: 0;
+  // right: 0;
+}
+
+img.edit_drinks{
+  width: 20px;
+  // @extend %drink_icons;
+  // right: -25px;
+}
+
+a.add_new_drink{
+  @extend %drink_icons;
+  top: 0;
+  right: 0;
+}
+
+a.edit{
+  @extend %drink_icons;
+  right: -25px;
+}
+
+
+
 @media only screen 
 and (max-device-width : 765px)  { 
   div.nav{

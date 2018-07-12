@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@font-face {
+  font-family: 'TheSansSemiBoldPlain';
+  src: url("/fonts/TheSansSemiBoldPlain.ttf");
+  font-weight: lighter; }
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); }
@@ -7,7 +11,8 @@
   size: 4.25in 14in;
   margin: 0; }
 header, #nav, #new_item, .right_div,
-.modal, .search-box, .commands, #notification, #update {
+.modal, .search-box, .commands, #notification, #update,
+.add_drinks, .edit_drinks {
   display: none; }
 
 * {
@@ -15,7 +20,9 @@ header, #nav, #new_item, .right_div,
   padding: 0; }
 
 body {
-  font-family: "PT Sans", sans-serif; }
+  font-family: TheSansSemiBoldPlain;
+  font-weight: lighter;
+  font-size: 1em; }
 
 div#container, div#i_container,
 div#r_container, div#c_container,

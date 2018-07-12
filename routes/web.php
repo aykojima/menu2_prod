@@ -57,10 +57,11 @@
 
     //Sake
     Route::get('/sake', 'sake_controller@show')->name('sake');
-    
+    Route::post('/sake', 'sake_controller@add_new')->name('sake_add_new');
+    Route::get('/sake/edit', 'sake_controller@show_edit_form')->name('sake_edit');
+    Route::post('/sake/edit', 'sake_controller@edit_menu')->name('sake_edit_submit');
+    Route::get('/sake/delete', 'sake_controller@delete')->name('delete');
     //test
-    Route::post('/create', 'sb_controller@store')->name('store');
-    Route::get('/test_show', 'sb_controller@test_show')->name('test_show');
     
 
  Route::middleware('auth')->group( function(){

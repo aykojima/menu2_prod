@@ -44,7 +44,7 @@
             <input type="button" id="right" value=" > " onclick="changeDate('right')"/> 
         </div>
     
-        <h1 id="ippin">Ippins</h1>
+        <h1 class="page_title">Ippins</h1>
         <div id='show_result_ippin'>
             <div id="appetizer">
             <ul>

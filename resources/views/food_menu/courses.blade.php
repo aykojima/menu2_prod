@@ -36,7 +36,7 @@
 <div id="container">
     
     <div id="menu">
-        <h1 id="ippin">
+        <h1 class="page_title">
             Course Meals
             <!-- <button id="new_item" class="new_section">&#43;</button> -->
         </h1>

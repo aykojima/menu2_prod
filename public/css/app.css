@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@font-face {
+  font-family: 'TheSansSemiBoldPlain';
+  src: url("/fonts/TheSansSemiBoldPlain.ttf");
+  font-weight: lighter; }
 button#close_edit_tab,
 button#close_add_new_tab {
   background-color: #fff;
@@ -27,7 +31,9 @@ button#close_add_new_tab {
   padding: 0; }
 
 body {
-  font-family: "PT Sans", sans-serif; }
+  font-family: TheSansSemiBoldPlain;
+  font-size: 1em;
+  font-weight: lighter; }
 
 header {
   background-color: #CF671F;
@@ -415,14 +421,16 @@ h1 {
   margin: 2%;
   color: #CF671F;
   float: left;
-  clear: left; }
+  clear: left;
+  font-weight: lighter; }
 
 h2 {
   text-align: left;
   padding-left: 2%;
   margin: 2%;
   color: #CF671F;
-  float: left; }
+  float: left;
+  font-weight: 400; }
 
 /*
 h1{
@@ -651,7 +659,7 @@ img#fish {
   float: right;
   margin-top: 5px; }
 
-h1#ippin {
+h1.page_title {
   float: none;
   margin-bottom: 20px; }
 
@@ -945,7 +953,9 @@ input.add_price, input.item_prices {
   .item_fields_wrap textarea[name="item_description[]"],
   .item_fields_wrap textarea[name="edit_item_description[]"] {
     color: #cccccc;
-    font-family: "PT Sans", sans-serif; }
+    font-family: TheSansSemiBoldPlain;
+    font-weight: lighter;
+    font-size: 1em; }
 
 .new_section {
   position: relative;
@@ -1084,6 +1094,21 @@ input.add_price, input.item_prices {
     .item_fields_wrap .form_column_long:focus {
       width: 95%; }
 
+.drink_categories, .products {
+  position: relative;
+  margin: 0 0 1% 0; }
+
+a.add_new_drink, a.edit {
+  position: absolute;
+  width: 20px; }
+  a.add_new_drink:hover, a.edit:hover {
+    cursor: pointer; }
+
+.drink_categories {
+  margin-bottom: 3%; }
+  .drink_categories hr {
+    width: 80%; }
+
 .drink_name {
   float: left; }
 
@@ -1093,6 +1118,19 @@ input.add_price, input.item_prices {
 .drink_details {
   color: #ccc;
   clear: both; }
+
+img.add_drinks {
+  width: 20px; }
+
+img.edit_drinks {
+  width: 20px; }
+
+a.add_new_drink {
+  top: 0;
+  right: 0; }
+
+a.edit {
+  right: -25px; }
 
 @media only screen and (max-device-width: 765px) {
   div.nav {
