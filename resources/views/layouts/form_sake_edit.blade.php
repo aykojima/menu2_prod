@@ -51,8 +51,9 @@
             </div>
         </div> -->
         <div class="buttons">
-            <input value="Save" type="submit">
-            <a href="{{action('sake_controller@delete')}}">Delete</a>
+            <input value="Save" type="submit" name="submit">
+            <input value="Delete" type="submit" name="submit">
+            <!-- <a href="#">Delete</a> -->
         </div>
     {!! Form::close() !!}
 <!-- </div> -->

@@ -80,57 +80,69 @@ class sake_controller extends Controller
 
     public function edit_menu(Request $request)
     {        
+
         $product = product::findOrFail ( $request->product_id );
-        
         $input = $request->all();
-        $edit_product['name'] = $input['name'];
-        $edit_product['price'] = $input['price']; 
-        $edit_product['production_area'] = $input['production_area'];
-        $edit_product['description'] = $input['description'];
-        //$edit_product['category_id'] = $input['category_id'];
-        //$data = $this->validate_form($input);
+        switch($request->submit) {
+            case 'Save': 
+                $input = $request->all();
+                $edit_product['name'] = $input['name'];
+                $edit_product['price'] = $input['price']; 
+                $edit_product['production_area'] = $input['production_area'];
+                $edit_product['description'] = $input['description'];
+                //$edit_product['category_id'] = $input['category_id'];
+                //$data = $this->validate_form($input);
 
-        $product->update($edit_product);
+                $product->update($edit_product);
 
-        $edit_sake['rice'] = $input['rice'];
-        $edit_sake['grade'] = $input['grade'];
+                $edit_sake['rice'] = $input['rice'];
+                $edit_sake['grade'] = $input['grade'];
 
-        if($input['sweetness'] == 'other')
-        { $edit_sake['sweetness'] = $input['sweetness_other']; }
-        else { $edit_sake['sweetness'] = $input['sweetness']; }
+                if($input['sweetness'] == 'other')
+                { $edit_sake['sweetness'] = $input['sweetness_other']; }
+                else { $edit_sake['sweetness'] = $input['sweetness']; }
 
-        //$edit_sake['product_id'] = $product->product_id;
-        //$data = $this->validate_form($input);
-        if($product->sake){
-            $sake = sake::findOrFail ( $product->sake->sake_id );
-            $sake->update($edit_sake);
+                //$edit_sake['product_id'] = $product->product_id;
+                //$data = $this->validate_form($input);
+                if($product->sake){
+                    $sake = sake::findOrFail ( $product->sake->sake_id );
+                    $sake->update($edit_sake);
 
-        }else
-        {
-            $edit_sake['product_id'] = $product->product_id;
-            $sake = sake::create($edit_sake);
+                }else
+                {
+                    $edit_sake['product_id'] = $product->product_id;
+                    $sake = sake::create($edit_sake);
+                }
+
+                if($input['size_checkbox'] == "Size is not 720ml")
+                {
+                    $edit_bottle['size'] = $input['size'];
+                    if($sake->bottle){
+                        $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
+                        $bottle->update($edit_bottle);
+                    }else
+                    {
+                        $edit_bottle['sake_id'] = $sake->sake_id;
+                        bottle::create($edit_bottle);
+                    }
+                }
+                
+                $edited_item = $input['name'] . " was successfully edited!";
+                return redirect('sake')->with('status', $edited_item );
+            break;
+            case 'Delete':
+                $product->delete();
+                $edited_item = $input['name'] . " was deleted!";
+                return redirect('sake')->with('status', $edited_item );
+            break;
+            
         }
-
-        if($input['size_checkbox'] == "Size is not 720ml")
-        {
-            $edit_bottle['size'] = $input['size'];
-            if($sake->bottle){
-                $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
-                $bottle->update($edit_bottle);
-            }else
-            {
-                $edit_bottle['sake_id'] = $sake->sake_id;
-                bottle::create($edit_bottle);
-            }
-        }
-        
-        $edited_item = $input['name'] . " was successfully edited!";
-        return redirect('sake')->with('status', $edited_item );
     }
 
     public function delete(Request $request)
     {
-
+        $input = $request->all();
+        dd($input['product_id']);
     }
 
     public function print()

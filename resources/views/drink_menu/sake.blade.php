@@ -203,7 +203,8 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
                 'production_area': $("#edit_form input[name='production_area']").val(),
                 'rice': $("#edit_form input[name='rice']").val(),
                 'sweetness': $("#edit_form input[name='sweetness']").val(),
-                'description': $("#edit_form input[name='description']").val()
+                'description': $("#edit_form input[name='description']").val(),
+                'submit': $("#edit_form input[name='submit']").val()
         }
     });
 });
