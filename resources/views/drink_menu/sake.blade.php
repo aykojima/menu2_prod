@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@extends('layouts.header_drink')
 
 @section('content')
 <div id='add_new_modal' class='modal'>
@@ -27,16 +27,17 @@
     
     <div id="menu">        
         @foreach($categories as $key => $category)
-        <h1 id="ippin">
-        @if($key == 0)    
+        @if($key == 0)
+        <h1 id="sake_by_glass">
         SAKE BY THE GLASS
         @elseif($key == 6)
+        <h1 id="sake_bottles">
         SAKE BOTTLES
         @endif
         </h1>
-        <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
+        <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
         <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
-        <p style="color: #ccc">{{ $category->description }}</p>
+        <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
         <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
         <hr>
             @foreach($sake_glasses as $sake_glass)
@@ -46,14 +47,24 @@
                     <div>
                         <p class="drink_name">{{ $sake_glass->name }} 
                         @if(!empty ($sake_glass->sake))    
-                        {{ $sake_glass->sake->grade }}</p>
+                        <small>{{ $sake_glass->sake->grade }}</small></p>
                         @endif
                         <p class="drink_price">{{ $sake_glass->price }}</p>
+                        @if(!empty ($sake_glass->sake->bottle))    
+                        <p class="bottle_size">{{ $sake_glass->sake->bottle->size }}ml</p>
+                        @endif
+
                         <div class="drink_details">
-                            <p>{{ $sake_glass->production_area }} / 
-                            @if(!empty ($sake_glass->sake))            
-                            {{ $sake_glass->sake->rice }} / {{ $sake_glass->sake->sweetness }}</p>
-                            @endif
+                            <p>{{ $sake_glass->production_area }} 
+                            @if(!empty ($sake_glass->sake))    
+                                @if($sake_glass->sake->rice)        
+                                / {{ $sake_glass->sake->rice }} 
+                                @endif
+                                @if($sake_glass->sake->sweetness)
+                                / {{ $sake_glass->sake->sweetness }}
+                                @endif
+                                </p>
+                            @endif    
                             <p>{{ $sake_glass->description }}</p>
                         </div>
                     </div>
@@ -115,6 +126,25 @@ $(".dismiss").click(function(){
 });
 
 
+//Forms
+$(document).ready(function(){
+     $("input[name='size_checkbox']").change(function(){
+        if(this.checked)
+            $('.bottle_size_hide').fadeIn('slow');
+        else
+            $('.bottle_size_hide').fadeOut('slow');
+    });
+
+    $("select[name='sweetness']").change(function(){
+        if($(this).children("option").filter(":selected").text() == 'Other')
+            $('.sweetness_hide').fadeIn('slow');
+        else
+            $('.sweetness_hide').fadeOut('slow');
+    });
+});
+
+
+
 // Add New Modal
 
 $(document).on("click", ".add_new_drink", function(){   
@@ -138,6 +168,8 @@ $(window).click(function(event) {
 $(document).on("click", ".add_new_drink", function(event){
     $("#add_new_modal .modal_content input[name='category_id']")
         .val($(this).parent().data("id"));
+    $("#add_new_modal .modal_content .form_category")
+        .text($(this).parent().data("category")); 
 });
 
 //Edit Modal

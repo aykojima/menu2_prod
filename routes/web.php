@@ -61,7 +61,10 @@
     Route::get('/sake/edit', 'sake_controller@show_edit_form')->name('sake_edit');
     Route::post('/sake/edit', 'sake_controller@edit_menu')->name('sake_edit_submit');
     Route::get('/sake/delete', 'sake_controller@delete')->name('delete');
-    //test
+    
+    
+    //print preview
+    Route::get('/drinks/print', 'sake_controller@print')->name('print');
     
 
  Route::middleware('auth')->group( function(){

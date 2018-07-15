@@ -1105,7 +1105,8 @@ a.add_new_drink, a.edit {
     cursor: pointer; }
 
 .drink_categories {
-  margin-bottom: 3%; }
+  margin-bottom: 3%;
+  clear: both; }
   .drink_categories hr {
     width: 80%; }
 
@@ -1115,9 +1116,15 @@ a.add_new_drink, a.edit {
 .drink_price {
   float: right; }
 
+p.bottle_size {
+  float: right;
+  margin-right: 3px;
+  font-size: small; }
+
 .drink_details {
   color: #ccc;
-  clear: both; }
+  clear: both;
+  font-size: 0.8em; }
 
 img.add_drinks {
   width: 20px; }
@@ -1131,6 +1138,9 @@ a.add_new_drink {
 
 a.edit {
   right: -25px; }
+
+.bottle_size_hide, .sweetness_hide {
+  display: none; }
 
 @media only screen and (max-device-width: 765px) {
   div.nav {

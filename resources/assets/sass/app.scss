@@ -1452,6 +1452,7 @@ input.add_price, input.item_prices {
 .drink_categories{
  @extend %drink_divs; 
  margin-bottom: 3%;
+ clear: both;
  hr{
   width: 80%; 
  }
@@ -1469,9 +1470,16 @@ input.add_price, input.item_prices {
   float: right;
 }
 
+p.bottle_size {
+  float: right;
+  margin-right: 3px;
+  font-size: small;
+}
+
 .drink_details{
   color: #ccc;
   clear: both;
+  font-size: 0.8em;
 }
 
 img.add_drinks{
@@ -1498,7 +1506,9 @@ a.edit{
   right: -25px;
 }
 
-
+.bottle_size_hide, .sweetness_hide{
+  display: none;
+}
 
 @media only screen 
 and (max-device-width : 765px)  { 

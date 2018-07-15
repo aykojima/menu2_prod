@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\category as category;
 use App\Models\product as product;
 use App\Models\sake as sake;
+use App\Models\bottle as bottle;
 use Illuminate\Support\Facades\DB;
 
 class sake_controller extends Controller
@@ -22,6 +23,7 @@ class sake_controller extends Controller
     { 
         // if( $request->isMethod('post'))
         // {
+        
         $input = $request->all();
         $new_product['name'] = $input['name'];
         $new_product['price'] = $input['price']; 
@@ -33,10 +35,25 @@ class sake_controller extends Controller
         $product = product::create($new_product);
 
         $new_sake['rice'] = $input['rice'];
-        $new_sake['sweetness'] = $input['sweetness'];
+        $new_sake['grade'] = $input['grade'];
+        if($input['sweetness'] == 'other')
+        { $new_sake['sweetness'] = $input['sweetness_other']; }
+        else { $new_sake['sweetness'] = $input['sweetness']; }
+
+        
         $new_sake['product_id'] = $product->product_id;
         
-        sake::create($new_sake);
+        $sake = sake::create($new_sake);
+
+        if($input['size_checkbox'] == "Size is not 720ml")
+        {
+            $new_bottle['size'] = $input['size'];
+            $new_bottle['sake_id'] = $sake->sake_id;
+
+            $bottle = bottle::create($new_bottle);
+        }
+
+        
         // }
         $new_item = $input['name'] . " was successfully created!";
         return redirect('sake')->with('status', $new_item );
@@ -76,17 +93,37 @@ class sake_controller extends Controller
         $product->update($edit_product);
 
         $edit_sake['rice'] = $input['rice'];
-        $edit_sake['sweetness'] = $input['sweetness'];
+        $edit_sake['grade'] = $input['grade'];
+
+        if($input['sweetness'] == 'other')
+        { $edit_sake['sweetness'] = $input['sweetness_other']; }
+        else { $edit_sake['sweetness'] = $input['sweetness']; }
+
         //$edit_sake['product_id'] = $product->product_id;
         //$data = $this->validate_form($input);
         if($product->sake){
             $sake = sake::findOrFail ( $product->sake->sake_id );
             $sake->update($edit_sake);
+
         }else
         {
             $edit_sake['product_id'] = $product->product_id;
-            sake::create($edit_sake);
+            $sake = sake::create($edit_sake);
         }
+
+        if($input['size_checkbox'] == "Size is not 720ml")
+        {
+            $edit_bottle['size'] = $input['size'];
+            if($sake->bottle){
+                $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
+                $bottle->update($edit_bottle);
+            }else
+            {
+                $edit_bottle['sake_id'] = $sake->sake_id;
+                bottle::create($edit_bottle);
+            }
+        }
+        
         $edited_item = $input['name'] . " was successfully edited!";
         return redirect('sake')->with('status', $edited_item );
     }
@@ -94,5 +131,13 @@ class sake_controller extends Controller
     public function delete(Request $request)
     {
 
+    }
+
+    public function print()
+    {
+        $sake_glasses = product::orderBy('price')->get();
+        $categories = category::all();
+
+        return view('drink_menu/print_review', compact('sake_glasses', 'categories'));
     }
 }
