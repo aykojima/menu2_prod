@@ -14,4 +14,9 @@ class bottle extends Model
     {
         return $this->belongsTo(sake::class, 'sake_id');
     }
+
+    public function wine()
+    {
+        return $this->belongsTo(wine::class, 'wine_id');
+    }
 }

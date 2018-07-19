@@ -1,0 +1,228 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+// @font-face {
+//   font-family: 'TheSansSemiBoldPlain'; 
+//   src: url('http://localhost/public/css/TheSansSemiBoldPlain.ttf'); 
+// }
+// Variables
+@import "variables";
+// $font: 'PT Sans', sans-serif;;
+$skt_color: #CF671F;
+
+@font-face {
+  font-family: 'TheSansSemiBoldPlain'; 
+  src: url('/fonts/TheSansSemiBoldPlain.ttf'); 
+  font-weight: lighter;
+}
+
+@mixin font_style{
+  text-align: left;
+  color:$skt_color;
+}
+
+%close_tab_shared {
+  background-color: #fff;
+  border: none;
+  margin: 2%;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 1.2em;
+}
+
+%form_div {
+  display:none;
+  border: 1px solid #ccc;
+  position:absolute;
+  left:23%;
+  top:9%;
+  background-color: #fff;
+  width:56%;
+  z-index:999;
+}
+// Bootstrap
+// @import '~bootstrap/scss/bootstrap';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+@page {
+   size: 8.5in 14in;
+   margin: 0;
+}
+
+header, #nav, #new_item, .right_div,
+.modal, .search-box, .commands, #notification, #update,
+.add_drinks, .edit_drinks{
+    display: none;
+}
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+    // font-family: $font;
+    font-family: TheSansSemiBoldPlain;
+    font-weight: lighter;
+    font-size: 1em;
+  }
+
+  // div.drink_container{
+  //   position:absolute;
+  //   /*height:1400px;*/
+  //   left: 200px;
+  //   top:45px;
+  //   width: 828px;
+  //   border: solid #CCC 1px;
+  // }
+
+  div.page1, .page2{
+    top:45px;
+    width: 49%;
+    // border: solid #CCC 1px;
+  }
+  
+  .page1{
+    display: block;
+    float: left;
+  }
+  
+  .page2{
+    display: block;
+    float: right;
+  }
+
+%drink_divs{
+  position: relative;
+  margin: 0 0 3% 0;
+}
+
+%drink_icons{
+  position: absolute;
+  width: 20px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.drink_categories{
+ @extend %drink_divs; 
+ margin-bottom: 7%;
+ clear: both;
+ h3{
+  color: $skt_color; 
+  clear: both;
+ }
+}
+
+.products{
+  @extend %drink_divs; 
+}
+
+.drink_name{
+  float: left;
+  font-size: 1.1em;
+}
+
+.drink_price{
+  float: right;
+  font-size: 1.1em;
+}
+
+p.bottle_size {
+  float: right;
+  margin-right: 3px;
+  font-size: small;
+}
+
+.drink_details{
+  color: #ccc;
+  clear: both;
+  font-size: 0.8em;
+}
+
+img.add_drinks{
+  width: 20px;
+  // @extend %drink_icons;
+  // top: 0;
+  // right: 0;
+}
+
+div#menu, div#i_menu,
+div#r_menu, div#c_menu, div#c_menu,
+div#wdl_menu, div#wel_menu {
+    display:block;
+    width:85%;
+    margin: auto;
+    margin:2%;
+    margin-top:10%;
+    padding:2%;
+    margin-left:6%;
+    // border: solid 1px Blue;
+    // height:1195px;
+}
+
+h1{
+  @include font_style;
+
+}
+
+h2{
+  @include font_style;
+}
+
+#showResult{
+  display:block;
+  margin:auto;
+  width:100%;
+  clear: both;
+//   border: solid 1px Blue;
+//   font-size: .98em;
+//   line-height: 1.5em;
+}
+
+.title_div p {
+  color: #cccccc;
+  &:nth-child(2){
+    float: left;
+  }
+  &:nth-child(3){
+    float: right;
+  }
+}
+
+.title_div {
+  padding-bottom: 15%;
+}
+
+.title{
+  padding-left: 0;
+  margin: 0;
+  float: none;
+}
+
+.NoMargin{
+    margin:0 2% 0 2%;
+}
+/*Menu items more than 34 less than 36*/
+.lineHeight34{
+    line-height:28px;
+}
+/*Menu items more than 37 less than 38*/
+.lineHeight37{
+    line-height:26px;
+    
+}
+/*Menu items more than 39 less than 41*/
+.lineHeight39{
+    line-height:24px;
+}
+/*Menu items more than 42 less than 44*/
+.lineHeight42{
+    line-height:22px;
+}
+
+.lineHeight45{
+    line-height:20px;
+}

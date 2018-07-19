@@ -62,6 +62,11 @@
     Route::post('/sake/edit', 'sake_controller@edit_menu')->name('sake_edit_submit');
     // Route::post('/sake/delete', 'sake_controller@delete')->name('delete');
     
+    //Wine
+    Route::get('/wine', 'wine_controller@show')->name('wine');
+    Route::post('/wine', 'wine_controller@add_new')->name('wine_add_new');
+    Route::get('/wine/edit', 'wine_controller@show_edit_form')->name('wine_edit');
+    Route::post('/wine/edit', 'wine_controller@edit_menu')->name('wine_edit_submit');
     
     //print preview
     Route::get('/drinks/print', 'sake_controller@print')->name('print');

@@ -5,9 +5,9 @@
     <div class='modal_content'>
         <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
         <span class="close">&times;</span>
-        {!! Form::open(['route' => 'sake_add_new']) !!}
+        {!! Form::open(['route' => 'wine_add_new']) !!}
         {!! Form::hidden('category_id') !!}
-        @include('layouts.form_sake_new')
+        @include('layouts.form_wine_new')
         {!! Form::close() !!}
     </div>
  </div>
@@ -16,9 +16,9 @@
     <div class='modal_content'>
         <!-- <button id='close_edit_tab' onclick='hide_edit_div()'>X</button> -->
         <span class="close">&times;</span>
-        {!! Form::open(['route' => 'sake_edit_submit']) !!}
+        {!! Form::open(['route' => 'wine_edit_submit']) !!}
         {!! Form::hidden('product_id') !!}
-        @include('layouts.form_sake_edit')
+        @include('layouts.form_wine_edit')
         {!! Form::close() !!}
     </div>    
  </div>
@@ -28,11 +28,11 @@
     <div id="menu">        
         @foreach($categories as $key => $category)
         @if($key == 0)
-        <h1 id="sake_by_glass">
-        SAKE BY THE GLASS
+        <h1 id="wine_by_glass">
+        WINE BY THE GLASS
         @elseif($key == 6)
-        <h1 id="sake_bottles">
-        SAKE BOTTLES
+        <h1 id="wine_bottles">
+        wine BOTTLES
         @endif
         </h1>
         <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
@@ -40,36 +40,33 @@
         <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
         <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
         <hr>
-            @foreach($sake_glasses as $sake_glass)
-                @if($sake_glass->category->category == $category->category)
+            @foreach($wine_glasses as $wine_glass)
+                @if($wine_glass->category->category == $category->category)
                 <div class="products">
-                <a class="edit" data-id="{{ $sake_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
+                <a class="edit" data-id="{{ $wine_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
                     <div>
-                        <p class="drink_name">{{ $sake_glass->name }} 
-                        @if(!empty ($sake_glass->sake))    
-                        <small>{{ $sake_glass->sake->grade }}</small></p>
+                        <p class="drink_name">{{ $wine_glass->name }} 
+                        @if(!empty ($wine_glass->wine))    
+                        <small>{{ $wine_glass->wine->type }}</small></p>
                         @endif
-                        <p class="drink_price">{{ $sake_glass->price }}</p>
-                        @if(!empty ($sake_glass->sake->bottle))    
-                        <p class="bottle_size"><small>{{ $sake_glass->sake->bottle->size }}ml</small>
-                        @if($sake_glass->sake->bottle->second_price)    
-                        {{ $sake_glass->sake->bottle->second_price }} / 
+                        <p class="drink_price">{{ $wine_glass->price }}</p>
+                        @if(!empty ($wine_glass->wine->bottle))    
+                        <p class="bottle_size"><small>{{ $wine_glass->wine->bottle->size }}ml</small>
+                        @if($wine_glass->wine->bottle->second_price)    
+                        {{ $wine_glass->wine->bottle->second_price }} / 
                         @endif
                         </p>
                         @endif
 
                         <div class="drink_details">
-                            <p>{{ $sake_glass->production_area }} 
-                            @if(!empty ($sake_glass->sake))    
-                                @if($sake_glass->sake->rice)        
-                                / {{ $sake_glass->sake->rice }} 
-                                @endif
-                                @if($sake_glass->sake->sweetness)
-                                / {{ $sake_glass->sake->sweetness }}
+                            <p>{{ $wine_glass->production_area }} 
+                            @if(!empty ($wine_glass->wine))    
+                                @if($wine_glass->wine->year)        
+                                {{ $wine_glass->wine->year }} 
                                 @endif
                                 </p>
                             @endif    
-                            <p>{{ $sake_glass->description }}</p>
+                            <p>{{ $wine_glass->description }}</p>
                         </div>
                     </div>
                 </div>
@@ -78,7 +75,7 @@
             @endforeach
         </div>    
         @if($key == 5)
-        <h2>SEASONAL SAKE</h2>
+        <h2>SEASONAL wine</h2>
     <div class="drink_categories" data-id="">
         <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
         <hr>  
@@ -88,7 +85,7 @@
                 <p class="drink_name">Rotating Nama (6oz tokkuri)</p>
                 <p class="drink_price">22</p>
                 <div class="drink_details">
-                    <p>fresh, unpasteurized sake released seasonally; typically bright, bold, and distinctive.
+                    <p>fresh, unpasteurized wine released seasonally; typically bright, bold, and distinctive.
                         *ask your server for today's selection
                     </p>
                 </div>
@@ -98,7 +95,7 @@
         <div class="products">
             <a class="edit" data-id=""><img class="edit_drinks" src='images/edit_icon_active.png'></a>
             <div>
-                <p class="drink_name">Spring Sake Flight (3 kinds, 2 oz each)</p>
+                <p class="drink_name">Spring wine Flight (3 kinds, 2 oz each)</p>
                 <p class="drink_price">20</p>
                 <div class="drink_details">
                     <p>three bright, light, and refreshing brews for the rainy season
@@ -181,7 +178,7 @@ $(document).on("click", ".edit", function(event){
     $('#edit_modal').css('display', 'block');
     $.ajax({
         type : 'get',
-        url : '{{URL::to('sake/edit')}}',
+        url : '{{URL::to('wine/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
@@ -189,8 +186,8 @@ $(document).on("click", ".edit", function(event){
                 $("#edit_modal .modal_content input[name='name']").val(data.name),
                 $("#edit_modal .modal_content input[name='price']").val(data.price),
                 $("#edit_modal .modal_content input[name='production_area']").val(data.production_area),
-                $("#edit_modal .modal_content input[name='rice']").val(data.rice),
-                $("#edit_modal .modal_content input[name='sweetness']").val(data.sweetness),
+                $("#edit_modal .modal_content input[name='type']").val(data.type),
+                $("#edit_modal .modal_content input[name='year']").val(data.year),
                 $("#edit_modal .modal_content input[name='description']").val(data.description);
                 }
             });
@@ -200,13 +197,13 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('sake/edit')}}',
+        url : '{{URL::to('wine/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),
                 'production_area': $("#edit_form input[name='production_area']").val(),
-                'rice': $("#edit_form input[name='rice']").val(),
-                'sweetness': $("#edit_form input[name='sweetness']").val(),
+                'type': $("#edit_form input[name='type']").val(),
+                'year': $("#edit_form input[name='year']").val(),
                 'description': $("#edit_form input[name='description']").val(),
                 'submit': $("#edit_form input[name='submit']").val()
         }

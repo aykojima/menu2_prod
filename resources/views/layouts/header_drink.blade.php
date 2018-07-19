@@ -6,7 +6,7 @@
     <meta name="_token" content="{{ csrf_token() }}">
     <title>SKT menu</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css" media="screen">
-    <link rel="stylesheet" href="{{ asset('css/app_print.css') }}" type="text/css" media="print">
+    <link rel="stylesheet" href="{{ asset('css/app_drink_print.css') }}" type="text/css" media="print">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

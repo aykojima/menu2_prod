@@ -1,22 +1,28 @@
 @extends('layouts.header_drink')
 
 @section('content')
-
-
-<div id="container">
-    
-    <div id="menu">        
-        @foreach($categories as $key => $category)
-        <h1 id="ippin">
-        @if($key == 0)    
-        SAKE BY THE GLASS
-        @elseif($key == 6)
-        SAKE BOTTLES
-        @endif
-        </h1>
+<div class="drink_container">
+@foreach($categories as $key => $category)
+@if($key == 0)    
+<div class="page1">
+    <div id="menu"> 
+        <div class='title_div'>
+            <h1 class="title">SAKE BY THE GLASS</h1>
+            <p>Region / Rice / SMV</p>
+            <p>6 oz tokkuri</p>
+        </div>
+@elseif($key == 6)    
+<div class="page2">
+    <div id="menu"> 
+    <div class='title_div'>
+            <h1 class="title">SAKE BOTTLES</h1>
+            <p>Region / Rice / SMV</p>
+            <p>720 Bottle</p>
+        </div>
+@endif 
         <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
-        <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
-        <p style="color: #ccc">{{ $category->description }}</p>
+            <h3>{{ $category->category }}</h3>
+            <p style="color: #ccc">{{ $category->description }}</p>
         
         
             @foreach($sake_glasses as $sake_glass)
@@ -44,39 +50,42 @@
         </div>    
         @if($key == 5)
         <h2>SEASONAL SAKE</h2>
-    <div class="drink_categories" data-id="">
-        
-        
-        <div class="products">
+        <div class="drink_categories" data-id="">
             
-            <div>
-                <p class="drink_name">Rotating Nama (6oz tokkuri)</p>
-                <p class="drink_price">22</p>
-                <div class="drink_details">
-                    <p>fresh, unpasteurized sake released seasonally; typically bright, bold, and distinctive.
-                        *ask your server for today's selection
-                    </p>
+            
+            <div class="products">
+                
+                <div>
+                    <p class="drink_name">Rotating Nama (6oz tokkuri)</p>
+                    <p class="drink_price">22</p>
+                    <div class="drink_details">
+                        <p>fresh, unpasteurized sake released seasonally; typically bright, bold, and distinctive.
+                            *ask your server for today's selection
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>  
+            </div>  
 
-        <div class="products">
-           
-            <div>
-                <p class="drink_name">Spring Sake Flight (3 kinds, 2 oz each)</p>
-                <p class="drink_price">20</p>
-                <div class="drink_details">
-                    <p>three bright, light, and refreshing brews for the rainy season
-                    </p>
+            <div class="products">
+            
+                <div>
+                    <p class="drink_name">Spring Sake Flight (3 kinds, 2 oz each)</p>
+                    <p class="drink_price">20</p>
+                    <div class="drink_details">
+                        <p>three bright, light, and refreshing brews for the rainy season
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>  
+            </div>  
+        </div>
+    </div> 
+    </div> 
+    @endif
+    @if ($key == 13)
     </div>
-        @endif
-        @endforeach
+    @endif
+@endforeach
 </div>
-
-
 <script>
 
 

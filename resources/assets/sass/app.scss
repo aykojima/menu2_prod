@@ -432,7 +432,7 @@ button#close_add_new_tab{
 
 div#container, div#i_container, 
 div#r_container, div#c_container,
-div#wdl_container, div#wel_container {
+div#wdl_container, div#wel_container{
   position:absolute;
   /*height:1400px;*/
   left: 500px;
@@ -1439,7 +1439,7 @@ input.add_price, input.item_prices {
 
 %drink_divs{
   position: relative;
-  margin: 0 0 1% 0;
+  margin: 0 0 3% 0;
 }
 
 %drink_icons{
@@ -1451,10 +1451,14 @@ input.add_price, input.item_prices {
 }
 .drink_categories{
  @extend %drink_divs; 
- margin-bottom: 3%;
+ margin-bottom: 7%;
  clear: both;
  hr{
   width: 80%; 
+ }
+ h3{
+  color: $skt_color; 
+  clear: both;
  }
 }
 
@@ -1464,16 +1468,20 @@ input.add_price, input.item_prices {
 
 .drink_name{
   float: left;
+  font-size: 1.1em;
 }
 
 .drink_price{
   float: right;
+  font-size: 1.1em;
 }
 
 p.bottle_size {
   float: right;
   margin-right: 3px;
-  font-size: small;
+  small{
+    font-size: small;
+  }
 }
 
 .drink_details{
@@ -1508,6 +1516,55 @@ a.edit{
 
 .bottle_size_hide, .sweetness_hide{
   display: none;
+}
+
+form label{
+  margin-left: 9%;
+}
+
+
+div.drink_container{
+  position:absolute;
+  /*height:1400px;*/
+  left: 200px;
+  top:45px;
+  width: 828px;
+  border: solid #CCC 1px;
+}
+div.page1, .page2{
+  top:45px;
+  width: 412px;
+  border: solid #CCC 1px;
+}
+
+.page1{
+  display: block;
+  float: left;
+}
+
+.page2{
+  display: block;
+  float: right;
+}
+
+.title_div p {
+  color: #cccccc;
+  &:nth-child(2){
+    float: left;
+  }
+  &:nth-child(3){
+    float: right;
+  }
+}
+
+.title_div {
+  padding-bottom: 15%;
+}
+
+.title{
+  padding-left: 0;
+  margin: 0;
+  float: none;
 }
 
 @media only screen 
@@ -1566,7 +1623,9 @@ and (max-device-width : 765px)  {
     margin: 3% 0;
   }
 
-div#container, div#i_container, div#r_container, div#c_container, div#wdl_container, div#wel_container {
+div#container, div#i_container, div#r_container, 
+div#c_container, div#wdl_container, 
+div#wel_container{
     left: 0;
     top: 94px;
     width: 95%;
@@ -1614,7 +1673,9 @@ and (min-device-width : 768px) and (max-device-width : 1024px)  {
     height: 33px;
   }
 
-  div#container, div#i_container, div#r_container, div#c_container, div#wdl_container, div#wel_container {
+  div#container, div#i_container, div#r_container, 
+  div#c_container, div#wdl_container, 
+  div#wel_container {
     position: fixed;
     left: 359px;
     top: 100px;

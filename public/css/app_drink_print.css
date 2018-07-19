@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@font-face {
+  font-family: 'TheSansSemiBoldPlain';
+  src: url("/fonts/TheSansSemiBoldPlain.ttf");
+  font-weight: lighter; }
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); }
+
+@page {
+  size: 8.5in 14in;
+  margin: 0; }
+header, #nav, #new_item, .right_div,
+.modal, .search-box, .commands, #notification, #update,
+.add_drinks, .edit_drinks {
+  display: none; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-family: TheSansSemiBoldPlain;
+  font-weight: lighter;
+  font-size: 1em; }
+
+div.page1, .page2 {
+  top: 45px;
+  width: 49%; }
+
+.page1 {
+  display: block;
+  float: left; }
+
+.page2 {
+  display: block;
+  float: right; }
+
+.drink_categories, .products {
+  position: relative;
+  margin: 0 0 3% 0; }
+
+.drink_categories {
+  margin-bottom: 7%;
+  clear: both; }
+  .drink_categories h3 {
+    color: #CF671F;
+    clear: both; }
+
+.drink_name {
+  float: left;
+  font-size: 1.1em; }
+
+.drink_price {
+  float: right;
+  font-size: 1.1em; }
+
+p.bottle_size {
+  float: right;
+  margin-right: 3px;
+  font-size: small; }
+
+.drink_details {
+  color: #ccc;
+  clear: both;
+  font-size: 0.8em; }
+
+img.add_drinks {
+  width: 20px; }
+
+div#menu, div#i_menu,
+div#r_menu, div#c_menu, div#c_menu,
+div#wdl_menu, div#wel_menu {
+  display: block;
+  width: 85%;
+  margin: auto;
+  margin: 2%;
+  margin-top: 10%;
+  padding: 2%;
+  margin-left: 6%; }
+
+h1 {
+  text-align: left;
+  color: #CF671F; }
+
+h2 {
+  text-align: left;
+  color: #CF671F; }
+
+#showResult {
+  display: block;
+  margin: auto;
+  width: 100%;
+  clear: both; }
+
+.title_div p {
+  color: #cccccc; }
+  .title_div p:nth-child(2) {
+    float: left; }
+  .title_div p:nth-child(3) {
+    float: right; }
+
+.title_div {
+  padding-bottom: 15%; }
+
+.title {
+  padding-left: 0;
+  margin: 0;
+  float: none; }
+
+.NoMargin {
+  margin: 0 2% 0 2%; }
+
+/*Menu items more than 34 less than 36*/
+.lineHeight34 {
+  line-height: 28px; }
+
+/*Menu items more than 37 less than 38*/
+.lineHeight37 {
+  line-height: 26px; }
+
+/*Menu items more than 39 less than 41*/
+.lineHeight39 {
+  line-height: 24px; }
+
+/*Menu items more than 42 less than 44*/
+.lineHeight42 {
+  line-height: 22px; }
+
+.lineHeight45 {
+  line-height: 20px; }
+
+/*# sourceMappingURL=app_drink_print.css.map */

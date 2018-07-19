@@ -9,9 +9,7 @@
         {!! Form::text('price', null, ['placeholder' => 'Price (e.g. 10)', 'class' => 'form_column_medium']) !!}
         <div class="div_label_checkbox">
                 {!! Form::select('category', ['SP_R' => 'Special Roll', 'R' => 'Roll',
-                    'VG_R' => 'Vegetable Roll'], 
-                    @if('SP_R') 'Special Roll' 
-                    @endif) !!}
+                    'VG_R' => 'Vegetable Roll'])!!}
         </div>    
         </div>
         <div id= "sustainable"> 

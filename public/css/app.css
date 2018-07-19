@@ -1096,7 +1096,7 @@ input.add_price, input.item_prices {
 
 .drink_categories, .products {
   position: relative;
-  margin: 0 0 1% 0; }
+  margin: 0 0 3% 0; }
 
 a.add_new_drink, a.edit {
   position: absolute;
@@ -1105,21 +1105,27 @@ a.add_new_drink, a.edit {
     cursor: pointer; }
 
 .drink_categories {
-  margin-bottom: 3%;
+  margin-bottom: 7%;
   clear: both; }
   .drink_categories hr {
     width: 80%; }
+  .drink_categories h3 {
+    color: #CF671F;
+    clear: both; }
 
 .drink_name {
-  float: left; }
+  float: left;
+  font-size: 1.1em; }
 
 .drink_price {
-  float: right; }
+  float: right;
+  font-size: 1.1em; }
 
 p.bottle_size {
   float: right;
-  margin-right: 3px;
-  font-size: small; }
+  margin-right: 3px; }
+  p.bottle_size small {
+    font-size: small; }
 
 .drink_details {
   color: #ccc;
@@ -1141,6 +1147,45 @@ a.edit {
 
 .bottle_size_hide, .sweetness_hide {
   display: none; }
+
+form label {
+  margin-left: 9%; }
+
+div.drink_container {
+  position: absolute;
+  /*height:1400px;*/
+  left: 200px;
+  top: 45px;
+  width: 828px;
+  border: solid #CCC 1px; }
+
+div.page1, .page2 {
+  top: 45px;
+  width: 412px;
+  border: solid #CCC 1px; }
+
+.page1 {
+  display: block;
+  float: left; }
+
+.page2 {
+  display: block;
+  float: right; }
+
+.title_div p {
+  color: #cccccc; }
+  .title_div p:nth-child(2) {
+    float: left; }
+  .title_div p:nth-child(3) {
+    float: right; }
+
+.title_div {
+  padding-bottom: 15%; }
+
+.title {
+  padding-left: 0;
+  margin: 0;
+  float: none; }
 
 @media only screen and (max-device-width: 765px) {
   div.nav {
@@ -1183,7 +1228,9 @@ a.edit {
     width: 100%;
     margin: 3% 0; }
 
-  div#container, div#i_container, div#r_container, div#c_container, div#wdl_container, div#wel_container {
+  div#container, div#i_container, div#r_container,
+  div#c_container, div#wdl_container,
+  div#wel_container {
     left: 0;
     top: 94px;
     width: 95%;
@@ -1220,7 +1267,9 @@ a.edit {
     right: 8px;
     height: 33px; }
 
-  div#container, div#i_container, div#r_container, div#c_container, div#wdl_container, div#wel_container {
+  div#container, div#i_container, div#r_container,
+  div#c_container, div#wdl_container,
+  div#wel_container {
     position: fixed;
     left: 359px;
     top: 100px;

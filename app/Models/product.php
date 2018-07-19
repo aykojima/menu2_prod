@@ -15,6 +15,11 @@ class product extends Model
         return $this->hasOne(sake::class, 'product_id');
     }
 
+    public function wine()
+    {
+        return $this->hasOne(wine::class, 'product_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(category::class, 'category_id');

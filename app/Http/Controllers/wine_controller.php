@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\category as category;
 use App\Models\product as product;
-use App\Models\sake as sake;
+use App\Models\wine as wine;
 use App\Models\bottle as bottle;
 use Illuminate\Support\Facades\DB;
 
-class sake_controller extends Controller
+class wine_controller extends Controller
 {
     public function show() 
     { 
-        $sake_glasses = product::orderBy('price')->where('category_id', '<', '15')->get();
-        $categories = category::all()->where('category_id', '<', '15');
+        $wine_glasses = product::orderBy('price')->where('category_id', '>', 14)->get();
+        $categories = category::all()->where('category_id', '>', 14);;
 
-        return view('drink_menu/sake', compact('sake_glasses', 'categories'));
+        return view('drink_menu/wine', compact('wine_glasses', 'categories'));
     }
 
     public function add_new(Request $request) 
@@ -34,22 +34,21 @@ class sake_controller extends Controller
 
         $product = product::create($new_product);
 
-        $new_sake['rice'] = ucfirst($input['rice']);
-        $new_sake['grade'] = ucfirst($input['grade']);
-        if($input['sweetness'] == 'other')
-        { $new_sake['sweetness'] = $input['sweetness_other']; }
-        else { $new_sake['sweetness'] = $input['sweetness']; }
+        $new_wine['type'] = ucfirst($input['type']);
+        $new_wine['year'] = ucfirst($input['year']);
+        // if($input['sweetness'] == 'other')
+        // { $new_wine['sweetness'] = $input['sweetness_other']; }
+        // else { $new_wine['sweetness'] = $input['sweetness']; }
 
+        $new_wine['product_id'] = $product->product_id;
         
-        $new_sake['product_id'] = $product->product_id;
-        
-        $sake = sake::create($new_sake);
+        $wine = wine::create($new_wine);
 
         if($input['size_checkbox'] == "Size is not 720ml")
         {
             $new_bottle['size'] = $input['size'];
             $new_bottle['second_price'] = $input['second_price'];
-            $new_bottle['sake_id'] = $sake->sake_id;
+            $new_bottle['wine_id'] = $wine->wine_id;
 
             $bottle = bottle::create($new_bottle);
         }
@@ -57,23 +56,19 @@ class sake_controller extends Controller
         
         // }
         $new_item = $new_product['name'] . " was successfully created!";
-        return redirect('sake')->with('status', $new_item );
+        return redirect('wine')->with('status', $new_item );
     }
 
     public function show_edit_form(Request $request)
     {
         if($request->ajax()){
             $product = product::findOrFail($request->product_id);
-            if($product->sake)
+            if($product->wine)
             {
-                $product["rice"] = $product->sake->rice;
-                $product["sweetness"] = $product->sake->sweetness;
+                $product["type"] = $product->wine->type;
+                $product["year"] = $product->wine->year;
             }
-                // }else
-            // {
-            //     $product["rice"] = null;
-            //     $product["sweetness"] = null;
-            // }
+        
             return Response($product);
         }
         
@@ -91,67 +86,55 @@ class sake_controller extends Controller
                 $edit_product['price'] = $input['price']; 
                 $edit_product['production_area'] = $input['production_area'];
                 $edit_product['description'] = $input['description'];
-                //$edit_product['category_id'] = $input['category_id'];
-                //$data = $this->validate_form($input);
+                
 
                 $product->update($edit_product);
 
-                $edit_sake['rice'] = $input['rice'];
-                $edit_sake['grade'] = $input['grade'];
+                $edit_wine['type'] = $input['type'];
+                $edit_wine['year'] = $input['year'];
 
-                if($input['sweetness'] == 'other')
-                { $edit_sake['sweetness'] = $input['sweetness_other']; }
-                else { $edit_sake['sweetness'] = $input['sweetness']; }
-
-                //$edit_sake['product_id'] = $product->product_id;
-                //$data = $this->validate_form($input);
-                if($product->sake){
-                    $sake = sake::findOrFail ( $product->sake->sake_id );
-                    $sake->update($edit_sake);
+                if($product->wine){
+                    $wine = wine::findOrFail ( $product->wine->wine_id );
+                    $wine->update($edit_wine);
 
                 }else
                 {
-                    $edit_sake['product_id'] = $product->product_id;
-                    $sake = sake::create($edit_sake);
+                    $edit_wine['product_id'] = $product->product_id;
+                    $wine = wine::create($edit_wine);
                 }
 
                 if($input['size_checkbox'] == "Size is not 720ml")
                 {
                     $edit_bottle['size'] = $input['size'];
                     $edit_bottle['second_price'] = $input['second_price'];
-                    if($sake->bottle){
-                        $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
+                    if($wine->bottle){
+                        $bottle = bottle::findOrFail ( $wine->bottle->bottle_id );
                         $bottle->update($edit_bottle);
                     }else
                     {
-                        $edit_bottle['sake_id'] = $sake->sake_id;
+                        $edit_bottle['wine_id'] = $wine->wine_id;
                         bottle::create($edit_bottle);
                     }
                 }
                 
                 $edited_item = $input['name'] . " was successfully edited!";
-                return redirect('sake')->with('status', $edited_item );
+                return redirect('wine')->with('status', $edited_item );
             break;
             case 'Delete':
                 $product->delete();
                 $edited_item = $input['name'] . " was deleted!";
-                return redirect('sake')->with('status', $edited_item );
+                return redirect('wine')->with('status', $edited_item );
             break;
             
         }
     }
 
-    public function delete(Request $request)
-    {
-        $input = $request->all();
-        dd($input['product_id']);
-    }
-
     public function print()
     {
-        $sake_glasses = product::orderBy('price')->get();
+        $wine_glasses = product::orderBy('price')->get();
         $categories = category::all();
 
-        return view('drink_menu/print_review', compact('sake_glasses', 'categories'));
+        return view('drink_menu/print_review', compact('wine_glasses', 'categories'));
     }
+
 }
