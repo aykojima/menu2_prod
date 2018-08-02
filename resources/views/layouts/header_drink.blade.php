@@ -28,24 +28,31 @@
 
     <div class="nav" id="nav">
         <ul>
+            <li><a href='{{ URL::to('cocktail')}}' class='nav_links'>
+                    <img src='{{ Request::is('cocktail') ? 'images/cocktail_icon_active.png' : 'images/cocktail_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('cocktail') == 'cocktail' ? 'nav_active' : 'nav_name' }}">Cocktail<br>Beer<br>Non Alcohol</p>
+                </a>
+            </li>
             <li>
                 <a href='{{ URL::to('sake')}}' class='nav_links'>
-                <img src='{{ Request::is('sake') ? 'images/sake_icon.png' : 'images/sake_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                <p class="{{ Request::is('sake') ? 'nav_active' : 'nav_name' }}">Sake</p>
+                    <img src='{{ Request::is('sake') ? 'images/sake_icon.png' : 'images/sake_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('sake') ? 'nav_active' : 'nav_name' }}">Sake</p>
                 </a>
+                @if(Request::is('sake'))
                 <ul>
                      <li><a href='#sake_by_glass'>Sake By Glass</a></li>
                      <li><a href='#sake_bottles'>Sake Bottles</a></li>
                 </ul>
+                @endif
             </li>     
             <li><a href='{{ URL::to('wine')}}' class='nav_links'>
             <img src='{{ Request::is('wine') ? 'images/wine_icon_active.png' : 'images/wine_icon_no_active.png' }} '.png'}}' class='nav_icons'>
                 <p class="{{ Request::is('wine') == 'wine' ? 'nav_active' : 'nav_name' }}">Wine</p>
                 </a>
             </li>
-            <li><a href='{{ URL::to('roll')}}' class='nav_links'>
-            <img src='{{ Request::is('roll') ? 'images/rolls_icon_active.png' : 'images/rolls_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                <p class="{{ Request::is('roll') == 'roll' ? 'nav_active' : 'nav_name' }}">Others</p>
+            <li><a href='{{ URL::to('shochu')}}' class='nav_links'>
+            <img src='{{ Request::is('shochu') ? 'images/shochu_icon_active.png' : 'images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                <p class="{{ Request::is('shochu') == 'shochu' ? 'nav_active' : 'nav_name' }}">Shochu<br> Whiskey<br>Spirits</p>
                 </a>
             </li>
         </ul>

@@ -55,6 +55,12 @@
     Route::get('/lunch/delete/{lunch_id}', 'lunch_controller@delete')->name('lunch_delete');
     Route::post('/lunch/save_order', 'lunch_controller@save_order')->name('lunch_save_order');
 
+    //Cocktails and beer
+    Route::get('/cocktail', 'cocktail_controller@show')->name('cocktail');
+    Route::post('/cocktail', 'cocktail_controller@add_new')->name('cocktail_add_new');
+    Route::get('/cocktail/edit', 'cocktail_controller@show_edit_form')->name('cocktail_edit');
+    Route::post('/cocktail/edit', 'cocktail_controller@edit_menu')->name('cocktail_edit_submit');
+
     //Sake
     Route::get('/sake', 'sake_controller@show')->name('sake');
     Route::post('/sake', 'sake_controller@add_new')->name('sake_add_new');
@@ -68,6 +74,12 @@
     Route::get('/wine/edit', 'wine_controller@show_edit_form')->name('wine_edit');
     Route::post('/wine/edit', 'wine_controller@edit_menu')->name('wine_edit_submit');
     
+    //Shochu
+    Route::get('/shochu', 'shochu_controller@show')->name('shochu');
+    Route::post('/shochu', 'shochu_controller@add_new')->name('shochu_add_new');
+    Route::get('/shochu/edit', 'shochu_controller@show_edit_form')->name('shochu_edit');
+    Route::post('/shochu/edit', 'shochu_controller@edit_menu')->name('shochu_edit_submit');
+
     //print preview
     Route::get('/drinks/print', 'sake_controller@print')->name('print');
     

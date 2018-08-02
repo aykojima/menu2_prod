@@ -1105,13 +1105,25 @@ a.add_new_drink, a.edit {
     cursor: pointer; }
 
 .drink_categories {
-  margin-bottom: 7%;
+  margin-bottom: 2%;
   clear: both; }
   .drink_categories hr {
     width: 80%; }
   .drink_categories h3 {
     color: #CF671F;
     clear: both; }
+
+.rotating_wine {
+  color: #CCCCCC; }
+
+.small_margin {
+  margin-bottom: 1%; }
+
+.no_margin {
+  margin-bottom: 0%; }
+
+.small_margin_top {
+  margin-top: 2% !important; }
 
 .drink_name {
   float: left;
@@ -1131,6 +1143,8 @@ p.bottle_size {
   color: #ccc;
   clear: both;
   font-size: 0.8em; }
+  .drink_details span {
+    color: #CF671F; }
 
 img.add_drinks {
   width: 20px; }
@@ -1148,29 +1162,53 @@ a.edit {
 .bottle_size_hide, .sweetness_hide {
   display: none; }
 
+h2.form_category {
+  float: none; }
+
 form label {
   margin-left: 9%; }
 
 div.drink_container {
-  position: absolute;
-  /*height:1400px;*/
+  position: relative;
   left: 200px;
   top: 45px;
-  width: 828px;
+  width: 900px; }
+
+div.menu {
+  width: 90%;
+  display: block;
+  margin: auto;
+  margin-top: 10%;
+  padding-bottom: 10%;
+  padding-left: 10%;
+  border: solid yellow 1px; }
+
+div.page2, .page4, .page6, .page8,
+.page1, .page3, .page5, .page7 {
+  width: 49%;
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  margin-top: 0px !important;
   border: solid #CCC 1px; }
 
-div.page1, .page2 {
-  top: 45px;
-  width: 412px;
-  border: solid #CCC 1px; }
+.page8, .page1 {
+  top: 45px; }
 
-.page1 {
-  display: block;
-  float: left; }
+.page6, .page3 {
+  top: 1345px; }
 
-.page2 {
-  display: block;
-  float: right; }
+.page2, .page7 {
+  top: 2645px; }
+
+.page4, .page5 {
+  top: 3945px; }
+
+.page2, .page4, .page6, .page8 {
+  left: 0; }
+
+.page1, .page3, .page5, .page7 {
+  right: 0; }
 
 .title_div p {
   color: #cccccc; }
@@ -1186,6 +1224,12 @@ div.page1, .page2 {
   padding-left: 0;
   margin: 0;
   float: none; }
+
+.small_title_font {
+  font-size: 1.8em; }
+
+.small_font {
+  font-size: 1.05em; }
 
 @media only screen and (max-device-width: 765px) {
   div.nav {

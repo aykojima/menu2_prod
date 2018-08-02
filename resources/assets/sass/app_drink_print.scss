@@ -43,10 +43,6 @@ $skt_color: #CF671F;
 // Bootstrap
 // @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
 
 @page {
    size: 8.5in 14in;
@@ -78,46 +74,77 @@ body{
   //   border: solid #CCC 1px;
   // }
 
-  div.page1, .page2{
-    top:45px;
+  div.page2, .page4, .page6, .page8,
+.page1, .page3, .page5, .page7 {
+    // top:45px;
     width: 49%;
+    height:100%;
+    position:absolute;
+    bottom:0px;
+    margin-top: 0px !important;
     // border: solid #CCC 1px;
   }
-  
-  .page1{
-    display: block;
-    float: left;
-  }
-  
-  .page2{
-    display: block;
-    float: right;
-  }
+
+  //first page
+.page8, .page1{
+  top:0px;
+}
+
+// second page
+.page6, .page3{
+  top: 101%;
+}
+
+// third page
+.page2, .page7{
+  top: 201%;
+}
+
+// third page
+.page4, .page5{
+  top:301%;
+}
+
+.page2, .page4, .page6, .page8 {
+  left:0;
+}
+
+.page1, .page3, .page5, .page7 {
+  right:0;
+}
 
 %drink_divs{
   position: relative;
   margin: 0 0 3% 0;
 }
 
-%drink_icons{
-  position: absolute;
-  width: 20px;
-  &:hover{
-    cursor: pointer;
-  }
-}
 .drink_categories{
  @extend %drink_divs; 
- margin-bottom: 7%;
+ margin-bottom: 2%;
  clear: both;
  h3{
   color: $skt_color; 
   clear: both;
  }
+ p{
+  color: #CCCCCC; 
+ }
 }
 
 .products{
   @extend %drink_divs; 
+}
+
+.small_margin{
+  margin-bottom: 1%;
+}
+
+.no_margin{
+  margin-bottom: 0%;
+}
+
+.small_margin_top {
+  margin-top: 2% !important;
 }
 
 .drink_name{
@@ -149,9 +176,7 @@ img.add_drinks{
   // right: 0;
 }
 
-div#menu, div#i_menu,
-div#r_menu, div#c_menu, div#c_menu,
-div#wdl_menu, div#wel_menu {
+div.menu{
     display:block;
     width:85%;
     margin: auto;
@@ -202,27 +227,10 @@ h2{
   float: none;
 }
 
-.NoMargin{
-    margin:0 2% 0 2%;
-}
-/*Menu items more than 34 less than 36*/
-.lineHeight34{
-    line-height:28px;
-}
-/*Menu items more than 37 less than 38*/
-.lineHeight37{
-    line-height:26px;
-    
-}
-/*Menu items more than 39 less than 41*/
-.lineHeight39{
-    line-height:24px;
-}
-/*Menu items more than 42 less than 44*/
-.lineHeight42{
-    line-height:22px;
+.small_title_font{
+  font-size: 1.5em;
 }
 
-.lineHeight45{
-    line-height:20px;
+.small_font{
+  font-size: 1.05em;
 }

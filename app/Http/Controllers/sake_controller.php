@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\category as category;
 use App\Models\product as product;
 use App\Models\sake as sake;
+use App\Models\wine as wine;
 use App\Models\bottle as bottle;
 use Illuminate\Support\Facades\DB;
 
@@ -149,9 +150,20 @@ class sake_controller extends Controller
 
     public function print()
     {
-        $sake_glasses = product::orderBy('price')->get();
         $categories = category::all();
+        //$categories = category::whereBetween('category_id', [28, 32])->get();
+        $spirits = product::whereBetween('category_id', [28, 32])->orderBy('price')->get();
+        $sake_glasses = product::whereBetween('category_id', [1, 6])->orderBy('price')->get();
+        $rose_and_reds = product::whereBetween('category_id', [23, 24])->orderBy('price')->get();
+        $sake_bottle2s = product::whereBetween('category_id', [10, 14])->orderBy('price')->get();
+        $sake_bottles = product::whereBetween('category_id', [7, 9])->orderBy('price')->get();
+        $shochu_and_whiskies = product::whereBetween('category_id', [25, 26])->orderBy('price')->get();
+        $wine_glasses = product::whereBetween('category_id', [15, 21])->orderBy('price')->get();
+        $whites = product::where('category_id', 22)->orderBy('price')->get();
+        
 
-        return view('drink_menu/print_review', compact('sake_glasses', 'categories'));
+        return view('drink_menu/print_review', compact('categories', 'spirits', 'sake_glasses',
+            'rose_and_reds', 'sake_bottle2s', 'sake_bottles', 'shochu_and_whiskies', 'wine_glasses', 'whites'));
     }
 }
+

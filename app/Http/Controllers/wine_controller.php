@@ -13,8 +13,12 @@ class wine_controller extends Controller
 {
     public function show() 
     { 
-        $wine_glasses = product::orderBy('price')->where('category_id', '>', 14)->get();
-        $categories = category::all()->where('category_id', '>', 14);;
+        $wine_glasses = product::orderBy('price')->whereBetween('category_id', [15, 24])->get();
+        // $wine_glasses = product::leftJoin('wines', 'wines.product_id', '=', 'products.product_id')
+        //     ->whereBetween('category_id', [15, 24])
+        //     ->orderBy('price')
+        //     ->get();
+        $categories = category::whereBetween('category_id', [15, 24])->get();
 
         return view('drink_menu/wine', compact('wine_glasses', 'categories'));
     }
@@ -25,7 +29,7 @@ class wine_controller extends Controller
         // {
         
         $input = $request->all();
-        $new_product['name'] = ucfirst($input['name']);
+        $new_product['name'] = $input['name'];
         $new_product['price'] = $input['price']; 
         $new_product['production_area'] = ucfirst($input['production_area']);
         $new_product['description'] = lcfirst($input['description']);
@@ -44,7 +48,7 @@ class wine_controller extends Controller
         
         $wine = wine::create($new_wine);
 
-        if($input['size_checkbox'] == "Size is not 720ml")
+        if($input['size_checkbox'] == "Size is not 750ml")
         {
             $new_bottle['size'] = $input['size'];
             $new_bottle['second_price'] = $input['second_price'];
@@ -103,7 +107,7 @@ class wine_controller extends Controller
                     $wine = wine::create($edit_wine);
                 }
 
-                if($input['size_checkbox'] == "Size is not 720ml")
+                if($input['size_checkbox'] == "Size is not 750ml")
                 {
                     $edit_bottle['size'] = $input['size'];
                     $edit_bottle['second_price'] = $input['second_price'];

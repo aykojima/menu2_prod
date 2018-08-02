@@ -6,8 +6,8 @@
         {!! Form::text('type', null, ['placeholder' => 'Type of Wine (e.g. Blanc de Blancs)', 'class' => 'form_column_long']) !!}
         <!-- <div class='div_column_medium'> -->
             {!! Form::text('price', null, ['placeholder' => 'Price (e.g. 13)', 'class' => 'form_column_long']) !!}
-            <label>Bottle size is not standard(720ml)</label>
-            {!! Form::hidden('size_checkbox', '720ml') !!}
+            <label>Bottle size is not standard(750ml)</label>
+            {!! Form::hidden('size_checkbox', '750ml') !!}
             {!! Form::checkbox('size_checkbox', 'Size is not 750ml') !!}
             <div class="bottle_size_hide">
                 {!! Form::text('size', null, ['placeholder' => 'Bottle size (e.g. 300)', 'class' => 'form_column_long']) !!} 

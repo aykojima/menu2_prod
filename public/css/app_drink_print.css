@@ -3,10 +3,6 @@
   font-family: 'TheSansSemiBoldPlain';
   src: url("/fonts/TheSansSemiBoldPlain.ttf");
   font-weight: lighter; }
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); }
-
 @page {
   size: 8.5in 14in;
   margin: 0; }
@@ -24,28 +20,53 @@ body {
   font-weight: lighter;
   font-size: 1em; }
 
-div.page1, .page2 {
-  top: 45px;
-  width: 49%; }
+div.page2, .page4, .page6, .page8,
+.page1, .page3, .page5, .page7 {
+  width: 49%;
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  margin-top: 0px !important; }
 
-.page1 {
-  display: block;
-  float: left; }
+.page8, .page1 {
+  top: 0px; }
 
-.page2 {
-  display: block;
-  float: right; }
+.page6, .page3 {
+  top: 101%; }
+
+.page2, .page7 {
+  top: 201%; }
+
+.page4, .page5 {
+  top: 301%; }
+
+.page2, .page4, .page6, .page8 {
+  left: 0; }
+
+.page1, .page3, .page5, .page7 {
+  right: 0; }
 
 .drink_categories, .products {
   position: relative;
   margin: 0 0 3% 0; }
 
 .drink_categories {
-  margin-bottom: 7%;
+  margin-bottom: 2%;
   clear: both; }
   .drink_categories h3 {
     color: #CF671F;
     clear: both; }
+  .drink_categories p {
+    color: #CCCCCC; }
+
+.small_margin {
+  margin-bottom: 1%; }
+
+.no_margin {
+  margin-bottom: 0%; }
+
+.small_margin_top {
+  margin-top: 2% !important; }
 
 .drink_name {
   float: left;
@@ -68,9 +89,7 @@ p.bottle_size {
 img.add_drinks {
   width: 20px; }
 
-div#menu, div#i_menu,
-div#r_menu, div#c_menu, div#c_menu,
-div#wdl_menu, div#wel_menu {
+div.menu {
   display: block;
   width: 85%;
   margin: auto;
@@ -108,26 +127,10 @@ h2 {
   margin: 0;
   float: none; }
 
-.NoMargin {
-  margin: 0 2% 0 2%; }
+.small_title_font {
+  font-size: 1.5em; }
 
-/*Menu items more than 34 less than 36*/
-.lineHeight34 {
-  line-height: 28px; }
-
-/*Menu items more than 37 less than 38*/
-.lineHeight37 {
-  line-height: 26px; }
-
-/*Menu items more than 39 less than 41*/
-.lineHeight39 {
-  line-height: 24px; }
-
-/*Menu items more than 42 less than 44*/
-.lineHeight42 {
-  line-height: 22px; }
-
-.lineHeight45 {
-  line-height: 20px; }
+.small_font {
+  font-size: 1.05em; }
 
 /*# sourceMappingURL=app_drink_print.css.map */
