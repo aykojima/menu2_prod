@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @font-face {
-  font-family: 'TheSans Plain';
-  src: url("/fonts/TheSans Plain.ttf");
+  font-family: 'TheSansSemiBoldPlain';
+  src: url("/fonts/TheSansSemiBoldPlain.ttf");
   font-weight: lighter; }
 @page {
-  size: 8.5in 14in;
+  size: 4.25in 14in;
   margin: 0; }
 header, #nav, #new_item, .right_div,
 .modal, .search-box, .commands, #notification, #update,
@@ -16,7 +16,7 @@ header, #nav, #new_item, .right_div,
   padding: 0; }
 
 body {
-  font-family: TheSans Plain;
+  font-family: TheSansSemiBoldPlain;
   font-weight: lighter;
   font-size: 1em; }
 
@@ -43,14 +43,6 @@ div.page2, .page4, .page6, .page8,
 .page2, .page4, .page6, .page8 {
   left: 0; }
 
-.page8 .drink_categories h3 {
-  float: left;
-  margin-bottom: 2%; }
-.page8 .drink_categories p {
-  float: right; }
-.page8 .products {
-  clear: both; }
-
 .page1, .page3, .page5, .page7 {
   right: 0; }
 
@@ -61,9 +53,6 @@ div.page2, .page4, .page6, .page8,
 .drink_categories {
   margin-bottom: 2%;
   clear: both; }
-  .drink_categories h2 {
-    margin-left: 0;
-    padding-left: 0; }
   .drink_categories h3 {
     color: #CF671F;
     clear: both; }
@@ -79,15 +68,13 @@ div.page2, .page4, .page6, .page8,
 .small_margin_top {
   margin-top: 2% !important; }
 
-.drink_name, .drink_price {
-  font-size: 1.1em;
-  line-height: 1em; }
-
 .drink_name {
-  float: left; }
+  float: left;
+  font-size: 1.1em; }
 
 .drink_price {
-  float: right; }
+  float: right;
+  font-size: 1.1em; }
 
 p.bottle_size {
   float: right;
@@ -97,20 +84,19 @@ p.bottle_size {
 .drink_details {
   color: #ccc;
   clear: both;
-  font-size: 0.8em;
-  line-height: 1em; }
+  font-size: 0.8em; }
 
 img.add_drinks {
   width: 20px; }
 
 div.menu {
   display: block;
-  width: 90%;
+  width: 85%;
   margin: auto;
-  margin: 3%;
+  margin: 2%;
   margin-top: 10%;
   padding: 2%;
-  margin-left: 4%; }
+  margin-left: 6%; }
 
 h1 {
   text-align: left;
@@ -126,29 +112,25 @@ h2 {
   width: 100%;
   clear: both; }
 
-.title_div {
-  padding-bottom: 10%; }
-  .title_div p {
-    color: #cccccc; }
-    .title_div p:nth-child(2) {
-      float: left; }
-    .title_div p:nth-child(3) {
-      float: right; }
+.title_div p {
+  color: #cccccc; }
+  .title_div p:nth-child(2) {
+    float: left; }
+  .title_div p:nth-child(3) {
+    float: right; }
 
-.margin_top {
-  margin-top: 6%; }
+.title_div {
+  padding-bottom: 15%; }
 
 .title {
   padding-left: 0;
   margin: 0;
-  float: none;
-  line-height: 1em; }
+  float: none; }
 
 .small_title_font {
-  font-size: 1.5em;
-  padding-top: 6%; }
+  font-size: 1.5em; }
 
 .small_font {
-  font-size: 0.9em; }
+  font-size: 1.05em; }
 
-/*# sourceMappingURL=app_drink_print.css.map */
+/*# sourceMappingURL=app_drink_print_4.25in.css.map */

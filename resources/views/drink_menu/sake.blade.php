@@ -36,10 +36,10 @@
         @endif
         </h1>
         <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-        <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
-        <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
-        <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
-        <hr>
+            <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
+            <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
+            <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
+            <hr>
             @foreach($sake_glasses as $sake_glass)
                 @if($sake_glass->category->category == $category->category)
                 <div class="products">
@@ -76,39 +76,32 @@
                 <hr>
                 @endif
             @endforeach
-        </div>    
+        </div>   
         @if($key == 5)
-        <h2>SEASONAL SAKE</h2>
-    <div class="drink_categories" data-id="">
-        <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
-        <hr>  
-        <div class="products">
-            <a class="edit" data-id=""><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-            <div>
-                <p class="drink_name">Rotating Nama (6oz tokkuri)</p>
-                <p class="drink_price">22</p>
-                <div class="drink_details">
-                    <p>fresh, unpasteurized sake released seasonally; typically bright, bold, and distinctive.
-                        *ask your server for today's selection
+        <div id="" class="drink_categories" data-id="38" data-category="SEASONAL SAKE">
+            <h2>SEASONAL SAKE</h2>
+            <!-- <p style="color: #ccc; font-size: 0.8em;"></p> -->
+                <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
+            <hr>
+            @foreach($flights as $flight)
+                <div class="products">
+                    <a class="edit" data-id="{{ $flight->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
+                        <div>
+                    <p class="drink_name">{{ $flight->name }}
+                        <span>( {{ $flight->production_area }} )</span>
                     </p>
+                    <p class="drink_price">{{ $flight->price }}</p>
+                    <div class="drink_details">
+                        <p>
+                        {{ $flight->description }}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>  
-
-        <div class="products">
-            <a class="edit" data-id=""><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-            <div>
-                <p class="drink_name">Spring Sake Flight (3 kinds, 2 oz each)</p>
-                <p class="drink_price">20</p>
-                <div class="drink_details">
-                    <p>three bright, light, and refreshing brews for the rainy season
-                    </p>
-                </div>
-            </div>
-        </div>  
-    </div>
-        @endif
+            @endforeach
+        </div>    
+        @endif 
         @endforeach
+    </div>    
 </div>
 
 @if(session('status'))
@@ -172,6 +165,15 @@ $(window).click(function(event) {
 $(document).on("click", ".add_new_drink", function(event){
     $("#add_new_modal .modal_content input[name='category_id']")
         .val($(this).parent().data("id"));
+        if($(this).parent().data("id") == 38)
+        {
+            $("#add_new_modal .modal_content .hide_when_flight").hide();
+            $("#add_new_modal .modal_content input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");
+        }else
+        {
+            $("#add_new_modal .modal_content .hide_when_flight").show();
+            $("#add_new_modal .modal_content input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)");
+        }
     $("#add_new_modal .modal_content .form_category")
         .text($(this).parent().data("category")); 
 });
@@ -179,22 +181,30 @@ $(document).on("click", ".add_new_drink", function(event){
 //Edit Modal
 $(document).on("click", ".edit", function(event){   
     $('#edit_modal').css('display', 'block');
-    $.ajax({
-        type : 'get',
-        url : '{{URL::to('sake/edit')}}',
-        data:{'product_id':$(this).data('id')},
-        success:function(data){
-            console.log(data);
+        $.ajax({
+            type : 'get',
+            url : '{{URL::to('sake/edit')}}',
+            data:{'product_id':$(this).data('id')},
+            success:function(data){
                 $("#edit_modal .modal_content input[name='product_id']").val(data.product_id),
                 $("#edit_modal .modal_content input[name='name']").val(data.name),
                 $("#edit_modal .modal_content input[name='price']").val(data.price),
-                $("#edit_modal .modal_content input[name='production_area']").val(data.production_area),
-                $("#edit_modal .modal_content input[name='rice']").val(data.rice),
-                $("#edit_modal .modal_content input[name='sweetness']").val(data.sweetness),
-                $("#edit_modal .modal_content input[name='description']").val(data.description);
+                $("#edit_modal .modal_content input[name='production_area']").val(data.production_area), 
+                $("#edit_modal .modal_content input[name='description']").val(data.description); 
+                if(data.category_id == 38)
+                {
+                    $("#edit_modal .modal_content .hide_when_flight").hide(),
+                    $("#edit_modal .modal_content input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");   
+                }else
+                {
+                    $("#edit_modal .modal_content .hide_when_flight").show(),
+                    $("#edit_modal .modal_content input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)"),
+                    $("#edit_modal .modal_content input[name='rice']").val(data.rice),
+                    $("#edit_modal .modal_content input[name='sweetness']").val(data.sweetness);
                 }
-            });
-    });
+            }
+        });
+});
 
 $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();

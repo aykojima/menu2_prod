@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @font-face {
-  font-family: 'TheSansSemiBoldPlain';
-  src: url("/fonts/TheSansSemiBoldPlain.ttf");
+  font-family: 'TheSans Plain';
+  src: url("/fonts/TheSans Plain.ttf");
   font-weight: lighter; }
 button#close_edit_tab,
 button#close_add_new_tab {
@@ -31,7 +31,7 @@ button#close_add_new_tab {
   padding: 0; }
 
 body {
-  font-family: TheSansSemiBoldPlain;
+  font-family: TheSans Plain;
   font-size: 1em;
   font-weight: lighter; }
 
@@ -953,7 +953,7 @@ input.add_price, input.item_prices {
   .item_fields_wrap textarea[name="item_description[]"],
   .item_fields_wrap textarea[name="edit_item_description[]"] {
     color: #cccccc;
-    font-family: TheSansSemiBoldPlain;
+    font-family: TheSans Plain;
     font-weight: lighter;
     font-size: 1em; }
 
@@ -1096,7 +1096,7 @@ input.add_price, input.item_prices {
 
 .drink_categories, .products {
   position: relative;
-  margin: 0 0 3% 0; }
+  margin: 0 0 1% 0; }
 
 a.add_new_drink, a.edit {
   position: absolute;
@@ -1104,11 +1104,21 @@ a.add_new_drink, a.edit {
   a.add_new_drink:hover, a.edit:hover {
     cursor: pointer; }
 
+.drink_name, .drink_price {
+  font-size: 1.1em;
+  line-height: 1em; }
+
+.line_height_08 {
+  line-height: 0.8em; }
+
 .drink_categories {
   margin-bottom: 2%;
   clear: both; }
   .drink_categories hr {
     width: 80%; }
+  .drink_categories h2 {
+    margin-left: 0;
+    padding-left: 0; }
   .drink_categories h3 {
     color: #CF671F;
     clear: both; }
@@ -1126,12 +1136,10 @@ a.add_new_drink, a.edit {
   margin-top: 2% !important; }
 
 .drink_name {
-  float: left;
-  font-size: 1.1em; }
+  float: left; }
 
 .drink_price {
-  float: right;
-  font-size: 1.1em; }
+  float: right; }
 
 p.bottle_size {
   float: right;
@@ -1142,7 +1150,8 @@ p.bottle_size {
 .drink_details {
   color: #ccc;
   clear: both;
-  font-size: 0.8em; }
+  font-size: 0.8em;
+  line-height: 1em; }
   .drink_details span {
     color: #CF671F; }
 
@@ -1210,23 +1219,35 @@ div.page2, .page4, .page6, .page8,
 .page1, .page3, .page5, .page7 {
   right: 0; }
 
-.title_div p {
-  color: #cccccc; }
-  .title_div p:nth-child(2) {
-    float: left; }
-  .title_div p:nth-child(3) {
-    float: right; }
+.page8 .drink_categories h3 {
+  float: left;
+  margin-bottom: 2%; }
+.page8 .drink_categories p {
+  float: right; }
+.page8 .products {
+  clear: both; }
 
 .title_div {
-  padding-bottom: 15%; }
+  padding-bottom: 10%; }
+  .title_div p {
+    color: #cccccc; }
+    .title_div p:nth-child(2) {
+      float: left; }
+    .title_div p:nth-child(3) {
+      float: right; }
+
+.margin_top {
+  margin-top: 6%; }
 
 .title {
   padding-left: 0;
   margin: 0;
-  float: none; }
+  float: none;
+  line-height: 1em; }
 
 .small_title_font {
-  font-size: 1.8em; }
+  font-size: 1.8em;
+  margin-top: 6%; }
 
 .small_font {
   font-size: 1.05em; }

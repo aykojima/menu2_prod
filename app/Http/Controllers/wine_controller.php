@@ -11,13 +11,49 @@ use Illuminate\Support\Facades\DB;
 
 class wine_controller extends Controller
 {
+
+
+
     public function show() 
     { 
-        $wine_glasses = product::orderBy('price')->whereBetween('category_id', [15, 24])->get();
+        $types = array("Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
+                        "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
+                        "Riesling", "Gruner Veltliner",
+                        "Pinot Noir", "Tempranillo", "Cab Franc", "Cabernet Sauvignon", "Malbec", "Zinfandel");
+
+        // $types_ordered = implode(',', $types);
+
+        function write_query($types){
+            foreach($types as $key=>$type){
+                if($key == 0){
+                    $query = "CASE WHEN type LIKE '%" . $type . "%' THEN 1 ";
+                }else{
+                    $order_number = $key + 1;
+                    $query .= "WHEN type LIKE '%" . $type ."%' THEN " . $order_number . " ";
+                }
+            }
+            return $query .= "ELSE 0 END ASC";
+        }
+
+        $query = write_query($types);
+        //dd($query);
+        
+        $wine_glasses = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
+            ->whereBetween('category_id', [15, 24])
+            // ->havingRaw(DB::raw($query))
+            // ->orderByRaw(DB::raw("FIELD(type, $types_ordered)"))
+            // ->select('*', DB::raw($query))
+            // ->orderByRaw(DB::raw($query))
+            ->orderByRaw($query)
+            ->orderBy('price')
+            ->get();
+
         // $wine_glasses = product::leftJoin('wines', 'wines.product_id', '=', 'products.product_id')
         //     ->whereBetween('category_id', [15, 24])
         //     ->orderBy('price')
         //     ->get();
+        
+    
         $categories = category::whereBetween('category_id', [15, 24])->get();
 
         return view('drink_menu/wine', compact('wine_glasses', 'categories'));

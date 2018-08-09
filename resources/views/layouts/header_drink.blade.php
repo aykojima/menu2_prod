@@ -6,7 +6,12 @@
     <meta name="_token" content="{{ csrf_token() }}">
     <title>SKT menu</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css" media="screen">
+    
+    @if(Request::is('cocktail'))
+    <link rel="stylesheet" href="{{ asset('css/app_drink_print_4.25in.css') }}" type="text/css" media="print">
+    @else
     <link rel="stylesheet" href="{{ asset('css/app_drink_print.css') }}" type="text/css" media="print">
+    @endif
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -19,7 +24,7 @@
             <li id="logout"><a href ="logout.php">Logout</a></li>
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
             <li><a href='{{ URL::to('/')}}'><img class="home_icon" src="../images/logo4.png"></a><span>Go to home</span></li>   
-            <li id="print"><a href='{{ URL::to('/drinks/print')}}'><img id="header_icons" src="../images/printer.png"></a><span>Print Review</span></li>   
+            <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img id="header_icons" src="../images/printer.png"></a><span>Print Review</span></li>   
             <!-- <li id="print"><a href="javascript: window.print()"><img id="header_icons" src="../images/printer.png"></a><span>print</span></li> -->
             
             <!-- <li id="new_item"><a onclick="show_add_new_div()"><img id="header_icons" src="../images/add.png"></a><span>add new item</span></li>     -->
@@ -30,7 +35,7 @@
         <ul>
             <li><a href='{{ URL::to('cocktail')}}' class='nav_links'>
                     <img src='{{ Request::is('cocktail') ? 'images/cocktail_icon_active.png' : 'images/cocktail_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                    <p class="{{ Request::is('cocktail') == 'cocktail' ? 'nav_active' : 'nav_name' }}">Cocktail<br>Beer<br>Non Alcohol</p>
+                    <p class="{{ Request::is('cocktail') == 'cocktail' ? 'nav_active' : 'nav_name' }} line_height_08">Cocktail<br>Beer<br>Non-Alcoholic</p>
                 </a>
             </li>
             <li>
@@ -52,7 +57,7 @@
             </li>
             <li><a href='{{ URL::to('shochu')}}' class='nav_links'>
             <img src='{{ Request::is('shochu') ? 'images/shochu_icon_active.png' : 'images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                <p class="{{ Request::is('shochu') == 'shochu' ? 'nav_active' : 'nav_name' }}">Shochu<br> Whiskey<br>Spirits</p>
+                <p class="{{ Request::is('shochu') == 'shochu' ? 'nav_active' : 'nav_name' }} line_height_08">Shochu<br> Whiskey<br>Spirits</p>
                 </a>
             </li>
         </ul>

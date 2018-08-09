@@ -16,14 +16,16 @@ class sake_controller extends Controller
     { 
         $sake_glasses = product::orderBy('price')->where('category_id', '<', '15')->get();
         $categories = category::all()->where('category_id', '<', '15');
+        $seasonal_sakes = category::where('category_id', '=', '38')->get();
+        // dd($seasonal_sakes);
+        $flights = product::where('category_id', '=', '38')->get();
 
-        return view('drink_menu/sake', compact('sake_glasses', 'categories'));
+        return view('drink_menu/sake', compact('sake_glasses', 'categories', 'seasonal_sakes', 'flights'));
     }
 
     public function add_new(Request $request) 
     { 
-        // if( $request->isMethod('post'))
-        // {
+        
         
         $input = $request->all();
         $new_product['name'] = ucfirst($input['name']);
@@ -32,29 +34,32 @@ class sake_controller extends Controller
         $new_product['description'] = lcfirst($input['description']);
         $new_product['category_id'] = $input['category_id'];
         //$data = $this->validate_form($input);
-
+        
+        
         $product = product::create($new_product);
 
-        $new_sake['rice'] = ucfirst($input['rice']);
-        $new_sake['grade'] = ucfirst($input['grade']);
-        if($input['sweetness'] == 'other')
-        { $new_sake['sweetness'] = $input['sweetness_other']; }
-        else { $new_sake['sweetness'] = $input['sweetness']; }
-
-        
-        $new_sake['product_id'] = $product->product_id;
-        
-        $sake = sake::create($new_sake);
-
-        if($input['size_checkbox'] == "Size is not 720ml")
+        if($new_product['category_id'] != 38)
         {
-            $new_bottle['size'] = $input['size'];
-            $new_bottle['second_price'] = $input['second_price'];
-            $new_bottle['sake_id'] = $sake->sake_id;
+            $new_sake['rice'] = ucfirst($input['rice']);
+            $new_sake['grade'] = ucfirst($input['grade']);
+            if($input['sweetness'] == 'other')
+            { $new_sake['sweetness'] = $input['sweetness_other']; }
+            else { $new_sake['sweetness'] = $input['sweetness']; }
 
-            $bottle = bottle::create($new_bottle);
+        
+            $new_sake['product_id'] = $product->product_id;
+            
+            $sake = sake::create($new_sake);
+
+            if($input['size_checkbox'] == "Size is not 720ml")
+            {
+                $new_bottle['size'] = $input['size'];
+                $new_bottle['second_price'] = $input['second_price'];
+                $new_bottle['sake_id'] = $sake->sake_id;
+
+                $bottle = bottle::create($new_bottle);
+            }
         }
-
         
         // }
         $new_item = $new_product['name'] . " was successfully created!";
@@ -96,40 +101,41 @@ class sake_controller extends Controller
                 //$data = $this->validate_form($input);
 
                 $product->update($edit_product);
-
-                $edit_sake['rice'] = $input['rice'];
-                $edit_sake['grade'] = $input['grade'];
-
-                if($input['sweetness'] == 'other')
-                { $edit_sake['sweetness'] = $input['sweetness_other']; }
-                else { $edit_sake['sweetness'] = $input['sweetness']; }
-
-                //$edit_sake['product_id'] = $product->product_id;
-                //$data = $this->validate_form($input);
-                if($product->sake){
-                    $sake = sake::findOrFail ( $product->sake->sake_id );
-                    $sake->update($edit_sake);
-
-                }else
+                if($request->product_id != 38)
                 {
-                    $edit_sake['product_id'] = $product->product_id;
-                    $sake = sake::create($edit_sake);
-                }
+                    $edit_sake['rice'] = $input['rice'];
+                    $edit_sake['grade'] = $input['grade'];
 
-                if($input['size_checkbox'] == "Size is not 720ml")
-                {
-                    $edit_bottle['size'] = $input['size'];
-                    $edit_bottle['second_price'] = $input['second_price'];
-                    if($sake->bottle){
-                        $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
-                        $bottle->update($edit_bottle);
+                    if($input['sweetness'] == 'other')
+                    { $edit_sake['sweetness'] = $input['sweetness_other']; }
+                    else { $edit_sake['sweetness'] = $input['sweetness']; }
+
+                    //$edit_sake['product_id'] = $product->product_id;
+                    //$data = $this->validate_form($input);
+                    if($product->sake){
+                        $sake = sake::findOrFail ( $product->sake->sake_id );
+                        $sake->update($edit_sake);
+
                     }else
                     {
-                        $edit_bottle['sake_id'] = $sake->sake_id;
-                        bottle::create($edit_bottle);
+                        $edit_sake['product_id'] = $product->product_id;
+                        $sake = sake::create($edit_sake);
                     }
-                }
-                
+
+                    if($input['size_checkbox'] == "Size is not 720ml")
+                    {
+                        $edit_bottle['size'] = $input['size'];
+                        $edit_bottle['second_price'] = $input['second_price'];
+                        if($sake->bottle){
+                            $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
+                            $bottle->update($edit_bottle);
+                        }else
+                        {
+                            $edit_bottle['sake_id'] = $sake->sake_id;
+                            bottle::create($edit_bottle);
+                        }
+                    }
+                }//end of if(category_id !=38)
                 $edited_item = $input['name'] . " was successfully edited!";
                 return redirect('sake')->with('status', $edited_item );
             break;
@@ -154,6 +160,7 @@ class sake_controller extends Controller
         //$categories = category::whereBetween('category_id', [28, 32])->get();
         $spirits = product::whereBetween('category_id', [28, 32])->orderBy('price')->get();
         $sake_glasses = product::whereBetween('category_id', [1, 6])->orderBy('price')->get();
+        $flights = product::where('category_id', '=', '38')->get();
         $rose_and_reds = product::whereBetween('category_id', [23, 24])->orderBy('price')->get();
         $sake_bottle2s = product::whereBetween('category_id', [10, 14])->orderBy('price')->get();
         $sake_bottles = product::whereBetween('category_id', [7, 9])->orderBy('price')->get();
@@ -162,7 +169,7 @@ class sake_controller extends Controller
         $whites = product::where('category_id', 22)->orderBy('price')->get();
         
 
-        return view('drink_menu/print_review', compact('categories', 'spirits', 'sake_glasses',
+        return view('drink_menu/print_review', compact('categories', 'spirits', 'sake_glasses', 'flights',
             'rose_and_reds', 'sake_bottle2s', 'sake_bottles', 'shochu_and_whiskies', 'wine_glasses', 'whites'));
     }
 }

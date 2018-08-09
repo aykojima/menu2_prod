@@ -12,7 +12,25 @@ class shochu_controller extends Controller
 {
     public function show() 
     { 
-        $drinks = product::orderBy('price')->whereBetween('category_id', [25, 32])->get();
+        $types = array("Mugi", "Kome", "Imo", "Ume",
+                        "Suntory", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano");
+        
+        function write_query($types){
+            foreach($types as $key=>$type){
+                if($key == 0){
+                    $query = "CASE WHEN name LIKE '%" . $type . "%' THEN 1 ";
+                }else{
+                    $order_number = $key + 1;
+                    $query .= "WHEN name LIKE '%" . $type ."%' THEN " . $order_number . " ";
+                }
+            }
+            return $query .= "ELSE 0 END ASC";
+        }
+
+        $query = write_query($types);
+
+        // dd($query);
+        $drinks = product::whereBetween('category_id', [25, 32])->orderByRaw($query)->orderBy('price')->get();
         $categories = category::whereBetween('category_id', [25, 32])->get();
 
         return view('drink_menu/shochu', compact('drinks', 'categories'));

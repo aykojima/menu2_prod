@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>  
-        <h3></h3>
+        <!-- <h3></h3> -->
             <h1 id="sake_bottles"> JAPANESE WHISKY ウイスキー</h1>
         @elseif($key == 2)
         <div class="products">

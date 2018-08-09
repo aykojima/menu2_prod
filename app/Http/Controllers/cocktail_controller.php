@@ -12,8 +12,8 @@ class cocktail_controller extends Controller
 {
     public function show() 
     { 
-        $drinks = product::orderBy('price')->where('category_id', '>', '32')->get();
-        $categories = category::all()->where('category_id', '>', '32');
+        $drinks = product::orderBy('price')->whereBetween('category_id', [33, 37])->get();
+        $categories = category::whereBetween('category_id', [33, 37])->get();
 
         return view('drink_menu/cocktails', compact('drinks', 'categories'));
     }

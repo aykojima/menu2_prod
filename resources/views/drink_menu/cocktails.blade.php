@@ -27,21 +27,23 @@
     
     <div id="menu">        
         @foreach($categories as $key => $category)
-        @if($key == 32)
+        @if($key == 31)
         <h1 id="sake_by_glass">
         SPECIALTY COCKTAILS
-        @elseif($key == 33)
+        @elseif($key == 32)
         <h1 id="sake_bottles">
         BEER
-        @elseif($key == 35)
+        @elseif($key == 34)
         <h1 id="sake_bottles">
         NON-ALCOHOLIC
         @endif
         </h1>
         <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+        @if($key != 31)
         <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
         <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
         <hr>
+        @endif
             @foreach($drinks as $drink)
                 @if($drink->category->category == $category->category)
                 <div class="products">
