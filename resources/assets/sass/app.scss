@@ -62,29 +62,28 @@ header{
   position: fixed;
   width: 100%;
   z-index: 999;
-}
-
-header>ul li {
-  display: block;
-  float: left;
-  margin: 10px 30px 10px 10px;
-  position: relative;
-}
-
-header a{
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
-}
-
-header a:hover{
-  border-bottom: 1px dotted #fff;
-  background-color: transparent;
-
-}
-
-header img{
-  width: 15px;
+  img{
+    width: 15px;
+  }
+  &>ul li {
+    display: block;
+    float: left;
+    margin: 10px 30px 10px 10px;
+    position: relative;
+  }
+  a{
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    &:hover{
+      border-bottom: 1px dotted #fff;
+      background-color: transparent;
+    }
+    &:hover ~ span{
+      visibility: visible;
+      opacity: 1;
+    }
+  }
 }
 
 .home_icon{
@@ -110,10 +109,6 @@ ul#header span{
 
 } 
 
-header a:hover ~ span{
-  visibility: visible;
-  opacity: 1;
-}
 
 li#logout{
   float: right;
@@ -140,46 +135,12 @@ div.nav{
   background-color: #FFF;
 }
 
-div#nav ul{
-  list-style: none;
-}
-
-div#nav ul a:hover{
-  background-color: #fff;
-}
-
-div#nav ul ul a{
-  text-decoration: none;
-  color: #ccc;
-}
-
-div#nav ul ul{
-  border: solid 1px #ccc;
-  padding-left:10%;
-  
-}
-
-div#nav ul ul li {
-  font-size: 1.2em;
-  line-height: 1.5em;
-}
-
-div#nav ul ul a:hover{
-  color: $skt_color;
-}
-div#nav li{
-  position: relative;
-}
-
-
 .nav_icons{
   width: 50px;
   display: block;
   margin: auto;
   margin-top: 28%;
 }
-
-
 
 p.nav_active{
   visibility: visible;
@@ -204,28 +165,53 @@ a.nav_links{
   display:block;
   height: 120px;
   border: 1px solid #fff;
+    &:hover p.nav_name{
+        visibility: visible;
+      }
   }
 
-a.nav_links:hover p.nav_name{
-  visibility: visible;
+div#nav{ 
+  ul{
+    list-style: none; 
+    a{
+      &:hover{
+        background-color: #fff;
+      }
+    }
+    li{
+      position: relative;
+    }
+    ul{
+      position:absolute;
+      left:0%;
+      top:0;
+      width:155px;
+      visibility:hidden;
+      opacity:0;
+      transition: transform 0.2s;
+      transform: translateX(50px);
+      border: solid 1px #ccc;
+      padding-left:10%;
+      a{
+        text-decoration: none;
+        color: #ccc;
+        &:hover{
+          color: $skt_color;
+        }
+      }
+      li{
+        font-size: 1.2em;
+        line-height: 1.5em;
+      }
+    }
   }
-
-div#nav ul ul{
-position:absolute;
-left:0%;
-top:0;
-width:100%;
-visibility:hidden;
-opacity:0;
-transition: transform 0.2s;
-transform: translateX(50px);
 }
 /* INNER UL SHOW */
 div#nav li:hover > ul{
-left:100%;
-visibility:visible;
-opacity:1;
-transform: translateX(0px);
+  left:100%;
+  visibility:visible;
+  opacity:1;
+  transform: translateX(0px);
 }
 
 
@@ -1437,6 +1423,8 @@ input.add_price, input.item_prices {
 
 //********drink pages**********//
 
+
+
 %drink_divs{
   position: relative;
   margin: 0 0 1% 0;
@@ -1455,6 +1443,20 @@ input.add_price, input.item_prices {
   line-height: 1em;
 }
 
+
+.hh{ 
+  line-height: 1em;
+  div{
+    clear: both;
+    &:nth-child(3){
+      color: #cccccc;
+    }
+  }
+}
+
+.specials_title ~ p{
+  clear: both;
+}
 .line_height_08{
   line-height: 0.8em;
 }
@@ -1550,6 +1552,15 @@ a.edit{
 
 .bottle_size_hide, .sweetness_hide{
   display: none;
+}
+
+.bottle_size_hide {
+  position: relative;
+  p {
+    position: absolute;
+    top: 35px;
+    right: 35px;
+  }
 }
 
 h2.form_category{

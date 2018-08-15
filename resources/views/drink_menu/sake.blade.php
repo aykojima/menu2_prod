@@ -28,11 +28,17 @@
     <div id="menu">        
         @foreach($categories as $key => $category)
         @if($key == 0)
-        <h1 id="sake_by_glass">
-        SAKE BY THE GLASS
+        <div id="sake_by_glass" class='title_div'>
+            <h1 class="title">SAKE BY THE GLASS</h1>
+            <p>Region / Rice / SMV</p>
+            <p>6 oz tokkuri</p>
+        </div>
         @elseif($key == 6)
-        <h1 id="sake_bottles">
-        SAKE BOTTLES
+        <div id="sake_bottles" class='title_div margin_top'>
+            <h1 class="title">SAKE BOTTLES</h1>
+            <p>Region / Rice / SMV</p>
+            <p>720ml Bottle</p>
+        </div>
         @endif
         </h1>
         <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
@@ -47,8 +53,12 @@
                     <div>
                         <p class="drink_name">{{ $sake_glass->name }} 
                         @if(!empty ($sake_glass->sake))    
-                        <small>{{ $sake_glass->sake->grade }}</small></p>
+                            <small>{{ $sake_glass->sake->grade }}</small>
+                            @if($key == 0)
+                                <small style="color: #CF671F">warm or hot</small>
+                            @endif
                         @endif
+                        </p>
                         <p class="drink_price">{{ $sake_glass->price }}</p>
                         @if(!empty ($sake_glass->sake->bottle))    
                         <p class="bottle_size"><small>{{ $sake_glass->sake->bottle->size }}ml</small>
@@ -97,6 +107,7 @@
                         </p>
                     </div>
                 </div>
+                <hr>
             @endforeach
         </div>    
         @endif 
@@ -124,23 +135,6 @@ $(".dismiss").click(function(){
 
 
 //Forms
-$(document).ready(function(){
-     $("input[name='size_checkbox']").change(function(){
-        if(this.checked)
-            $('.bottle_size_hide').fadeIn('slow');
-        else
-            $('.bottle_size_hide').fadeOut('slow');
-    });
-
-    $("select[name='sweetness']").change(function(){
-        if($(this).children("option").filter(":selected").text() == 'Other')
-            $('.sweetness_hide').fadeIn('slow');
-        else
-            $('.sweetness_hide').fadeOut('slow');
-    });
-});
-
-
 
 // Add New Modal
 
@@ -163,47 +157,80 @@ $(window).click(function(event) {
 });
 
 $(document).on("click", ".add_new_drink", function(event){
-    $("#add_new_modal .modal_content input[name='category_id']")
-        .val($(this).parent().data("id"));
-        if($(this).parent().data("id") == 38)
-        {
-            $("#add_new_modal .modal_content .hide_when_flight").hide();
-            $("#add_new_modal .modal_content input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");
-        }else
-        {
-            $("#add_new_modal .modal_content .hide_when_flight").show();
-            $("#add_new_modal .modal_content input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)");
-        }
+    $("#add_new_modal .modal_content input[name='category_id']").val($(this).parent().data("id"));
+    
+    if($(this).parent().data("id") == 38)
+    {
+        $("#add_new_modal .modal_content .hide_when_flight").hide();
+        $("#add_new_modal .modal_content input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");
+    }else
+    {
+        $("#add_new_modal .modal_content .hide_when_flight").show();
+        $("#add_new_modal .modal_content input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)");
+    }
+    
     $("#add_new_modal .modal_content .form_category")
         .text($(this).parent().data("category")); 
+    
+    $("#add_new_modal .modal_content input[name='size_checkbox']").change(function(){
+        if(this.checked)
+            $('#add_new_modal .modal_content .bottle_size_hide').fadeIn('slow');
+        else
+            $('#add_new_modal .modal_content .bottle_size_hide').fadeOut('slow');
+    });
+
+    $("#add_new_modal .modal_content select[name='sweetness']").change(function(){
+        if($(this).children("option").filter(":selected").text() == 'Other')
+            $('#add_new_modal .modal_content .sweetness_hide').fadeIn('slow');
+        else
+            $('#add_new_modal .modal_content .sweetness_hide').fadeOut('slow');
+    });
 });
 
 //Edit Modal
 $(document).on("click", ".edit", function(event){   
     $('#edit_modal').css('display', 'block');
-        $.ajax({
-            type : 'get',
-            url : '{{URL::to('sake/edit')}}',
-            data:{'product_id':$(this).data('id')},
-            success:function(data){
-                $("#edit_modal .modal_content input[name='product_id']").val(data.product_id),
-                $("#edit_modal .modal_content input[name='name']").val(data.name),
-                $("#edit_modal .modal_content input[name='price']").val(data.price),
-                $("#edit_modal .modal_content input[name='production_area']").val(data.production_area), 
-                $("#edit_modal .modal_content input[name='description']").val(data.description); 
-                if(data.category_id == 38)
-                {
-                    $("#edit_modal .modal_content .hide_when_flight").hide(),
-                    $("#edit_modal .modal_content input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");   
-                }else
-                {
-                    $("#edit_modal .modal_content .hide_when_flight").show(),
-                    $("#edit_modal .modal_content input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)"),
-                    $("#edit_modal .modal_content input[name='rice']").val(data.rice),
-                    $("#edit_modal .modal_content input[name='sweetness']").val(data.sweetness);
-                }
+
+    $.ajax({
+        type : 'get',
+        url : '{{URL::to('sake/edit')}}',
+        data:{'product_id':$(this).data('id')},
+        success:function(data){
+            $("#edit_modal .modal_content input[name='product_id']").val(data.product_id),
+            $("#edit_modal .modal_content input[name='name']").val(data.name),
+            $("#edit_modal .modal_content input[name='grade']").val(data.sake.grade),
+            $("#edit_modal .modal_content input[name='price']").val(data.price),
+            $("#edit_modal .modal_content input[name='production_area']").val(data.production_area), 
+            $("#edit_modal .modal_content input[name='description']").val(data.description); 
+            if(data.category_id == 38)
+            {
+                $("#edit_modal .modal_content .hide_when_flight").hide(),
+                $("#edit_modal .modal_content input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");   
+            }else
+            {
+                $("#edit_modal .modal_content .hide_when_flight").show(),
+                $("#edit_modal .modal_content input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)"),
+                $("#edit_modal .modal_content input[name='rice']").val(data.rice),
+                
+                //Need to be able to select the value from the callback
+                $("#edit_modal .modal_content input[name='sweetness']").val(data.sweetness);
             }
-        });
+        }
+    });
+
+    $("#edit_modal .modal_content input[name='size_checkbox']").change(function(){
+        if(this.checked)
+            $('#edit_modal .modal_content .bottle_size_hide').fadeIn('slow');
+        else
+            $('#edit_modal .modal_content .bottle_size_hide').fadeOut('slow');
+    });
+
+    $("#edit_modal .modal_content select[name='sweetness']").change(function(){
+        if($(this).children("option").filter(":selected").text() == 'Other')
+            $('#edit_modal .modal_content .sweetness_hide').fadeIn('slow');
+        else
+            $('#edit_modal .modal_content .sweetness_hide').fadeOut('slow');
+    });
 });
 
 $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {

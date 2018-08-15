@@ -28,7 +28,11 @@
     <div id="menu">        
         @foreach($categories as $key => $category)
         @if($key == 0)
-            <h1 id="sake_by_glass"> SHOCHU 焼酎</h1>    
+        <div id="shochu" class='title_div'>
+            <h1 class='title'> SHOCHU 焼酎</h1>   
+            <p></p><!--need this for styling-->
+            <p>2 oz</p> 
+        </div>
         @elseif($key == 1)
         <div class="products">
             <div>
@@ -42,8 +46,12 @@
                 </div>
             </div>
         </div>  
-        <!-- <h3></h3> -->
-            <h1 id="sake_bottles"> JAPANESE WHISKY ウイスキー</h1>
+        
+        <div id="whisky" class='title_div margin_top'>
+            <h1 class='title' style="font-size: 1.6em;"> JAPANESE WHISKY ウイスキー</h1>
+            <p></p><!--need this for styling-->
+            <p>1.5 oz</p> 
+        </div>
         @elseif($key == 2)
         <div class="products">
             <div>
@@ -58,7 +66,9 @@
                 </div>
             </div>
         </div>  
-            <h1 id="sake_bottles"> SRIPITS</h1>
+        <div id="spirits" class='title_div margin_top'>
+            <h1 class="title"> SRIPITS</h1>
+        </div>
         @endif   
         
         <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">

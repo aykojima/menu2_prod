@@ -5,9 +5,9 @@
     <div class='modal_content'>
         <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
         <span class="close">&times;</span>
-        {!! Form::open(['route' => 'wine_add_new']) !!}
+        {!! Form::open(['route' => 'special_add_new']) !!}
         {!! Form::hidden('category_id') !!}
-        @include('layouts.form_wine_new')
+        @include('layouts.form_special_new')
         {!! Form::close() !!}
     </div>
  </div>
@@ -16,83 +16,76 @@
     <div class='modal_content'>
         <!-- <button id='close_edit_tab' onclick='hide_edit_div()'>X</button> -->
         <span class="close">&times;</span>
-        {!! Form::open(['route' => 'wine_edit_submit']) !!}
+        {!! Form::open(['route' => 'special_edit_submit']) !!}
         {!! Form::hidden('product_id') !!}
-        @include('layouts.form_wine_edit')
+        @include('layouts.form_special_edit')
         {!! Form::close() !!}
     </div>    
  </div>
 
 <div id="container">
-    
     <div id="menu">        
-        @foreach($categories as $key => $category)
-            @if($key == 0)
-                <div id="sake_bottles" class='title_div'>
-                    <h1 id="wine_by_glass" class='title'>
-                        WINE BY THE GLASS
-                    </h1>
-                    <p></p><!--need this for styling-->
-                    <p>5 oz pour</p>
-                </div>
-            @elseif($key == 6)
-                <div id="sake_bottles" class='title_div margin_top'>
-                    <h1 id="wine_bottles" class='title'>
-                        WINE BOTTLES
-                    </h1>
-                    <p></p><!--need this for styling-->
-                    <p>750ml</p>
-                </div>
+        <div class="hh">
+            <h1>Happy Hour</h1>
+            <div>
+                <p>1/2 Price Bottles of Sake and Wine</p>
+                <p>5-6 PM Everyday</p>
+                <p>$100 and under</p>
+            </div>
+            <div>
+                <p>Excluedes large format bottles</p>
+                <p>Multiple bottles ok, but one at a time</p>
+                <p>Not valid with other promotions and during special events or holidays</p>
+            </div>
+        </div>
+        <h2 class="specials_title">Current Specials</h2>
+        <p>limited bottles available</p>
+
+        @foreach($categories as $category)
+            <!-- @if($category->category == 'Sake' && $category->description == 'specials')
+                <h2 id="sake_by_glass">
+                {{ $category->category }}
+            @elseif($category->category == 'Sparkling' && $category->description == 'specials')
+                <h2 id="sake_bottles">
+                {{ $category->category }}
+            @elseif($category->category == 'White' && $category->description == 'specials')
+                <h2 id="sake_bottles">
+                {{ $category->category }}
+            @elseif($category->category == 'Red' && $category->description == 'specials')
+                <h2 id="sake_bottles">
+                {{ $category->category }}
+            @elseif($category->category == 'Dessert' && $category->description == 'specials')
+                <h2 id="sake_bottles">
+                {{ $category->category }}
+            @elseif($category->category == 'Whisky' && $category->description == 'specials')
+                <h2 id="sake_bottles">
+                {{ $category->category }}
             @endif
+                </h2> -->
             <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-                <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
-                <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
+                <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
                 <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
                 <hr>
-            @if($key == 2)
-                <p class="rotating_wine">Anything goes -- from dry Riesling to white Burgundy</p>
-                <p class="rotating_wine">Ask your server about today's pour!</p>
-            @endif
-            @if($key == 5)
-                <p class="rotating_wine">Typically bright, light varietals like Pinot Noir, Tempranillo, or Barbera. Ask your server about today's pour!</p>
-            @endif
-            @foreach($wine_glasses as $wine_glass)
-                @if($wine_glass->category->category_id == $category->category_id)
-                <div class="products">
-                <a class="edit" data-id="{{ $wine_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                    <div>
-                        <p class="drink_name">{{ $wine_glass->name }} 
-                        @if(!empty ($wine_glass->wine))    
-                            <small>{{ $wine_glass->wine->type }}</small>
-                        @endif
-                        </p>
-                        <p class="drink_price">{{ $wine_glass->price }}</p>
-                        @if(!empty ($wine_glass->wine->bottle))    
-                            <p class="bottle_size"><small>{{ $wine_glass->wine->bottle->size }}ml</small>
-                                @if($wine_glass->wine->bottle->second_price)    
-                                    {{ $wine_glass->wine->bottle->second_price }} / 
-                                @endif
-                            </p>
-                        @endif
-                        <div class="drink_details">
-                            <p>{{ $wine_glass->production_area }} 
-                            @if(!empty ($wine_glass->wine))    
-                                @if($wine_glass->wine->year) 
-                                    <span>{{ $wine_glass->wine->year }}</span>
-                                @endif
-                            @endif    
-                            </p>
-                            <p>{{ $wine_glass->description }}</p>
+                    @foreach($drinks as $drink)
+                        @if($drink->category->category == $category->category)
+                        <div class="products">
+                            <a class="edit" data-id="{{ $drink->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
+                            <div>
+                                <p class="drink_name">{{ $drink->name }} 
+                                <p class="drink_price">{{ $drink->price }}</p>
+
+                                <div class="drink_details"> 
+                                    <p>{{ $drink->description }}</p>
+                                    <p>{{ $drink->production_area }}</p> 
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <hr>
-                @endif
-            @endforeach
-        </div>    
-       
+                        <hr>
+                        @endif
+                    @endforeach
+            </div>    
         @endforeach
-</div>
+    </div>
 
 @if(session('status'))
 <div id="notification" style="display: none;">
@@ -111,21 +104,6 @@ $("#notification").fadeIn("slow");
 $(".dismiss").click(function(){
        $("#notification").fadeOut("slow");
 });
-
-//CSS
-//Change the color of the years
-// const this_year = (new Date()).getFullYear();
-// $(".drink_details").filter(function(){
-//     for ( var year = 1950; year < this_year + 1; year++ ) {
-//         // console.log($(this).text());
-//     if($(this).text().match(year))
-//     {console.log();}
-//     }
-// });
-
-
-
-
 
 
 //Forms
@@ -179,7 +157,7 @@ $(document).on("click", ".edit", function(event){
     $('#edit_modal').css('display', 'block');
     $.ajax({
         type : 'get',
-        url : '{{URL::to('wine/edit')}}',
+        url : '{{URL::to('special/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
@@ -187,8 +165,6 @@ $(document).on("click", ".edit", function(event){
                 $("#edit_modal .modal_content input[name='name']").val(data.name),
                 $("#edit_modal .modal_content input[name='price']").val(data.price),
                 $("#edit_modal .modal_content input[name='production_area']").val(data.production_area),
-                $("#edit_modal .modal_content input[name='type']").val(data.type),
-                $("#edit_modal .modal_content input[name='year']").val(data.year),
                 $("#edit_modal .modal_content input[name='description']").val(data.description);
                 }
             });
@@ -198,13 +174,11 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('wine/edit')}}',
+        url : '{{URL::to('special/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),
                 'production_area': $("#edit_form input[name='production_area']").val(),
-                'type': $("#edit_form input[name='type']").val(),
-                'year': $("#edit_form input[name='year']").val(),
                 'description': $("#edit_form input[name='description']").val(),
                 'submit': $("#edit_form input[name='submit']").val()
         }

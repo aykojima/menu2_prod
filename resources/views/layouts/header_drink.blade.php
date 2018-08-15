@@ -33,7 +33,8 @@
 
     <div class="nav" id="nav">
         <ul>
-            <li><a href='{{ URL::to('cocktail')}}' class='nav_links'>
+            <li>
+                <a href='{{ URL::to('cocktail')}}' class='nav_links'>
                     <img src='{{ Request::is('cocktail') ? 'images/cocktail_icon_active.png' : 'images/cocktail_icon_no_active.png' }} '.png'}}' class='nav_icons'>
                     <p class="{{ Request::is('cocktail') == 'cocktail' ? 'nav_active' : 'nav_name' }} line_height_08">Cocktail<br>Beer<br>Non-Alcoholic</p>
                 </a>
@@ -45,19 +46,40 @@
                 </a>
                 @if(Request::is('sake'))
                 <ul>
-                     <li><a href='#sake_by_glass'>Sake By Glass</a></li>
+                     <li><a href='#sake_by_glass'>Sake by the Glass</a></li>
                      <li><a href='#sake_bottles'>Sake Bottles</a></li>
                 </ul>
                 @endif
             </li>     
-            <li><a href='{{ URL::to('wine')}}' class='nav_links'>
-            <img src='{{ Request::is('wine') ? 'images/wine_icon_active.png' : 'images/wine_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                <p class="{{ Request::is('wine') == 'wine' ? 'nav_active' : 'nav_name' }}">Wine</p>
+            <li>
+                <a href='{{ URL::to('wine')}}' class='nav_links'>
+                    <img src='{{ Request::is('wine') ? 'images/wine_icon_active.png' : 'images/wine_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('wine') == 'wine' ? 'nav_active' : 'nav_name' }}">Wine</p>
                 </a>
+                @if(Request::is('wine'))
+                <ul>
+                     <li><a href='#wine_by_glass'>Wine by the Glass</a></li>
+                     <li><a href='#wine_bottles'>Wine Bottles</a></li>
+                </ul>
+                @endif
             </li>
-            <li><a href='{{ URL::to('shochu')}}' class='nav_links'>
-            <img src='{{ Request::is('shochu') ? 'images/shochu_icon_active.png' : 'images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                <p class="{{ Request::is('shochu') == 'shochu' ? 'nav_active' : 'nav_name' }} line_height_08">Shochu<br> Whiskey<br>Spirits</p>
+            <li>
+                <a href='{{ URL::to('shochu')}}' class='nav_links'>
+                    <img src='{{ Request::is('shochu') ? 'images/shochu_icon_active.png' : 'images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('shochu') == 'shochu' ? 'nav_active' : 'nav_name' }} line_height_08">Shochu<br> Whiskey<br>Spirits</p>
+                </a>
+                @if(Request::is('shochu'))
+                <ul>
+                     <li><a href='#shochu'>Shochu</a></li>
+                     <li><a href='#whisky'>Whisky</a></li>
+                     <li><a href='#spirits'>Spirits</a></li>
+                </ul>
+                @endif
+            </li>
+            <li>
+                <a href='{{ URL::to('special')}}' class='nav_links'>
+                    <img src='{{ Request::is('special') ? 'images/shochu_icon_active.png' : 'images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('special') == 'special' ? 'nav_active' : 'nav_name' }} line_height_08">Specials</p>
                 </a>
             </li>
         </ul>

@@ -135,92 +135,6 @@
         <div class="pages">
             <div class="page6">
                 <div class="menu">
-                    @foreach($categories as $category) 
-                        @if($category->category_id == 23 
-                            || $category->category_id == 24)
-                            <div id="" class="drink_categories">
-                                <h3>{{ $category->category }}</h3>
-                            </div>
-                            @foreach($rose_and_reds as $rose_and_red)
-                                @if($rose_and_red->category->category_id == $category->category_id)
-                                    <div class="products">
-                                        <div>
-                                            <p class="drink_name">{{ $rose_and_red->name }} 
-                                                @if(!empty ($rose_and_red->wine))    
-                                                <small>{{ $rose_and_red->wine->type }}</small></p>
-                                                @endif
-                                            <p class="drink_price">{{ $rose_and_red->price }}</p>
-                                            @if(!empty ($rose_and_red->wine->bottle))    
-                                                <p class="bottle_size"><small>{{ $rose_and_red->wine->bottle->size }}ml</small>
-                                                    @if($rose_and_red->wine->bottle->second_price)    
-                                                        {{ $rose_and_red->wine->bottle->second_price }} / 
-                                                    @endif
-                                                </p>
-                                            @endif
-                                            <div class="drink_details">
-                                                <p>{{ $rose_and_red->production_area }} 
-                                                    @if(!empty ($rose_and_red->wine))    
-                                                        @if($rose_and_red->wine->year) 
-                                                            <span>{{ $rose_and_red->wine->year }}</span>
-                                                        @endif
-                                                    @endif
-                                                </p>
-                                                <p>{{ $rose_and_red->description }}</p>
-                                            </div>
-                                        </div>
-                                    </div><!--end of products-->
-                                @endif
-                            @endforeach
-                        @endif 
-                    @endforeach 
-                </div><!--end of menu-->
-            </div><!--end of page6-->
-
-
-            <div class="page3">
-                <div class="menu">     
-                    @foreach($categories as $category) 
-                        @if($category->category_id == 10 
-                            || $category->category_id == 11
-                            || $category->category_id == 12
-                            || $category->category_id == 13
-                            || $category->category_id == 14)
-                            <div id="" class="drink_categories">
-                                <h3>{{ $category->category }}</h3>
-                                <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
-                            </div>
-                            @foreach($sake_bottle2s as $sake_bottle2)
-                                @if($sake_bottle2->category->category_id == $category->category_id)
-                                    <div class="products">
-                                        <div>
-                                            <p class="drink_name">
-                                                {{ $sake_bottle2->name }} 
-                                                @if(!empty ($sake_bottle2->sake))    
-                                                    {{ $sake_bottle2->sake->grade }}
-                                                @endif
-                                            </p>
-                                            <p class="drink_price">{{ $sake_bottle2->price }}</p>
-                                            <div class="drink_details">
-                                                <p>{{ $sake_bottle2->production_area }}  
-                                                    @if(!empty ($sake_bottle2->sake))            
-                                                        / {{ $sake_bottle2->sake->rice }} / {{ $sake_bottle2->sake->sweetness }}
-                                                    @endif
-                                                </p>
-                                                <p>{{ $sake_bottle2->description }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
-                        @endif 
-                    @endforeach 
-                </div><!-- end of menu -->   
-            </div><!-- end of page3 -->   
-        </div><!-- end of pages div -->   
-
-        <div class="pages">
-            <div class="page2">
-                <div class="menu">
                     <div class='title_div'>
                         <h1 class="title">SAKE BOTTLES</h1>
                         <p>Region / Rice / SMV</p>
@@ -256,13 +170,14 @@
                                 @endif
                             @endforeach
                         @endif 
-                    @endforeach 
-                </div>
-            </div>
+                    @endforeach
+                </div><!--end of menu-->
+            </div><!--end of page6-->
 
-            <div class="page7">
-                <div class="menu">
-                    <div class='title_div'>
+
+            <div class="page3">
+                <div class="menu">     
+                <div class='title_div'>
                         <h1 class="title">SHOCHU 焼酎</h1>
                         <p></p><!--need this for styling-->
                         <p>2 oz</p>
@@ -329,6 +244,91 @@
                                     </p>
                                 </div>
                             </div>  
+                        @endif 
+                    @endforeach
+                </div><!-- end of menu -->   
+            </div><!-- end of page3 -->   
+        </div><!-- end of pages div -->   
+
+        <div class="pages">
+            <div class="page2">
+                <div class="menu">
+                    @foreach($categories as $category) 
+                        @if($category->category_id == 23 
+                            || $category->category_id == 24)
+                            <div id="" class="drink_categories">
+                                <h3>{{ $category->category }}</h3>
+                            </div>
+                            @foreach($rose_and_reds as $rose_and_red)
+                                @if($rose_and_red->category->category_id == $category->category_id)
+                                    <div class="products">
+                                        <div>
+                                            <p class="drink_name">{{ $rose_and_red->name }} 
+                                                @if(!empty ($rose_and_red->wine))    
+                                                <small>{{ $rose_and_red->wine->type }}</small></p>
+                                                @endif
+                                            <p class="drink_price">{{ $rose_and_red->price }}</p>
+                                            @if(!empty ($rose_and_red->wine->bottle))    
+                                                <p class="bottle_size"><small>{{ $rose_and_red->wine->bottle->size }}ml</small>
+                                                    @if($rose_and_red->wine->bottle->second_price)    
+                                                        {{ $rose_and_red->wine->bottle->second_price }} / 
+                                                    @endif
+                                                </p>
+                                            @endif
+                                            <div class="drink_details">
+                                                <p>{{ $rose_and_red->production_area }} 
+                                                    @if(!empty ($rose_and_red->wine))    
+                                                        @if($rose_and_red->wine->year) 
+                                                            <span>{{ $rose_and_red->wine->year }}</span>
+                                                        @endif
+                                                    @endif
+                                                </p>
+                                                <p>{{ $rose_and_red->description }}</p>
+                                            </div>
+                                        </div>
+                                    </div><!--end of products-->
+                                @endif
+                            @endforeach
+                        @endif 
+                    @endforeach 
+                </div>
+            </div>
+
+            <div class="page7">
+                <div class="menu">
+                    @foreach($categories as $category) 
+                        @if($category->category_id == 10 
+                            || $category->category_id == 11
+                            || $category->category_id == 12
+                            || $category->category_id == 13
+                            || $category->category_id == 14)
+                            <div id="" class="drink_categories">
+                                <h3>{{ $category->category }}</h3>
+                                <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
+                            </div>
+                            @foreach($sake_bottle2s as $sake_bottle2)
+                                @if($sake_bottle2->category->category_id == $category->category_id)
+                                    <div class="products">
+                                        <div>
+                                            <p class="drink_name">
+                                                {{ $sake_bottle2->name }} 
+                                                @if(!empty ($sake_bottle2->sake))    
+                                                    {{ $sake_bottle2->sake->grade }}
+                                                @endif
+                                            </p>
+                                            <p class="drink_price">{{ $sake_bottle2->price }}</p>
+                                            <div class="drink_details">
+                                                <p>{{ $sake_bottle2->production_area }}  
+                                                    @if(!empty ($sake_bottle2->sake))            
+                                                        / {{ $sake_bottle2->sake->rice }} / {{ $sake_bottle2->sake->sweetness }}
+                                                    @endif
+                                                </p>
+                                                <p>{{ $sake_bottle2->description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
                         @endif 
                     @endforeach 
                 </div><!-- end of menu div -->    
@@ -519,15 +519,26 @@
                                     <div class="products">
                                         <div>
                                             <p class="drink_name">{{ $wine_glass->name }} 
-                                            @if(!empty ($wine_glass->sake))    
-                                            {{ $wine_glass->sake->grade }}</p>
+                                            @if(!empty ($wine_glass->wine))    
+                                                <small>{{ $wine_glass->wine->type }}</small>
                                             @endif
+                                            </p>
                                             <p class="drink_price">{{ $wine_glass->price }}</p>
+                                            @if(!empty ($wine_glass->wine->bottle))    
+                                                <p class="bottle_size"><small>{{ $wine_glass->wine->bottle->size }}ml</small>
+                                                    @if($wine_glass->wine->bottle->second_price)    
+                                                        {{ $wine_glass->wine->bottle->second_price }} / 
+                                                    @endif
+                                                </p>
+                                            @endif
                                             <div class="drink_details">
-                                                <p>{{ $wine_glass->production_area }} / 
-                                                @if(!empty ($wine_glass->sake))            
-                                                {{ $wine_glass->sake->rice }} / {{ $wine_glass->sake->sweetness }}</p>
-                                                @endif
+                                                <p>{{ $wine_glass->production_area }} 
+                                                @if(!empty ($wine_glass->wine))    
+                                                    @if($wine_glass->wine->year) 
+                                                        <span>{{ $wine_glass->wine->year }}</span>
+                                                    @endif
+                                                @endif    
+                                                </p>
                                                 <p>{{ $wine_glass->description }}</p>
                                             </div>
                                         </div>
@@ -549,15 +560,27 @@
                                 <div class="products">
                                     <div>
                                         <p class="drink_name">{{ $white->name }} 
-                                        @if(!empty ($white->sake))    
-                                        {{ $white->sake->grade }}</p>
+                                        @if(!empty ($white->wine))    
+                                            <small>{{ $white->wine->type }}</small>
                                         @endif
+                                        </p>
                                         <p class="drink_price">{{ $white->price }}</p>
-                                        <div class="drink_details">
-                                            <p>{{ $white->production_area }} / 
-                                            @if(!empty ($white->sake))            
-                                            {{ $white->sake->rice }} / {{ $white->sake->sweetness }}</p>
+                                        @if(!empty ($white->wine->bottle))    
+                                            <p class="bottle_size">
+                                                <small>{{ $white->wine->bottle->size }}ml</small>
+                                            @if($white->wine->bottle->second_price)    
+                                                {{ $white->wine->bottle->second_price }} / 
                                             @endif
+                                            </p>
+                                        @endif
+                                        <div class="drink_details">
+                                            <p>{{ $white->production_area }} 
+                                            @if(!empty ($white->wine))    
+                                                @if($white->wine->year) 
+                                                    <span>{{ $white->wine->year }}</span>
+                                                @endif
+                                            @endif
+                                            </p>    
                                             <p>{{ $white->description }}</p>
                                         </div>
                                     </div>

@@ -32,18 +32,15 @@ class wine_controller extends Controller
                     $query .= "WHEN type LIKE '%" . $type ."%' THEN " . $order_number . " ";
                 }
             }
-            return $query .= "ELSE 0 END ASC";
+            $order_number = $order_number + 1;
+            return $query .= "ELSE " . $order_number . " END ASC";
         }
 
         $query = write_query($types);
-        //dd($query);
+        // dd($query);
         
         $wine_glasses = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
             ->whereBetween('category_id', [15, 24])
-            // ->havingRaw(DB::raw($query))
-            // ->orderByRaw(DB::raw("FIELD(type, $types_ordered)"))
-            // ->select('*', DB::raw($query))
-            // ->orderByRaw(DB::raw($query))
             ->orderByRaw($query)
             ->orderBy('price')
             ->get();

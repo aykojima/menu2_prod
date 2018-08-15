@@ -80,6 +80,12 @@
     Route::get('/shochu/edit', 'shochu_controller@show_edit_form')->name('shochu_edit');
     Route::post('/shochu/edit', 'shochu_controller@edit_menu')->name('shochu_edit_submit');
 
+    //Happey hour and Current Specials
+    Route::get('/special', 'special_controller@show')->name('special');
+    Route::post('/special', 'special_controller@add_new')->name('special_add_new');
+    Route::get('/special/edit', 'special_controller@show_edit_form')->name('special_edit');
+    Route::post('/special/edit', 'special_controller@edit_menu')->name('special_edit_submit');
+
     //print preview
     Route::get('/drinks/print', 'sake_controller@print')->name('print');
     

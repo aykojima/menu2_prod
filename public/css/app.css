@@ -41,24 +41,23 @@ header {
   position: fixed;
   width: 100%;
   z-index: 999; }
-
-header > ul li {
-  display: block;
-  float: left;
-  margin: 10px 30px 10px 10px;
-  position: relative; }
-
-header a {
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer; }
-
-header a:hover {
-  border-bottom: 1px dotted #fff;
-  background-color: transparent; }
-
-header img {
-  width: 15px; }
+  header img {
+    width: 15px; }
+  header > ul li {
+    display: block;
+    float: left;
+    margin: 10px 30px 10px 10px;
+    position: relative; }
+  header a {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer; }
+    header a:hover {
+      border-bottom: 1px dotted #fff;
+      background-color: transparent; }
+    header a:hover ~ span {
+      visibility: visible;
+      opacity: 1; }
 
 .home_icon {
   width: 35px; }
@@ -79,10 +78,6 @@ ul#header span {
   opacity: 0;
   transition: opacity 1s; }
 
-header a:hover ~ span {
-  visibility: visible;
-  opacity: 1; }
-
 li#logout {
   float: right; }
 
@@ -102,30 +97,6 @@ div.nav {
   height: 100%;
   z-index: 2;
   background-color: #FFF; }
-
-div#nav ul {
-  list-style: none; }
-
-div#nav ul a:hover {
-  background-color: #fff; }
-
-div#nav ul ul a {
-  text-decoration: none;
-  color: #ccc; }
-
-div#nav ul ul {
-  border: solid 1px #ccc;
-  padding-left: 10%; }
-
-div#nav ul ul li {
-  font-size: 1.2em;
-  line-height: 1.5em; }
-
-div#nav ul ul a:hover {
-  color: #CF671F; }
-
-div#nav li {
-  position: relative; }
 
 .nav_icons {
   width: 50px;
@@ -154,19 +125,34 @@ a.nav_links {
   display: block;
   height: 120px;
   border: 1px solid #fff; }
+  a.nav_links:hover p.nav_name {
+    visibility: visible; }
 
-a.nav_links:hover p.nav_name {
-  visibility: visible; }
-
-div#nav ul ul {
-  position: absolute;
-  left: 0%;
-  top: 0;
-  width: 100%;
-  visibility: hidden;
-  opacity: 0;
-  transition: transform 0.2s;
-  transform: translateX(50px); }
+div#nav ul {
+  list-style: none; }
+  div#nav ul a:hover {
+    background-color: #fff; }
+  div#nav ul li {
+    position: relative; }
+  div#nav ul ul {
+    position: absolute;
+    left: 0%;
+    top: 0;
+    width: 155px;
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 0.2s;
+    transform: translateX(50px);
+    border: solid 1px #ccc;
+    padding-left: 10%; }
+    div#nav ul ul a {
+      text-decoration: none;
+      color: #ccc; }
+      div#nav ul ul a:hover {
+        color: #CF671F; }
+    div#nav ul ul li {
+      font-size: 1.2em;
+      line-height: 1.5em; }
 
 /* INNER UL SHOW */
 div#nav li:hover > ul {
@@ -1108,6 +1094,16 @@ a.add_new_drink, a.edit {
   font-size: 1.1em;
   line-height: 1em; }
 
+.hh {
+  line-height: 1em; }
+  .hh div {
+    clear: both; }
+    .hh div:nth-child(3) {
+      color: #cccccc; }
+
+.specials_title ~ p {
+  clear: both; }
+
 .line_height_08 {
   line-height: 0.8em; }
 
@@ -1170,6 +1166,13 @@ a.edit {
 
 .bottle_size_hide, .sweetness_hide {
   display: none; }
+
+.bottle_size_hide {
+  position: relative; }
+  .bottle_size_hide p {
+    position: absolute;
+    top: 35px;
+    right: 35px; }
 
 h2.form_category {
   float: none; }
