@@ -160,6 +160,13 @@ class sake_controller extends Controller
         $categories = category::all();
         //$categories = category::whereBetween('category_id', [28, 32])->get();
 
+
+
+        $shochu_types = array("Mugi", "Kome", "Imo", "Ume");
+
+        $whisky_types = array("Suntory", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano");
+
+
         $white_types = array("Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
                         "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
                         "Riesling", "Gruner Veltliner");
@@ -167,27 +174,37 @@ class sake_controller extends Controller
         $red_types = array("Pinot Noir", "Tempranillo", "Cab Franc", 
                         "Cabernet Sauvignon", "Malbec", "Zinfandel");
 
-        function write_query($types){
+        function write_query($types, $column){
             foreach($types as $key=>$type){
                 if($key == 0){
-                    $query = "CASE WHEN type LIKE '%" . $type . "%' THEN 1 ";
+                    $query = "CASE WHEN $column LIKE '%" . $type . "%' THEN 1 ";
                 }else{
                     $order_number = $key + 1;
-                    $query .= "WHEN type LIKE '%" . $type ."%' THEN " . $order_number . " ";
+                    $query .= "WHEN $column LIKE '%" . $type ."%' THEN " . $order_number . " ";
                 }
             }
             $order_number = $order_number + 1;
             return $query .= "ELSE " . $order_number . " END ASC";
         }
 
-        $query_white = write_query($white_types);
-        $query_red = write_query($red_types);
+        $query_shochu = write_query($shochu_types, 'name');
 
+        // dd($query_shochu);
+        $query_whisky = write_query($whisky_types, 'name');
+        $query_white = write_query($white_types, 'type');
+        $query_red = write_query($red_types, 'type');
+
+        $shochus = product::where('category_id', 25)
+            ->orderByRaw($query_shochu)
+            ->orderBy('price')
+            ->get();
 
         $spirits = product::whereBetween('category_id', [28, 32])->orderBy('price')->get();
+
         $sake_glasses = product::whereBetween('category_id', [1, 6])->orderBy('price')->get();
+
         $flights = product::where('category_id', '=', '38')->get();
-        //$rose_and_reds = product::whereBetween('category_id', [23, 24])->orderBy('price')->get();
+
         $rose_and_reds = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
             ->whereBetween('category_id', [23, 24])
             ->orderByRaw($query_red)
@@ -195,10 +212,16 @@ class sake_controller extends Controller
             ->get();
 
         $sake_bottle2s = product::whereBetween('category_id', [10, 14])->orderBy('price')->get();
+
         $sake_bottles = product::whereBetween('category_id', [7, 9])->orderBy('price')->get();
-        $shochu_and_whiskies = product::whereBetween('category_id', [25, 26])->orderBy('price')->get();
+
+        $whiskies = product::where('category_id', 26)
+            ->orderByRaw($query_whisky)
+            ->orderBy('price')
+            ->get();
+
         $wine_glasses = product::whereBetween('category_id', [15, 21])->orderBy('price')->get();
-        //$whites = product::where('category_id', 22)->orderBy('price')->get();
+        
         $whites = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
             ->where('category_id', 22)
             ->orderByRaw($query_white)
@@ -206,8 +229,8 @@ class sake_controller extends Controller
             ->get();
         
 
-        return view('drink_menu/print_review', compact('categories', 'spirits', 'sake_glasses', 'flights',
-            'rose_and_reds', 'sake_bottle2s', 'sake_bottles', 'shochu_and_whiskies', 'wine_glasses', 'whites'));
+        return view('drink_menu/print_review', compact('categories', 'shochus', 'spirits', 'sake_glasses', 'flights',
+            'rose_and_reds', 'sake_bottle2s', 'sake_bottles', 'whiskies', 'wine_glasses', 'whites'));
     }
 }
 

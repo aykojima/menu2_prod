@@ -26,24 +26,17 @@
 <div id="container">
     
     <div id="menu">        
-        @foreach($categories as $key => $category)
-        @if($key == 31)
-        <h1 id="sake_by_glass">
-        SPECIALTY COCKTAILS
-        @elseif($key == 32)
-        <h1 id="sake_bottles">
-        BEER
-        @elseif($key == 34)
-        <h1 id="sake_bottles">
-        NON-ALCOHOLIC
-        @endif
-        </h1>
+        @foreach($categories as $category)
+        
         <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-        @if($key != 31)
-        <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
+        <h2 style="color: #CF671F; clear:both">
+        @if($category->category_id == 37)   
+        Non-Alcoholic, 
+        @endif    
+        {{ $category->category }}</h2>
         <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
         <hr>
-        @endif
+        
             @foreach($drinks as $drink)
                 @if($drink->category->category == $category->category)
                 <div class="products">
@@ -135,16 +128,13 @@ $(document).on("click", ".edit", function(event){
     $('#edit_modal').css('display', 'block');
     $.ajax({
         type : 'get',
-        url : '{{URL::to('sake/edit')}}',
+        url : '{{URL::to('cocktail/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
                 $("#edit_modal .modal_content input[name='product_id']").val(data.product_id),
                 $("#edit_modal .modal_content input[name='name']").val(data.name),
                 $("#edit_modal .modal_content input[name='price']").val(data.price),
-                $("#edit_modal .modal_content input[name='production_area']").val(data.production_area),
-                $("#edit_modal .modal_content input[name='rice']").val(data.rice),
-                $("#edit_modal .modal_content input[name='sweetness']").val(data.sweetness),
                 $("#edit_modal .modal_content input[name='description']").val(data.description);
                 }
             });
@@ -154,13 +144,10 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('sake/edit')}}',
+        url : '{{URL::to('cocktail/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),
-                'production_area': $("#edit_form input[name='production_area']").val(),
-                'rice': $("#edit_form input[name='rice']").val(),
-                'sweetness': $("#edit_form input[name='sweetness']").val(),
                 'description': $("#edit_form input[name='description']").val(),
                 'submit': $("#edit_form input[name='submit']").val()
         }

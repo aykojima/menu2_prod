@@ -95,12 +95,21 @@
                 @elseif($drink->category->category_id >= 26)
                 <div class="products">
                 <a class="edit" data-id="{{ $drink->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                    <div>
+                <div>
+                    <p class="drink_name">{{ $drink->name }} 
+                        <span style="color: #CCCCCC; font-size: 0.8em">{{ $drink->production_area }}</span>
+                    </p>
+                    <p class="drink_price">{{ $drink->price }}</p>
+                    <div class="drink_details">
+                        <p>{{ $drink->description }}</p>
+                    </div>
+                </div>
+                    <!-- <div>
                         <p class="drink_name">{{ $drink->name }} {{ $drink->description }}
                         <span style="color: #CCCCCC; font-size: 0.8em">{{ $drink->production_area }}</span></p>
                         <p class="drink_price">{{ $drink->price }}</p>
                         <div class="drink_details"></div>
-                    </div>
+                    </div> -->
                 </div>
                 <hr>
                 @endif

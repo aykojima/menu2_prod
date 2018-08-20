@@ -37,16 +37,48 @@
             <div class="page8">
                 <div class="menu">
                     <div class='title_div'>
-                            <h1 class="title">SPIRITS</h1>
+                        <h1 class="title">SHOCHU 焼酎</h1>
+                        <p></p><!--need this for styling-->
+                        <p>2 oz</p>
                     </div>
                     @foreach($categories as $category) 
-                        @if($category->category_id == 28 
+                        @if($category->category_id == 25 )
+                            @foreach($shochus as $shochu)
+                                    <div class="products">
+                                        <div>
+                                            <p class="drink_name">
+                                                {{ $shochu->name }} 
+                                                <span style="color: #CCCCCC; font-size: 0.8em">{{ $shochu->production_area }}</span>
+                                            </p>
+                                            <p class="drink_price">{{ $shochu->price }}</p>
+                                            <div class="drink_details">
+                                                <p>{{ $shochu->description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                            @endforeach
+                            <div class="products">
+                                <div id="" class="drink_categories">
+                                    <h3 class="" style="float: left">SHOCHU Flight</h3>
+                                    <p class="drink_price">
+                                        <span style="color: #CCCCCC">1oz each</span>
+                                        16
+                                    </p>
+                                    <div class="drink_details">
+                                        <p>Kawabe, Kakushigura, Kuro Kirishima</p>
+                                    </div>
+                                </div>
+                            </div>  
+                    <div class='title_div margin_top'>
+                            <h1 class="title">SPIRITS</h1>
+                    </div>
+                        @elseif($category->category_id == 28 
                             || $category->category_id == 29
                             || $category->category_id == 30
                             || $category->category_id == 31
                             || $category->category_id == 32)
                             <div id="" class="drink_categories">
-                                <h3>{{ $category->category }}</h3>
+                                <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
                                 <p style="color: #CCCCCC; float: right;">1.5 oz</p>
                             </div>
                             @foreach($spirits as $spirit)
@@ -177,61 +209,25 @@
 
             <div class="page3">
                 <div class="menu">     
-                <div class='title_div'>
-                        <h1 class="title">SHOCHU 焼酎</h1>
+                    <div class='title_div'>
+                        <h1 class="title">JAPANESE WHISKY ウィスキー</h1>
                         <p></p><!--need this for styling-->
-                        <p>2 oz</p>
+                        <p>1.5 oz</p>
                     </div>
                     @foreach($categories as $category) 
-                        @if($category->category_id == 25 )
-                            @foreach($shochu_and_whiskies as $shochu_and_whiskie)
-                                @if($shochu_and_whiskie->category_id == 25 )    
+                        @if($category->category_id == 26 )
+                            @foreach($whiskies as $whisky)    
                                     <div class="products">
                                         <div>
-                                            <p class="drink_name">
-                                                {{ $shochu_and_whiskie->name }} 
-                                                <span style="color: #CCCCCC; font-size: 0.8em">{{ $shochu_and_whiskie->production_area }}</span>
+                                            <p class="drink_name">{{ $whisky->name }} 
+                                                <span style="color: #CCCCCC; font-size: 0.8em">{{ $whisky->production_area }}</span>
                                             </p>
-                                            <p class="drink_price">{{ $shochu_and_whiskie->price }}</p>
+                                            <p class="drink_price">{{ $whisky->price }}</p>
                                             <div class="drink_details">
-                                                <p>{{ $shochu_and_whiskie->description }}</p>
+                                                <p>{{ $whisky->description }}</p>
                                             </div>
                                         </div>
                                     </div>
-                                @endif
-                            @endforeach
-                            <div class="products">
-                                <div id="" class="drink_categories">
-                                    <h3 class="" style="float: left">SHOCHU Flight</h3>
-                                    <p class="drink_price">
-                                        <span style="color: #CCCCCC">1oz each</span>
-                                        16
-                                    </p>
-                                    <div class="drink_details">
-                                        <p>Kawabe, Kakushigura, Kuro Kirishima</p>
-                                    </div>
-                                </div>
-                            </div>  
-                            <div class='title_div'>
-                                <h1 class="title">JAPANESE WHISKY ウィスキー</h1>
-                                <p></p><!--need this for styling-->
-                                <p>1.5 oz</p>
-                            </div>
-                        @elseif($category->category_id == 26 )
-                            @foreach($shochu_and_whiskies as $shochu_and_whiskie)
-                                @if($shochu_and_whiskie->category_id == 26 )       
-                                    <div class="products">
-                                        <div>
-                                            <p class="drink_name">{{ $shochu_and_whiskie->name }} 
-                                                <span style="color: #CCCCCC; font-size: 0.8em">{{ $shochu_and_whiskie->production_area }}</span>
-                                            </p>
-                                            <p class="drink_price">{{ $shochu_and_whiskie->price }}</p>
-                                            <div class="drink_details">
-                                                <p>{{ $shochu_and_whiskie->description }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
                             @endforeach
                             <div class="products">
                                 <div id="" class="drink_categories">
@@ -600,23 +596,34 @@
 
 </div>
 <script>
-// const page = $(".page3 .menu");
+
+
+
 $(document).ready(function(){
+
+    //Need to fix here
+    //Make each if statement callback function so that it checks the height each time the function is called.
     $(".menu").each(function(){
         var height = $(this).outerHeight();
+        //console.log('original ' + height);
         if(height >= 1200){
             $(this).find(".products").addClass("small_margin");
+            //console.log('first ' + height);
             if(height >= 1200){
                 $(this).find(".products").addClass("no_margin");
+                //console.log('second ' + height);
                 if(height >= 1200){
                     $(this).addClass("small_margin_top");
+                    //console.log('last ' + height);
                 }
-            }
+            }    
         }
-    })
+        //console.log('after ' + height);
+    });
+
+
 
     $(".title").each(function(){
-        // console.log($(this).outerHeight());
         if($(this).outerHeight() >= 50){
             $(this).addClass("small_title_font");
         }
@@ -629,7 +636,6 @@ $(document).ready(function(){
     })
 
     $(".drink_name").each(function(){
-        console.log($(this).text().length);
         if($(this).text().length >= 50)
         {
             $(this).addClass("small_font");

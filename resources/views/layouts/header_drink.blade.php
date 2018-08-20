@@ -7,7 +7,7 @@
     <title>SKT menu</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css" media="screen">
     
-    @if(Request::is('cocktail'))
+    @if(Request::is('cocktail') || Request::is('special'))
     <link rel="stylesheet" href="{{ asset('css/app_drink_print_4.25in.css') }}" type="text/css" media="print">
     @else
     <link rel="stylesheet" href="{{ asset('css/app_drink_print.css') }}" type="text/css" media="print">
@@ -24,8 +24,12 @@
             <li id="logout"><a href ="logout.php">Logout</a></li>
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
             <li><a href='{{ URL::to('/')}}'><img class="home_icon" src="../images/logo4.png"></a><span>Go to home</span></li>   
+            @if(Request::is('cocktail') || Request::is('special'))
+            <li id="print"><a href="javascript: window.print()"><img id="header_icons" src="../images/printer.png"></a><span>Print</span></li>
+            @else
             <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img id="header_icons" src="../images/printer.png"></a><span>Print Review</span></li>   
-            <!-- <li id="print"><a href="javascript: window.print()"><img id="header_icons" src="../images/printer.png"></a><span>print</span></li> -->
+            @endif
+            
             
             <!-- <li id="new_item"><a onclick="show_add_new_div()"><img id="header_icons" src="../images/add.png"></a><span>add new item</span></li>     -->
         </ul>

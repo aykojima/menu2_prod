@@ -38,7 +38,7 @@
                 <p>Not valid with other promotions and during special events or holidays</p>
             </div>
         </div>
-        <h2 class="specials_title">Current Specials</h2>
+        <h1 class="specials_title">Current Specials</h1>
         <p>limited bottles available</p>
 
         @foreach($categories as $category)
@@ -63,7 +63,7 @@
             @endif
                 </h2> -->
             <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-                <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
+                <h2 style="color: #CF671F; clear:both">{{ $category->category }}</h2>
                 <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
                 <hr>
                     @foreach($drinks as $drink)

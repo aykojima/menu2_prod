@@ -1088,21 +1088,31 @@ a.add_new_drink, a.edit {
   position: absolute;
   width: 20px; }
   a.add_new_drink:hover, a.edit:hover {
-    cursor: pointer; }
+    cursor: pointer;
+    background-color: inherit; }
 
 .drink_name, .drink_price {
   font-size: 1.1em;
   line-height: 1em; }
 
 .hh {
-  line-height: 1em; }
+  margin-bottom: 5%; }
+  .hh h1 {
+    margin-left: 0;
+    padding-left: 0; }
   .hh div {
+    line-height: 1em;
     clear: both; }
     .hh div:nth-child(3) {
       color: #cccccc; }
 
-.specials_title ~ p {
-  clear: both; }
+.specials_title {
+  margin: 2% 2% 0 0;
+  padding-left: 0;
+  line-height: 1em; }
+  .specials_title ~ p {
+    clear: both;
+    color: #cccccc; }
 
 .line_height_08 {
   line-height: 0.8em; }
@@ -1113,8 +1123,9 @@ a.add_new_drink, a.edit {
   .drink_categories hr {
     width: 80%; }
   .drink_categories h2 {
-    margin-left: 0;
-    padding-left: 0; }
+    margin: 4% 2% 4% 0;
+    padding-left: 0;
+    float: none; }
   .drink_categories h3 {
     color: #CF671F;
     clear: both; }
@@ -1151,18 +1162,19 @@ p.bottle_size {
   .drink_details span {
     color: #CF671F; }
 
-img.add_drinks {
+img.add_drinks, .edit_drinks {
   width: 20px; }
-
-img.edit_drinks {
-  width: 20px; }
+  img.add_drinks:hover, .edit_drinks:hover {
+    width: 23px; }
 
 a.add_new_drink {
   top: 0;
-  right: 0; }
+  right: 0;
+  padding: 0; }
 
 a.edit {
-  right: -25px; }
+  right: -25px;
+  padding: 0; }
 
 .bottle_size_hide, .sweetness_hide {
   display: none; }
@@ -1198,35 +1210,20 @@ div.menu {
 div.page2, .page4, .page6, .page8,
 .page1, .page3, .page5, .page7 {
   width: 49%;
-  height: 100%;
-  position: absolute;
+  display: inline-block;
+  vertical-align: top;
   bottom: 0px;
-  margin-top: 0px !important;
-  border: solid #CCC 1px; }
+  margin-top: 0px !important; }
 
-.page8, .page1 {
-  top: 45px; }
-
-.page6, .page3 {
-  top: 1345px; }
-
-.page2, .page7 {
-  top: 2645px; }
-
-.page4, .page5 {
-  top: 3945px; }
-
-.page2, .page4, .page6, .page8 {
-  left: 0; }
-
-.page1, .page3, .page5, .page7 {
-  right: 0; }
+.pages {
+  width: 100%;
+  page-break-after: always;
+  clear: both;
+  border: solid #cccccc 1px; }
 
 .page8 .drink_categories h3 {
   float: left;
   margin-bottom: 2%; }
-.page8 .drink_categories p {
-  float: right; }
 .page8 .products {
   clear: both; }
 

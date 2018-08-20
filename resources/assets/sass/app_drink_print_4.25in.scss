@@ -2,8 +2,8 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 // @font-face {
-//   font-family: 'TheSansSemiBoldPlain'; 
-//   src: url('http://localhost/public/css/TheSansSemiBoldPlain.ttf'); 
+//   font-family: 'TheSans Plain'; 
+//   src: url('http://localhost/public/css/TheSans Plain.ttf'); 
 // }
 // Variables
 @import "variables";
@@ -11,8 +11,8 @@
 $skt_color: #CF671F;
 
 @font-face {
-  font-family: 'TheSansSemiBoldPlain'; 
-  src: url('/fonts/TheSansSemiBoldPlain.ttf'); 
+  font-family: 'TheSans Plain'; 
+  src: url('/fonts/TheSans Plain.ttf'); 
   font-weight: lighter;
 }
 
@@ -46,12 +46,12 @@ $skt_color: #CF671F;
 
 @page {
    size: 4.25in 14in;
-   margin: 0;
+  //  margin: 0;
 }
 
 header, #nav, #new_item, .right_div,
 .modal, .search-box, .commands, #notification, #update,
-.add_drinks, .edit_drinks{
+.add_drinks, .edit_drinks, hr{
     display: none;
 }
 *{
@@ -60,57 +60,35 @@ header, #nav, #new_item, .right_div,
 }
 body{
     // font-family: $font;
-    font-family: TheSansSemiBoldPlain;
+    font-family: TheSans Plain;
     font-weight: lighter;
     font-size: 1em;
   }
 
-  // div.drink_container{
-  //   position:absolute;
-  //   /*height:1400px;*/
-  //   left: 200px;
-  //   top:45px;
-  //   width: 828px;
-  //   border: solid #CCC 1px;
-  // }
 
-  div.page2, .page4, .page6, .page8,
-.page1, .page3, .page5, .page7 {
-    // top:45px;
-    width: 49%;
-    height:100%;
-    position:absolute;
-    bottom:0px;
-    margin-top: 0px !important;
-    // border: solid #CCC 1px;
+.hh{ 
+  margin-bottom: 5%;
+  h1{
+    margin-left: 0;
+    padding-left: 0;
   }
-
-  //first page
-.page8, .page1{
-  top:0px;
+  div{
+    line-height: 1em;
+    clear: both;
+    &:nth-child(3){
+      color: #cccccc;
+    }
+  }
 }
 
-// second page
-.page6, .page3{
-  top: 101%;
-}
-
-// third page
-.page2, .page7{
-  top: 201%;
-}
-
-// third page
-.page4, .page5{
-  top:301%;
-}
-
-.page2, .page4, .page6, .page8 {
-  left:0;
-}
-
-.page1, .page3, .page5, .page7 {
-  right:0;
+.specials_title{ 
+  margin: 2% 2% 0 0;
+  padding-left: 0;
+  line-height: 1em;
+  &~p{
+    clear: both;
+    color: #cccccc;
+  }
 }
 
 %drink_divs{
@@ -119,16 +97,18 @@ body{
 }
 
 .drink_categories{
- @extend %drink_divs; 
- margin-bottom: 2%;
- clear: both;
- h3{
-  color: $skt_color; 
+  @extend %drink_divs; 
+  margin-bottom: 2%;
   clear: both;
- }
- p{
-  color: #CCCCCC; 
- }
+  h2{
+    margin: 4% 2% 4% 0;
+    padding-left: 0;
+    float: none;
+  }
+  h3{
+    color: $skt_color; 
+    clear: both;
+  }
 }
 
 .products{
@@ -147,14 +127,19 @@ body{
   margin-top: 2% !important;
 }
 
+%name_price_font_size{
+  font-size: 1.1em;
+  line-height: 1em;
+}
+
 .drink_name{
   float: left;
-  font-size: 1.1em;
+  @extend %name_price_font_size;
 }
 
 .drink_price{
   float: right;
-  font-size: 1.1em;
+  @extend %name_price_font_size;
 }
 
 p.bottle_size {
@@ -167,6 +152,7 @@ p.bottle_size {
   color: #ccc;
   clear: both;
   font-size: 0.8em;
+  line-height: 1em;
 }
 
 img.add_drinks{
@@ -178,12 +164,12 @@ img.add_drinks{
 
 div.menu{
     display:block;
-    width:85%;
+    width:90%;
     margin: auto;
-    margin:2%;
+    margin:3%;
     margin-top:10%;
     padding:2%;
-    margin-left:6%;
+    margin-left:4%;
     // border: solid 1px Blue;
     // height:1195px;
 }
@@ -207,30 +193,35 @@ h2{
 //   line-height: 1.5em;
 }
 
-.title_div p {
-  color: #cccccc;
-  &:nth-child(2){
-    float: left;
-  }
-  &:nth-child(3){
-    float: right;
+.title_div {
+  padding-bottom: 10%;
+  p {
+    color: #cccccc;
+    &:nth-child(2){
+      float: left;
+    }
+    &:nth-child(3){
+      float: right;
+    }
   }
 }
 
-.title_div {
-  padding-bottom: 15%;
+.margin_top{
+  margin-top: 6%;
 }
 
 .title{
   padding-left: 0;
   margin: 0;
   float: none;
+  line-height: 1em;
 }
 
 .small_title_font{
   font-size: 1.5em;
+  padding-top: 6%;
 }
 
 .small_font{
-  font-size: 1.05em;
+  font-size: 0.9em;
 }

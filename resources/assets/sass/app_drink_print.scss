@@ -65,49 +65,19 @@ body{
     font-size: 1em;
   }
 
-  // div.drink_container{
-  //   position:absolute;
-  //   /*height:1400px;*/
-  //   left: 200px;
-  //   top:45px;
-  //   width: 828px;
-  //   border: solid #CCC 1px;
-  // }
-
-  div.page2, .page4, .page6, .page8,
-.page1, .page3, .page5, .page7 {
-    // top:45px;
-    width: 49%;
-    height:100%;
-    position:absolute;
-    bottom:0px;
-    margin-top: 0px !important;
-    // border: solid #CCC 1px;
-  }
-
-  //first page
-.page8, .page1{
-  top:0px;
+div.page2, .page4, .page6, .page8,
+ .page1, .page3, .page5, .page7{
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
+  bottom:0px;
+  margin-top: 0px !important;
 }
 
-
-// second page
-.page6, .page3{
-  top: 101%;
-}
-
-// third page
-.page2, .page7{
-  top: 201%;
-}
-
-// third page
-.page4, .page5{
-  top:301%;
-}
-
-.page2, .page4, .page6, .page8 {
-  left:0;
+.pages{
+  width: 100%;
+  page-break-after: always;
+  clear: both;
 }
 
 .page8{
@@ -116,9 +86,9 @@ body{
       float: left;
       margin-bottom: 2%;
     }
-    p{
-      float: right;
-    }
+    // p{
+    //   float: right;
+    // }
   }
   .products{
     clear: both;

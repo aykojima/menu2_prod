@@ -23,31 +23,19 @@ body {
 div.page2, .page4, .page6, .page8,
 .page1, .page3, .page5, .page7 {
   width: 49%;
-  height: 100%;
-  position: absolute;
+  display: inline-block;
+  vertical-align: top;
   bottom: 0px;
   margin-top: 0px !important; }
 
-.page8, .page1 {
-  top: 0px; }
-
-.page6, .page3 {
-  top: 101%; }
-
-.page2, .page7 {
-  top: 201%; }
-
-.page4, .page5 {
-  top: 301%; }
-
-.page2, .page4, .page6, .page8 {
-  left: 0; }
+.pages {
+  width: 100%;
+  page-break-after: always;
+  clear: both; }
 
 .page8 .drink_categories h3 {
   float: left;
   margin-bottom: 2%; }
-.page8 .drink_categories p {
-  float: right; }
 .page8 .products {
   clear: both; }
 

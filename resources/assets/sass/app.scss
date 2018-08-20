@@ -1430,11 +1430,12 @@ input.add_price, input.item_prices {
   margin: 0 0 1% 0;
 }
 
-%drink_icons{
+%drink_icon_links{
   position: absolute;
   width: 20px;
   &:hover{
     cursor: pointer;
+    background-color: inherit;
   }
 }
 
@@ -1445,8 +1446,13 @@ input.add_price, input.item_prices {
 
 
 .hh{ 
-  line-height: 1em;
+  margin-bottom: 5%;
+  h1{
+    margin-left: 0;
+    padding-left: 0;
+  }
   div{
+    line-height: 1em;
     clear: both;
     &:nth-child(3){
       color: #cccccc;
@@ -1454,8 +1460,14 @@ input.add_price, input.item_prices {
   }
 }
 
-.specials_title ~ p{
-  clear: both;
+.specials_title{ 
+  margin: 2% 2% 0 0;
+  padding-left: 0;
+  line-height: 1em;
+  &~p{
+    clear: both;
+    color: #cccccc;
+  }
 }
 .line_height_08{
   line-height: 0.8em;
@@ -1469,8 +1481,9 @@ input.add_price, input.item_prices {
     width: 80%; 
   }
   h2{
-    margin-left: 0;
+    margin: 4% 2% 4% 0;
     padding-left: 0;
+    float: none;
   }
   h3{
     color: $skt_color; 
@@ -1526,28 +1539,24 @@ p.bottle_size {
   }
 }
 
-img.add_drinks{
+img.add_drinks, .edit_drinks{
   width: 20px;
-  // @extend %drink_icons;
-  // top: 0;
-  // right: 0;
-}
-
-img.edit_drinks{
-  width: 20px;
-  // @extend %drink_icons;
-  // right: -25px;
+  &:hover{
+    width: 23px;
+  }
 }
 
 a.add_new_drink{
-  @extend %drink_icons;
+  @extend %drink_icon_links;
   top: 0;
   right: 0;
+  padding: 0;
 }
 
 a.edit{
-  @extend %drink_icons;
+  @extend %drink_icon_links;
   right: -25px;
+  padding: 0;
 }
 
 .bottle_size_hide, .sweetness_hide{
@@ -1592,43 +1601,60 @@ div.menu{
 }
 
 div.page2, .page4, .page6, .page8,
-.page1, .page3, .page5, .page7 {
-    //top:45px;
-    width: 49%;
-    height:100%;
-    position:absolute;
-    bottom:0px;
-    margin-top: 0px !important;
-    border: solid #CCC 1px;
-  }
-
-  //first page
-.page8, .page1{
-  top: $top_margin;
+ .page1, .page3, .page5, .page7{
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
+  bottom:0px;
+  margin-top: 0px !important;
 }
 
-// second page
-.page6, .page3{
-  top: $top_margin + $page_height;
+.pages{
+  width: 100%;
+  page-break-after: always;
+  clear: both;
+  border: solid #cccccc 1px;
 }
 
-// third page
-.page2, .page7{
-  top: $top_margin + $page_height * 2;
-}
 
-// third page
-.page4, .page5{
-  top:$top_margin + $page_height * 3;
-}
+// div.page2, .page4, .page6, .page8,
+// .page1, .page3, .page5, .page7 {
+//     //top:45px;
+//     width: 49%;
+//     height:100%;
+//     position:absolute;
+//     bottom:0px;
+//     margin-top: 0px !important;
+//     border: solid #CCC 1px;
+//   }
 
-.page2, .page4, .page6, .page8 {
-  left:0;
-}
+//   //first page
+// .page8, .page1{
+//   top: $top_margin;
+// }
 
-.page1, .page3, .page5, .page7 {
-  right:0;
-}
+// // second page
+// .page6, .page3{
+//   top: $top_margin + $page_height;
+// }
+
+// // third page
+// .page2, .page7{
+//   top: $top_margin + $page_height * 2;
+// }
+
+// // third page
+// .page4, .page5{
+//   top:$top_margin + $page_height * 3;
+// }
+
+// .page2, .page4, .page6, .page8 {
+//   left:0;
+// }
+
+// .page1, .page3, .page5, .page7 {
+//   right:0;
+// }
 
 .page8{
   .drink_categories{
@@ -1636,9 +1662,9 @@ div.page2, .page4, .page6, .page8,
       float: left;
       margin-bottom: 2%;
     }
-    p{
-      float: right;
-    }
+    // p{
+    //   float: right;
+    // }
   }
   .products{
     clear: both;
