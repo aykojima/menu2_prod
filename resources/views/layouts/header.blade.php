@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <!-- <link rel="icon" type="image/x-icon" href="favicon.ico" /> -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
 
 </head>
 <body>
@@ -18,8 +20,8 @@
         <ul id="header">
             <li id="logout"><a href ="logout.php">Logout</a></li>
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
-            <li><a href='{{ URL::to('/')}}'><img class="home_icon" src="../images/logo4.png"></a><span>Go to home</span></li>   
-            <li id="print"><a href="javascript: window.print()"><img id="header_icons" src="../images/printer.png"></a><span>print</span></li>
+            <li><a href='{{URL::to('cocktail')}}'><img class="home_icons header_icons" src="../images/arrow.png"></a><span>Go to Cocktail</span></li>   
+            <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
             
             <!-- <li id="new_item"><a onclick="show_add_new_div()"><img id="header_icons" src="../images/add.png"></a><span>add new item</span></li>     -->
         </ul>
@@ -80,6 +82,17 @@
 <script>
 $( ".icon" ).click(function() {
     $( "#nav" ).toggleClass( "responsive" );
+});
+
+$(".header_icons").mouseover(function(e) {
+    e.preventDefault();
+    var target_span = $(this).parent().next();
+    target_span.css("opacity", "100");
+});
+$(".header_icons").mouseout(function(e) {
+    e.preventDefault();
+    var target_span = $(this).parent().next();
+    target_span.css("opacity", "0");
 });
 
 </script>

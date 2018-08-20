@@ -23,11 +23,11 @@
         <ul id="header">
             <li id="logout"><a href ="logout.php">Logout</a></li>
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
-            <li><a href='{{ URL::to('/')}}'><img class="home_icon" src="../images/logo4.png"></a><span>Go to home</span></li>   
+            <li><a href='{{ URL::to('sb')}}'><img class="home_icons header_icons" src="../images/arrow.png"></a><span>Go to Sushi Bar</span></li>   
             @if(Request::is('cocktail') || Request::is('special'))
-            <li id="print"><a href="javascript: window.print()"><img id="header_icons" src="../images/printer.png"></a><span>Print</span></li>
+            <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
             @else
-            <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img id="header_icons" src="../images/printer.png"></a><span>Print Review</span></li>   
+            <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img class="header_icons" src="../images/printer.png"></a><span>Print Preview</span></li>   
             @endif
             
             
@@ -94,6 +94,17 @@
 <script>
 $( ".icon" ).click(function() {
     $( "#nav" ).toggleClass( "responsive" );
+});
+
+$(".header_icons").mouseover(function(e) {
+    e.preventDefault();
+    var target_span = $(this).parent().next();
+    target_span.css("opacity", "100");
+});
+$(".header_icons").mouseout(function(e) {
+    e.preventDefault();
+    var target_span = $(this).parent().next();
+    target_span.css("opacity", "0");
 });
 
 </script>

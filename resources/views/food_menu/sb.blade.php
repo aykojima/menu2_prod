@@ -64,9 +64,9 @@
             <p id='raw'>*raw or undercooked meats, poultry, seafood, shellfish or eggs 
                 may increase your risk of foodborne illness
             </p>
-            <p>We would like to inform our guests that in place of gratuity a 20% service charge is included in the total (excludes take out).
-            100% of these funds are distributed to the staff in form of wages, benefits and revenue share.
-            Additional gratuity is not expected.
+            <p>Thank you for dining with us! A 20% living wage charge is included (dine in only). 
+                The house retains 100% of these charges to help fund higher wages and benefits to all staff. 
+                Additional gratuity is not expected.
             </p>
         </div>
     </div>
