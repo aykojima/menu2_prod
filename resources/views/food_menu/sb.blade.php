@@ -127,39 +127,41 @@ $(".dismiss").click(function(){
     })
 
     $(document).on("click", ".result p", function(event){
-        $.ajax({
-            type:'get',
-            url: '{{URL::to('sb/update')}}',
-            data: {'item_id': $(this).data('id')},
-            success:function(data){     
-                var string_data = JSON.stringify(data);
-                $( "#showResult" ).html( string_data );
-                style_line_height();
-                style_prices();
-                add_fish();
-                style_length();
-            }
-        });
-        if(event.target.className == 'is_on_menu')
-        {
-            $(this).css("color", "#ccc");
-            $(this).toggleClass('is_on_menu is_on_menu_not');
-            $("#update").fadeIn("slow").append('<br><strong style="color:#CCCCCC;">Removed: </strong> ' + $(this).text() + '<br><br><hr>');
-            $(".dismiss").click(function(){
-                $("#update").fadeOut("slow").html('<span class="dismiss"><a title="dismiss this notification">x</a></span>');
+        if($(this).data('id') != null){    
+            $.ajax({
+                type:'get',
+                url: '{{URL::to('sb/update')}}',
+                data: {'item_id': $(this).data('id')},
+                success:function(data){     
+                    var string_data = JSON.stringify(data);
+                    $( "#showResult" ).html( string_data );
+                    style_line_height();
+                    style_prices();
+                    add_fish();
+                    style_length();
+                }
             });
-        }else if(event.target.className == 'is_on_menu_not')
-        {
-            $(this).css("color", "#000");
-            $(this).toggleClass('is_on_menu_not is_on_menu');
-            $("#update").fadeIn("slow").append('<br><strong style="color:#FFE4B5;">Added: </strong> ' + $(this).text() + '<br><br><hr>');
-            $(".dismiss").click(function(){
-                $("#update").fadeOut("slow").html('<span class="dismiss"><a title="dismiss this notification">x</a></span>');
-            });
-        }else
-        {
-            $(this).css("color", "#ccc");   
-        }  
+            if(event.target.className == 'is_on_menu')
+            {
+                $(this).css("color", "#ccc");
+                $(this).toggleClass('is_on_menu is_on_menu_not');
+                $("#update").fadeIn("slow").append('<br><strong style="color:#CCCCCC;">Removed: </strong> ' + $(this).text() + '<br><br><hr>');
+                $(".dismiss").click(function(){
+                    $("#update").fadeOut("slow").html('<span class="dismiss"><a title="dismiss this notification">x</a></span>');
+                });
+            }else if(event.target.className == 'is_on_menu_not')
+            {
+                $(this).css("color", "#000");
+                $(this).toggleClass('is_on_menu_not is_on_menu');
+                $("#update").fadeIn("slow").append('<br><strong style="color:#FFE4B5;">Added: </strong> ' + $(this).text() + '<br><br><hr>');
+                $(".dismiss").click(function(){
+                    $("#update").fadeOut("slow").html('<span class="dismiss"><a title="dismiss this notification">x</a></span>');
+                });
+            }else
+            {
+                $(this).css("color", "#ccc");   
+            }  
+        }//end of the first if
     });
 
     $(document).on("click", "#clear_search", function(){
@@ -223,7 +225,7 @@ $(".dismiss").click(function(){
     $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
         //var form_data = $('#edit_form').serialize();
             $.ajax({
-            type: 'patch',
+            type: 'post',
             url : '{{URL::to('sb/edit')}}',
             data: {'sb_id': $('#edit_form input[name=sb_id]').val(),
                     'eng_name': $('#edit_form input[name=eng_name]').val(),

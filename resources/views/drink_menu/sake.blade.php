@@ -60,7 +60,7 @@
                         @endif
                         </p>
                         <p class="drink_price">{{ $sake_glass->price }}</p>
-                        @if(!empty ($sake_glass->sake->bottle))    
+                        @if(!empty($sake_glass->sake->bottle->size))    
                         <p class="bottle_size"><small>{{ $sake_glass->sake->bottle->size }}ml</small>
                         @if($sake_glass->sake->bottle->second_price)    
                         {{ $sake_glass->sake->bottle->second_price }} / 
@@ -196,13 +196,13 @@ $(document).on("click", ".edit", function(event){
         url : '{{URL::to('sake/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
-            $("#edit_modal .modal_content input[name='product_id']").val(data.product_id),
-            $("#edit_modal .modal_content input[name='name']").val(data.name),
-            $("#edit_modal .modal_content input[name='grade']").val(data.sake.grade),
-            $("#edit_modal .modal_content input[name='price']").val(data.price),
-            $("#edit_modal .modal_content input[name='production_area']").val(data.production_area), 
-            $("#edit_modal .modal_content input[name='description']").val(data.description); 
-            if(data.category_id == 38)
+            console.log(data);
+            $("#edit_modal .modal_content input[name='product_id']").val(data.product.product_id),
+            $("#edit_modal .modal_content input[name='name']").val(data.product.name),
+            $("#edit_modal .modal_content input[name='price']").val(data.product.price),
+            $("#edit_modal .modal_content input[name='production_area']").val(data.product.production_area), 
+            $("#edit_modal .modal_content input[name='description']").val(data.product.description); 
+            if(data.product.category_id == 38)
             {
                 $("#edit_modal .modal_content .hide_when_flight").hide(),
                 $("#edit_modal .modal_content input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");   
@@ -210,10 +210,17 @@ $(document).on("click", ".edit", function(event){
             {
                 $("#edit_modal .modal_content .hide_when_flight").show(),
                 $("#edit_modal .modal_content input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)"),
-                $("#edit_modal .modal_content input[name='rice']").val(data.rice),
-                
-                //Need to be able to select the value from the callback
-                $("#edit_modal .modal_content input[name='sweetness']").val(data.sweetness);
+                $("#edit_modal .modal_content input[name='grade']").val(data.sake.grade),
+                $("#edit_modal .modal_content input[name='rice']").val(data.sake.rice),
+                $("#edit_modal .modal_content select[name='sweetness']").val(data.sake.sweetness);
+                if(data.bottle){
+                    $('#edit_modal .modal_content .bottle_size_hide').show(),
+                    $("#edit_modal .modal_content input[name='size_checkbox']").prop('checked', true),
+                    $("#edit_modal .modal_content input[name='size']").val(data.bottle.size);
+                    if(data.bottle.second_price){
+                        $("#edit_modal .modal_content input[name='second_price']").val(data.bottle.second_price);
+                    }
+                }
             }
         }
     });

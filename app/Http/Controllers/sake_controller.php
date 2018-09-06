@@ -25,8 +25,6 @@ class sake_controller extends Controller
 
     public function add_new(Request $request) 
     { 
-        
-        
         $input = $request->all();
         $new_product['name'] = ucfirst($input['name']);
         $new_product['price'] = $input['price']; 
@@ -42,16 +40,17 @@ class sake_controller extends Controller
         {
             $new_sake['rice'] = ucfirst($input['rice']);
             $new_sake['grade'] = ucfirst($input['grade']);
+
             if($input['sweetness'] == 'other')
             { $new_sake['sweetness'] = $input['sweetness_other']; }
             else { $new_sake['sweetness'] = $input['sweetness']; }
 
-        
             $new_sake['product_id'] = $product->product_id;
             
             $sake = sake::create($new_sake);
 
-            if($input['size_checkbox'] == "Size is not 720ml")
+            if($input['size_checkbox'] == "Size is not 720ml"
+                && $input['size'] != null)
             {
                 $new_bottle['size'] = $input['size'];
                 $new_bottle['second_price'] = $input['second_price'];
@@ -61,7 +60,6 @@ class sake_controller extends Controller
             }
         }
         
-        // }
         $new_item = $new_product['name'] . " was successfully created!";
         return redirect('sake')->with('status', $new_item );
     }
@@ -72,16 +70,15 @@ class sake_controller extends Controller
             $product = product::findOrFail($request->product_id);
             if($product->sake)
             {
-                $product["grade"] = $product->sake->grade;
-                $product["rice"] = $product->sake->rice;
-                $product["sweetness"] = $product->sake->sweetness;
+                $sake = $product->sake;      
+                if($product->sake->bottle)
+                {
+                    $bottle = $product->sake->bottle;
+                    return Response(compact('product', 'sake', 'bottle'));
+                }          
+                return Response(compact('product', 'sake'));
             }
-                // }else
-            // {
-            //     $product["rice"] = null;
-            //     $product["sweetness"] = null;
-            // }
-            return Response($product);
+            return Response(compact('product'));
         }
         
     }
@@ -111,8 +108,6 @@ class sake_controller extends Controller
                     { $edit_sake['sweetness'] = $input['sweetness_other']; }
                     else { $edit_sake['sweetness'] = $input['sweetness']; }
 
-                    //$edit_sake['product_id'] = $product->product_id;
-                    //$data = $this->validate_form($input);
                     if($product->sake){
                         $sake = sake::findOrFail ( $product->sake->sake_id );
                         $sake->update($edit_sake);
@@ -123,8 +118,8 @@ class sake_controller extends Controller
                         $sake = sake::create($edit_sake);
                     }
 
-                    if($input['size_checkbox'] == "Size is not 720ml")
-                    {
+                    if($input['size_checkbox'] == "Size is not 720ml"
+                        && $input['size'] != null){
                         $edit_bottle['size'] = $input['size'];
                         $edit_bottle['second_price'] = $input['second_price'];
                         if($sake->bottle){
@@ -135,6 +130,11 @@ class sake_controller extends Controller
                             $edit_bottle['sake_id'] = $sake->sake_id;
                             bottle::create($edit_bottle);
                         }
+                    }else if($input['size_checkbox'] == "720ml" && $sake->bottle
+                            || $input['size_checkbox'] == "Size is not 720ml"
+                                && $input['size'] == null){
+                        $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
+                        $bottle->delete();
                     }
                 }//end of if(category_id !=38)
                 $edited_item = $input['name'] . " was successfully edited!";

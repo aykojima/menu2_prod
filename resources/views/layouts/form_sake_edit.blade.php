@@ -1,8 +1,8 @@
 
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Miyasaka "Yawaraka" "Sake Matinee")', 'class' => 'form_column_long']) !!}
-    
-    {!! Form::text('grade', null, ['placeholder' => 'Grade (e.g. Junmai)', 'class' => 'form_column_long hide_when_flight']) !!}
-    
+    <div class='hide_when_flight'>
+        {!! Form::text('grade', null, ['placeholder' => 'Grade (e.g. Junmai)', 'class' => 'form_column_long hide_when_flight']) !!}
+    </div>
     {!! Form::text('price', null, ['placeholder' => 'Price (e.g. 15)', 'class' => 'form_column_long']) !!}
     <div class='hide_when_flight'>
         <label>Bottle size is not standard(720ml)</label>
