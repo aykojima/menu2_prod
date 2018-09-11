@@ -22,9 +22,8 @@
 
 
         <div class="buttons">
-            <input value="Save" type="submit" name="submit">
+            <input value="Update" type="submit" name="submit">
             <input value="Delete" type="submit" name="submit">
-            <!-- <a href="#">Delete</a> -->
         </div>
     {!! Form::close() !!}
 <!-- </div> -->

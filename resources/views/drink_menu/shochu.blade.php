@@ -1,5 +1,5 @@
 @extends('layouts.header_drink')
-
+ 
 @section('content')
 <div id='add_new_modal' class='modal'>
     <div class='modal_content'>
@@ -195,13 +195,11 @@ $(document).on("click", ".edit", function(event){
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
-                $("#edit_modal .modal_content input[name='product_id']").val(data.product_id),
-                $("#edit_modal .modal_content input[name='name']").val(data.name),
-                $("#edit_modal .modal_content input[name='price']").val(data.price),
-                $("#edit_modal .modal_content input[name='production_area']").val(data.production_area),
-                $("#edit_modal .modal_content input[name='rice']").val(data.rice),
-                $("#edit_modal .modal_content input[name='sweetness']").val(data.sweetness),
-                $("#edit_modal .modal_content input[name='description']").val(data.description);
+                $("#edit_modal .modal_content input[name='product_id']").val(data.product.product_id),
+                $("#edit_modal .modal_content input[name='name']").val(data.product.name),
+                $("#edit_modal .modal_content input[name='price']").val(data.product.price),
+                $("#edit_modal .modal_content input[name='production_area']").val(data.product.production_area),
+                $("#edit_modal .modal_content input[name='description']").val(data.product.description);
                 }
             });
     });
@@ -215,8 +213,6 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),
                 'production_area': $("#edit_form input[name='production_area']").val(),
-                'rice': $("#edit_form input[name='rice']").val(),
-                'sweetness': $("#edit_form input[name='sweetness']").val(),
                 'description': $("#edit_form input[name='description']").val(),
                 'submit': $("#edit_form input[name='submit']").val()
         }

@@ -67,7 +67,7 @@
                         @endif
                         </p>
                         <p class="drink_price">{{ $wine_glass->price }}</p>
-                        @if(!empty ($wine_glass->wine->bottle))    
+                        @if(!empty ($wine_glass->wine->bottle->size))    
                             <p class="bottle_size"><small>{{ $wine_glass->wine->bottle->size }}ml</small>
                                 @if($wine_glass->wine->bottle->second_price)    
                                     {{ $wine_glass->wine->bottle->second_price }} / 
@@ -123,7 +123,13 @@ $(".dismiss").click(function(){
 //     }
 // });
 
-
+$(document).ready(function(){
+    $(".drink_categories").each(function(){
+        if($(this).data("id") == 17 || $(this).data("id") == 20){
+            $(this).children(".add_new_drink").css("display", "none");
+        }
+    })
+});
 
 
 
@@ -183,15 +189,23 @@ $(document).on("click", ".edit", function(event){
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
-                $("#edit_modal .modal_content input[name='product_id']").val(data.product_id),
-                $("#edit_modal .modal_content input[name='name']").val(data.name),
-                $("#edit_modal .modal_content input[name='price']").val(data.price),
-                $("#edit_modal .modal_content input[name='production_area']").val(data.production_area),
-                $("#edit_modal .modal_content input[name='type']").val(data.type),
-                $("#edit_modal .modal_content input[name='year']").val(data.year),
-                $("#edit_modal .modal_content input[name='description']").val(data.description);
+                $("#edit_modal .modal_content input[name='product_id']").val(data.product.product_id),
+                $("#edit_modal .modal_content input[name='name']").val(data.product.name),
+                $("#edit_modal .modal_content input[name='price']").val(data.product.price),
+                $("#edit_modal .modal_content input[name='production_area']").val(data.product.production_area),
+                $("#edit_modal .modal_content input[name='type']").val(data.wine.type),
+                $("#edit_modal .modal_content input[name='year']").val(data.wine.year),
+                $("#edit_modal .modal_content input[name='description']").val(data.product.description);
+                if(data.bottle){
+                    $('#edit_modal .modal_content .bottle_size_hide').show(),
+                    $("#edit_modal .modal_content input[name='size_checkbox']").prop('checked', true),
+                    $("#edit_modal .modal_content input[name='size']").val(data.bottle.size);
+                    if(data.bottle.second_price){
+                        $("#edit_modal .modal_content input[name='second_price']").val(data.bottle.second_price);
+                    }
                 }
-            });
+            }
+        });
     });
 
 $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {

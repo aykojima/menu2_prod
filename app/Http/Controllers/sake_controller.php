@@ -130,9 +130,10 @@ class sake_controller extends Controller
                             $edit_bottle['sake_id'] = $sake->sake_id;
                             bottle::create($edit_bottle);
                         }
-                    }else if($input['size_checkbox'] == "720ml" && $sake->bottle
-                            || $input['size_checkbox'] == "Size is not 720ml"
-                                && $input['size'] == null){
+                    }else if(
+                        ($sake->bottle && $input['size_checkbox'] == "720ml" && $sake->bottle)
+                            || ($sake->bottle && $input['size_checkbox'] == "Size is not 720ml"
+                            && $input['size'] == null)){
                         $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
                         $bottle->delete();
                     }

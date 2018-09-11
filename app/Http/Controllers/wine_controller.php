@@ -44,22 +44,14 @@ class wine_controller extends Controller
             ->orderByRaw($query)
             ->orderBy('price')
             ->get();
-
-        // $wine_glasses = product::leftJoin('wines', 'wines.product_id', '=', 'products.product_id')
-        //     ->whereBetween('category_id', [15, 24])
-        //     ->orderBy('price')
-        //     ->get();
-        
     
         $categories = category::whereBetween('category_id', [15, 24])->get();
-
+        // dd($wine_glasses);
         return view('drink_menu/wine', compact('wine_glasses', 'categories'));
     }
 
     public function add_new(Request $request) 
     { 
-        // if( $request->isMethod('post'))
-        // {
         
         $input = $request->all();
         $new_product['name'] = $input['name'];
@@ -72,16 +64,14 @@ class wine_controller extends Controller
         $product = product::create($new_product);
 
         $new_wine['type'] = ucfirst($input['type']);
-        $new_wine['year'] = ucfirst($input['year']);
-        // if($input['sweetness'] == 'other')
-        // { $new_wine['sweetness'] = $input['sweetness_other']; }
-        // else { $new_wine['sweetness'] = $input['sweetness']; }
+        $new_wine['year'] = $input['year'];
 
         $new_wine['product_id'] = $product->product_id;
         
         $wine = wine::create($new_wine);
 
-        if($input['size_checkbox'] == "Size is not 750ml")
+        if($input['size_checkbox'] == "Size is not 750ml"
+            && $input['size'] != null)
         {
             $new_bottle['size'] = $input['size'];
             $new_bottle['second_price'] = $input['second_price'];
@@ -90,8 +80,6 @@ class wine_controller extends Controller
             $bottle = bottle::create($new_bottle);
         }
 
-        
-        // }
         $new_item = $new_product['name'] . " was successfully created!";
         return redirect('wine')->with('status', $new_item );
     }
@@ -102,11 +90,18 @@ class wine_controller extends Controller
             $product = product::findOrFail($request->product_id);
             if($product->wine)
             {
-                $product["type"] = $product->wine->type;
-                $product["year"] = $product->wine->year;
+                $wine = $product->wine;
+                
+                if($product->wine->bottle)
+                {
+                    $bottle = $product->wine->bottle;
+                    return Response(compact('product', 'wine', 'bottle'));
+                }
+
+                return Response(compact('product', 'wine'));
+            
             }
-        
-            return Response($product);
+            return Response(compact('product'));
         }
         
     }
@@ -117,14 +112,13 @@ class wine_controller extends Controller
         $product = product::findOrFail ( $request->product_id );
         $input = $request->all();
         switch($request->submit) {
-            case 'Save': 
+            case 'Update': 
                 $input = $request->all();
                 $edit_product['name'] = $input['name'];
                 $edit_product['price'] = $input['price']; 
                 $edit_product['production_area'] = $input['production_area'];
                 $edit_product['description'] = $input['description'];
                 
-
                 $product->update($edit_product);
 
                 $edit_wine['type'] = $input['type'];
@@ -140,10 +134,11 @@ class wine_controller extends Controller
                     $wine = wine::create($edit_wine);
                 }
 
-                if($input['size_checkbox'] == "Size is not 750ml")
-                {
+                if($input['size_checkbox'] == "Size is not 750ml"
+                    && $input['size'] != null){
                     $edit_bottle['size'] = $input['size'];
                     $edit_bottle['second_price'] = $input['second_price'];
+                    
                     if($wine->bottle){
                         $bottle = bottle::findOrFail ( $wine->bottle->bottle_id );
                         $bottle->update($edit_bottle);
@@ -151,7 +146,13 @@ class wine_controller extends Controller
                     {
                         $edit_bottle['wine_id'] = $wine->wine_id;
                         bottle::create($edit_bottle);
-                    }
+                    }    
+                }else if(
+                    ($wine->bottle && $input['size_checkbox'] == "750ml" && $wine->bottle)
+                    || ($wine->bottle && $input['size_checkbox'] == "Size is not 750ml"
+                    && $input['size'] == null)){
+                        $bottle = bottle::findOrFail ( $wine->bottle->bottle_id );
+                        $bottle->delete();
                 }
                 
                 $edited_item = $input['name'] . " was successfully edited!";
@@ -162,7 +163,7 @@ class wine_controller extends Controller
                 $edited_item = $input['name'] . " was deleted!";
                 return redirect('wine')->with('status', $edited_item );
             break;
-            
+        
         }
     }
 
