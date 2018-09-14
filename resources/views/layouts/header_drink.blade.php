@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
 
 </head>
 <body>
@@ -82,7 +83,7 @@
             </li>
             <li>
                 <a href='{{ URL::to('special')}}' class='nav_links'>
-                    <img src='{{ Request::is('special') ? 'images/shochu_icon_active.png' : 'images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <img src='{{ Request::is('special') ? 'images/special_icon_active.png' : 'images/special_icon_no_active.png' }} '.png'}}' class='nav_icons'>
                     <p class="{{ Request::is('special') == 'special' ? 'nav_active' : 'nav_name' }} line_height_08">Specials</p>
                 </a>
             </li>

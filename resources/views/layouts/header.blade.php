@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_token" content="{{ csrf_token() }}">
-    <title>SKT menu</title>
+    <title>SKT menu</title> 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css" media="screen">
     <link rel="stylesheet" href="{{ asset('css/app_print.css') }}" type="text/css" media="print">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
