@@ -92,7 +92,7 @@ body{
 }
 
 %drink_divs{
-  position: relative;
+  // position: relative;
   margin: 0 0 3% 0;
 }
 
@@ -101,7 +101,7 @@ body{
   margin-bottom: 2%;
   clear: both;
   h2{
-    margin: 4% 2% 4% 0;
+    margin: 10% 2% 2% 0;
     padding-left: 0;
     float: none;
   }
@@ -183,15 +183,15 @@ h2{
   @include font_style;
 }
 
-#showResult{
-  display:block;
-  margin:auto;
-  width:100%;
-  clear: both;
-//   border: solid 1px Blue;
-//   font-size: .98em;
-//   line-height: 1.5em;
-}
+// #showResult{
+//   display:block;
+//   margin:auto;
+//   width:100%;
+//   clear: both;
+// //   border: solid 1px Blue;
+// //   font-size: .98em;
+// //   line-height: 1.5em;
+// }
 
 .title_div {
   padding-bottom: 10%;

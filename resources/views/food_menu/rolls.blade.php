@@ -275,7 +275,7 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
 });
 
 function add_fish(){
-        $("div[data-sust='sustainable']").append('<img id="fish" src="{{ asset('images/fish.png') }}" style="width:15px;"/>');
+        $("div[data-sust='sustainable']").append('<img class="fish" src="{{ asset('images/fish.png') }}" style="width:15px;"/>');
     }
 
 

@@ -39,14 +39,13 @@ body {
     color: #cccccc; }
 
 .drink_categories, .products {
-  position: relative;
   margin: 0 0 3% 0; }
 
 .drink_categories {
   margin-bottom: 2%;
   clear: both; }
   .drink_categories h2 {
-    margin: 4% 2% 4% 0;
+    margin: 10% 2% 2% 0;
     padding-left: 0;
     float: none; }
   .drink_categories h3 {
@@ -102,12 +101,6 @@ h1 {
 h2 {
   text-align: left;
   color: #CF671F; }
-
-#showResult {
-  display: block;
-  margin: auto;
-  width: 100%;
-  clear: both; }
 
 .title_div {
   padding-bottom: 10%; }

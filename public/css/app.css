@@ -418,15 +418,6 @@ h2 {
   float: left;
   font-weight: 400; }
 
-/*
-h1{
-  font-size:1.5em;
-}
-
-h2{
-  font-size:1.23em;
-}
-*/
 #showResult {
   display: block;
   margin: auto;
@@ -640,7 +631,7 @@ li.items {
   margin: 11px 0;
   list-style: none; }
 
-img#fish {
+img.fish {
   display: block;
   float: right;
   margin-top: 5px; }

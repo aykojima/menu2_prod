@@ -24,39 +24,40 @@
  </div>
 
 <div id="container">
-    
     <div id="menu">        
         @foreach($categories as $category)
-        
-        <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-        <h2 style="color: #CF671F; clear:both">
-        @if($category->category_id == 37)   
-        Non-Alcoholic, 
-        @endif    
-        {{ $category->category }}</h2>
-        <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
-        <hr>
-        
-            @foreach($drinks as $drink)
-                @if($drink->category->category == $category->category)
-                <div class="products">
-                <a class="edit" data-id="{{ $drink->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                    <div>
-                        <p class="drink_name">{{ $drink->name }} 
-                        <p class="drink_price">{{ $drink->price }}</p>
-
-                        <div class="drink_details">
-                            <p>{{ $drink->production_area }} 
-                            <p>{{ $drink->description }}</p>
-                        </div>
-                    </div>
-                </div>
+            <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+                <!-- <h2 style="color: #CF671F; clear:both"> -->
+                <h2>
+                @if($category->category_id == 37)   
+                    Non-Alcoholic, 
+                @endif    
+                {{ $category->category }}</h2>
+                <a class="add_new_drink"> 
+                    <img class="add_drinks" src='images/add_icon_active.png'>
+                </a>
                 <hr>
-                @endif
-            @endforeach
-        </div>    
+                @foreach($drinks as $drink)
+                    @if($drink->category->category == $category->category)
+                        <div class="products">
+                            <a class="edit" data-id="{{ $drink->product_id }}">
+                                <img class="edit_drinks" src='images/edit_icon_active.png'>
+                            </a>
+                            <div>
+                                <p class="drink_name">{{ $drink->name }} 
+                                <p class="drink_price">{{ $drink->price }}</p>
+                                <div class="drink_details">
+                                    <p>{{ $drink->production_area }} 
+                                    <p>{{ $drink->description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    @endif
+                @endforeach
+            </div>    
         @endforeach
-</div>
+    </div>
 
 @if(session('status'))
 <div id="notification" style="display: none;">

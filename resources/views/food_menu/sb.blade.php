@@ -242,7 +242,7 @@ $(".dismiss").click(function(){
 });
 
     function add_fish(){
-        $('.sustainable_y').append('<img id="fish" src="{{ asset('images/fish.png') }}" style="width:15px;"/>');
+        $('.sustainable_y').append('<img class="fish" src="{{ asset('images/fish.png') }}" style="width:15px;"/>');
     }
 
 

@@ -72,7 +72,7 @@
                             <a class="edit" data-id="{{ $drink->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
                             <div>
                                 <p class="drink_name">{{ $drink->name }} 
-                                <p class="drink_price">{{ $drink->price }}</p>
+                                <p class="drink_price">{{ $drink->price }}</p> 
 
                                 <div class="drink_details"> 
                                     <p>{{ $drink->description }}</p>

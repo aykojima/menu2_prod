@@ -12,7 +12,7 @@
   margin: 0; }
 header, #nav, #new_item, .right_div,
 .modal, .search-box, .commands, #notification, #update,
-.add_drinks, .edit_drinks {
+.add_drinks, .edit_drinks, .date {
   display: none; }
 
 * {
@@ -27,7 +27,6 @@ body {
 div#container, div#i_container,
 div#r_container, div#c_container,
 div#wdl_container, div#wel_container {
-  width: 100%;
   top: -45px; }
 
 p.notes {
@@ -38,12 +37,6 @@ p.notes {
   top: 500px;
   font-size: 0.5em;
   color: #ccc; }
-
-.date {
-  /*position: relative;*/
-  display: inline-block;
-  margin-top: 4%;
-  visibility: hidden; }
 
 p.verticalSushi {
   writing-mode: tb-rl;
@@ -75,7 +68,7 @@ div#wdl_menu, div#wel_menu {
   width: 85%;
   margin: auto;
   margin: 2%;
-  margin-top: 10%;
+  margin-top: 15%;
   padding: 2%;
   margin-left: 6%; }
 
@@ -225,6 +218,10 @@ div.gf {
   line-height: 1.2em;
   margin-left: 5px; }
 
+h1.page_title {
+  float: none;
+  margin-bottom: 20px; }
+
 li.sortable {
   margin: 11px 0;
   list-style: none;
@@ -233,14 +230,10 @@ li.sortable {
 li.sortable:hover {
   border: 1px solid #CCC; }
 
-img#fish {
+img.fish {
   display: block;
   float: right;
   margin-top: 5px; }
-
-h1#ippin {
-  float: none;
-  margin-bottom: 5px; }
 
 #show_result_ippin {
   /* font-size:0.9em; */
@@ -383,7 +376,8 @@ div.courses .descriptions {
   font-style: italic; }
 
 .items {
-  margin-left: 62px; }
+  margin: 11px 0;
+  list-style: none; }
 
 .item_names {
   display: block;
