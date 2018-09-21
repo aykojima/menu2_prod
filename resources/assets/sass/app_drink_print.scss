@@ -21,29 +21,6 @@ $skt_color: #CF671F;
   color:$skt_color;
 }
 
-%close_tab_shared {
-  background-color: #fff;
-  border: none;
-  margin: 2%;
-  cursor: pointer;
-  color: #ccc;
-  font-size: 1.2em;
-}
-
-// %form_div {
-//   display:none;
-//   border: 1px solid #ccc;
-//   position:absolute;
-//   left:23%;
-//   top:9%;
-//   background-color: #fff;
-//   width:56%;
-//   z-index:999;
-// }
-// Bootstrap
-// @import '~bootstrap/scss/bootstrap';
-
-
 @page {
    size: 8.5in 14in;
    margin: 0;
@@ -70,8 +47,8 @@ div.page2, .page4, .page6, .page8,
   width: 49%;
   display: inline-block;
   vertical-align: top;
-  bottom:0px;
-  margin-top: 0px !important;
+  bottom: 0;
+  margin-top: 0 !important;
   border: 1px black solid;
 }
 
@@ -79,7 +56,6 @@ div.page2, .page4, .page6, .page8,
   width: 100%;
   page-break-after: always;
   clear: both;
-  max-height: fit-content(14in);
 }
 
 .page8{
@@ -120,13 +96,13 @@ div.page2, .page4, .page6, .page8,
     padding-top: 5%;
   }
   p{
-    line-height: 10px;
+    line-height: 5%;
   }
 }
 
 .rotating_wine{
   color: #CCCCCC;
-  line-height: 15px;
+  line-height: 1em;
 }
 
 .products{
@@ -177,12 +153,12 @@ p.bottle_size {
   }
 }
 
-img.add_drinks{
-  width: 20px;
-  // @extend %drink_icons;
-  // top: 0;
-  // right: 0;
-}
+// img.add_drinks{
+//   width: 20px;
+//   // @extend %drink_icons;
+//   // top: 0;
+//   // right: 0;
+// }
 
 div.menu{
     display:block;
@@ -194,6 +170,8 @@ div.menu{
     margin-left:4%;
     // border: solid 1px Blue;
     // height:1195px;
+    max-height: fit-content(14in);
+    min-height: fit-content(14in);
 }
 
 h1{

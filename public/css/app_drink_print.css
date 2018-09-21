@@ -25,15 +25,14 @@ div.page2, .page4, .page6, .page8,
   width: 49%;
   display: inline-block;
   vertical-align: top;
-  bottom: 0px;
-  margin-top: 0px !important;
+  bottom: 0;
+  margin-top: 0 !important;
   border: 1px black solid; }
 
 .pages {
   width: 100%;
   page-break-after: always;
-  clear: both;
-  max-height: fit-content(14in); }
+  clear: both; }
 
 .page8 .drink_categories h3 {
   float: left;
@@ -58,11 +57,11 @@ div.page2, .page4, .page6, .page8,
     clear: both;
     padding-top: 5%; }
   .drink_categories p {
-    line-height: 10px; }
+    line-height: 5%; }
 
 .rotating_wine {
   color: #CCCCCC;
-  line-height: 15px; }
+  line-height: 1em; }
 
 .small_margin {
   margin-bottom: 1%; }
@@ -97,9 +96,6 @@ p.bottle_size {
   .drink_details span {
     color: #CF671F; }
 
-img.add_drinks {
-  width: 20px; }
-
 div.menu {
   display: block;
   width: 90%;
@@ -107,7 +103,9 @@ div.menu {
   margin: 3%;
   margin-top: 10%;
   padding: 2%;
-  margin-left: 4%; }
+  margin-left: 4%;
+  max-height: fit-content(14in);
+  min-height: fit-content(14in); }
 
 h1 {
   text-align: left;
