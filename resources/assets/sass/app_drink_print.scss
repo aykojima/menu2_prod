@@ -11,7 +11,7 @@
 $skt_color: #CF671F;
 
 @font-face {
-  font-family: 'TheSans Plain'; 
+  font-family: 'TheSans Plain';  
   src: url('/fonts/TheSans Plain.ttf'); 
   font-weight: lighter;
 }
@@ -30,16 +30,16 @@ $skt_color: #CF671F;
   font-size: 1.2em;
 }
 
-%form_div {
-  display:none;
-  border: 1px solid #ccc;
-  position:absolute;
-  left:23%;
-  top:9%;
-  background-color: #fff;
-  width:56%;
-  z-index:999;
-}
+// %form_div {
+//   display:none;
+//   border: 1px solid #ccc;
+//   position:absolute;
+//   left:23%;
+//   top:9%;
+//   background-color: #fff;
+//   width:56%;
+//   z-index:999;
+// }
 // Bootstrap
 // @import '~bootstrap/scss/bootstrap';
 
@@ -72,12 +72,14 @@ div.page2, .page4, .page6, .page8,
   vertical-align: top;
   bottom:0px;
   margin-top: 0px !important;
+  border: 1px black solid;
 }
 
 .pages{
   width: 100%;
   page-break-after: always;
   clear: both;
+  max-height: fit-content(14in);
 }
 
 .page8{
@@ -100,7 +102,7 @@ div.page2, .page4, .page6, .page8,
 }
 
 %drink_divs{
-  position: relative;
+  // position: relative;
   margin: 0 0 3% 0;
 }
 
@@ -115,10 +117,16 @@ div.page2, .page4, .page6, .page8,
   h3{
     color: $skt_color; 
     clear: both;
+    padding-top: 5%;
   }
   p{
-    color: #CCCCCC; 
+    line-height: 10px;
   }
+}
+
+.rotating_wine{
+  color: #CCCCCC;
+  line-height: 15px;
 }
 
 .products{
@@ -144,6 +152,7 @@ div.page2, .page4, .page6, .page8,
 
 .drink_name{
   float: left;
+  color: #000000;
   @extend %name_price_font_size;
 }
 
@@ -163,6 +172,9 @@ p.bottle_size {
   clear: both;
   font-size: 0.8em;
   line-height: 1em;
+  span{
+    color: $skt_color;
+  }
 }
 
 img.add_drinks{

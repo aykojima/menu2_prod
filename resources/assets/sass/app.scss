@@ -1479,12 +1479,18 @@ input.add_price, input.item_prices {
   h3{
     color: $skt_color; 
     clear: both;
+    padding-top: 5%;
+  }
+  p{
+    line-height: 10px;
   }
 }
 
 .rotating_wine{
   color: #CCCCCC;
+  line-height: 15px;
 }
+
 .products{
   @extend %drink_divs; 
 }

@@ -178,6 +178,7 @@
                             || $category->category_id == 9)
                             <div id="" class="drink_categories">
                                 <h3>{{ $category->category }}</h3>
+                                <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $category->description }}</p>
                             </div>
                             @foreach($sake_bottles as $sake_bottle)
                                 @if($sake_bottle->category->category_id == $category->category_id)
@@ -253,7 +254,7 @@
                         @if($category->category_id == 23 
                             || $category->category_id == 24)
                             <div id="" class="drink_categories">
-                                <h3>{{ $category->category }}</h3>
+                                <h2>{{ $category->category }}</h2>
                             </div>
                             @foreach($rose_and_reds as $rose_and_red)
                                 @if($rose_and_red->category->category_id == $category->category_id)
@@ -416,8 +417,10 @@
                             @endforeach
                         @elseif($category->category_id == 17)
                             <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
-                                <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3> 
+                                <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
                             </div>   
+                            <p class="rotating_wine">Anything goes -- from dry Riesling to white Burgundy</p>
+                            <p class="rotating_wine">Ask your server about today's pour!</p> 
                         @elseif($category->category_id == 18)
                             <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
                                 <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3> 
@@ -498,6 +501,8 @@
                             <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
                                 <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3> 
                             </div>   
+                            <p class="rotating_wine">Typically bright, light varietals like Pinot Noir, Tempranillo, or Barbera. 
+                                    Ask your server about today's pour!</p>
                         @endif
                     @endforeach
                     <div class='title_div margin_top'>
@@ -508,7 +513,7 @@
                     @foreach($categories as $category) 
                         @if($category->category_id == 21)
                             <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
-                                <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3> 
+                                <h2 style="color: #CF671F; clear:both">{{ $category->category }}</h2> 
                             </div>    
                             @foreach($wine_glasses as $wine_glass)
                                 @if($wine_glass->category_id == 21)
@@ -550,7 +555,7 @@
                     @foreach($categories as $category) 
                         @if($category->category_id == 22)
                             <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
-                                <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3> 
+                                <h2 style="color: #CF671F; clear:both">{{ $category->category }}</h2> 
                             </div>    
                             @foreach($whites as $white)
                                 <div class="products">
@@ -603,23 +608,26 @@ $(document).ready(function(){
 
     //Need to fix here
     //Make each if statement callback function so that it checks the height each time the function is called.
-    $(".menu").each(function(){
-        var height = $(this).outerHeight();
-        //console.log('original ' + height);
-        if(height >= 1200){
-            $(this).find(".products").addClass("small_margin");
-            //console.log('first ' + height);
-            if(height >= 1200){
-                $(this).find(".products").addClass("no_margin");
-                //console.log('second ' + height);
-                if(height >= 1200){
-                    $(this).addClass("small_margin_top");
-                    //console.log('last ' + height);
-                }
-            }    
-        }
-        //console.log('after ' + height);
-    });
+    // $(".menu").each(function(){
+    //     var height = $(this).outerHeight();
+    //     console.log('original ' + height);
+    //     if(height >= 1200){
+    //         $(this).find(".products").addClass("small_margin");
+    //         height = $(this).outerHeight();
+    //         console.log('first ' + height);
+    //         if(height >= 1200){
+    //             $(this).find(".products").addClass("no_margin");
+    //             height = $(this).outerHeight();
+    //             console.log('second ' + height);
+    //             if(height >= 1200){
+    //                 $(this).addClass("small_margin_top");
+    //                 height = $(this).outerHeight();
+    //                 console.log('last ' + height);
+    //             }
+    //         }    
+    //     }
+    //     //console.log('after ' + height);
+    // });
 
 
 

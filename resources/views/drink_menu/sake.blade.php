@@ -44,46 +44,48 @@
         <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
             <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
             <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
-            <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
+            <a class="add_new_drink"> 
+                <img class="add_drinks" src='images/add_icon_active.png'>
+            </a>
             <hr>
             @foreach($sake_glasses as $sake_glass)
                 @if($sake_glass->category->category == $category->category)
-                <div class="products">
-                <a class="edit" data-id="{{ $sake_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                    <div>
-                        <p class="drink_name">{{ $sake_glass->name }} 
-                        @if(!empty ($sake_glass->sake))    
-                            <small>{{ $sake_glass->sake->grade }}</small>
-                            @if($key == 0)
-                                <small style="color: #CF671F">warm or hot</small>
-                            @endif
-                        @endif
-                        </p>
-                        <p class="drink_price">{{ $sake_glass->price }}</p>
-                        @if(!empty($sake_glass->sake->bottle->size))    
-                        <p class="bottle_size"><small>{{ $sake_glass->sake->bottle->size }}ml</small>
-                        @if($sake_glass->sake->bottle->second_price)    
-                        {{ $sake_glass->sake->bottle->second_price }} / 
-                        @endif
-                        </p>
-                        @endif
-
-                        <div class="drink_details">
-                            <p>{{ $sake_glass->production_area }} 
+                    <div class="products">
+                    <a class="edit" data-id="{{ $sake_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
+                        <div>
+                            <p class="drink_name">{{ $sake_glass->name }} 
                             @if(!empty ($sake_glass->sake))    
-                                @if($sake_glass->sake->rice)        
-                                / {{ $sake_glass->sake->rice }} 
+                                <small>{{ $sake_glass->sake->grade }}</small>
+                                @if($key == 0)
+                                    <small style="color: #CF671F">warm or hot</small>
                                 @endif
-                                @if($sake_glass->sake->sweetness)
-                                / {{ $sake_glass->sake->sweetness }}
-                                @endif
-                                </p>
-                            @endif    
-                            <p>{{ $sake_glass->description }}</p>
+                            @endif
+                            </p>
+                            <p class="drink_price">{{ $sake_glass->price }}</p>
+                            @if(!empty($sake_glass->sake->bottle->size))    
+                            <p class="bottle_size"><small>{{ $sake_glass->sake->bottle->size }}ml</small>
+                            @if($sake_glass->sake->bottle->second_price)    
+                            {{ $sake_glass->sake->bottle->second_price }} / 
+                            @endif
+                            </p>
+                            @endif
+
+                            <div class="drink_details">
+                                <p>{{ $sake_glass->production_area }} 
+                                @if(!empty ($sake_glass->sake))    
+                                    @if($sake_glass->sake->rice)        
+                                    / {{ $sake_glass->sake->rice }} 
+                                    @endif
+                                    @if($sake_glass->sake->sweetness)
+                                    / {{ $sake_glass->sake->sweetness }}
+                                    @endif
+                                    </p>
+                                @endif    
+                                <p>{{ $sake_glass->description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr>
+                    <hr>
                 @endif
             @endforeach
         </div>   

@@ -67,7 +67,7 @@ body{
 
 
 .hh{ 
-  margin-bottom: 5%;
+  margin: 5% 0 5% 0;
   h1{
     margin-left: 0;
     padding-left: 0;
@@ -101,7 +101,7 @@ body{
   margin-bottom: 2%;
   clear: both;
   h2{
-    margin: 10% 2% 2% 0;
+    margin: 4% 2% 2% 0;
     padding-left: 0;
     float: none;
   }
@@ -172,6 +172,10 @@ div.menu{
     margin-left:4%;
     // border: solid 1px Blue;
     // height:1195px;
+    // & + div{
+    //   margin-top: 50%;
+    //   border: dashed;
+    // }
 }
 
 h1{
