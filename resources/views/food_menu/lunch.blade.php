@@ -6,7 +6,7 @@
     <div class='modal_content'>        
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'lunch_add_new']) !!}
-        @include('layouts.form_lunch_new')
+        @include('layouts.forms.form_lunch')
         {!! Form::close() !!}
     </div>
  </div>

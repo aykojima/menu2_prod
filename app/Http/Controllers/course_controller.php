@@ -69,7 +69,7 @@ class course_controller extends Controller
 
         $course = course::findOrFail($course_id);
         
-        return view('food_menu.form_course_edit2', [
+        return view('layouts.forms.form_course', [
             'course_id' => $course_id,
             'course' => $course, 
             // 'c_add_on_items' => $course->c_add_on_items->all(), 

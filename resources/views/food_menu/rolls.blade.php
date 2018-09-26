@@ -27,7 +27,7 @@
         <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'roll_add_new']) !!}
-        @include('layouts.form_roll')
+        @include('layouts.forms.form')
         {!! Form::close() !!}
     </div>
  </div>
@@ -38,7 +38,7 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'roll_edit_submit']) !!}
         {!! Form::hidden('roll_id') !!}
-        @include('layouts.form_roll')
+        @include('layouts.forms.form')
         {!! Form::close() !!}
     </div>    
  </div>

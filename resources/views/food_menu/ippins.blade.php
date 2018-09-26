@@ -14,7 +14,7 @@
         <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'ippin_add_new']) !!}
-        @include('layouts.form_ippin')
+        @include('layouts.forms.form')
         {!! Form::close() !!}
     </div>
  </div>
@@ -25,7 +25,7 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'ippin_edit_submit']) !!}
         {!! Form::hidden('ippin_id') !!}
-        @include('layouts.form_ippin')
+        @include('layouts.forms.form')
         {!! Form::button('Delete', array('id' => 'delete')) !!}
             <!-- <a href="{{action('ippin_controller@delete', 'ippin_id')}}">Delete</a> -->
         {!! Form::close() !!}

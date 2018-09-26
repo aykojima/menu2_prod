@@ -1,3 +1,48 @@
+@if(Request::is('course'))
+<div class="course_form">
+    <div class="div_course_title">
+        <input placeholder="Title (e.g. Two Course)" class="form_column_medium" name="title" type="text">
+        <input placeholder="Price" class="form_column_medium" name="course_price" type="text">
+    </div>
+
+    <div class="addon_fields_wrap">
+        <div class='div_column_medium'>
+            <input placeholder="Add-ons (e.g. Served with miso soup)" class="form_column_medium" name="addon_description[]" type="text">
+            <input placeholder="Price" class="form_column_medium" name="addon_price[]" type="text">
+        </div>
+    </div>
+    <button id="add_more_addons" class="new_section">&#43;
+        <span class="new_section_text">Add more add-on item</span>
+    </button>
+
+    <div class="item_fields_wrap">
+        <div>
+            <div class="div_choice">
+                <div class="div_label_checkbox">
+                    <label for="choice">Choice of</label>
+                    <input name="choice[0]" value="N" type="hidden">
+                    <input class="choice_checkbox" name="choice[0]" value="Y" type="checkbox">
+                </div>
+            </div>
+            <div class="div_column_medium">
+                <input placeholder="Item (e.g. Sushi combo)" class="form_column_medium" name="item_name[]" type="text">
+                <input placeholder="Price" class="form_column_medium" name="item_price[]" type="text">    
+            </div>
+            <button id="show_description_box" class="new_section">&#43;
+                <span class="new_section_text">Add description</span>
+            </button>
+            <textarea rows="1" placeholder="Description (e.g. Seven pieces of nigiri sushi)" class="form_column_long" name="item_description[]"></textarea>
+            <button type="button" name="remove_description" class="remove_description_field">&times;</button>
+        </div>
+    </div>
+    <button id="add_more_items" class="new_section">&#43;
+        <span class="new_section_text">Add more item</span>
+    </button>
+    <input value="Add" type="submit">
+</div>
+
+@else
+
 <!DOCTYPE html>
 <html data-whatinput="keyboard" data-whatintent="keyboard" class=" whatinput-types-initial whatinput-types-keyboard">
 <head>
@@ -15,8 +60,6 @@
 </head>
 <body>
 
-<!-- <div id='edit_modal' class='modal'>
-    <div class='modal_content'> -->
     <div class="edit_course_form">
         {!! Form::open(['action' => ['course_controller@edit_menu', $course_id]]) !!}
         <input value="{{$course->course_id}}" name="course_id" type="hidden">
@@ -143,87 +186,11 @@ var i=0, j=0;
          e.preventDefault(); $(this).parent('div').remove(); j--;
         });
 
-// $(data.course.c_add_on_items).each(function( index ) {
-//     $("#edit_modal .modal_content input[name='course_id']").val(this.course_id);
-//     if(index == 0)
-//     {
-//         $("#edit_modal .modal_content input[name='edit_addon_description[]']").val(this.description);
-//         $("#edit_modal .modal_content input[name='edit_addon_price[]']").val(this.price);
-//         $("#edit_modal .modal_content input[name='edit_c_add_on_id[]']").val(this.c_add_on_id);
-        
-//     }
-//     else
-//     {
-//         i++;  
-//         $('.addon_fields_wrap').append('<input type="hidden" name="edit_c_add_on_id[]" value="' + this.c_add_on_id + '">' + 
-//         '<div class="div_column_medium">' +
-//         '<input type="text" name="edit_addon_description[]" value="' + this.description + '" ' + 
-//         'class="form_column_medium" />' +
-//         '<input type="text" name="edit_addon_price[]" placeholder="Price" value="' + this.price + '"' + 
-//         'class="form_column_medium" />'); 
-        
-//         if(this.price === null)
-//         {
-//             $("input[name='edit_addon_price[]']").val(this.price);
-//         }
-//         var div= i + 1;
-//         $('.addon_fields_wrap .div_column_medium:nth-child(' + div + ')').append('<button type="button" name="edit_remove" id="'+i+'" class="remove_field">&times;</button></div>');  
-        
-//     }
-    
-// });
-
-// $(data.course.c_items).each(function( index ) {
-    
-//     if(index == 0)
-//     {
-//         $("#edit_modal .modal_content input[name='edit_item_name[]']").val(this.name);
-//         $("#edit_modal .modal_content input[name='edit_item_price[]']").val(this.price);
-//         $("#edit_modal .modal_content input[name='edit_item_description[]']").val(this.description);
-//         $("#edit_modal .modal_content input[name='edit_c_item_id[]']").val(this.c_item_id);
-//         this.choice == 'Y' ? $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', true) : $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', false);
-//     }
-//     else
-//     {
-//         j++;  
-    
-//         $('.item_fields_wrap').append('<div><input type="hidden" name="edit_c_item_id[]" value="' + this.c_item_id + '">' +
-//         '<div id= "sustainable"><div class="div_label_checkbox">' +
-//         '<label for="choice">Choice of</label>' +
-//         '<input id="choice" type="hidden" value="N" name="edit_choice[' + j + ']"></input>' + 
-//         '<input id="choice" type="checkbox" value="Y" name="edit_choice[' + j + ']"></input></div></div>' + 
-//         '<div class="div_column_medium">' +
-//         '<input type="text" name="edit_item_name[]" value="' + this.name + '"' + 
-//         'class="form_column_medium" />' +
-//         '<input type="text" name="edit_item_price[]" placeholder="Price" value="' + this.price + '"' + 
-//         'class="form_column_medium" /></div>' +
-//         '<input type="text" name="edit_item_description[]" value="' + this.description + '"' + 
-//         'class="form_column_long" />');
-        
-//         this.choice == 'Y' ? $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', true) : $("#edit_modal .modal_content input[name='edit_choice[" + index + "]']").prop('checked', false);    
-//         if(this.price === null)
-//         {
-//             $("input[name='edit_item_price[]']").val(this.price);
-//         }
-//         var div= j + 1;
-//         $('.item_fields_wrap > div:nth-child(' + div + ')').append('<button type="button" name="edit_remove" id="'+j+'" class="remove_field">&times;</button></div>');  
-//     }
-// });  
-        
-// $("#edit_modal .modal_content form .addon_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
-//     e.preventDefault(); $(this).parent('div').remove(); i--;
-// });
-
-// $("#edit_modal .modal_content form .item_fields_wrap").on("click",".remove_field", function(e){ //user click on remove text
-//     e.preventDefault(); $(this).parent('div').remove(); j--;
-// });
-</script>
-
-
-<script>
 $( ".icon" ).click(function() {
     $( "#nav" ).toggleClass( "responsive" );
 });
 
 </script>
 </html>
+
+@endif

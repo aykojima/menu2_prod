@@ -17,7 +17,7 @@
         <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'add_new']) !!}
-        @include('layouts.form')
+        @include('layouts.forms.form')
         {!! Form::close() !!}
     </div>
  </div>
@@ -28,7 +28,7 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'edit_submit']) !!}
         {!! Form::hidden('sb_id') !!}
-        @include('layouts.form')
+        @include('layouts.forms.form')
         {!! Form::close() !!}
     </div>    
  </div>

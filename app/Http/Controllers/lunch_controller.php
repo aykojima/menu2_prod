@@ -61,7 +61,7 @@ class lunch_controller extends Controller
     {
         $lunch = lunch::findOrFail($lunch_id);
         
-        return view('layouts.form_lunch_edit', [
+        return view('layouts.forms.form_lunch', [
             'lunch_id' => $lunch_id,
             'lunch' => $lunch
             ]);
