@@ -7,7 +7,8 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'sake_add_new']) !!}
         {!! Form::hidden('category_id') !!}
-        @include('layouts.form_sake_new')
+        @include('layouts.forms.form_drink')
+        {!! Form::submit('Save') !!}
         {!! Form::close() !!}
     </div>
  </div>
@@ -18,7 +19,11 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'sake_edit_submit']) !!}
         {!! Form::hidden('product_id') !!}
-        @include('layouts.form_sake_edit')
+        @include('layouts.forms.form_drink')
+        <div class="buttons">
+            <input value="Update" type="submit" name="submit">
+            <input value="Delete" type="submit" name="submit">
+        </div>
         {!! Form::close() !!}
     </div>    
  </div>
@@ -222,6 +227,10 @@ $(document).on("click", ".edit", function(event){
                     if(data.bottle.second_price){
                         $("#edit_modal .modal_content input[name='second_price']").val(data.bottle.second_price);
                     }
+                }else{
+                    $('#edit_modal .modal_content .bottle_size_hide').hide(),
+                    $("#edit_modal .modal_content input[name='size_checkbox']").prop('checked', false),
+                    $("#edit_modal .modal_content input[name='size']").val('');
                 }
             }
         }

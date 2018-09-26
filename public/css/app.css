@@ -1110,7 +1110,8 @@ a.add_new_drink, a.edit {
 
 .drink_categories {
   margin-bottom: 2%;
-  clear: both; }
+  clear: both;
+  padding-top: 3%; }
   .drink_categories hr {
     width: 80%; }
   .drink_categories h2 {
@@ -1119,10 +1120,11 @@ a.add_new_drink, a.edit {
     float: none; }
   .drink_categories h3 {
     color: #CF671F;
-    clear: both;
-    padding-top: 5%; }
+    clear: both; }
   .drink_categories p {
     line-height: 10px; }
+  .drink_categories .drink_price {
+    padding-top: 2%; }
 
 .rotating_wine {
   color: #CCCCCC;

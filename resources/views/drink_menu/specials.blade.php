@@ -7,7 +7,8 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'special_add_new']) !!}
         {!! Form::hidden('category_id') !!}
-        @include('layouts.form_special_new')
+        @include('layouts.forms.form_drink')
+        {!! Form::submit('Save') !!}
         {!! Form::close() !!}
     </div>
  </div>
@@ -18,7 +19,11 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'special_edit_submit']) !!}
         {!! Form::hidden('product_id') !!}
-        @include('layouts.form_special_edit')
+        @include('layouts.forms.form_drink')
+        <div class="buttons">
+            <input value="Update" type="submit" name="submit">
+            <input value="Delete" type="submit" name="submit">
+        </div>
         {!! Form::close() !!}
     </div>    
  </div>

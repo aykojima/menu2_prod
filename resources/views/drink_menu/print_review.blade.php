@@ -191,11 +191,16 @@
                                             </p>
                                             <p class="drink_price">{{ $sake_bottle->price }}</p>
                                             <div class="drink_details">
-                                                <p>{{ $sake_bottle->production_area }}  
-                                                    @if(!empty ($sake_bottle->sake))            
-                                                        / {{ $sake_bottle->sake->rice }} / {{ $sake_bottle->sake->sweetness }}
+                                                <p>{{ $sake_bottle->production_area }} 
+                                                @if(!empty ($sake_bottle->sake))    
+                                                    @if($sake_bottle->sake->rice)        
+                                                    / {{ $sake_bottle->sake->rice }} 
                                                     @endif
-                                                </p>
+                                                    @if($sake_bottle->sake->sweetness)
+                                                    / {{ $sake_bottle->sake->sweetness }}
+                                                    @endif
+                                                    </p>
+                                                @endif    
                                                 <p>{{ $sake_bottle->description }}</p>
                                             </div>
                                         </div>
@@ -608,29 +613,37 @@ $(document).ready(function(){
 
     //Need to fix here
     //Make each if statement callback function so that it checks the height each time the function is called.
-    // $(".menu").each(function(){
-    //     var height = $(this).outerHeight();
-    //     console.log('original ' + height);
-    //     if(height >= 1200){
-    //         $(this).find(".products").addClass("small_margin");
-    //         height = $(this).outerHeight();
-    //         console.log('first ' + height);
-    //         if(height >= 1200){
-    //             $(this).find(".products").addClass("no_margin");
-    //             height = $(this).outerHeight();
-    //             console.log('second ' + height);
-    //             if(height >= 1200){
-    //                 $(this).addClass("small_margin_top");
-    //                 height = $(this).outerHeight();
-    //                 console.log('last ' + height);
-    //             }
-    //         }    
-    //     }
-    //     //console.log('after ' + height);
-    // });
+    function smallMargin(current_page){
+        var height = current_page.outerHeight();
+        if(height >= 1250){
+            current_page.find(".products").addClass("small_margin");
+            height = current_page.outerHeight();
+            console.log('first ' + height);
+            smallMarginTop(height, current_page);
+        }
+    }
+    function smallMarginTop(height, current_page){
+        if(height >= 1250){
+            current_page.addClass("small_margin_top");
+            height = $(this).outerHeight();
+            console.log('second ' + height);
+            noMargin(height, current_page)
+        }
+    }
 
-
-
+    function noMargin(height, current_page){
+        if(height >= 1250){
+            console.log('third ' + height);
+            current_page.find(".products").addClass("no_margin");
+        }
+    }
+    $(".menu").each(function(){
+        var height = $(this).outerHeight();
+        var current_page = $(this);
+        console.log('original ' + height);
+        smallMargin(current_page);
+    });
+    
     $(".title").each(function(){
         if($(this).outerHeight() >= 50){
             $(this).addClass("small_title_font");

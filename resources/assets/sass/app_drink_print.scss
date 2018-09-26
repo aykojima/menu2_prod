@@ -49,7 +49,7 @@ div.page2, .page4, .page6, .page8,
   vertical-align: top;
   bottom: 0;
   margin-top: 0 !important;
-  border: 1px black solid;
+  // border: 1px black solid;
 }
 
 .pages{
@@ -64,9 +64,6 @@ div.page2, .page4, .page6, .page8,
       float: left;
       margin-bottom: 2%;
     }
-    // p{
-    //   float: right;
-    // }
   }
   .products{
     clear: both;
@@ -82,23 +79,30 @@ div.page2, .page4, .page6, .page8,
   margin: 0 0 3% 0;
 }
 
+
+
 .drink_categories{
   @extend %drink_divs; 
   margin-bottom: 2%;
   clear: both;
+  padding-top: 3%;
   h2{
-    margin-left: 0;
+    margin: 4% 2% 4% 0;
     padding-left: 0;
+    float: none;
   }
   h3{
     color: $skt_color; 
     clear: both;
-    padding-top: 5%;
   }
   p{
-    line-height: 5%;
+    line-height: 10px;
+  }
+  .drink_price{
+    padding-top: 2%;
   }
 }
+
 
 .rotating_wine{
   color: #CCCCCC;
@@ -170,8 +174,8 @@ div.menu{
     margin-left:4%;
     // border: solid 1px Blue;
     // height:1195px;
-    max-height: fit-content(14in);
-    min-height: fit-content(14in);
+    // max-height: fit-content(14in);
+    // min-height: fit-content(14in);
 }
 
 h1{

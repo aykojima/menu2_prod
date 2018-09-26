@@ -3,22 +3,25 @@
 @section('content')
 <div id='add_new_modal' class='modal'>
     <div class='modal_content'>
-        <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'cocktail_add_new']) !!}
         {!! Form::hidden('category_id') !!}
-        @include('layouts.form_cocktail_new')
+        @include('layouts.forms.form_drink')
+        {!! Form::submit('Save') !!} 
         {!! Form::close() !!}
     </div>
  </div>
 
  <div id='edit_modal' class='modal'>
     <div class='modal_content'>
-        <!-- <button id='close_edit_tab' onclick='hide_edit_div()'>X</button> -->
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'cocktail_edit_submit']) !!}
         {!! Form::hidden('product_id') !!}
-        @include('layouts.form_cocktail_edit')
+        @include('layouts.forms.form_drink')
+        <div class="buttons">
+            <input value="Save" type="submit" name="submit">
+            <input value="Delete" type="submit" name="submit">
+        </div>
         {!! Form::close() !!}
     </div>    
  </div>

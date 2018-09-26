@@ -14,7 +14,7 @@ class ChangeDataPriceDatatype extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->float('price', 6, 2)->nullable()->change();
+            $table->float('price', 6, 2)->change();
         });
     }
 
@@ -26,7 +26,7 @@ class ChangeDataPriceDatatype extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->float('price', 6, 2)->nullable()->change();
+            $table->float('price', 6, 2)->change();
         });
     }
 }

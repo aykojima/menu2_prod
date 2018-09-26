@@ -1468,6 +1468,7 @@ input.add_price, input.item_prices {
   @extend %drink_divs; 
   margin-bottom: 2%;
   clear: both;
+  padding-top: 3%;
   hr{
     width: 80%; 
   }
@@ -1479,10 +1480,13 @@ input.add_price, input.item_prices {
   h3{
     color: $skt_color; 
     clear: both;
-    padding-top: 5%;
+    // padding-top: 5%;
   }
   p{
     line-height: 10px;
+  }
+  .drink_price{
+    padding-top: 2%;
   }
 }
 

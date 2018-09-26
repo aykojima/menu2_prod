@@ -7,7 +7,8 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'shochu_add_new']) !!}
         {!! Form::hidden('category_id') !!}
-        @include('layouts.form_shochu_new')
+        @include('layouts.forms.form_drink')
+        {!! Form::submit('Save') !!}
         {!! Form::close() !!}
     </div>
  </div>
@@ -18,8 +19,13 @@
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'shochu_edit_submit']) !!}
         {!! Form::hidden('product_id') !!}
-        @include('layouts.form_shochu_edit')
-        {!! Form::close() !!}
+        @include('layouts.forms.form_drink')
+        <div class="buttons">
+            <input value="Save" type="submit" name="submit">
+            <input value="Delete" type="submit" name="submit">
+            <!-- <a href="#">Delete</a> -->
+        </div>
+        {!! Form::close() !!} 
     </div>    
  </div>
 

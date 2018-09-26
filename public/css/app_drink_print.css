@@ -26,8 +26,7 @@ div.page2, .page4, .page6, .page8,
   display: inline-block;
   vertical-align: top;
   bottom: 0;
-  margin-top: 0 !important;
-  border: 1px black solid; }
+  margin-top: 0 !important; }
 
 .pages {
   width: 100%;
@@ -48,16 +47,19 @@ div.page2, .page4, .page6, .page8,
 
 .drink_categories {
   margin-bottom: 2%;
-  clear: both; }
+  clear: both;
+  padding-top: 3%; }
   .drink_categories h2 {
-    margin-left: 0;
-    padding-left: 0; }
+    margin: 4% 2% 4% 0;
+    padding-left: 0;
+    float: none; }
   .drink_categories h3 {
     color: #CF671F;
-    clear: both;
-    padding-top: 5%; }
+    clear: both; }
   .drink_categories p {
-    line-height: 5%; }
+    line-height: 10px; }
+  .drink_categories .drink_price {
+    padding-top: 2%; }
 
 .rotating_wine {
   color: #CCCCCC;
@@ -103,9 +105,7 @@ div.menu {
   margin: 3%;
   margin-top: 10%;
   padding: 2%;
-  margin-left: 4%;
-  max-height: fit-content(14in);
-  min-height: fit-content(14in); }
+  margin-left: 4%; }
 
 h1 {
   text-align: left;
