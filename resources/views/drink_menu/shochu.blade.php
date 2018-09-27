@@ -1,5 +1,7 @@
-@extends('layouts.header_drink')
+@extends('layouts.header')
  
+@section('title', 'Shochu Whiskey Spirits')
+
 @section('content')
 <div id='add_new_modal' class='modal'>
     <div class='modal_content'>

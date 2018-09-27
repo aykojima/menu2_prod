@@ -1,25 +1,7 @@
-<!DOCTYPE html>
-<html data-whatinput="keyboard" data-whatintent="keyboard" class=" whatinput-types-initial whatinput-types-keyboard">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_token" content="{{ csrf_token() }}">
-    <title>SKT menu</title>
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}" type="text/css" media="screen">
-    <!--<link rel="stylesheet" href="../css/style-print.css" type="text/css" media="print"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> 
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+@extends('layouts.app')
 
-</head>
-<body>
-    <header>
-        <ul>
-            
-            <li><a href="#">Login</a></li>
-        </ul>
-    </header>
+@section('title', 'Home')
+@section('content')
     <div class="wrapper">
         <img class="logo" src='{{ 'images/logo2.png' }}'>
         <div class="icon_div">
@@ -97,18 +79,4 @@
     </div>
 </div>
 
-</body>
-<script>
-
-    $("#food_icon").hover(function(){
-        $("#food_menu").show("clip", 500);
-        $("#drink_menu").hide("clip", 500);
-    })
-    $("#drink_icon").hover(function(){
-        $("#drink_menu").show("clip", 500);
-        $("#food_menu").hide("clip", 500);
-    })
-
-
-</script>
-</html>
+@endsection

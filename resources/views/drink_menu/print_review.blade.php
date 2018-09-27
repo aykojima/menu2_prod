@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_token" content="{{ csrf_token() }}">
-    <title>SKT menu</title>
+    <title>SKT menu - Drink Preview @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css" media="screen">
     
     @if(Request::is('cocktail'))

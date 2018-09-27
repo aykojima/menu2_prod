@@ -1,5 +1,7 @@
 @extends('layouts.header')
 
+@section('title', 'Courses')
+
 @section('content')
 
 <div id='add_new_modal' class='modal'> 

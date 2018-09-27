@@ -4,9 +4,16 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_token" content="{{ csrf_token() }}">
-    <title>SKT menu</title> 
+    <title>SKT menu - @yield('title')</title>
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css" media="screen">
-    <link rel="stylesheet" href="{{ asset('css/app_print.css') }}" type="text/css" media="print">
+    @if(Request::is('cocktail') || Request::is('special'))
+        <link rel="stylesheet" href="{{ asset('css/app_drink_print_4.25in.css') }}" type="text/css" media="print">
+    @elseif(Request::is('sake') || Request::is('wine') || Request::is('shochu'))
+        <link rel="stylesheet" href="{{ asset('css/app_drink_print.css') }}" type="text/css" media="print">
+    @else
+        <link rel="stylesheet" href="{{ asset('css/app_print.css') }}" type="text/css" media="print">
+    @endif
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -18,17 +25,42 @@
 <body>
     <header>
         <ul id="header">
-            <li id="logout"><a href ="logout.php">Logout</a></li>
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
-            <li><a href='{{URL::to('cocktail')}}'><img class="home_icons header_icons" src="../images/arrow.png"></a><span>Go to Cocktail</span></li>   
-            <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
+            @if(Request::is('sb') || Request::is('ippin') || Request::is('course') || Request::is('roll') || Request::is('lunch'))
+                <li><a href='{{URL::to('cocktail')}}'><img class="home_icons header_icons" src="../images/arrow.png"></a><span>Go to Cocktail</span></li>   
+                <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
+            @else
+                <li><a href='{{ URL::to('sb')}}'><img class="home_icons header_icons" src="../images/arrow.png"></a><span>Go to Sushi Bar</span></li>   
+                @if(Request::is('cocktail') || Request::is('special'))
+                    <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
+                @else
+                    <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img class="header_icons" src="../images/printer.png"></a><span>Print Preview</span></li>
+                @endif
+            @endif
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#">
+                    {{ Auth::user()->name }} 
+                    <!-- <span class="caret"></span> -->
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </li>
             
-            <!-- <li id="new_item"><a onclick="show_add_new_div()"><img id="header_icons" src="../images/add.png"></a><span>add new item</span></li>     -->
         </ul>
     </header> 
 
     <div class="nav" id="nav">
         <ul>
+        @if(Request::is('sb') || Request::is('ippin') || Request::is('course') || Request::is('roll') || Request::is('lunch'))    
             <li><a href='{{ URL::to('sb')}}' class='nav_links'>
                 <img src='{{ Request::is('sb') ? 'images/sushi_icon_active.png' : 'images/sushi_icon_no_active.png' }} '.png'}}' class='nav_icons'>
                 <p class="{{ Request::is('sb') ? 'nav_active' : 'nav_name' }}">Sushi Bar</p>
@@ -54,46 +86,81 @@
                 <p class="{{ Request::is('lunch') == 'lunch' ? 'nav_active' : 'nav_name' }}">Lunch</p>
                 </a>
             </li>
-            <?php 
-            // $titleNames = array("sushi", "ippin", "lunch"); 
-            // foreach($titleNames as $key => $titleName){
-            //     $upperTitleName = ucfirst($titleName);
-            //     $i = $key + 1;
-            //     $activeNav = ${'activeNav' . $i}; 
-            //     $activeP = ${'activeP' . $i}; 
-
-            //     if($key ==2){
-            //         echo"<li><a href='#' id='nav'><img src='../images/" . $titleName . "_icon" . $activeNav . ".png' class='nav_icons'>
-            //             <p id='" . $activeP . "'>" . $upperTitleName . " Items</p></a>
-            //             <ul>
-            //                 <li><a href='weekend_" . $titleName . ".php'>Weekend</a></li>
-            //                 <li><a href='weekday_" . $titleName . ".php'>Weekday</a></li>
-            //             </ul></li>";
-            //     }else{
-            //         echo"<li><a href='" . $titleName . ".php' id='nav'><img src='../images/" . $titleName . "_icon" . $activeNav . ".png' class='nav_icons'> 
-            //         <p id='" . $activeP . "'>" . $upperTitleName . " Menu</p></a></li>";
-            //     }
-            // } ?>
+        @else
+            <li>
+                <a href='{{ URL::to('cocktail')}}' class='nav_links'>
+                    <img src='{{ Request::is('cocktail') ? 'images/cocktail_icon_active.png' : 'images/cocktail_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('cocktail') == 'cocktail' ? 'nav_active' : 'nav_name' }} line_height_08">Cocktail<br>Beer<br>Non-Alcoholic</p>
+                </a>
+            </li>
+            <li>
+                <a href='{{ URL::to('sake')}}' class='nav_links'>
+                    <img src='{{ Request::is('sake') ? 'images/sake_icon.png' : 'images/sake_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('sake') ? 'nav_active' : 'nav_name' }}">Sake</p>
+                </a>
+                @if(Request::is('sake'))
+                <ul>
+                     <li><a href='#sake_by_glass'>Sake by the Glass</a></li>
+                     <li><a href='#sake_bottles'>Sake Bottles</a></li>
+                </ul>
+                @endif
+            </li>     
+            <li>
+                <a href='{{ URL::to('wine')}}' class='nav_links'>
+                    <img src='{{ Request::is('wine') ? 'images/wine_icon_active.png' : 'images/wine_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('wine') == 'wine' ? 'nav_active' : 'nav_name' }}">Wine</p>
+                </a>
+                @if(Request::is('wine'))
+                <ul>
+                     <li><a href='#wine_by_glass'>Wine by the Glass</a></li>
+                     <li><a href='#wine_bottles'>Wine Bottles</a></li>
+                </ul>
+                @endif
+            </li>
+            <li>
+                <a href='{{ URL::to('shochu')}}' class='nav_links'>
+                    <img src='{{ Request::is('shochu') ? 'images/shochu_icon_active.png' : 'images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('shochu') == 'shochu' ? 'nav_active' : 'nav_name' }} line_height_08">Shochu<br> Whiskey<br>Spirits</p>
+                </a>
+                @if(Request::is('shochu'))
+                <ul>
+                     <li><a href='#shochu'>Shochu</a></li>
+                     <li><a href='#whisky'>Whisky</a></li>
+                     <li><a href='#spirits'>Spirits</a></li>
+                </ul>
+                @endif
+            </li>
+            <li>
+                <a href='{{ URL::to('special')}}' class='nav_links'>
+                    <img src='{{ Request::is('special') ? 'images/special_icon_active.png' : 'images/special_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('special') == 'special' ? 'nav_active' : 'nav_name' }} line_height_08">Specials</p>
+                </a>
+            </li>
+        @endif
         </ul>
     </div>
 @yield('content')
 
 </body>
 <script>
-$( ".icon" ).click(function() {
-    $( "#nav" ).toggleClass( "responsive" );
-});
+    $( ".icon" ).click(function() {
+        $( "#nav" ).toggleClass( "responsive" );
+    });
 
-$(".header_icons").mouseover(function(e) {
-    e.preventDefault();
-    var target_span = $(this).parent().next();
-    target_span.css("opacity", "100");
-});
-$(".header_icons").mouseout(function(e) {
-    e.preventDefault();
-    var target_span = $(this).parent().next();
-    target_span.css("opacity", "0");
-});
+    $(".header_icons").mouseover(function(e) {
+        e.preventDefault();
+        var target_span = $(this).parent().next();
+        target_span.css("opacity", "100");
+    });
+    $(".header_icons").mouseout(function(e) {
+        e.preventDefault();
+        var target_span = $(this).parent().next();
+        target_span.css("opacity", "0");
+    });
+
+    $("#navbarDropdown").click(function(){
+        $(".dropdown-menu").toggle("slow");
+    })
 
 </script>
 </html>

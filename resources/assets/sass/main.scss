@@ -87,18 +87,34 @@ $skt_color: #CF671F;
     }
 
 header{
-    ul{
+    ul.top-nav{
         list-style: none;
-        li {
+        li.nav-item {
             display: block;
             float: right;
             margin: 0 3% 0 0;
+            width: 6%;
+            text-align: left;
+        }
+        li.dropdown{
+            .dropdown-menu{
+                display: none;
+                background-color: #FFFFFF;
+                a.dropdown-item{
+                    color: #CCCCCC;
+                    border-left: 5px solid #ccc;
+                    margin-top: 2%;
+                    &:hover{
+                        // border-left: none;
+                        color: #CF671F;
+                    }
+                }
+            }
         }
         a{
             text-decoration:none;
             color: #ccc;
             padding: 8%;
-            // border-radius: 5px 5px;
             &:hover{
                 color: #CF671F;
                 border-left: 5px solid #ccc;
@@ -106,6 +122,55 @@ header{
                 
             }
         }
+    }
+}
+
+
+// login form
+
+.container {
+    clear: both;
+    padding: 2%;
+}
+
+.card-header {
+    width: 80%;
+    display: block;
+    margin: 2% auto;
+}
+
+.inner-container {
+    display: block;
+    width: 50%;
+    margin: auto;
+}
+
+.input-field{
+    font-size: 1em;
+    width: 100%;
+    line-height: 40px;
+    margin: 1% 0;
+}
+
+.checkbox{
+    margin: 1%;
+}
+
+.div-login{
+    margin: 3%;
+}
+
+.btn{
+    // margin: auto;
+    // clear: both;
+    font-size: 1em;
+    width: 200px;
+    border-radius: 5px;
+    padding: 2px;
+    // margin-bottom: 15%;
+    &:hover{
+        background-color: #CF671F;
+        color: #fff;
     }
 }
 

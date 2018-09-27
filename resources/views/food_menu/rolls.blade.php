@@ -1,5 +1,8 @@
 @extends('layouts.header')
 
+@section('title', 'Rolls')
+
+
 @section('content')
 <div class="commands">
     <span id="new_item">

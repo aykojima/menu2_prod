@@ -1,5 +1,8 @@
 @extends('layouts.header')
 
+
+@section('title', 'Ippins')
+
 @section('content')
 <div class="search-box">
     <input type="text" autocomplete="off" placeholder="Search..." />

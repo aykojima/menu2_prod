@@ -5,20 +5,66 @@
 /********** you can give default values to the parameters **********/
 /********** function **********/
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-header ul {
+header ul.top-nav {
   list-style: none; }
-  header ul li {
+  header ul.top-nav li.nav-item {
     display: block;
     float: right;
-    margin: 0 3% 0 0; }
-  header ul a {
+    margin: 0 3% 0 0;
+    width: 6%;
+    text-align: left; }
+  header ul.top-nav li.dropdown .dropdown-menu {
+    display: none;
+    background-color: #FFFFFF; }
+    header ul.top-nav li.dropdown .dropdown-menu a.dropdown-item {
+      color: #CCCCCC;
+      border-left: 5px solid #ccc;
+      margin-top: 2%; }
+      header ul.top-nav li.dropdown .dropdown-menu a.dropdown-item:hover {
+        color: #CF671F; }
+  header ul.top-nav a {
     text-decoration: none;
     color: #ccc;
     padding: 8%; }
-    header ul a:hover {
+    header ul.top-nav a:hover {
       color: #CF671F;
       border-left: 5px solid #ccc;
       font-weight: bold; }
+
+.container {
+  clear: both;
+  padding: 2%; }
+
+.card-header {
+  width: 80%;
+  display: block;
+  margin: 2% auto; }
+
+.inner-container {
+  display: block;
+  width: 50%;
+  margin: auto; }
+
+.input-field {
+  font-size: 1em;
+  width: 100%;
+  line-height: 40px;
+  margin: 1% 0; }
+
+.checkbox {
+  margin: 1%; }
+
+.div-login {
+  margin: 3%; }
+
+.btn {
+  font-size: 1em;
+  width: 200px;
+  border-radius: 5px;
+  padding: 2px; }
+  .btn:hover {
+    background-color: #CF671F;
+    color: #fff; }
 
 body {
   font-family: "PT Sans", sans-serif; }
