@@ -191,7 +191,7 @@ class sb_controller extends Controller
     public function style_name($input)
     {
         $output = ucwords($input);
-        $characters_to_lowercase = array('Belly', 'Grilled', 'Of');
+        $characters_to_lowercase = array('Belly', 'Grilled', 'Of', 'W');
         foreach($characters_to_lowercase as $character_to_lowercase)
         {
             if(strpos($output, $character_to_lowercase) == true)
