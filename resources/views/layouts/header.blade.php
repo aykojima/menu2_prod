@@ -6,6 +6,7 @@
     <meta name="_token" content="{{ csrf_token() }}">
     <title>SKT menu - @yield('title')</title>
 
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css" media="screen">
     @if(Request::is('cocktail') || Request::is('special'))
         <link rel="stylesheet" href="{{ asset('css/app_drink_print_4.25in.css') }}" type="text/css" media="print">
@@ -27,14 +28,15 @@
         <ul id="header">
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
             @if(Request::is('sb') || Request::is('ippin') || Request::is('course') || Request::is('roll') || Request::is('lunch'))
-                <li><a href='{{URL::to('cocktail')}}'><img class="home_icons header_icons" src="../images/arrow.png"></a><span>Go to Cocktail</span></li>   
-                <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
+                <li><a href='{{URL::to('cocktail')}}'><img class="home_icons header_icons" src="images/arrow.png"></a><span>Go to Cocktail</span></li>   
+                <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="images/printer.png"></a><span>Print</span></li>
+                <!-- <li id="print"><a href="javascript: setTimeout(function(){window.print();},3000)"><img class="header_icons" src="images/printer.png"></a><span>Print</span></li> -->
             @else
-                <li><a href='{{ URL::to('sb')}}'><img class="home_icons header_icons" src="../images/arrow.png"></a><span>Go to Sushi Bar</span></li>   
+                <li><a href='{{ URL::to('sb')}}'><img class="home_icons header_icons" src="images/arrow.png"></a><span>Go to Sushi Bar</span></li>   
                 @if(Request::is('cocktail') || Request::is('special'))
-                    <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
+                    <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="images/printer.png"></a><span>Print</span></li>
                 @else
-                    <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img class="header_icons" src="../images/printer.png"></a><span>Print Preview</span></li>
+                    <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img class="header_icons" src="images/printer.png"></a><span>Print Preview</span></li>
                 @endif
             @endif
             <li class="nav-item dropdown">

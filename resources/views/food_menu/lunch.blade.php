@@ -15,7 +15,7 @@
 
 <div class="commands">
     <span id="new_item">
-        <img class="add_new_icons" src="../images/add_icon_active.png">
+        <img class="add_new_icons" src="images/add_icon_active.png">
     </span>
     <!-- <span class="change_order">Change Order</span>
     <div class="change_order_dropdown">
@@ -23,7 +23,7 @@
         <span class="discard">Discard</span>
     </div> -->
     <span class="edit">
-        <img class="edit_icons" src="../images/edit_icon_active.png">
+        <img class="edit_icons" src="images/edit_icon_active.png">
     </span>
     
     <div class="edit_list">

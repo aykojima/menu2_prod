@@ -46,8 +46,19 @@ class sb_controller extends Controller
                         $output .= "_not";
                     }
                     
-                    $output .= "' id='$sb_item->sb_id-searchkey' data-id='$sb_item->sb_id'>$sb_item->eng_name / $sb_item->jpn_name $sb_item->origin</p>";
-                    $output .= "<button id='$sb_item->sb_id-editkey' class='edit' data-id='$sb_item->sb_id'> edit</button>";
+                    $output .= "' id='$sb_item->sb_id-searchkey' data-id='$sb_item->sb_id'>$sb_item->eng_name";
+
+                    if($sb_item->eng_name && $sb_item->jpn_name){
+                        $output .= " / "; 
+                    }
+
+                    $output .= "$sb_item->jpn_name";
+
+                    if($sb_item->origin){
+                        $output .= " ( $sb_item->origin ) "; 
+                    }
+
+                    $output .= "</p><button id='$sb_item->sb_id-editkey' class='edit' data-id='$sb_item->sb_id'> edit</button>";
                 }
             }
             
@@ -79,6 +90,7 @@ class sb_controller extends Controller
     public function generate_menu()
     { 
         $sbs = DB::table('sbs')->where('is_on_menu', 'Y')->orderBy('eng_name', 'asc')->get();
+        
         $output = [];
         foreach ($sbs as $sb) {
             $item = '';
@@ -91,17 +103,24 @@ class sb_controller extends Controller
 
             $item .= "'></td><td class='name'>$sb->eng_name";
 
-            if($sb->is_raw == 'Y')
+            if($sb->is_raw == 'Y' && $sb->eng_name != null)
             {
                 $item .= "*";
             }
 
-            if($sb->jpn_name != null)
+            if($sb->jpn_name != null && $sb->eng_name)
             {
                 $item .= " / ";
             } 
 
-            $item .= "$sb->jpn_name</td><td class='origin'>";
+            $item .= "$sb->jpn_name";
+
+            if($sb->is_raw == 'Y' && $sb->eng_name == null)
+            {
+                $item .= "*";
+            }
+            
+            $item .="</td><td class='origin'>";
 
             if($sb->origin != null)
             {

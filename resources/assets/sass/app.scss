@@ -381,7 +381,7 @@ button#close_add_new_tab{
 }
 
 .search-box{
-      width: 27%;
+      width: 343px;
       position: fixed;
       top:45px;
       left:11%;
@@ -443,7 +443,7 @@ div#r_container, div#c_container,
 div#wdl_container, div#wel_container{
   position:absolute;
   /*height:1400px;*/
-  left: 500px;
+  left: 40%;
   top:45px;
   width: 412px;
   border: solid #CCC 1px;
@@ -796,11 +796,6 @@ div.gf{
   
 }
 
-li.items {
-  margin: 11px 0;
-  list-style: none;
-}
-
 img.fish {
   display: block;
   float: right;
@@ -817,6 +812,46 @@ h1.page_title{
   margin:auto;
   width:100%;
   max-height: 100%
+}
+
+@mixin new_margin($margin){
+  margin: 11px - $margin 0;
+}
+
+@mixin new_line_height($line_height){
+  line-height: $line_height;
+}
+
+#show_result_ippin{
+  li.margin_9px{
+    @include new_margin(2px);
+  }
+  li.margin_7px{
+    @include new_margin(4px);
+  }
+  li.line_height_1em{
+    @include new_line_height(1em);
+  }
+  li.line_height_08em{
+    @include new_line_height(0.8em);
+  }   
+  li.line_height_06em{
+    @include new_line_height(0.6em);
+  }  
+  div.line_height_06em{
+    padding-top: 5px;
+    img.fish{
+      margin-top: 0;
+    }
+  }
+  li.font_size09em{
+    font-size: 0.9em;
+  }
+}
+
+li.items {
+  @include new_margin(0);
+  list-style: none;
 }
 
 #show_result_ippin ul.changed_height1{
@@ -1299,7 +1334,7 @@ input.add_price, input.item_prices {
 .right_div {
   position: absolute;
   top: 45px;
-  width: 23%;
+  width: 250px;
   right: 1%;
   border: 1px #ccc solid;
   padding: 1%;
@@ -1760,6 +1795,9 @@ and (max-device-width : 765px)  {
     left: 2%;
   }
 
+  #clear_search{
+    left: 265px;
+  }
   .right_div{
     top: 94px;
     width: 93%;

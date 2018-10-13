@@ -131,6 +131,40 @@ $(".dismiss").click(function(){
 });
 
 
+
+function styleMenu(new_class, index){
+    var height = $("#menu").outerHeight();
+    if(height >= 1100){
+        if(new_class == "margin_7px"){
+            $("#show_result_ippin").find(".items").removeClass("margin_9px");
+            $("#show_result_ippin").find(".gf").removeClass("margin_9px");
+        }else if(new_class == "line_height_08em"){
+            $("#show_result_ippin").find(".items").removeClass("line_height_1em"); 
+            $("#show_result_ippin").find(".gf").removeClass("line_height_1em");  
+        }else if(new_class == "line_height_06em"){
+            $("#show_result_ippin").find(".items").removeClass("line_height_08em");   
+            $("#show_result_ippin").find(".gf").removeClass("line_height_08em");
+        }
+        $("#show_result_ippin").find(".items").addClass(new_class);
+        $("#show_result_ippin").find(".items").addClass(new_class);
+        $("#show_result_ippin").find(".gf").addClass(new_class);
+        height = $("#show_result_ippin").outerHeight();
+        console.log(index + ": " + height);
+        //styleMenu();
+    }
+}
+
+var new_class = [ "margin_9px", "margin_7px", "line_height_1em", "line_height_08em", "line_height_06em", "font_size09em" ];
+
+$(document).ready(function(){
+    console.log($("#menu").outerHeight());
+    $.each(new_class, function( index, value ) {
+        styleMenu(value, index);
+    }); 
+});
+
+
+
 var search_box = $('.search-box input[type="text"]');
 
 // $(document).ready(function(){
@@ -187,6 +221,10 @@ $(document).on("click", ".result p", function(event){
             $( "#fish_dish" ).html( "<ul>" + string_fs + "</ul>" );
             $( "#meat_dish" ).html( "<ul>" + string_mt + "</ul>" );
             add_fish();
+            console.log($("#show_result_ippin").outerHeight());
+            $.each(new_class, function( index, value ) {
+                styleMenu(value, index);
+            });
         }
     });
     if(event.target.className == 'is_on_menu')

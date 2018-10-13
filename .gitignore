@@ -6,7 +6,7 @@
 /.vagrant
 yarn-error.log
 .env
-
+/database/skt_new_menu.sql
 
 .DS_Store
 

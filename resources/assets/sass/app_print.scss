@@ -11,8 +11,8 @@
 $skt_color: #CF671F;
 
 @font-face {
-  font-family: 'TheSansSemiBoldPlain'; 
-  src: url('/fonts/TheSansSemiBoldPlain.ttf'); 
+  font-family: 'TheSans Plain';  
+  src: url('/fonts/TheSans Plain.ttf'); 
   font-weight: lighter;
 }
 
@@ -23,32 +23,32 @@ $skt_color: #CF671F;
   color:$skt_color;
 }
 
-%close_tab_shared {
-  background-color: #fff;
-  border: none;
-  margin: 2%;
-  cursor: pointer;
-  color: #ccc;
-  font-size: 1.2em;
-}
+// %close_tab_shared {
+//   background-color: #fff;
+//   border: none;
+//   margin: 2%;
+//   cursor: pointer;
+//   color: #ccc;
+//   font-size: 1.2em;
+// }
 
-%form_div {
-  display:none;
-  border: 1px solid #ccc;
-  position:absolute;
-  left:23%;
-  top:9%;
-  background-color: #fff;
-  width:56%;
-  z-index:999;
-}
-// Bootstrap
-// @import '~bootstrap/scss/bootstrap';
+// %form_div {
+//   display:none;
+//   border: 1px solid #ccc;
+//   position:absolute;
+//   left:23%;
+//   top:9%;
+//   background-color: #fff;
+//   width:56%;
+//   z-index:999;
+// }
+// // Bootstrap
+// // @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+// .navbar-laravel {
+//   background-color: #fff;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+// }
 
 @page {
    size: 4.25in 14in;
@@ -66,7 +66,7 @@ header, #nav, #new_item, .right_div,
 }
 body{
     // font-family: $font;
-    font-family: TheSansSemiBoldPlain;
+    font-family: TheSans Plain;
     font-weight: lighter;
     font-size: 1em;
   }
@@ -341,6 +341,41 @@ img.fish {
   max-height: 100%
 }
 
+@mixin new_margin($margin){
+  margin: 11px - $margin 0;
+}
+
+@mixin new_line_height($line_height){
+  line-height: $line_height;
+}
+
+#show_result_ippin{
+  li.margin_9px{
+    @include new_margin(2px);
+  }
+  li.margin_7px{
+    @include new_margin(4px);
+  }
+  li.line_height_1em{
+    @include new_line_height(1em);
+  }
+  li.line_height_08em{
+    @include new_line_height(0.8em);
+  }   
+  li.line_height_06em{
+    @include new_line_height(0.6em);
+  }  
+  div.line_height_06em{
+    padding-top: 5px;
+    img.fish{
+      margin-top: 0;
+    }
+  }
+  li.font_size09em{
+    font-size: 0.9em;
+  }
+}
+
 #show_result_ippin ul.changed_height1{
   line-height: 0.8em;
 }
@@ -516,7 +551,7 @@ div.courses{
 
 .items{
   // margin-left: 62px;
-  margin: 11px 0;
+  @include new_margin(0);
   list-style: none;
 }
 .item_names{

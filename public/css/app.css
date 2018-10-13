@@ -300,7 +300,7 @@ button#search {
   color: #000000; }
 
 .search-box {
-  width: 27%;
+  width: 343px;
   position: fixed;
   top: 45px;
   left: 11%;
@@ -348,7 +348,7 @@ div#r_container, div#c_container,
 div#wdl_container, div#wel_container {
   position: absolute;
   /*height:1400px;*/
-  left: 500px;
+  left: 40%;
   top: 45px;
   width: 412px;
   border: solid #CCC 1px; }
@@ -641,10 +641,6 @@ div.gf {
   line-height: 1.2em;
   margin-left: 5px; }
 
-li.items {
-  margin: 11px 0;
-  list-style: none; }
-
 img.fish {
   display: block;
   float: right;
@@ -660,6 +656,27 @@ h1.page_title {
   margin: auto;
   width: 100%;
   max-height: 100%; }
+
+#show_result_ippin li.margin_9px {
+  margin: 9px 0; }
+#show_result_ippin li.margin_7px {
+  margin: 7px 0; }
+#show_result_ippin li.line_height_1em {
+  line-height: 1em; }
+#show_result_ippin li.line_height_08em {
+  line-height: 0.8em; }
+#show_result_ippin li.line_height_06em {
+  line-height: 0.6em; }
+#show_result_ippin div.line_height_06em {
+  padding-top: 5px; }
+  #show_result_ippin div.line_height_06em img.fish {
+    margin-top: 0; }
+#show_result_ippin li.font_size09em {
+  font-size: 0.9em; }
+
+li.items {
+  margin: 11px 0;
+  list-style: none; }
 
 #show_result_ippin ul.changed_height1 {
   line-height: 0.8em; }
@@ -996,7 +1013,7 @@ input.add_price, input.item_prices {
 .right_div {
   position: absolute;
   top: 45px;
-  width: 23%;
+  width: 250px;
   right: 1%;
   border: 1px #ccc solid;
   padding: 1%;
@@ -1284,6 +1301,9 @@ div.page2, .page4, .page6, .page8,
   .search-box {
     width: 95%;
     left: 2%; }
+
+  #clear_search {
+    left: 265px; }
 
   .right_div {
     top: 94px;
