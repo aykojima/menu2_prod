@@ -42,6 +42,11 @@
                     <p></p><!--need this for styling-->
                     <p>5 oz pour</p>
                 </div>
+            @elseif($key == 4)
+                <div id="" class="drink_categories">
+                    <h3 style="color: #CF671F; clear:both">ROTATING ROSE</h3>
+                    <p class="rotating_wine">Ask your server for today's selection!</p>
+                </di>
             @elseif($key == 6)
                 <div id="sake_bottles" class='title_div margin_top'>
                     <h1 id="wine_bottles" class='title'>
@@ -51,54 +56,56 @@
                     <p>750ml</p>
                 </div>
             @endif
-            <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-                <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
-                <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
-                <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
-                <hr>
-            @if($key == 2)
-                <p class="rotating_wine">Anything goes -- from dry Riesling to white Burgundy</p>
-                <p class="rotating_wine">Ask your server about today's pour!</p>
-            @endif
-            @if($key == 5)
-                <p class="rotating_wine">Typically bright, light varietals like Pinot Noir, Tempranillo, or Barbera. Ask your server about today's pour!</p>
-            @endif
-            @foreach($wine_glasses as $wine_glass)
-                @if($wine_glass->category->category_id == $category->category_id)
-                <div class="products">
-                <a class="edit" data-id="{{ $wine_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                    <div>
-                        <p class="drink_name">{{ $wine_glass->name }} 
-                        @if(!empty ($wine_glass->wine))    
-                            <small>{{ $wine_glass->wine->type }}</small>
-                        @endif
-                        </p>
-                        <p class="drink_price">{{ $wine_glass->price }}</p>
-                        @if(!empty ($wine_glass->wine->bottle->size))    
-                            <p class="bottle_size"><small>{{ $wine_glass->wine->bottle->size }}ml</small>
-                                @if($wine_glass->wine->bottle->second_price)    
-                                    {{ $wine_glass->wine->bottle->second_price }} / 
-                                @endif
-                            </p>
-                        @endif
-                        <div class="drink_details">
-                            <p>{{ $wine_glass->production_area }} 
+            @if($category->category_id != 17 && $category->category_id != 18 && $category->category_id != 20)
+            <!-- Skippin Rotating White, Rose, and Rotating Red -->
+                <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+                    <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
+                    <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
+                    <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
+                    <hr>
+                <!-- @if($key == 2)
+                    <p class="rotating_wine">Anything goes -- from dry Riesling to white Burgundy</p>
+                    <p class="rotating_wine">Ask your server about today's pour!</p>
+                @endif -->
+                <!-- @if($key == 5)
+                    <p class="rotating_wine">Typically bright, light varietals like Pinot Noir, Tempranillo, or Barbera. Ask your server about today's pour!</p>
+                @endif -->
+                @foreach($wine_glasses as $wine_glass)
+                    @if($wine_glass->category->category_id == $category->category_id)
+                    <div class="products">
+                    <a class="edit" data-id="{{ $wine_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
+                        <div>
+                            <p class="drink_name">{{ $wine_glass->name }} 
                             @if(!empty ($wine_glass->wine))    
-                                @if($wine_glass->wine->year) 
-                                    <span>{{ $wine_glass->wine->year }}</span>
-                                @endif
-                            @endif    
+                                <small>{{ $wine_glass->wine->type }}</small>
+                            @endif
                             </p>
-                            <p>{{ $wine_glass->description }}</p>
+                            <p class="drink_price">{{ $wine_glass->price }}</p>
+                            @if(!empty ($wine_glass->wine->bottle->size))    
+                                <p class="bottle_size"><small>{{ $wine_glass->wine->bottle->size }}ml</small>
+                                    @if($wine_glass->wine->bottle->second_price)    
+                                        {{ $wine_glass->wine->bottle->second_price }} / 
+                                    @endif
+                                </p>
+                            @endif
+                            <div class="drink_details">
+                                <p>{{ $wine_glass->production_area }} 
+                                @if(!empty ($wine_glass->wine))    
+                                    @if($wine_glass->wine->year) 
+                                        <span>{{ $wine_glass->wine->year }}</span>
+                                    @endif
+                                @endif    
+                                </p>
+                                <p>{{ $wine_glass->description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr>
-                @endif
-            @endforeach
-        </div>    
-       
-        @endforeach
+                    <hr>
+                    @endif
+                @endforeach
+            </div>    
+        @endif   
+    @endforeach
 </div>
 
 @if(session('status'))

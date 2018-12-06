@@ -9,6 +9,7 @@
 @import "variables";
 // $font: 'PT Sans', sans-serif;;
 $skt_color: #CF671F;
+$gray: #CCCCCC;
 
 @font-face {
   font-family: 'TheSans Plain';  
@@ -105,7 +106,7 @@ div.page2, .page4, .page6, .page8,
 
 
 .rotating_wine{
-  color: #CCCCCC;
+  color: $gray;
   line-height: 1em;
 }
 
@@ -148,9 +149,10 @@ p.bottle_size {
 }
 
 .drink_details{
-  color: #ccc;
+  width: 300px;
+  color: $gray;
   clear: both;
-  font-size: 0.8em;
+  font-size: 1em;
   line-height: 1em;
   span{
     color: $skt_color;
@@ -200,7 +202,7 @@ h2{
 .title_div {
   padding-bottom: 10%;
   p {
-    color: #cccccc;
+    color: $gray;
     &:nth-child(2){
       float: left;
     }

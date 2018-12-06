@@ -42,7 +42,7 @@
             <p>2 oz</p> 
         </div>
         @elseif($key == 1)
-        <div class="products">
+        <!-- <div class="products">
             <div>
                 <h3 class="" style="float: left">SHOCHU Flight</h3>
                 <p class="drink_price">
@@ -53,7 +53,7 @@
                     <p>Kawabe, Kakushigura, Kuro Kirishima</p>
                 </div>
             </div>
-        </div>  
+        </div>   -->
         
         <div id="whisky" class='title_div margin_top'>
             <h1 class='title' style="font-size: 1.6em;"> JAPANESE WHISKY ウイスキー</h1>

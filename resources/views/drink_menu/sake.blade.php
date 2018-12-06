@@ -48,54 +48,59 @@
         </div>
         @endif
         </h1>
-        <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-            <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
-            <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
-            <a class="add_new_drink"> 
-                <img class="add_drinks" src='images/add_icon_active.png'>
-            </a>
-            <hr>
-            @foreach($sake_glasses as $sake_glass)
-                @if($sake_glass->category->category == $category->category)
-                    <div class="products">
-                    <a class="edit" data-id="{{ $sake_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                        <div>
-                            <p class="drink_name">{{ $sake_glass->name }} 
-                            @if(!empty ($sake_glass->sake))    
-                                <small>{{ $sake_glass->sake->grade }}</small>
-                                @if($key == 0)
-                                    <small style="color: #CF671F">warm or hot</small>
-                                @endif
-                            @endif
-                            </p>
-                            <p class="drink_price">{{ $sake_glass->price }}</p>
-                            @if(!empty($sake_glass->sake->bottle->size))    
-                            <p class="bottle_size"><small>{{ $sake_glass->sake->bottle->size }}ml</small>
-                            @if($sake_glass->sake->bottle->second_price)    
-                            {{ $sake_glass->sake->bottle->second_price }} / 
-                            @endif
-                            </p>
-                            @endif
-
-                            <div class="drink_details">
-                                <p>{{ $sake_glass->production_area }} 
+        @if($category->category_id != 6 && $category->category_id != 12 && $category->category_id != 14)
+            <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+                <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
+                <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
+                <a class="add_new_drink"> 
+                    <img class="add_drinks" src='images/add_icon_active.png'>
+                </a>
+                <hr>
+                @foreach($sake_glasses as $sake_glass)
+                    @if($sake_glass->category->category == $category->category)
+                        <div class="products">
+                        <a class="edit" data-id="{{ $sake_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
+                            <div>
+                                <p class="drink_name">{{ $sake_glass->name }} 
                                 @if(!empty ($sake_glass->sake))    
-                                    @if($sake_glass->sake->rice)        
-                                    / {{ $sake_glass->sake->rice }} 
+                                    <small>{{ $sake_glass->sake->grade }}</small>
+                                    @if($key == 0)
+                                        <small style="color: #CF671F">warm or hot</small>
                                     @endif
-                                    @if($sake_glass->sake->sweetness)
-                                    / {{ $sake_glass->sake->sweetness }}
+                                @endif
+                                </p>
+                                <p class="drink_price">{{ $sake_glass->price }}</p>
+                                @if(!empty($sake_glass->sake->bottle->size))    
+                                <p class="bottle_size"><small>{{ $sake_glass->sake->bottle->size }}ml</small>
+                                @if($sake_glass->sake->bottle->second_price)    
+                                {{ $sake_glass->sake->bottle->second_price }} / 
+                                @endif
+                                </p>
+                                @endif
+
+                                <div class="drink_details">
+                                    <p>{{ $sake_glass->production_area }} 
+                                    @if(!empty ($sake_glass->sake))    
+                                        @if($sake_glass->sake->rice)        
+                                        / {{ $sake_glass->sake->rice }} 
+                                        @endif
+                                        @if($sake_glass->sake->sweetness)
+                                        / {{ $sake_glass->sake->sweetness }}
+                                        @endif
+                                        </p>
+                                    @endif    
+                                        <p>{{ $sake_glass->description }}</p>
+                                    @if(!empty ($sake_glass->description2) )
+                                        <span class="special_description">{{ $sake_glass->description2 }}</span>
                                     @endif
-                                    </p>
-                                @endif    
-                                <p>{{ $sake_glass->description }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                @endif
-            @endforeach
-        </div>   
+                        <hr>
+                    @endif
+                @endforeach
+            </div>   
+        @endif
         @if($key == 5)
         <div id="" class="drink_categories" data-id="38" data-category="SEASONAL SAKE">
             <h2>SEASONAL SAKE</h2>
@@ -111,6 +116,7 @@
                     </p>
                     <p class="drink_price">{{ $flight->price }}</p>
                     <div class="drink_details">
+                        <p></p>
                         <p>
                         {{ $flight->description }}
                         </p>
@@ -141,7 +147,6 @@ $("#notification").fadeIn("slow");
 $(".dismiss").click(function(){
        $("#notification").fadeOut("slow");
 });
-
 
 //Forms
 
@@ -211,6 +216,7 @@ $(document).on("click", ".edit", function(event){
             $("#edit_modal .modal_content input[name='price']").val(data.product.price),
             $("#edit_modal .modal_content input[name='production_area']").val(data.product.production_area), 
             $("#edit_modal .modal_content input[name='description']").val(data.product.description); 
+            $("#edit_modal .modal_content input[name='description2']").val(data.product.description2); 
             if(data.product.category_id == 38)
             {
                 $("#edit_modal .modal_content .hide_when_flight").hide(),
@@ -265,6 +271,7 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
                 'rice': $("#edit_form input[name='rice']").val(),
                 'sweetness': $("#edit_form input[name='sweetness']").val(),
                 'description': $("#edit_form input[name='description']").val(),
+                'description2': $("#edit_form input[name='description2']").val(),
                 'submit': $("#edit_form input[name='submit']").val()
         }
     });

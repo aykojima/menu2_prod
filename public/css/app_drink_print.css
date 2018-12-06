@@ -91,9 +91,10 @@ p.bottle_size {
   font-size: small; }
 
 .drink_details {
-  color: #ccc;
+  width: 300px;
+  color: #CCCCCC;
   clear: both;
-  font-size: 0.8em;
+  font-size: 1em;
   line-height: 1em; }
   .drink_details span {
     color: #CF671F; }
@@ -124,7 +125,7 @@ h2 {
 .title_div {
   padding-bottom: 10%; }
   .title_div p {
-    color: #cccccc; }
+    color: #CCCCCC; }
     .title_div p:nth-child(2) {
       float: left; }
     .title_div p:nth-child(3) {

@@ -30,6 +30,7 @@ class sake_controller extends Controller
         $new_product['price'] = $input['price']; 
         $new_product['production_area'] = ucfirst($input['production_area']);
         $new_product['description'] = lcfirst($input['description']);
+        $new_product['description2'] = lcfirst($input['description2']);
         $new_product['category_id'] = $input['category_id'];
         //$data = $this->validate_form($input);
         
@@ -95,6 +96,7 @@ class sake_controller extends Controller
                 $edit_product['price'] = $input['price']; 
                 $edit_product['production_area'] = $input['production_area'];
                 $edit_product['description'] = $input['description'];
+                $edit_product['description2'] = $input['description2'];
                 //$edit_product['category_id'] = $input['category_id'];
                 //$data = $this->validate_form($input);
 
@@ -165,7 +167,7 @@ class sake_controller extends Controller
 
         $shochu_types = array("Mugi", "Kome", "Imo", "Ume");
 
-        $whisky_types = array("Suntory", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano");
+        $whisky_types = array("Suntory", "Hibiki", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano");
 
 
         $white_types = array("Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
@@ -206,32 +208,38 @@ class sake_controller extends Controller
 
         $flights = product::where('category_id', '=', '38')->get();
 
-        $rose_and_reds = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-            ->whereBetween('category_id', [23, 24])
-            ->orderByRaw($query_red)
-            ->orderBy('price')
-            ->get();
+        $sake_bottle2s = product::whereBetween('category_id', [9, 14])->orderBy('price')->get();
 
-        $sake_bottle2s = product::whereBetween('category_id', [10, 14])->orderBy('price')->get();
-
-        $sake_bottles = product::whereBetween('category_id', [7, 9])->orderBy('price')->get();
+        $sake_bottles = product::whereBetween('category_id', [7, 8])->orderBy('price')->get();
 
         $whiskies = product::where('category_id', 26)
             ->orderByRaw($query_whisky)
             ->orderBy('price')
             ->get();
 
-        $wine_glasses = product::whereBetween('category_id', [15, 21])->orderBy('price')->get();
+        $wine_glasses = product::whereBetween('category_id', [15, 20])
+            ->orderBy('price')
+            ->get();
         
+        $sparklings = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
+            ->where('category_id', 21)
+            ->orderBy('price')
+            ->get();
+
         $whites = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
             ->where('category_id', 22)
             ->orderByRaw($query_white)
             ->orderBy('price')
             ->get();
         
+        $rose_and_reds = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
+        ->whereBetween('category_id', [23, 24])
+        ->orderByRaw($query_red)
+        ->orderBy('price')
+        ->get();
 
         return view('drink_menu/print_review', compact('categories', 'shochus', 'spirits', 'sake_glasses', 'flights',
-            'rose_and_reds', 'sake_bottle2s', 'sake_bottles', 'whiskies', 'wine_glasses', 'whites'));
+            'rose_and_reds', 'sake_bottle2s', 'sake_bottles', 'whiskies', 'wine_glasses', 'sparklings', 'whites'));
     }
 }
 

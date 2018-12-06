@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeDataPriceDatatype extends Migration
+class AddDescription2 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ChangeDataPriceDatatype extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('price')->change();
+        Schema::table('products', function($table) {
+            $table->text('description2')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class ChangeDataPriceDatatype extends Migration
      */
     public function down()
     {
-        // Schema::table('products', function (Blueprint $table) {
-        //     $table->string('price')->change();
-        // });
+        Schema::table('products', function($table) {
+            $table->dropColumn('description2');
+        });
     }
 }

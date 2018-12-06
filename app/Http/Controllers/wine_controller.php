@@ -58,6 +58,7 @@ class wine_controller extends Controller
         $new_product['price'] = $input['price']; 
         $new_product['production_area'] = ucfirst($input['production_area']);
         $new_product['description'] = lcfirst($input['description']);
+        $new_product['description2'] = lcfirst($input['description2']);
         $new_product['category_id'] = $input['category_id'];
         //$data = $this->validate_form($input);
 
@@ -118,6 +119,7 @@ class wine_controller extends Controller
                 $edit_product['price'] = $input['price']; 
                 $edit_product['production_area'] = $input['production_area'];
                 $edit_product['description'] = $input['description'];
+                $edit_product['description2'] = $input['description2'];
                 
                 $product->update($edit_product);
 

@@ -38,6 +38,7 @@
         </div>
     </div>
     {!! Form::text('description', null, ['placeholder' => 'Description (e.g. light and sweet; raspverry, roses)', 'class' => 'form_column_long']) !!}
+    {!! Form::text('description2', null, ['placeholder' => 'Additional Description ( Will be discplayed in red under description)', 'class' => 'form_column_long']) !!}
 
     
 
@@ -64,7 +65,7 @@
     {!! Form::text('production_area', null, ['placeholder' => 'Production Area (e.g. USA)', 'class' => 'form_column_long']) !!}
     {!! Form::text('year', null, ['placeholder' => 'Year (e.g. 2017)', 'class' => 'form_column_long']) !!}
     {!! Form::text('description', null, ['placeholder' => 'Description (e.g. light and sweet; raspverry, roses)', 'class' => 'form_column_long']) !!}
-
+    {!! Form::text('description2', null, ['placeholder' => 'Additional Description ( Will be discplayed in red under description)', 'class' => 'form_column_long']) !!}
 
 
 @elseif(Request::is('shochu'))
