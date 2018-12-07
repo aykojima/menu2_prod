@@ -92,6 +92,7 @@ class sake_controller extends Controller
         switch($request->submit) {
             case 'Update': 
                 $input = $request->all();
+                // var_dump($input);
                 $edit_product['name'] = $input['name'];
                 $edit_product['price'] = $input['price']; 
                 $edit_product['production_area'] = $input['production_area'];

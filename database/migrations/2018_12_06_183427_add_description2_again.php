@@ -14,7 +14,7 @@ class AddDescription2Again extends Migration
     public function up()
     {
         Schema::table('products', function($table) {
-            $table->text('description2')->nullable();
+            $table->text('description2')->nullable()->after('description');
         });
     }
 

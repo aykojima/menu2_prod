@@ -79,7 +79,7 @@
         //Shochu
         Route::get('/shochu', 'shochu_controller@show')->name('shochu');
         Route::post('/shochu', 'shochu_controller@add_new')->name('shochu_add_new');
-        Route::get('/shochu/edit', 'shochu_controller@show_edit_form')->name('shochu_edit');
+        //Route::get('/shochu/edit', 'shochu_controller@show_edit_form')->name('shochu_edit');
         Route::post('/shochu/edit', 'shochu_controller@edit_menu')->name('shochu_edit_submit');
 
         //Happey hour and Current Specials

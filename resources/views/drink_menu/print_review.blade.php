@@ -178,7 +178,8 @@
                                     <div class="products">
                                         <div>
                                             <p class="drink_name">
-                                                {{ $shochu->name }} 
+                                                {{ $shochu->name }}
+                                                <span style="font-style: italic; font-size: 0.8em">{{ $shochu->description2 }}</span> 
                                                 <span style="color: #CCCCCC; font-size: 0.8em">{{ $shochu->production_area }}</span>
                                             </p>
                                             <p class="drink_price">{{ $shochu->price }}</p>
@@ -437,6 +438,7 @@
                                     <div class="products">
                                         <div>
                                             <p class="drink_name">{{ $whisky->name }} 
+                                                <span style="font-style: italic; font-size: 0.8em">{{ $whisky->description2 }}</span>
                                                 <span style="color: #CF671F; font-size: 0.8em">{{ $whisky->production_area }}</span>
                                             </p>
                                             <p class="drink_price">{{ $whisky->price }}</p>

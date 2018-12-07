@@ -23,7 +23,7 @@
         {!! Form::hidden('product_id') !!}
         @include('layouts.forms.form_drink')
         <div class="buttons">
-            <input value="Save" type="submit" name="submit">
+            <input value="Update" type="submit" name="submit">
             <input value="Delete" type="submit" name="submit">
             <!-- <a href="#">Delete</a> -->
         </div>
@@ -91,7 +91,9 @@
                 <a class="edit" data-id="{{ $drink->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
                     <div>
                         <p class="drink_name">{{ $drink->name }} 
-                        <span style="color: #CCCCCC; font-size: 0.8em">{{ $drink->production_area }}</span></p>
+                            <span style="font-style: italic; font-size: 0.8em">{{ $drink->description2 }}</span>
+                            <span style="color: #CCCCCC; font-size: 0.8em">{{ $drink->production_area }}</span>
+                        </p>
                         <p class="drink_price">{{ $drink->price }}</p>
 
                         <div class="drink_details">
@@ -105,6 +107,7 @@
                 <a class="edit" data-id="{{ $drink->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
                 <div>
                     <p class="drink_name">{{ $drink->name }} 
+                        <span style="font-style: italic; font-size: 0.8em">{{ $drink->description2 }}</span>
                         <span style="color: #CCCCCC; font-size: 0.8em">{{ $drink->production_area }}</span>
                     </p>
                     <p class="drink_price">{{ $drink->price }}</p>
@@ -197,14 +200,16 @@ $(document).on("click", ".add_new_drink", function(event){
 //Edit Modal
 $(document).on("click", ".edit", function(event){   
     $('#edit_modal').css('display', 'block');
+    // console.log($(this).data('id'));
     $.ajax({
         type : 'get',
         url : '{{URL::to('sake/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
-            console.log(data);
+            // console.log(data);
                 $("#edit_modal .modal_content input[name='product_id']").val(data.product.product_id),
                 $("#edit_modal .modal_content input[name='name']").val(data.product.name),
+                $("#edit_modal .modal_content input[name='description2']").val(data.product.description2),
                 $("#edit_modal .modal_content input[name='price']").val(data.product.price),
                 $("#edit_modal .modal_content input[name='production_area']").val(data.product.production_area),
                 $("#edit_modal .modal_content input[name='description']").val(data.product.description);
@@ -215,10 +220,11 @@ $(document).on("click", ".edit", function(event){
 $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
-        type: 'patch',
-        url : '{{URL::to('sake/edit')}}',
+        type: 'post',
+        url : '{{URL::to('shochu/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
+                'description2': $("#edit_form input[name='description2']").val(),
                 'price': $("#edit_form input[name='price']").val(),
                 'production_area': $("#edit_form input[name='production_area']").val(),
                 'description': $("#edit_form input[name='description']").val(),

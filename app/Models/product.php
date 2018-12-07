@@ -8,7 +8,7 @@ class product extends Model
 {
     protected $primaryKey = 'product_id';
 
-    protected $fillable = ['name', 'price', 'production_area', 'description', 'category_id'];
+    protected $fillable = ['name', 'price', 'production_area', 'description', 'description2', 'category_id'];
     
     public function sake()
     {

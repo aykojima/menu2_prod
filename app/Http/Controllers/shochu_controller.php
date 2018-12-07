@@ -39,11 +39,13 @@ class shochu_controller extends Controller
     public function add_new(Request $request) 
     {   
         $input = $request->all();
+        var_dump($input);
         $new_product['name'] = ucfirst($input['name']);
         $new_product['price'] = $input['price']; 
         $new_product['production_area'] = $input['production_area'];
         $new_product['description'] = $input['description'];
         $new_product['category_id'] = $input['category_id'];
+        $new_product['description2'] = $input['description2'];
         //$data = $this->validate_form($input);
 
         $product = product::create($new_product);
@@ -52,29 +54,30 @@ class shochu_controller extends Controller
         return redirect('shochu')->with('status', $new_item );
     }
 
-    public function show_edit_form(Request $request)
-    {
-        if($request->ajax()){
-            $product = product::findOrFail($request->product_id);
-            return Response($product);
-        }
+    // public function show_edit_form(Request $request)
+    // {
+    //     if($request->ajax()){
+    //         $product = product::findOrFail($request->product_id);
+    //         return Response($product);
+    //     }
         
-    }
+    // }
 
     public function edit_menu(Request $request)
     {        
-
+        // var_dump($request->all());
         $product = product::findOrFail ( $request->product_id );
         $input = $request->all();
         switch($request->submit) {
-            case 'Save': 
+            case 'Update': 
                 $input = $request->all();
                 $edit_product['name'] = $input['name'];
                 $edit_product['price'] = $input['price']; 
                 $edit_product['production_area'] = $input['production_area'];
                 $edit_product['description'] = $input['description'];
+                $edit_product['description2'] = $input['description2'];
                 //$data = $this->validate_form($input);
-
+                // var_dump($edit_product);
                 $product->update($edit_product);
                 
                 $edited_item = $input['name'] . " was successfully edited!";
