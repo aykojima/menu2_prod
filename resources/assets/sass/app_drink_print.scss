@@ -96,9 +96,9 @@ div.page2, .page4, .page6, .page8,
     color: $skt_color; 
     clear: both;
   }
-  p{
-    line-height: 10px;
-  }
+  // p{
+  //   line-height: 10px;
+  // }
   .drink_price{
     padding-top: 2%;
   }
@@ -149,7 +149,7 @@ p.bottle_size {
 }
 
 .drink_details{
-  width: 300px;
+  width: 90%;
   color: $gray;
   clear: both;
   font-size: 1em;

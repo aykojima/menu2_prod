@@ -17,7 +17,6 @@
 
  <div id='edit_modal' class='modal'>
     <div class='modal_content'>
-        <!-- <button id='close_edit_tab' onclick='hide_edit_div()'>X</button> -->
         <span class="close">&times;</span>
         {!! Form::open(['route' => 'sake_edit_submit']) !!}
         {!! Form::hidden('product_id') !!}
@@ -63,7 +62,7 @@
                             <div>
                                 <p class="drink_name">{{ $sake_glass->name }} 
                                 @if(!empty ($sake_glass->sake))    
-                                    <small>{{ $sake_glass->sake->grade }}</small>
+                                    <small style="font-style: italic;">{{ $sake_glass->sake->grade }}</small>
                                     @if($key == 0)
                                         <small style="color: #CF671F">warm or hot</small>
                                     @endif
@@ -112,7 +111,7 @@
                     <a class="edit" data-id="{{ $flight->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
                         <div>
                     <p class="drink_name">{{ $flight->name }}
-                        <span>( {{ $flight->production_area }} )</span>
+                        <span style="font-style: italic;">( {{ $flight->production_area }} )</span>
                     </p>
                     <p class="drink_price">{{ $flight->price }}</p>
                     <div class="drink_details">

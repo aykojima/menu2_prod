@@ -77,7 +77,7 @@
                         <div>
                             <p class="drink_name">{{ $wine_glass->name }} 
                             @if(!empty ($wine_glass->wine))    
-                                <small>{{ $wine_glass->wine->type }}</small>
+                                <small style="font-style: italic;">{{ $wine_glass->wine->type }}</small>
                             @endif
                             </p>
                             <p class="drink_price">{{ $wine_glass->price }}</p>

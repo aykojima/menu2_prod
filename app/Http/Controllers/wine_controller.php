@@ -42,6 +42,7 @@ class wine_controller extends Controller
         $wine_glasses = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
             ->whereBetween('category_id', [15, 24])
             ->orderByRaw($query)
+            ->orderByRaw('CHAR_LENGTH(price)')
             ->orderBy('price')
             ->get();
     

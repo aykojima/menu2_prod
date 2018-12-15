@@ -259,7 +259,7 @@
                                         <div>
                                             <p class="drink_name">{{ $wine_glass->name }} 
                                                 @if(!empty ($wine_glass->wine))    
-                                                    <small>{{ $wine_glass->wine->type }}</small>    
+                                                    <small style="font-style: italic">{{ $wine_glass->wine->type }}</small>    
                                                 @endif
                                             </p>
                                             <p class="drink_price">{{ $wine_glass->price }}</p>
@@ -316,7 +316,7 @@
                                         <div>
                                             <p class="drink_name">{{ $sparkling->name }} 
                                             @if(!empty ($sparkling->wine))    
-                                                <small>{{ $sparkling->wine->type }}</small>
+                                                <small style="font-style: italic">{{ $sparkling->wine->type }}</small>
                                             @endif
                                             </p>
                                             <p class="drink_price">{{ $sparkling->price }}</p>
@@ -353,7 +353,7 @@
                                     <div>
                                         <p class="drink_name">{{ $white->name }} 
                                         @if(!empty ($white->wine))    
-                                            <small>{{ $white->wine->type }}</small>
+                                            <small style="font-style: italic">{{ $white->wine->type }}</small>
                                         @endif
                                         </p>
                                         <p class="drink_price">{{ $white->price }}</p>
@@ -392,7 +392,7 @@
                                         <div>
                                             <p class="drink_name">{{ $rose_and_red->name }} 
                                                 @if(!empty ($rose_and_red->wine))    
-                                                <small>{{ $rose_and_red->wine->type }}</small></p>
+                                                <small style="font-style: italic">{{ $rose_and_red->wine->type }}</small></p>
                                                 @endif
                                             <p class="drink_price">{{ $rose_and_red->price }}</p>
                                             @if(!empty ($rose_and_red->wine->bottle))    
@@ -439,10 +439,11 @@
                                         <div>
                                             <p class="drink_name">{{ $whisky->name }} 
                                                 <span style="font-style: italic; font-size: 0.8em">{{ $whisky->description2 }}</span>
-                                                <span style="color: #CF671F; font-size: 0.8em">{{ $whisky->production_area }}</span>
+                                                <!-- <span style="color: #CF671F; font-size: 0.8em">{{ $whisky->production_area }}</span> -->
                                             </p>
                                             <p class="drink_price">{{ $whisky->price }}</p>
                                             <div class="drink_details">
+                                                <span style="color: #CF671F;">{{ $whisky->production_area }}</span>
                                                 <p>{{ $whisky->description }}</p>
                                             </div>
                                         </div>

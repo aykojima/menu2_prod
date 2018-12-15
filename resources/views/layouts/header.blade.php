@@ -28,7 +28,7 @@
         <ul id="header">
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
             @if(Request::is('sb') || Request::is('ippin') || Request::is('course') || Request::is('roll') || Request::is('lunch'))
-                <li><a href='{{URL::to('cocktail')}}'><img class="home_icons header_icons" src="images/arrow.png"></a><span>Go to Cocktail</span></li>   
+                <li><a href='{{URL::to('/drinks/print')}}'><img class="home_icons header_icons" src="images/arrow.png"></a><span>Go to Drink Menu</span></li>   
                 <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="images/printer.png"></a><span>Print</span></li>
                 <!-- <li id="print"><a href="javascript: setTimeout(function(){window.print();},3000)"><img class="header_icons" src="images/printer.png"></a><span>Print</span></li> -->
             @else
