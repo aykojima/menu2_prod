@@ -50,7 +50,7 @@
         @if($category->category_id != 6 && $category->category_id != 12 && $category->category_id != 14)
             <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
                 <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
-                <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
+                <p style="color: #ccc; font-size: 0.8em;">{{ $category->category_description }}</p>
                 <a class="add_new_drink"> 
                     <img class="add_drinks" src='images/add_icon_active.png'>
                 </a>
@@ -169,34 +169,40 @@ $(window).click(function(event) {
     }
 });
 
+
 $(document).on("click", ".add_new_drink", function(event){
-    $("#add_new_modal .modal_content input[name='category_id']").val($(this).parent().data("id"));
+    const modal = $("#add_new_modal .modal_content");
+    modal.find("input[name='category_id']").val($(this).parent().data("id"));
     
     if($(this).parent().data("id") == 38)
     {
-        $("#add_new_modal .modal_content .hide_when_flight").hide();
-        $("#add_new_modal .modal_content input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");
+        modal.find(".hide_when_flight").hide();
+        modal.find("input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");
     }else
     {
-        $("#add_new_modal .modal_content .hide_when_flight").show();
-        $("#add_new_modal .modal_content input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)");
+        modal.find(".hide_when_flight").show();
+        modal.find("input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)");
     }
+     
+    modal.find("input[name='category_name']")
+        .val($(this).parent().data("category"))
+        .css("color", "red"); 
     
-    $("#add_new_modal .modal_content .form_category")
-        .text($(this).parent().data("category")); 
+    modal.find("input[name='category_desc']")
+        .val($(this).prev().text()); 
     
-    $("#add_new_modal .modal_content input[name='size_checkbox']").change(function(){
+    modal.find("input[name='size_checkbox']").change(function(){
         if(this.checked)
-            $('#add_new_modal .modal_content .bottle_size_hide').fadeIn('slow');
+            modal.find(" .bottle_size_hide").fadeIn('slow');
         else
-            $('#add_new_modal .modal_content .bottle_size_hide').fadeOut('slow');
+            modal.find(" .bottle_size_hide").fadeOut('slow');
     });
 
-    $("#add_new_modal .modal_content select[name='sweetness']").change(function(){
+    modal.find("select[name='sweetness']").change(function(){
         if($(this).children("option").filter(":selected").text() == 'Other')
-            $('#add_new_modal .modal_content .sweetness_hide').fadeIn('slow');
+            modal.find(" .sweetness_hide").fadeIn('slow');
         else
-            $('#add_new_modal .modal_content .sweetness_hide').fadeOut('slow');
+            modal.find(" .sweetness_hide").fadeOut('slow');
     });
 });
 

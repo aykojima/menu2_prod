@@ -55,7 +55,7 @@
                             || $category->category_id == 5)
                             <div id="" class="drink_categories">
                                 <h3>{{ $category->category }}</h3>
-                                <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $category->description }}</p>
+                                <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $category->category_description }}</p>
                             </div>
                             @foreach($sake_glasses as $sake_glass)
                                 @if($sake_glass->category->category_id == $category->category_id)
@@ -119,7 +119,7 @@
                             || $category->category_id == 8)
                             <div id="" class="drink_categories">
                                 <h3>{{ $category->category }}</h3>
-                                <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $category->description }}</p>
+                                <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $category->category_description }}</p>
                             </div>
                             @foreach($sake_bottles as $sake_bottle)
                                 @if($sake_bottle->category->category_id == $category->category_id)
@@ -476,7 +476,7 @@
                             || $category->category_id == 13)
                             <div id="" class="drink_categories">
                                 <h3>{{ $category->category }}</h3>
-                                <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
+                                <p style="color: #ccc; font-size: 0.8em;">{{ $category->category_description }}</p>
                             </div>
                             @foreach($sake_bottle2s as $sake_bottle2)
                                 @if($sake_bottle2->category->category_id == $category->category_id)

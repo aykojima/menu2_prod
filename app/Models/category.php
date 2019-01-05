@@ -8,11 +8,16 @@ class category extends Model
 {
     protected $primaryKey = 'category_id';
 
-    protected $fillable = ['category', 'description'];
+    protected $fillable = ['category', 'category_description', 'page_number', 'title_id'];
 
     public function products()
     {
         return $this->hasMany(product::class, 'category_id');
+    }
+
+    public function title()
+    {
+        return $this->belongsTo(page_title::class, 'title_id');
     }
     
 }

@@ -286,21 +286,7 @@ class sb_controller extends Controller
     }
 
 
-    public function test_show()
-    {
-        $sbs = sb::all();
-        return view('food_menu.index', ['sbs' => $sbs]);
-    }
 
-    // public function edit(Request $request)
-    // {
-    //     if($request->ajax()){
-    //         $sb_id = $request->sb_id;
-    //         $sbs = sb::findOrFail($sb_id);
-    //         //return Response($sbs);
-    //         return view('food_menu.edit', ['sbs' => $sbs]);
-    //     }
-    // }
 
 }
 

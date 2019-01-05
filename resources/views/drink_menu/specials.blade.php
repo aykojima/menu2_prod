@@ -49,22 +49,22 @@
         <p>limited bottles available</p>
 
         @foreach($categories as $category)
-            <!-- @if($category->category == 'Sake' && $category->description == 'specials')
+            <!-- @if($category->category == 'Sake' && $category->category_description == 'specials')
                 <h2 id="sake_by_glass">
                 {{ $category->category }}
-            @elseif($category->category == 'Sparkling' && $category->description == 'specials')
+            @elseif($category->category == 'Sparkling' && $category->category_description == 'specials')
                 <h2 id="sake_bottles">
                 {{ $category->category }}
-            @elseif($category->category == 'White' && $category->description == 'specials')
+            @elseif($category->category == 'White' && $category->category_description == 'specials')
                 <h2 id="sake_bottles">
                 {{ $category->category }}
-            @elseif($category->category == 'Red' && $category->description == 'specials')
+            @elseif($category->category == 'Red' && $category->category_description == 'specials')
                 <h2 id="sake_bottles">
                 {{ $category->category }}
-            @elseif($category->category == 'Dessert' && $category->description == 'specials')
+            @elseif($category->category == 'Dessert' && $category->category_description == 'specials')
                 <h2 id="sake_bottles">
                 {{ $category->category }}
-            @elseif($category->category == 'Whisky' && $category->description == 'specials')
+            @elseif($category->category == 'Whisky' && $category->category_description == 'specials')
                 <h2 id="sake_bottles">
                 {{ $category->category }}
             @endif

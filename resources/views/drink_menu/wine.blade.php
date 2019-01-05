@@ -60,7 +60,7 @@
             <!-- Skippin Rotating White, Rose, and Rotating Red -->
                 <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
                     <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
-                    <p style="color: #ccc; font-size: 0.8em;">{{ $category->description }}</p>
+                    <p style="color: #ccc; font-size: 0.8em;">{{ $category->category_description }}</p>
                     <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
                     <hr>
                 <!-- @if($key == 2)

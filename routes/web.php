@@ -89,7 +89,8 @@
         Route::post('/special/edit', 'special_controller@edit_menu')->name('special_edit_submit');
 
         //print preview
-        Route::get('/drinks/print', 'sake_controller@print')->name('print');
+        Route::get('/drinks/print', 'drink_view_controller@print')->name('print');
+
     });
 
  Route::middleware('auth')->group( function(){

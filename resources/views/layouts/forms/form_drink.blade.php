@@ -1,5 +1,9 @@
+<!-- <h2 class="form_category"> -->
+{!! Form::text('category_name', null, ['placeholder' => 'Category Name', 'class' => 'form_column_long']) !!}
+{!! Form::text('category_desc', null, ['placeholder' => 'Category Description', 'class' => 'form_column_long']) !!}
+<!-- </h2> -->
 @if(Request::is('cocktail'))
-    <h2 class="form_category"></h2>
+    
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Asahi "Super Dry")', 'class' => 'form_column_long']) !!}
 
     {!! Form::text('price', null, ['placeholder' => 'Price (e.g. 10)', 'class' => 'form_column_long']) !!}
@@ -7,7 +11,7 @@
     {!! Form::text('description', null, ['placeholder' => 'Description (e.g. Toronto, Canada 21.4 oz bottle)', 'class' => 'form_column_long']) !!}
 
 @elseif(Request::is('sake'))
-    <h2 class="form_category"></h2>
+    
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Miyasaka "Yawaraka" "Sake Matinee")', 'class' => 'form_column_long']) !!}
 
     {!! Form::text('grade', null, ['placeholder' => 'Grade (e.g. Junmai)', 'class' => 'form_column_long hide_when_flight']) !!}
@@ -47,7 +51,7 @@
 
 
 @elseif(Request::is('wine'))
-    <h2 class="form_category"></h2>
+    
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Gruet "Sauvage")', 'class' => 'form_column_long']) !!}
     {!! Form::text('type', null, ['placeholder' => 'Type of Wine (e.g. Blanc de Blancs)', 'class' => 'form_column_long']) !!}
     {!! Form::text('price', null, ['placeholder' => 'Price (e.g. 13)', 'class' => 'form_column_long']) !!}
@@ -69,7 +73,7 @@
 
 
 @elseif(Request::is('shochu'))
-    <h2 class="form_category"></h2>
+    
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Kakushigura Mugi)', 'class' => 'form_column_long']) !!}
     
     {!! Form::text('price', null, ['placeholder' => 'Price (e.g. 12)', 'class' => 'form_column_long']) !!}
@@ -81,7 +85,7 @@
 
 @elseif(Request::is('special'))
 
-    <h2 class="form_category"></h2>
+    
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Joto)', 'class' => 'form_column_long']) !!}
 
     {!! Form::text('price', null, ['placeholder' => 'Price (e.g. 88)', 'class' => 'form_column_long']) !!}

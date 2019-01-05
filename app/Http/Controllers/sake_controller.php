@@ -43,42 +43,62 @@ class sake_controller extends Controller
     public function add_new(Request $request) 
     { 
         $input = $request->all();
-        $new_product['name'] = ucfirst($input['name']);
-        $new_product['price'] = $input['price']; 
-        $new_product['production_area'] = ucfirst($input['production_area']);
-        $new_product['description'] = lcfirst($input['description']);
-        $new_product['description2'] = lcfirst($input['description2']);
-        $new_product['category_id'] = $input['category_id'];
-        //$data = $this->validate_form($input);
         
+        $category = category::findOrFail ( $request->category_id );
         
-        $product = product::create($new_product);
-
-        if($new_product['category_id'] != 38)
+        if($category->category != strtoupper($input['category_name']))
         {
-            $new_sake['rice'] = ucfirst($input['rice']);
-            $new_sake['grade'] = ucfirst($input['grade']);
+            $category->category = strtoupper($input['category_name']);
+            $category->save();
+        }
 
-            if($input['sweetness'] == 'other')
-            { $new_sake['sweetness'] = $input['sweetness_other']; }
-            else { $new_sake['sweetness'] = $input['sweetness']; }
-
-            $new_sake['product_id'] = $product->product_id;
-            
-            $sake = sake::create($new_sake);
-
-            if($input['size_checkbox'] == "Size is not 720ml"
-                && $input['size'] != null)
-            {
-                $new_bottle['size'] = $input['size'];
-                $new_bottle['second_price'] = $input['second_price'];
-                $new_bottle['sake_id'] = $sake->sake_id;
-
-                $bottle = bottle::create($new_bottle);
-            }
+        if($category->category_description != $input['category_desc'])
+        {
+            $category->category_description = $input['category_desc'];
+            $category->save();
         }
         
-        $new_item = $new_product['name'] . " was successfully created!";
+        if(!empty($input['name'])){
+            $new_product['name'] = ucfirst($input['name']);
+            $new_product['price'] = $input['price']; 
+            $new_product['production_area'] = ucfirst($input['production_area']);
+            $new_product['description'] = lcfirst($input['description']);
+            $new_product['description2'] = lcfirst($input['description2']);
+            $new_product['category_id'] = $input['category_id'];
+            //$data = $this->validate_form($input);
+            
+            
+            $product = product::create($new_product);
+
+            if($new_product['category_id'] != 38)
+            {
+                $new_sake['rice'] = ucfirst($input['rice']);
+                $new_sake['grade'] = ucfirst($input['grade']);
+
+                if($input['sweetness'] == 'other')
+                { $new_sake['sweetness'] = $input['sweetness_other']; }
+                else { $new_sake['sweetness'] = $input['sweetness']; }
+
+                $new_sake['product_id'] = $product->product_id;
+                
+                $sake = sake::create($new_sake);
+
+                if($input['size_checkbox'] == "Size is not 720ml"
+                    && $input['size'] != null)
+                {
+                    $new_bottle['size'] = $input['size'];
+                    $new_bottle['second_price'] = $input['second_price'];
+                    $new_bottle['sake_id'] = $sake->sake_id;
+
+                    $bottle = bottle::create($new_bottle);
+                }
+            }
+            
+            $new_item = $new_product['name'] . " was successfully created!";
+            return redirect('sake')->with('status', $new_item );
+        }//end of if !empty($input['name'])
+
+        $new_item = $input['category_name'] . " was successfully edited!"; 
         return redirect('sake')->with('status', $new_item );
     }
 
@@ -209,8 +229,6 @@ class sake_controller extends Controller
         }
 
         $query_shochu = write_query($shochu_types, 'name');
-
-        // dd($query_shochu);
         $query_whisky = write_query($whisky_types, 'name');
         $query_white = write_query($white_types, 'type');
         $query_red = write_query($red_types, 'type');
