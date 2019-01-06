@@ -50,21 +50,46 @@ class drink_view_controller extends Controller
         $query_white = write_query($white_types, 'type');
         $query_red = write_query($red_types, 'type');
 
+//8 page
+//page 1 == 2 page + 1 || total -6 (Sake by the glass)
+//page 2 == 3 page + 1 || total -5 (Sake bottles#1)
+//page 3 == 8 page + 5 || total -0 (Sake bottles#2)
+//page 4 == 5 page + 1 || total -3 (Wine by the glass && Wine bottles)
+//page 5 == 6 page + 1 || total -2 (Wine bottles)
+//page 6 == 7 page + 1 || total -1 (Japanse Whiskey)
+//page 7 == 4 page - 3 || total -4 (Shochu and other spirits)
+//page 8 == 1 1 (Blank) || total -7
 
-//page 1 == 2 (Sake by the glass)
-//page 2 == 3 (Sake bottles#1)
-//page 3 == 8 (Sake bottles#2)
-//page 4 == 5 (Wine by the glass && Wine bottles)
-//page 5 == 6 (Wine bottles)
-//page 6 == 7 (Japanse Whiskey)
-//page 7 == 4 (Shochu and other spirits)
-//page 8 == 1 (Blank)
+//12page
+//page 1 == 2 page + 1 || total - 10 
+//page 2 == 3 page + 1 || total - 9 
+//page 3 == 6 page + 3 || total - 6 
+//page 4 == 7 page + 3 || total - 5 
+//page 5 == 10 page + 5 || total - 2 
+//page 6 == 11 page + 5 || total - 1 
+//page 7 == 12 page + 5 || total - 0 
+//page 8 == 9 page + 1 || total - 3 
+//page 9 == 8 page - 1 || total - 4 
+//page 10 == 5 page - 5 || total - 7 
+//page 11 == 4 page - 5 || total - 8 
+//page 12 == 1 1 (Blank) || total - 11 
 
 
         function get_products(){
             $page_array = [];
             //Get row count of category table
             $page_length = category::max('page_number');
+            // $total_page = $page_length; 
+            if($page_length == 7 ){
+                // $page_array[0] = [];
+                $page_array[1] = [];
+                $page_array[2] = [];
+                $page_array[3] = [];
+                $page_array[4] = [];
+                $page_array[5] = [];
+                $page_array[6] = [];
+                $page_array[7] = [];
+            }
             $title_length = page_title::all()->count();
             $category_length = category::all()->count();
 
@@ -98,17 +123,58 @@ class drink_view_controller extends Controller
                     array_push($category_array, $product_array);
                     
                 }//end of foreach
-                array_push($page_array, $category_array);
+
+                if($page_length == 7){
+                    switch($page_number){
+                        case 1:
+                            // array_push($page_array[$page_number], $category_array);
+                            $page_array[$page_number] = $category_array;
+                        case 2:
+                            // array_push($page_array[$page_number], $category_array);
+                            $page_array[$page_number] = $category_array;
+                        case 3:
+                            // array_push($page_array[7], $category_array);
+                            $page_array[7] = $category_array;
+                        case 4:
+                            // array_push($page_array[$page_number], $category_array);
+                            $page_array[$page_number] = $category_array;
+                        case 5:
+                            // array_push($page_array[$page_number], $category_array);
+                            $page_array[$page_number] = $category_array;
+                        case 6:
+                            // array_push($page_array[$page_number], $category_array);
+                            $page_array[$page_number] = $category_array;
+                        case 7:
+                            // array_push($page_array[3], $category_array);
+                            $page_array[3] = $category_array;
+                        // case 8:
+                        //     array_push($page_array[0], $category_array);
+                        //     $page_array[0] = $category_array;
+                            
+                    }
+                }
+                
             }//end of first for loop
             return $page_array;
         }
 
         $page_array = get_products();
+        if(count($page_array) % 2 == 1){
+            array_unshift($page_array, [[[]]]);
+        }
         $page_titles = page_title::all();
         // echo'<pre>';
         // dd($page_array);
         // echo'</pre>';
         return view('drink_menu/test_preview', compact('page_array', 'page_titles'));
+
+
+
+        
+
+        
+
+
 
         $sake_glasses = product::whereBetween('category_id', [1, 6])
             ->orderByRaw('CHAR_LENGTH(price)')

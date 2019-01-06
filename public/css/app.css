@@ -1236,7 +1236,7 @@ div.menu {
   border: solid yellow 1px; }
 
 div.page2, .page4, .page6, .page8,
-.page1, .page3, .page5, .page7 {
+.page1, .page3, .page5, .page7, .page_right, .page_left {
   width: 49%;
   display: inline-block;
   vertical-align: top;

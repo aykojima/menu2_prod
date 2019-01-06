@@ -32,29 +32,29 @@
     </header> 
 
     <div class="drink_container">
-    @foreach($page_array as $key => $category_array) 
-        @if( $key % 2 == 1 )
-            <div class="pages">
-            @endif
-            @if( $key % 2 == 1 )
-            <div class="page1">
+    
+                
+        @foreach($page_array as $key => $category_array) 
+            @if( $key % 2 == 0 )
+                <div class="pages">
+                <div class="page_left">
             @else
-            <div class="page2">
+                <div class="page_right">
             @endif
-            @foreach($page_titles as $page_title) 
-                @if ($page_title->title_id == $key + 1)
-                        <div class='title_div'>
-                            <h1 class="title">{{ $page_title->title_name}}</h1>
-                            <p>{{ $page_title->title_description}}</p>
-                            <p>{{ $page_title->title_size}}</p>
-                        </div>
-                @endif
-            @endforeach
-        @foreach($category_array as $key => $product_array)    
+            
+            
             <div class="menu">
-                
+            @foreach($page_titles as $page_title)
+                        @if ($key != 0 && $page_title->title_id == $key + 1)
+                            <div class='title_div'>
+                                <h1 class="title">{{ $page_title->title_name}}</h1>
+                                <p>{{ $page_title->title_description}}</p>
+                                <p>{{ $page_title->title_size}}</p>
+                            </div>
+                        @endif 
+                    @endforeach<!-- ($page_titles as $page_title)  -->
+            @foreach($category_array as $product_array)    
                 @foreach($product_array as $products)
-                
                     @foreach($products as $product)
                         @if ($loop->first)
                         <div  class="drink_categories" >
@@ -89,14 +89,21 @@
                                         @endif
                                     </p>
                                     <p>{{ $product->description }}</p>
-                                </div>
+                                </div><!--end of drink_details-->
                             </div>
-                        </div>
+                        </div><!--end of products-->
                         {{ $product->description2 }}
                     @endforeach
                 @endforeach
-                </div><!--end of menu-->
+                
             @endforeach
-            </div><!--end of page1-->
-        @endforeach   
-    </div><!-- end of pages div -->    
+            </div><!--end of menu-->
+            @if( $key % 2 == 0 )
+            </div><!--end of page_left-->
+            @else( $key % 2 == 1 )
+            </div><!--end of page_right-->
+            </div><!--end of pages-->
+            @endif
+        @endforeach<!-- ($page_array as $key => $category_array)  -->
+        
+    </div><!-- end of drink_container div -->    
