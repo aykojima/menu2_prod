@@ -77,9 +77,11 @@ class drink_view_controller extends Controller
 
         function get_products(){
             $page_array = [];
+            
             //Get row count of category table
             $page_length = category::max('page_number');
             // $total_page = $page_length; 
+            
             if($page_length == 7 ){
                 // $page_array[0] = [];
                 $page_array[1] = [];
@@ -90,19 +92,21 @@ class drink_view_controller extends Controller
                 $page_array[6] = [];
                 $page_array[7] = [];
             }
+
             $title_length = page_title::all()->count();
             $category_length = category::all()->count();
 
             for($page_number = 1; $page_number <= $page_length; $page_number++){
                 $category_array = [];
                 $categories = category::where('page_number', $page_number)->get();
+
                 foreach( $categories as $category ){
                     $product_array = [];
                     for($title_id = 1; $title_id <= $title_length; $title_id++){
                         if($category->title_id == $title_id){
                             $products = product::leftJoin('categories', 'products.category_id', '=', 'categories.category_id')
                                 ->where('products.category_id', $category->category_id)
-                                // ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id')
+                                ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id')
                                 ->leftJoin('sakes', 'products.product_id', '=', 'sakes.product_id')
                                 ->leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
                                 ->leftJoin('bottles', function ($join) {
@@ -127,49 +131,41 @@ class drink_view_controller extends Controller
                 if($page_length == 7){
                     switch($page_number){
                         case 1:
-                            // array_push($page_array[$page_number], $category_array);
                             $page_array[$page_number] = $category_array;
                         case 2:
-                            // array_push($page_array[$page_number], $category_array);
                             $page_array[$page_number] = $category_array;
                         case 3:
-                            // array_push($page_array[7], $category_array);
                             $page_array[7] = $category_array;
                         case 4:
-                            // array_push($page_array[$page_number], $category_array);
                             $page_array[$page_number] = $category_array;
                         case 5:
-                            // array_push($page_array[$page_number], $category_array);
                             $page_array[$page_number] = $category_array;
                         case 6:
-                            // array_push($page_array[$page_number], $category_array);
                             $page_array[$page_number] = $category_array;
                         case 7:
-                            // array_push($page_array[3], $category_array);
                             $page_array[3] = $category_array;
                         // case 8:
                         //     array_push($page_array[0], $category_array);
-                        //     $page_array[0] = $category_array;
-                            
+                        //     $page_array[0] = $category_array; 
                     }
                 }
-                
             }//end of first for loop
             return $page_array;
         }
-
+        
+        $titles_array = [1, 2, 3, 4, 5, 6, 7];
+        
         $page_array = get_products();
         if(count($page_array) % 2 == 1){
             array_unshift($page_array, [[[]]]);
         }
-        $page_titles = page_title::all();
-        // echo'<pre>';
-        // dd($page_array);
-        // echo'</pre>';
-        return view('drink_menu/test_preview', compact('page_array', 'page_titles'));
+       
+
+        
+        return view('drink_menu/test_preview', compact('page_array', 'titles_array'));
 
 
-
+        
         
 
         

@@ -32,8 +32,6 @@
     </header> 
 
     <div class="drink_container">
-    
-                
         @foreach($page_array as $key => $category_array) 
             @if( $key % 2 == 0 )
                 <div class="pages">
@@ -41,26 +39,22 @@
             @else
                 <div class="page_right">
             @endif
-            
-            
             <div class="menu">
-            @foreach($page_titles as $page_title)
-                        @if ($key != 0 && $page_title->title_id == $key + 1)
-                            <div class='title_div'>
-                                <h1 class="title">{{ $page_title->title_name}}</h1>
-                                <p>{{ $page_title->title_description}}</p>
-                                <p>{{ $page_title->title_size}}</p>
-                            </div>
-                        @endif 
-                    @endforeach<!-- ($page_titles as $page_title)  -->
-            @foreach($category_array as $product_array)    
+            @foreach($category_array as $product_array)
                 @foreach($product_array as $products)
                     @foreach($products as $product)
+                        @if(in_array($product->title_id, $titles_array))
+                            <div class='title_div'>
+                                <h1 class="title">{{ $product->title_name}}</h1>
+                                <p>{{ $product->title_description}}</p>
+                                <p>{{ $product->title_size}}</p>
+                            </div>
+                        @endif
                         @if ($loop->first)
-                        <div  class="drink_categories" >
-                            <h3>{{ $product->category }}</h3>
-                            <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $product->category_description }}</p>
-                        </div>
+                            <div  class="drink_categories" >
+                                <h3>{{ $product->category }}</h3>
+                                <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $product->category_description }}</p>
+                            </div>
                         @endif
                         <div class="products">
                             <div>
@@ -93,10 +87,17 @@
                             </div>
                         </div><!--end of products-->
                         {{ $product->description2 }}
+                        @php
+                        {{  $last_title = $product->title_id;
+                            if(in_array($last_title, $titles_array)){
+                                $k = array_search($last_title, $titles_array);
+                                unset($titles_array[$k]);
+                            }
+                        }}
+                        @endphp
                     @endforeach
                 @endforeach
-                
-            @endforeach
+            @endforeach<!--($category_array as $product_array)-->
             </div><!--end of menu-->
             @if( $key % 2 == 0 )
             </div><!--end of page_left-->
