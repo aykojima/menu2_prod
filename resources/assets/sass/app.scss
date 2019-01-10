@@ -1521,7 +1521,7 @@ input.add_price, input.item_prices {
   line-height: 0.8em;
 }
 
-.drink_categories{
+.drink_title{
   @extend %drink_divs; 
   margin-bottom: 2%;
   clear: both;
@@ -1545,6 +1545,10 @@ input.add_price, input.item_prices {
   .drink_price{
     padding-top: 2%;
   }
+}
+
+.drink_categories{
+  margin-bottom: 5%;
 }
 
 .rotating_wine{
@@ -1574,14 +1578,19 @@ input.add_price, input.item_prices {
   @extend %name_price_font_size;
 }
 
+
 .drink_price{
   float: right;
+  position: relative;
   @extend %name_price_font_size;
 }
 
 p.bottle_size {
   float: right;
   margin-right: 3px;
+  position: absolute;
+  right: 0px;
+  top: 12px;
   small{
     font-size: small;
   }
@@ -1592,6 +1601,7 @@ p.bottle_size {
   clear: both;
   font-size: 0.8em;
   line-height: 1em;
+  width: 90%;
   span{
     color: $skt_color;
   }
@@ -1714,20 +1724,20 @@ div.page2, .page4, .page6, .page8,
 //   right:0;
 // }
 
-.page8{
-  .drink_categories{
-    h3{
-      float: left;
-      margin-bottom: 2%;
-    }
-    // p{
-    //   float: right;
-    // }
-  }
-  .products{
-    clear: both;
-  }
-}
+// .page8{
+//   .drink_title{
+//     h3{
+//       float: left;
+//       margin-bottom: 2%;
+//     }
+//     // p{
+//     //   float: right;
+//     // }
+//   }
+//   .products{
+//     clear: both;
+//   }
+// }
 
 .title_div {
   padding-bottom: 10%;
@@ -1762,6 +1772,13 @@ div.page2, .page4, .page6, .page8,
   font-size: 1.05em;
 }
 
+.no_padding_top{
+  padding-top: 0;
+}
+
+.large_margin{
+  margin-bottom: 8%;
+}
 @media only screen 
 and (max-device-width : 765px)  { 
   div.nav{

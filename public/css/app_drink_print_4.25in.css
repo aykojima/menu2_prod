@@ -38,17 +38,17 @@ body {
     clear: both;
     color: #cccccc; }
 
-.drink_categories, .products {
+.drink_title, .products {
   margin: 0 0 3% 0; }
 
-.drink_categories {
+.drink_title {
   margin-bottom: 2%;
   clear: both; }
-  .drink_categories h2 {
+  .drink_title h2 {
     margin: 4% 2% 2% 0;
     padding-left: 0;
     float: none; }
-  .drink_categories h3 {
+  .drink_title h3 {
     color: #CF671F;
     clear: both; }
 

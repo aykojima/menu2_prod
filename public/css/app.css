@@ -1102,7 +1102,7 @@ input.add_price, input.item_prices {
     .item_fields_wrap .form_column_long:focus {
       width: 95%; }
 
-.drink_categories, .products {
+.drink_title, .products {
   position: relative;
   margin: 0 0 1% 0; }
 
@@ -1139,23 +1139,26 @@ a.add_new_drink, a.edit {
 .line_height_08 {
   line-height: 0.8em; }
 
-.drink_categories {
+.drink_title {
   margin-bottom: 2%;
   clear: both;
   padding-top: 3%; }
-  .drink_categories hr {
+  .drink_title hr {
     width: 80%; }
-  .drink_categories h2 {
+  .drink_title h2 {
     margin: 4% 2% 4% 0;
     padding-left: 0;
     float: none; }
-  .drink_categories h3 {
+  .drink_title h3 {
     color: #CF671F;
     clear: both; }
-  .drink_categories p {
+  .drink_title p {
     line-height: 10px; }
-  .drink_categories .drink_price {
+  .drink_title .drink_price {
     padding-top: 2%; }
+
+.drink_categories {
+  margin-bottom: 5%; }
 
 .rotating_wine {
   color: #CCCCCC;
@@ -1174,11 +1177,15 @@ a.add_new_drink, a.edit {
   float: left; }
 
 .drink_price {
-  float: right; }
+  float: right;
+  position: relative; }
 
 p.bottle_size {
   float: right;
-  margin-right: 3px; }
+  margin-right: 3px;
+  position: absolute;
+  right: 0px;
+  top: 12px; }
   p.bottle_size small {
     font-size: small; }
 
@@ -1186,7 +1193,8 @@ p.bottle_size {
   color: #ccc;
   clear: both;
   font-size: 0.8em;
-  line-height: 1em; }
+  line-height: 1em;
+  width: 90%; }
   .drink_details span {
     color: #CF671F; }
 
@@ -1249,12 +1257,6 @@ div.page2, .page4, .page6, .page8,
   clear: both;
   border: solid #cccccc 1px; }
 
-.page8 .drink_categories h3 {
-  float: left;
-  margin-bottom: 2%; }
-.page8 .products {
-  clear: both; }
-
 .title_div {
   padding-bottom: 10%; }
   .title_div p {
@@ -1279,6 +1281,12 @@ div.page2, .page4, .page6, .page8,
 
 .small_font {
   font-size: 1.05em; }
+
+.no_padding_top {
+  padding-top: 0; }
+
+.large_margin {
+  margin-bottom: 8%; }
 
 @media only screen and (max-device-width: 765px) {
   div.nav {

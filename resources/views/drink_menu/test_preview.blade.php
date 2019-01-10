@@ -51,16 +51,22 @@
                             </div>
                         @endif
                         @if ($loop->first)
-                            <div  class="drink_categories" >
+                            <div  class="drink_title" >
                                 <h3>{{ $product->category }}</h3>
                                 <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $product->category_description }}</p>
                             </div>
+                            <div class="drink_categories">
                         @endif
                         <div class="products">
                             <div>
                                 <p class="drink_name">
-                                    {{ $product->name }} {{ $product->grade }}
-                                    <small style="font-style: italic">{{ $product->type }}</small>    
+                                    {{ $product->name }} 
+                                    <small style="font-style: italic;">{{ $product->grade }}</small>    
+                                    <small style="font-style: italic;">{{ $product->type }}</small>
+                                    @if($product->category == 'SHOCHU 焼酎' || $product->category == 'JAPANESE WHISKY ウイスキー')   
+                                    <small style="font-style: italic;">{{ $product->description2 }}</small> 
+                                    <span style="color: #CF671F;">{{ $product->production_area }}</span>
+                                    @endif
                                 </p>
                                 <p class="drink_price">{{ $product->price }}</p>
                                 <p class="bottle_size">
@@ -72,7 +78,10 @@
                                     @endif
                                 </p>
                                 <div class="drink_details">
-                                    <p>{{ $product->production_area }}  
+                                    <p>
+                                        @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウイスキー')
+                                        {{ $product->production_area }}  
+                                        @endif
                                         @if(!empty ($product->rice))            
                                             / {{ $product->rice }} / {{ $product->sweetness }}
                                         @endif
@@ -83,10 +92,13 @@
                                         @endif
                                     </p>
                                     <p>{{ $product->description }}</p>
+                                    @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウイスキー')
+                                    <span>{{ $product->description2 }}</span>
+                                    @endif
                                 </div><!--end of drink_details-->
                             </div>
                         </div><!--end of products-->
-                        {{ $product->description2 }}
+                        
                         @php
                         {{  $last_title = $product->title_id;
                             if(in_array($last_title, $titles_array)){
@@ -95,6 +107,9 @@
                             }
                         }}
                         @endphp
+                        @if($loop->last)
+                    </div>
+                    @endif
                     @endforeach
                 @endforeach
             @endforeach<!--($category_array as $product_array)-->
@@ -108,3 +123,93 @@
         @endforeach<!-- ($page_array as $key => $category_array)  -->
         
     </div><!-- end of drink_container div -->    
+
+<script>
+
+$(document).ready(function(){
+
+    //Need to fix here
+    //Make each if statement callback function so that it checks the height each time the function is called.
+const menus = document.querySelectorAll(".menu");
+menus.forEach(menu => {
+    console.log(menu.offsetHeight);
+    if(menu.offsetHeight >= 1120){
+        const drink_titles = menu.querySelectorAll(".drink_title");
+        drink_titles.forEach(title => title.classList.add("no_padding_top"))
+    }else if(menu.offsetHeight <= 800){
+        const products = menu.querySelectorAll(".products");
+        products.forEach(product => product.classList.add("large_margin"))
+    }
+})
+
+
+
+//     function smallMargin(current_page){
+//         var height = current_page.outerHeight();
+//         if(height >= 1250){
+//             current_page.find(".products").addClass("small_margin");
+//             height = current_page.outerHeight();
+//             console.log('first ' + height);
+//             smallMarginTop(height, current_page);
+//         }
+//     }
+//     function smallMarginTop(height, current_page){
+//         if(height >= 1250){
+//             current_page.addClass("small_margin_top");
+//             height = $(this).outerHeight();
+//             console.log('second ' + height);
+//             noMargin(height, current_page)
+//         }
+//     }
+
+//     function noMargin(height, current_page){
+//         if(height >= 1250){
+//             console.log('third ' + height);
+//             current_page.find(".products").addClass("no_margin");
+//         }
+//     }
+//     $(".menu").each(function(){
+//         var height = $(this).outerHeight();
+//         var current_page = $(this);
+//         console.log('original ' + height);
+//         smallMargin(current_page);
+//     });
+    
+    $(".title").each(function(){
+        if($(this).outerHeight() >= 50){
+            $(this).addClass("small_title_font");
+        }
+    })
+
+    $("h3").each(function(){
+        if($(this).outerHeight() >= 30){
+            $(this).addClass("small_font");
+        }
+    })
+
+    $(".drink_name").each(function(){
+        // console.log($(this).text() + $(this).outerWidth());
+        if($(this).outerWidth() >= 330)
+        {
+            $(this).addClass("small_font");
+        }
+    })
+});
+
+$(".header_icons").mouseover(function(e) {
+    e.preventDefault();
+    var target_span = $(this).parent().next();
+    target_span.css("opacity", "100");
+});
+$(".header_icons").mouseout(function(e) {
+    e.preventDefault();
+    var target_span = $(this).parent().next();
+    target_span.css("opacity", "0");
+});
+
+</script>
+
+</body>
+</html>
+
+

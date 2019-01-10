@@ -31,7 +31,7 @@
 <div id="container">
     <div id="menu">        
         @foreach($categories as $category)
-            <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+            <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
                 <!-- <h2 style="color: #CF671F; clear:both"> -->
                 <h2>
                 @if($category->category_id == 37)   

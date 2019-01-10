@@ -69,7 +69,7 @@
                 {{ $category->category }}
             @endif
                 </h2> -->
-            <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+            <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
                 <h2 style="color: #CF671F; clear:both">{{ $category->category }}</h2>
                 <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
                 <hr>

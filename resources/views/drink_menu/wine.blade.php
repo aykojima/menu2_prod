@@ -43,7 +43,7 @@
                     <p>5 oz pour</p>
                 </div>
             @elseif($key == 4)
-                <div id="" class="drink_categories">
+                <div id="" class="drink_title">
                     <h3 style="color: #CF671F; clear:both">ROTATING ROSE</h3>
                     <p class="rotating_wine">Ask your server for today's selection!</p>
                 </di>
@@ -58,7 +58,7 @@
             @endif
             @if($category->category_id != 17 && $category->category_id != 18 && $category->category_id != 20)
             <!-- Skippin Rotating White, Rose, and Rotating Red -->
-                <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+                <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
                     <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
                     <p style="color: #ccc; font-size: 0.8em;">{{ $category->category_description }}</p>
                     <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
@@ -138,7 +138,7 @@ $(".dismiss").click(function(){
 // });
 
 $(document).ready(function(){
-    $(".drink_categories").each(function(){
+    $(".drink_title").each(function(){
         if($(this).data("id") == 17 || $(this).data("id") == 20){
             $(this).children(".add_new_drink").css("display", "none");
         }

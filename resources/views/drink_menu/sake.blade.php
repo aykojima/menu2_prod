@@ -48,7 +48,7 @@
         @endif
         </h1>
         @if($category->category_id != 6 && $category->category_id != 12 && $category->category_id != 14)
-            <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+            <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
                 <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
                 <p style="color: #ccc; font-size: 0.8em;">{{ $category->category_description }}</p>
                 <a class="add_new_drink"> 
@@ -101,7 +101,7 @@
             </div>   
         @endif
         @if($key == 5)
-        <div id="" class="drink_categories" data-id="38" data-category="SEASONAL SAKE">
+        <div id="" class="drink_title" data-id="38" data-category="SEASONAL SAKE">
             <h2>SEASONAL SAKE</h2>
             <!-- <p style="color: #ccc; font-size: 0.8em;"></p> -->
                 <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>

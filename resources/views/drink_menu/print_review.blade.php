@@ -53,7 +53,7 @@
                             || $category->category_id == 3
                             || $category->category_id == 4
                             || $category->category_id == 5)
-                            <div id="" class="drink_categories">
+                            <div id="" class="drink_title">
                                 <h3>{{ $category->category }}</h3>
                                 <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $category->category_description }}</p>
                             </div>
@@ -84,7 +84,7 @@
                                 @endif
                             @endforeach
                         @elseif($category->category_id == 38)
-                            <div id="" class="drink_categories">
+                            <div id="" class="drink_title">
                                 <h2>SEASONAL SAKE</h2>
                                 @foreach($flights as $flight)
                                     <div class="products">
@@ -117,7 +117,7 @@
                         @if(
                             $category->category_id == 7 
                             || $category->category_id == 8)
-                            <div id="" class="drink_categories">
+                            <div id="" class="drink_title">
                                 <h3>{{ $category->category }}</h3>
                                 <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $category->category_description }}</p>
                             </div>
@@ -190,7 +190,7 @@
                                     </div>
                             @endforeach
                             <div class="products">
-                                <div id="" class="drink_categories">
+                                <div id="" class="drink_title">
                                     <h3 class="" style="float: left">SHOCHU Flight</h3>
                                     <p class="drink_price">
                                         <span style="color: #CCCCCC">1oz each</span>
@@ -212,7 +212,7 @@
                             || $category->category_id == 30
                             || $category->category_id == 31
                             || $category->category_id == 32)
-                            <div id="" class="drink_categories">
+                            <div id="" class="drink_title">
                                 <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
                                 <!-- <p style="color: #CCCCCC; float: right;">1.5 oz</p> -->
                             </div>
@@ -250,7 +250,7 @@
                         @if($category->category_id == 15 || 
                             $category->category_id == 16 || 
                             $category->category_id == 19 )
-                            <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
+                            <div id="" class="drink_title" data-id="{{ $category->category_id }}">
                                 <h2>{{ $category->category }}</h3> 
                             </div>    
                             @foreach($wine_glasses as $wine_glass)
@@ -286,7 +286,7 @@
                                 @endif
                             @endforeach
                         @elseif($category->category_id == 18)
-                            <div id="" class="drink_categories">
+                            <div id="" class="drink_title">
                                 <h3 style="color: #CF671F; clear:both">Rotating Rosé</h3>
                                 <p class="rotating_wine">Ask your server for today's selection!</p>
                             </div>
@@ -307,7 +307,7 @@
                 </div>
                     @foreach($categories as $category) 
                         @if($category->category_id == 21)
-                            <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
+                            <div id="" class="drink_title" data-id="{{ $category->category_id }}">
                                 <h2 style="color: #CF671F; clear:both">{{ $category->category }}</h2> 
                             </div>    
                             @foreach($sparklings as $sparkling)
@@ -345,7 +345,7 @@
                     @endforeach
                     @foreach($categories as $category) 
                         @if($category->category_id == 22)
-                            <div id="" class="drink_categories" data-id="{{ $category->category_id }}">
+                            <div id="" class="drink_title" data-id="{{ $category->category_id }}">
                                 <h2 style="color: #CF671F; clear:both">{{ $category->category }}</h2> 
                             </div>    
                             @foreach($whites as $white)
@@ -383,7 +383,7 @@
                     @foreach($categories as $category) 
                         @if($category->category_id == 23 
                             || $category->category_id == 24)                            
-                            <div id="" class="drink_categories">
+                            <div id="" class="drink_title">
                                 <h2>{{ $category->category }}</h2>
                             </div>
                             @foreach($rose_and_reds as $rose_and_red)
@@ -450,7 +450,7 @@
                                     </div>
                             @endforeach
                             <div class="products">
-                                <div id="" class="drink_categories">
+                                <div id="" class="drink_title">
                                     <h3 class="" style="float: left">JAPANESE WHISKY 
                                         <span style="font-size: 0.9em">Rotating Flight</span>
                                     </h3>
@@ -474,7 +474,7 @@
                             || $category->category_id == 10 
                             || $category->category_id == 11
                             || $category->category_id == 13)
-                            <div id="" class="drink_categories">
+                            <div id="" class="drink_title">
                                 <h3>{{ $category->category }}</h3>
                                 <p style="color: #ccc; font-size: 0.8em;">{{ $category->category_description }}</p>
                             </div>

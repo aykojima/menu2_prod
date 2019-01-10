@@ -43,8 +43,7 @@ body{
     font-size: 1em;
   }
 
-div.page2, .page4, .page6, .page8,
- .page1, .page3, .page5, .page7, .page_right, .page_left{
+div.page_right, .page_left{
   width: 49%;
   display: inline-block;
   vertical-align: top;
@@ -59,30 +58,30 @@ div.page2, .page4, .page6, .page8,
   clear: both;
 }
 
-.page8{
-  .drink_categories{
-    h3{
-      float: left;
-      margin-bottom: 2%;
-    }
-  }
-  .products{
-    clear: both;
-  }
-}
+// .page8{
+//   .drink_title{
+//     h3{
+//       float: left;
+//       margin-bottom: 2%;
+//     }
+//   }
+//   .products{
+//     clear: both;
+//   }
+// }
 
-.page1, .page3, .page5, .page7, .page_right {
+.page_right {
   right:0;
 }
 
 %drink_divs{
-  // position: relative;
+  position: relative;
   margin: 0 0 3% 0;
 }
 
 
 
-.drink_categories{
+.drink_title{
   @extend %drink_divs; 
   margin-bottom: 2%;
   clear: both;
@@ -104,6 +103,9 @@ div.page2, .page4, .page6, .page8,
   }
 }
 
+.drink_categories{
+  margin-bottom: 5%;
+}
 
 .rotating_wine{
   color: $gray;
@@ -139,12 +141,16 @@ div.page2, .page4, .page6, .page8,
 
 .drink_price{
   float: right;
+  position: relative;
   @extend %name_price_font_size;
 }
 
 p.bottle_size {
   float: right;
   margin-right: 3px;
+  position: absolute;
+  right: 0px;
+  top: 12px;
   font-size: small;
 }
 
@@ -230,4 +236,12 @@ h2{
 
 .small_font{
   font-size: 0.9em;
+}
+
+.no_padding_top{
+  padding-top: 0;
+}
+
+.large_margin{
+  margin-bottom: 8%;
 }

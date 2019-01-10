@@ -79,7 +79,7 @@
         </div>
         @endif   
         
-        <div id="" class="drink_categories" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
+        <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
         <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
         <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
         <hr>
