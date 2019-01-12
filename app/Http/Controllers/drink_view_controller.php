@@ -18,22 +18,21 @@ class drink_view_controller extends Controller
         $categories = category::all();
         //$categories = category::whereBetween('category_id', [28, 32])->get();
 
-
-
-        $shochu_types = array("Mugi", "Kome", "Imo", "Ume");
-
-        $whisky_types = array("Suntory", "Hibiki", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano");
-
-
-        $white_types = array("Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
-                        "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
-                        "Riesling", "Gruner Veltliner");
-
-        $red_types = array("Pinot Noir", "Tempranillo", "Cab Franc", 
-                        "Cabernet Sauvignon", "Malbec", "Zinfandel");
-
         function write_query($types, $column){
-            foreach($types as $key=>$type){
+            $array = [];
+            if($types == 'shochu'){
+                $array = ["Mugi", "Kome", "Imo", "Ume"];
+            }else if($types == 'whisky'){
+                $array = ["Suntory", "Hibiki", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano"];
+            }else if($types == 'white'){
+                $array = ["Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
+                "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
+                "Riesling", "Gruner Veltliner"];
+            }else if($types == 'red'){
+                $array = ["Pinot Noir", "Tempranillo", "Cab Franc", 
+                "Cabernet Sauvignon", "Malbec", "Zinfandel"];
+            }
+            foreach($array as $key=>$type){
                 if($key == 0){
                     $query = "CASE WHEN $column LIKE '%" . $type . "%' THEN 1 ";
                 }else{
@@ -45,10 +44,10 @@ class drink_view_controller extends Controller
             return $query .= "ELSE " . $order_number . " END ASC";
         }
 
-        $query_shochu = write_query($shochu_types, 'name');
-        $query_whisky = write_query($whisky_types, 'name');
-        $query_white = write_query($white_types, 'type');
-        $query_red = write_query($red_types, 'type');
+        $query_shochu = write_query('shochu', 'name');
+        $query_whisky = write_query('whisky', 'name');
+        $query_white = write_query('white', 'type');
+        $query_red = write_query('red', 'type');
 
 //8 page
 //page 1 == 2 page + 1 || total -6 (Sake by the glass)
@@ -80,8 +79,9 @@ class drink_view_controller extends Controller
             
             //Get row count of category table
             $page_length = category::max('page_number');
+                            
             // $total_page = $page_length; 
-            
+            echo $page_length;
             if($page_length == 7 ){
                 // $page_array[0] = [];
                 $page_array[1] = [];
@@ -95,7 +95,7 @@ class drink_view_controller extends Controller
 
             $title_length = page_title::all()->count();
             $category_length = category::all()->count();
-
+ 
             for($page_number = 1; $page_number <= $page_length; $page_number++){
                 $category_array = [];
                 $categories = category::where('page_number', $page_number)->get();
@@ -162,79 +162,7 @@ class drink_view_controller extends Controller
        
 
         
-        return view('drink_menu/test_preview', compact('page_array', 'titles_array'));
-
-
-        
-        
-
-        
-
-
-
-        $sake_glasses = product::whereBetween('category_id', [1, 6])
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-            
-        $sake_bottles = product::whereBetween('category_id', [7, 8])
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $sake_bottle2s = product::whereBetween('category_id', [9, 14])
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $wine_glasses = product::whereBetween('category_id', [15, 20])
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-        
-        $sparklings = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-            ->where('category_id', 21)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $whites = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-            ->where('category_id', 22)
-            ->orderByRaw($query_white)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-        
-        $rose_and_reds = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-            ->whereBetween('category_id', [23, 24])
-            ->orderByRaw($query_red)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $shochus = product::where('category_id', 25)
-            ->orderByRaw($query_shochu)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $whiskies = product::where('category_id', 26)
-            ->orderByRaw($query_whisky)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $spirits = product::whereBetween('category_id', [28, 32])
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $flights = product::where('category_id', '=', '38')->get();
-
-        
-
-        return view('drink_menu/print_review', compact('categories', 'shochus', 'spirits', 'sake_glasses', 'flights',
-            'rose_and_reds', 'sake_bottle2s', 'sake_bottles', 'whiskies', 'wine_glasses', 'sparklings', 'whites'));
+        return view('drink_menu/print_preview', compact('page_array', 'titles_array'));
     }
 }
 

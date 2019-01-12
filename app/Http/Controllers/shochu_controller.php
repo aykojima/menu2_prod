@@ -29,11 +29,24 @@ class shochu_controller extends Controller
 
         $query = write_query($types);
 
-        // dd($query);
-        $drinks = product::whereBetween('category_id', [25, 32])->orderByRaw($query)->orderBy('price')->get();
-        $categories = category::whereBetween('category_id', [25, 32])->get();
+        $titles = [5, 6, 7]; //titles for shochu, Japanese Whisky and Spirits
+        $categories = category::whereBetween('title_id', [5, 7])->select('category_id')->get();
+        $category_array = [];
+        
+        foreach($categories as $category){
+            // $products = [];
+            $products = product::leftJoin('categories', 'categories.category_id', '=', 'products.category_id')
+                ->where('products.category_id', $category->category_id)
+                ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id')
+                ->orderByRaw($query)
+                ->orderByRaw('CHAR_LENGTH(price)')
+                ->orderBy('price')
+                ->get();
+        
+            array_push($category_array, $products);
+        }//end of foreach
 
-        return view('drink_menu/shochu', compact('drinks', 'categories'));
+        return view('drink_menu/shochu', compact('category_array', 'titles'));
     }
 
     public function add_new(Request $request) 

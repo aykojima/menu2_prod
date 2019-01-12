@@ -3,110 +3,74 @@
 @section('title', 'Wine')
 
 @section('content')
-<div id='add_new_modal' class='modal'>
-    <div class='modal_content'>
-        <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'wine_add_new']) !!}
-        {!! Form::hidden('category_id') !!}
-        @include('layouts.forms.form_drink')
-        {!! Form::submit('Save') !!}
-        {!! Form::close() !!}
-    </div>
- </div>
 
- <div id='edit_modal' class='modal'>
-    <div class='modal_content'>
-        <!-- <button id='close_edit_tab' onclick='hide_edit_div()'>X</button> -->
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'wine_edit_submit']) !!}
-        {!! Form::hidden('product_id') !!}
-        @include('layouts.forms.form_drink')
-        <div class="buttons">
-            <input value="Update" type="submit" name="submit">
-            <input value="Delete" type="submit" name="submit">
-        </div>
-        {!! Form::close() !!}
-    </div>    
- </div>
 
 <div id="container">
     
-    <div id="menu">        
-        @foreach($categories as $key => $category)
-            @if($key == 0)
-                <div id="sake_bottles" class='title_div'>
-                    <h1 id="wine_by_glass" class='title'>
-                        WINE BY THE GLASS
-                    </h1>
-                    <p></p><!--need this for styling-->
-                    <p>5 oz pour</p>
+    <div id="menu">
+                
+        @foreach($category_array as $category)
+            
+            @foreach($category as $product)
+            @if(in_array($product->title_id, $titles))
+                <div class='title_div'>
+                    <h1 class="title">{{ $product->title_name}}</h1>
+                    <p>{{ $product->title_description}}</p>
+                    <p>{{ $product->title_size}}</p>
                 </div>
-            @elseif($key == 4)
-                <div id="" class="drink_title">
-                    <h3 style="color: #CF671F; clear:both">ROTATING ROSE</h3>
-                    <p class="rotating_wine">Ask your server for today's selection!</p>
-                </di>
-            @elseif($key == 6)
-                <div id="sake_bottles" class='title_div margin_top'>
-                    <h1 id="wine_bottles" class='title'>
-                        WINE BOTTLES
-                    </h1>
-                    <p></p><!--need this for styling-->
-                    <p>750ml</p>
+            @endif  
+            @if ($loop->first)
+                <div id="" class="drink_title" data-id="{{ $product->category_id }}" data-category="{{ $product->category }}">
+                    <p style="color: #CF671F; clear:both">{{ $product->category }}</p>
+                    <p style="color: #ccc; font-size: 0.8em; padding-top: 2%;">{{ $product->category_description }}</p>
+                    <a class="add_new_drink"> 
+                        <img class="add_drinks" src='../images/add_icon_active.png'>
+                    </a>
                 </div>
+                <hr>
             @endif
-            @if($category->category_id != 17 && $category->category_id != 18 && $category->category_id != 20)
-            <!-- Skippin Rotating White, Rose, and Rotating Red -->
-                <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-                    <h3 style="color: #CF671F; clear:both">{{ $category->category }}</h3>
-                    <p style="color: #ccc; font-size: 0.8em;">{{ $category->category_description }}</p>
-                    <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
-                    <hr>
-                <!-- @if($key == 2)
-                    <p class="rotating_wine">Anything goes -- from dry Riesling to white Burgundy</p>
-                    <p class="rotating_wine">Ask your server about today's pour!</p>
-                @endif -->
-                <!-- @if($key == 5)
-                    <p class="rotating_wine">Typically bright, light varietals like Pinot Noir, Tempranillo, or Barbera. Ask your server about today's pour!</p>
-                @endif -->
-                @foreach($wine_glasses as $wine_glass)
-                    @if($wine_glass->category->category_id == $category->category_id)
-                    <div class="products">
-                    <a class="edit" data-id="{{ $wine_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                        <div>
-                            <p class="drink_name">{{ $wine_glass->name }} 
-                            @if(!empty ($wine_glass->wine))    
-                                <small style="font-style: italic;">{{ $wine_glass->wine->type }}</small>
+            <div class="products">
+                <a class="edit" data-id="{{ $product->product_id }}"><img class="edit_drinks" src='../images/edit_icon_active.png'></a>
+                <div>
+                    <p class="drink_name">
+                        {{ $product->name }} 
+                        <small style="font-style: italic;">{{ $product->type }}</small>    
+                    </p>
+                    <p class="drink_price">{{ $product->price }}</p>
+                    <p class="bottle_size">
+                        @if(!empty ($product->size))    
+                            <small>{{ $product->size }}ml</small>
+                        @endif
+                        @if(!empty ($product->second_price)  )  
+                            {{ $product->second_price }} / 
+                        @endif
+                    </p>
+                    <div class="drink_details">
+                        <p>
+                            {{ $product->production_area }}  
+                            @if(!empty ($product->year))            
+                                / {{ $product->year }} 
                             @endif
-                            </p>
-                            <p class="drink_price">{{ $wine_glass->price }}</p>
-                            @if(!empty ($wine_glass->wine->bottle->size))    
-                                <p class="bottle_size"><small>{{ $wine_glass->wine->bottle->size }}ml</small>
-                                    @if($wine_glass->wine->bottle->second_price)    
-                                        {{ $wine_glass->wine->bottle->second_price }} / 
-                                    @endif
-                                </p>
-                            @endif
-                            <div class="drink_details">
-                                <p>{{ $wine_glass->production_area }} 
-                                @if(!empty ($wine_glass->wine))    
-                                    @if($wine_glass->wine->year) 
-                                        <span>{{ $wine_glass->wine->year }}</span>
-                                    @endif
-                                @endif    
-                                </p>
-                                <p>{{ $wine_glass->description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    @endif
-                @endforeach
-            </div>    
-        @endif   
-    @endforeach
-</div>
+                        </p>
+                        <p>{{ $product->description }}</p>
+                        <span>{{ $product->description2 }}</span>
+                    </div><!--end of drink_details-->
+                </div>
+            </div><!--end of products-->
+            @php
+                    {{  $last_title = $product->title_id;
+                        if(in_array($last_title, $titles)){
+                            $k = array_search($last_title, $titles);
+                            unset($titles[$k]);
+                        }
+                    }}
+                    @endphp
+            @endforeach<!--$category as $products -->
+
+        @endforeach<!--$category_array as $category -->
+    </div><!--end of menu-->  
+</div><!-- end of drink_container div -->    
+
 
 @if(session('status'))
 <div id="notification" style="display: none;">
@@ -188,10 +152,21 @@ $(window).click(function(event) {
 });
 
 $(document).on("click", ".add_new_drink", function(event){
-    $("#add_new_modal .modal_content input[name='category_id']")
+    const modal = $("#add_new_modal .modal_content");
+    modal.find("input[name='category_id']").val($(this).parent().data("id"));
+
+    modal.find("input[name='category_id']")
         .val($(this).parent().data("id"));
-    $("#add_new_modal .modal_content .form_category")
+        
+    modal.find(".form_category")
         .text($(this).parent().data("category")); 
+
+    modal.find("input[name='category_name']")
+        .val($(this).parent().data("category"))
+        .css("color", "red"); 
+    
+    modal.find("input[name='category_desc']")
+        .val($(this).prev().text()); 
 });
 
 //Edit Modal
@@ -199,7 +174,7 @@ $(document).on("click", ".edit", function(event){
     $('#edit_modal').css('display', 'block');
     $.ajax({
         type : 'get',
-        url : '{{URL::to('wine/edit')}}',
+        url : '{{URL::to('drinks/wine/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
@@ -230,7 +205,7 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('wine/edit')}}',
+        url : '{{URL::to('drinkswine/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),

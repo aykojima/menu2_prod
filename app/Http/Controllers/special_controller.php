@@ -12,10 +12,25 @@ class special_controller extends Controller
 {
     public function show() 
     { 
-        $drinks = product::orderBy('price')->whereBetween('category_id', [39, 44])->get();
-        $categories = category::whereBetween('category_id', [39, 44])->get();
+        $titles = [11, 12]; //titles for wine
+        $categories = category::whereBetween('title_id', [11, 12])->select('category_id')->get();
+        $category_array = [];
 
-        return view('drink_menu/specials', compact('drinks', 'categories'));
+
+        foreach($categories as $category){
+            // $products = [];
+            $products = product::leftJoin('categories', 'categories.category_id', '=', 'products.category_id')
+                ->where('products.category_id', $category->category_id)
+                ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id')
+                ->orderByRaw('CHAR_LENGTH(price)')
+                ->orderBy('price')
+                ->get();
+        
+            array_push($category_array, $products);
+        }//end of foreach
+
+        return view('drink_menu/specials', compact('category_array', 'titles'));
+
     }
 
     public function add_new(Request $request) 

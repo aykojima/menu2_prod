@@ -11,17 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class wine_controller extends Controller
 {
-
-
-
     public function show() 
     { 
         $types = array("Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
                         "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
                         "Riesling", "Gruner Veltliner",
                         "Pinot Noir", "Tempranillo", "Cab Franc", "Cabernet Sauvignon", "Malbec", "Zinfandel");
-
-        // $types_ordered = implode(',', $types);
 
         function write_query($types){
             foreach($types as $key=>$type){
@@ -37,24 +32,51 @@ class wine_controller extends Controller
         }
 
         $query = write_query($types);
-        // dd($query);
+        $titles = [3, 4]; //titles for wine
+        $categories = category::whereBetween('title_id', [3, 4])->select('category_id')->get();
+        $category_array = [];
+
+
+        foreach($categories as $category){
+            // $products = [];
+            $products = product::leftJoin('categories', 'categories.category_id', '=', 'products.category_id')
+                ->where('products.category_id', $category->category_id)
+                ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id')
+                ->leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
+                ->leftJoin('bottles','wines.wine_id', '=', 'bottles.wine_id')
+                ->orderByRaw($query)
+                ->orderByRaw('CHAR_LENGTH(price)')
+                ->orderBy('price')
+                ->get();
         
-        $wine_glasses = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-            ->whereBetween('category_id', [15, 24])
-            ->orderByRaw($query)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
+            array_push($category_array, $products);
+        }//end of foreach
+
+        return view('drink_menu/wine', compact('category_array', 'titles'));
+
     
-        $categories = category::whereBetween('category_id', [15, 24])->get();
-        // dd($wine_glasses);
-        return view('drink_menu/wine', compact('wine_glasses', 'categories'));
     }
 
     public function add_new(Request $request) 
     { 
         
         $input = $request->all();
+
+        $category = category::findOrFail ( $request->category_id );
+        
+        if($category->category != strtoupper($input['category_name']))
+        {
+            $category->category = strtoupper($input['category_name']);
+            $category->save();
+        }
+
+        if($category->category_description != $input['category_desc'])
+        {
+            $category->category_description = $input['category_desc'];
+            $category->save();
+        }
+
+        if(!empty($input['name'])){
         $new_product['name'] = $input['name'];
         $new_product['price'] = $input['price']; 
         $new_product['production_area'] = ucfirst($input['production_area']);
@@ -83,6 +105,10 @@ class wine_controller extends Controller
         }
 
         $new_item = $new_product['name'] . " was successfully created!";
+        return redirect('wine')->with('status', $new_item );
+    }//end of if !empty($input['name'])
+    
+        $new_item = $input['category_name'] . " was successfully edited!"; 
         return redirect('wine')->with('status', $new_item );
     }
 
@@ -170,12 +196,12 @@ class wine_controller extends Controller
         }
     }
 
-    public function print()
-    {
-        $wine_glasses = product::orderBy('price')->get();
-        $categories = category::all();
+    // public function print()
+    // {
+    //     $wine_glasses = product::orderBy('price')->get();
+    //     $categories = category::all();
 
-        return view('drink_menu/print_review', compact('wine_glasses', 'categories'));
-    }
+    //     return view('drink_menu/print_review', compact('wine_glasses', 'categories'));
+    // }
 
 }

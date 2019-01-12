@@ -8,36 +8,32 @@ use App\Models\product as product;
 use App\Models\sake as sake;
 use App\Models\wine as wine;
 use App\Models\bottle as bottle;
+use App\Models\page_title as page_title;
 use Illuminate\Support\Facades\DB;
 
 class sake_controller extends Controller
 {
     public function show() 
     { 
-        $sake_glasses = product::
-            where('category_id', '<', '15')
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
+        $titles = [1, 2]; //titles for sake
+        $categories = category::whereBetween('title_id', [1, 2])->select('category_id')->get();
+        $category_array = [];
         
+        foreach($categories as $category){
+            // $products = [];
+            $products = product::leftJoin('categories', 'categories.category_id', '=', 'products.category_id')
+                ->where('products.category_id', $category->category_id)
+                ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id')
+                ->leftJoin('sakes', 'products.product_id', '=', 'sakes.product_id')
+                ->leftJoin('bottles','sakes.sake_id', '=', 'bottles.sake_id')
+                ->orderByRaw('CHAR_LENGTH(price)')
+                ->orderBy('price')
+                ->get();
         
-        // foreach ($sake_glasses as $sake_glass){
-        // if(strlen($sake_glass['price']) == 3){
-        
-        //     array_push($sake_glasses, $sake_glass);
-        //     }
-        // }
+            array_push($category_array, $products);
+        }//end of foreach
 
-    // echo '<pre>';
-    // // var_dump($sake_glasses);
-    // echo $sake_glasses;
-    // echo '</pre>';
-        $categories = category::all()->where('category_id', '<', '15');
-        $seasonal_sakes = category::where('category_id', '=', '38')->get();
-        // dd($seasonal_sakes);
-        $flights = product::where('category_id', '=', '38')->get();
-
-        return view('drink_menu/sake', compact('sake_glasses', 'categories', 'seasonal_sakes', 'flights'));
+        return view('drink_menu/sake', compact('category_array', 'titles'));
     }
 
     public function add_new(Request $request) 
@@ -196,92 +192,5 @@ class sake_controller extends Controller
         dd($input['product_id']);
     }
 
-    public function print()
-    {
-        $categories = category::all();
-        //$categories = category::whereBetween('category_id', [28, 32])->get();
-
-
-
-        $shochu_types = array("Mugi", "Kome", "Imo", "Ume");
-
-        $whisky_types = array("Suntory", "Hibiki", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano");
-
-
-        $white_types = array("Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
-                        "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
-                        "Riesling", "Gruner Veltliner");
-
-        $red_types = array("Pinot Noir", "Tempranillo", "Cab Franc", 
-                        "Cabernet Sauvignon", "Malbec", "Zinfandel");
-
-        function write_query($types, $column){
-            foreach($types as $key=>$type){
-                if($key == 0){
-                    $query = "CASE WHEN $column LIKE '%" . $type . "%' THEN 1 ";
-                }else{
-                    $order_number = $key + 1;
-                    $query .= "WHEN $column LIKE '%" . $type ."%' THEN " . $order_number . " ";
-                }
-            }
-            $order_number = $order_number + 1;
-            return $query .= "ELSE " . $order_number . " END ASC";
-        }
-
-        $query_shochu = write_query($shochu_types, 'name');
-        $query_whisky = write_query($whisky_types, 'name');
-        $query_white = write_query($white_types, 'type');
-        $query_red = write_query($red_types, 'type');
-
-        $shochus = product::where('category_id', 25)
-            ->orderByRaw($query_shochu)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $spirits = product::whereBetween('category_id', [28, 32])->orderByRaw('CHAR_LENGTH(price)')->orderBy('price')->get();
-
-        $sake_glasses = product::whereBetween('category_id', [1, 6])->orderByRaw('CHAR_LENGTH(price)')->orderBy('price')->get();
-
-        $flights = product::where('category_id', '=', '38')->get();
-
-        $sake_bottle2s = product::whereBetween('category_id', [9, 14])->orderByRaw('CHAR_LENGTH(price)')->orderBy('price')->get();
-
-        $sake_bottles = product::whereBetween('category_id', [7, 8])->orderByRaw('CHAR_LENGTH(price)')->orderBy('price')->get();
-
-        $whiskies = product::where('category_id', 26)
-            ->orderByRaw($query_whisky)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $wine_glasses = product::whereBetween('category_id', [15, 20])
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-        
-        $sparklings = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-            ->where('category_id', 21)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        $whites = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-            ->where('category_id', 22)
-            ->orderByRaw($query_white)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-        
-        $rose_and_reds = product::leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-            ->whereBetween('category_id', [23, 24])
-            ->orderByRaw($query_red)
-            ->orderByRaw('CHAR_LENGTH(price)')
-            ->orderBy('price')
-            ->get();
-
-        return view('drink_menu/print_review', compact('categories', 'shochus', 'spirits', 'sake_glasses', 'flights',
-            'rose_and_reds', 'sake_bottle2s', 'sake_bottles', 'whiskies', 'wine_glasses', 'sparklings', 'whites'));
-    }
 }
 

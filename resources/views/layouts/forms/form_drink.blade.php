@@ -1,8 +1,7 @@
 <!-- <h2 class="form_category"> -->
-{!! Form::text('category_name', null, ['placeholder' => 'Category Name', 'class' => 'form_column_long']) !!}
-{!! Form::text('category_desc', null, ['placeholder' => 'Category Description', 'class' => 'form_column_long']) !!}
+
 <!-- </h2> -->
-@if(Request::is('cocktail'))
+@if(Request::is('drinks/cocktail'))
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Asahi "Super Dry")', 'class' => 'form_column_long']) !!}
 
@@ -10,7 +9,7 @@
 
     {!! Form::text('description', null, ['placeholder' => 'Description (e.g. Toronto, Canada 21.4 oz bottle)', 'class' => 'form_column_long']) !!}
 
-@elseif(Request::is('sake'))
+@elseif(Request::is('drinks/sake'))
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Miyasaka "Yawaraka" "Sake Matinee")', 'class' => 'form_column_long']) !!}
 
@@ -50,7 +49,7 @@
 
 
 
-@elseif(Request::is('wine'))
+@elseif(Request::is('drinks/wine'))
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Gruet "Sauvage")', 'class' => 'form_column_long']) !!}
     {!! Form::text('type', null, ['placeholder' => 'Type of Wine (e.g. Blanc de Blancs)', 'class' => 'form_column_long']) !!}
@@ -72,7 +71,7 @@
     {!! Form::text('description2', null, ['placeholder' => 'Additional Description ( Will be discplayed in red under description)', 'class' => 'form_column_long']) !!}
 
 
-@elseif(Request::is('shochu'))
+@elseif(Request::is('drinks/shochu'))
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Kakushigura Mugi)', 'class' => 'form_column_long']) !!}
     
@@ -83,7 +82,7 @@
     {!! Form::text('description', null, ['placeholder' => 'Description (e.g. 24%abv light weight oak aged shochu; refined)', 'class' => 'form_column_long']) !!}
     {!! Form::text('description2', null, ['placeholder' => 'Type ( e.g. Kome/ Mugi for Shochu, Single Malt/Blended for Whisky)', 'class' => 'form_column_long']) !!}
 
-@elseif(Request::is('special'))
+@elseif(Request::is('drinks/special'))
 
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Joto)', 'class' => 'form_column_long']) !!}

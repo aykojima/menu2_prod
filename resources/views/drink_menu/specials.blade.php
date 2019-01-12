@@ -3,35 +3,84 @@
 @section('title', 'Specials')
 
 @section('content')
-<div id='add_new_modal' class='modal'>
-    <div class='modal_content'>
-        <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'special_add_new']) !!}
-        {!! Form::hidden('category_id') !!}
-        @include('layouts.forms.form_drink')
-        {!! Form::submit('Save') !!}
-        {!! Form::close() !!}
-    </div>
- </div>
 
- <div id='edit_modal' class='modal'>
-    <div class='modal_content'>
-        <!-- <button id='close_edit_tab' onclick='hide_edit_div()'>X</button> -->
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'special_edit_submit']) !!}
-        {!! Form::hidden('product_id') !!}
-        @include('layouts.forms.form_drink')
-        <div class="buttons">
-            <input value="Update" type="submit" name="submit">
-            <input value="Delete" type="submit" name="submit">
-        </div>
-        {!! Form::close() !!}
-    </div>    
- </div>
 
+<!-- 1/12/19 Need to correct form for this page         -->
 <div id="container">
-    <div id="menu">        
+    <div id="menu">
+        @foreach($category_array as $category)
+            @foreach($category as $product)
+                @if(in_array($product->title_id, $titles))
+                    <div class='title_div'>
+                        <h1 class="title">{{ $product->title_name}}</h1>
+                        <p>{{ $product->title_description}}</p>
+                        <p>{{ $product->title_size}}</p>
+                    </div>
+                @endif  
+                @if ($loop->first)
+                    <div id="" class="drink_title" data-id="{{ $product->category_id }}" data-category="{{ $product->category }}">
+                        <p style="color: #CF671F; clear:both">{{ $product->category }}</p>
+                        <p style="color: #ccc; font-size: 0.8em; padding-top: 2%;">{{ $product->category_description }}</p>
+                        <a class="add_new_drink"> 
+                            <img class="add_drinks" src='../images/add_icon_active.png'>
+                        </a>
+                    </div>
+                    <hr>
+                @endif
+                <div class="products">
+                    <a class="edit" data-id="{{ $product->product_id }}"><img class="edit_drinks" src='../images/edit_icon_active.png'></a>
+                        <div>
+                            <p class="drink_name">
+                                {{ $product->name }} 
+                                <small style="font-style: italic;">{{ $product->grade }}</small>    
+                                <small style="font-style: italic;">{{ $product->type }}</small>
+                                @if($product->category == 'SHOCHU 焼酎' || $product->category == 'JAPANESE WHISKY ウイスキー')   
+                                <small style="font-style: italic;">{{ $product->description2 }}</small> 
+                                <span style="color: #CF671F;">{{ $product->production_area }}</span>
+                                @endif
+                            </p>
+                            <p class="drink_price">{{ $product->price }}</p>
+                            <p class="bottle_size">
+                                @if(!empty ($product->size))    
+                                    <small>{{ $product->size }}ml</small>
+                                @endif
+                                @if(!empty ($product->second_price)  )  
+                                    {{ $product->second_price }} / 
+                                @endif
+                            </p>
+                            <div class="drink_details">
+                                <p>
+                                    @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウイスキー')
+                                    {{ $product->production_area }}  
+                                    @endif
+                                    @if(!empty ($product->rice))            
+                                        / {{ $product->rice }} / {{ $product->sweetness }}
+                                    @endif
+                                    @if(!empty ($product->year))    
+                                        @if($product->year) 
+                                            <span>{{ $product->year }}</span>
+                                        @endif
+                                    @endif
+                                </p>
+                                <p>{{ $product->description }}</p>
+                                @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウイスキー')
+                                <span>{{ $product->description2 }}</span>
+                                @endif
+                            </div><!--end of drink_details-->
+                        </div>
+                    </div><!--end of products-->
+            
+                @php
+                    {{  $last_title = $product->title_id;
+                        if(in_array($last_title, $titles)){
+                            $k = array_search($last_title, $titles);
+                            unset($titles[$k]);
+                        }
+                    }}
+                @endphp
+            @endforeach<!--$category as $products -->
+        @endforeach<!--$category_array as $category -->
+
         <div class="hh">
             <h1>Happy Hour</h1>
             <div>
@@ -45,54 +94,9 @@
                 <p>Not valid with other promotions and during special events or holidays</p>
             </div>
         </div>
-        <h1 class="specials_title">Current Specials</h1>
-        <p>limited bottles available</p>
 
-        @foreach($categories as $category)
-            <!-- @if($category->category == 'Sake' && $category->category_description == 'specials')
-                <h2 id="sake_by_glass">
-                {{ $category->category }}
-            @elseif($category->category == 'Sparkling' && $category->category_description == 'specials')
-                <h2 id="sake_bottles">
-                {{ $category->category }}
-            @elseif($category->category == 'White' && $category->category_description == 'specials')
-                <h2 id="sake_bottles">
-                {{ $category->category }}
-            @elseif($category->category == 'Red' && $category->category_description == 'specials')
-                <h2 id="sake_bottles">
-                {{ $category->category }}
-            @elseif($category->category == 'Dessert' && $category->category_description == 'specials')
-                <h2 id="sake_bottles">
-                {{ $category->category }}
-            @elseif($category->category == 'Whisky' && $category->category_description == 'specials')
-                <h2 id="sake_bottles">
-                {{ $category->category }}
-            @endif
-                </h2> -->
-            <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-                <h2 style="color: #CF671F; clear:both">{{ $category->category }}</h2>
-                <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
-                <hr>
-                    @foreach($drinks as $drink)
-                        @if($drink->category->category == $category->category)
-                        <div class="products">
-                            <a class="edit" data-id="{{ $drink->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                            <div>
-                                <p class="drink_name">{{ $drink->name }} 
-                                <p class="drink_price">{{ $drink->price }}</p> 
-
-                                <div class="drink_details"> 
-                                    <p>{{ $drink->description }}</p>
-                                    <p>{{ $drink->production_area }}</p> 
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        @endif
-                    @endforeach
-            </div>    
-        @endforeach
-    </div>
+    </div><!--end of menu-->  
+</div><!-- end of drink_container div -->   
 
 @if(session('status'))
 <div id="notification" style="display: none;">

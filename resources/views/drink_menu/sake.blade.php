@@ -3,131 +3,73 @@
 @section('title', 'Sake')
 
 @section('content')
-<div id='add_new_modal' class='modal'>
-    <div class='modal_content'>
-        <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'sake_add_new']) !!}
-        {!! Form::hidden('category_id') !!}
-        @include('layouts.forms.form_drink')
-        {!! Form::submit('Save') !!}
-        {!! Form::close() !!}
-    </div>
- </div>
-
- <div id='edit_modal' class='modal'>
-    <div class='modal_content'>
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'sake_edit_submit']) !!}
-        {!! Form::hidden('product_id') !!}
-        @include('layouts.forms.form_drink')
-        <div class="buttons">
-            <input value="Update" type="submit" name="submit">
-            <input value="Delete" type="submit" name="submit">
-        </div>
-        {!! Form::close() !!}
-    </div>    
- </div>
 
 <div id="container">
-    
-    <div id="menu">        
-        @foreach($categories as $key => $category)
-        @if($key == 0)
-        <div id="sake_by_glass" class='title_div'>
-            <h1 class="title">SAKE BY THE GLASS</h1>
-            <p>Region / Rice / SMV</p>
-            <p>6 oz tokkuri</p>
-        </div>
-        @elseif($key == 6)
-        <div id="sake_bottles" class='title_div margin_top'>
-            <h1 class="title">SAKE BOTTLES</h1>
-            <p>Region / Rice / SMV</p>
-            <p>720ml Bottle</p>
-        </div>
-        @endif
-        </h1>
-        @if($category->category_id != 6 && $category->category_id != 12 && $category->category_id != 14)
-            <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-                <p style="color: #CF671F; clear:both">{{ $category->category }}</p>
-                <p style="color: #ccc; font-size: 0.8em;">{{ $category->category_description }}</p>
-                <a class="add_new_drink"> 
-                    <img class="add_drinks" src='images/add_icon_active.png'>
-                </a>
-                <hr>
-                @foreach($sake_glasses as $sake_glass)
-                    @if($sake_glass->category->category == $category->category)
-                        <div class="products">
-                        <a class="edit" data-id="{{ $sake_glass->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                            <div>
-                                <p class="drink_name">{{ $sake_glass->name }} 
-                                @if(!empty ($sake_glass->sake))    
-                                    <small style="font-style: italic;">{{ $sake_glass->sake->grade }}</small>
-                                    @if($key == 0)
-                                        <small style="color: #CF671F">warm or hot</small>
-                                    @endif
-                                @endif
-                                </p>
-                                <p class="drink_price">{{ $sake_glass->price }}</p>
-                                @if(!empty($sake_glass->sake->bottle->size))    
-                                <p class="bottle_size"><small>{{ $sake_glass->sake->bottle->size }}ml</small>
-                                @if($sake_glass->sake->bottle->second_price)    
-                                {{ $sake_glass->sake->bottle->second_price }} / 
-                                @endif
-                                </p>
-                                @endif
-
-                                <div class="drink_details">
-                                    <p>{{ $sake_glass->production_area }} 
-                                    @if(!empty ($sake_glass->sake))    
-                                        @if($sake_glass->sake->rice)        
-                                        / {{ $sake_glass->sake->rice }} 
-                                        @endif
-                                        @if($sake_glass->sake->sweetness)
-                                        / {{ $sake_glass->sake->sweetness }}
-                                        @endif
-                                        </p>
-                                    @endif    
-                                        <p>{{ $sake_glass->description }}</p>
-                                    @if(!empty ($sake_glass->description2) )
-                                        <span class="special_description">{{ $sake_glass->description2 }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    @endif
-                @endforeach
-            </div>   
-        @endif
-        @if($key == 5)
-        <div id="" class="drink_title" data-id="38" data-category="SEASONAL SAKE">
-            <h2>SEASONAL SAKE</h2>
-            <!-- <p style="color: #ccc; font-size: 0.8em;"></p> -->
-                <a class="add_new_drink"> <img class="add_drinks" src='images/add_icon_active.png'></a>
-            <hr>
-            @foreach($flights as $flight)
-                <div class="products">
-                    <a class="edit" data-id="{{ $flight->product_id }}"><img class="edit_drinks" src='images/edit_icon_active.png'></a>
-                        <div>
-                    <p class="drink_name">{{ $flight->name }}
-                        <span style="font-style: italic;">( {{ $flight->production_area }} )</span>
-                    </p>
-                    <p class="drink_price">{{ $flight->price }}</p>
-                    <div class="drink_details">
-                        <p></p>
-                        <p>
-                        {{ $flight->description }}
-                        </p>
+    <div id="menu">
+        @foreach($category_array as $category)
+            @foreach($category as $product)
+                @if(in_array($product->title_id, $titles))
+                    <div class='title_div'>
+                        <h1 class="title">{{ $product->title_name}}</h1>
+                        <p>{{ $product->title_description}}</p>
+                        <p>{{ $product->title_size}}</p>
                     </div>
-                </div>
-                <hr>
-            @endforeach
-        </div>    
-        @endif 
-        @endforeach
-    </div>    
-</div>
+                @endif  
+                @if ($loop->first)
+                    <div id="" class="drink_title" data-id="{{ $product->category_id }}" data-category="{{ $product->category }}">
+                        <p style="color: #CF671F; clear:both">{{ $product->category }}</p>
+                        <p style="color: #ccc; font-size: 0.8em; padding-top: 2%;">{{ $product->category_description }}</p>
+                        <a class="add_new_drink"> 
+                            <img class="add_drinks" src='../images/add_icon_active.png'>
+                        </a>
+                    </div>
+                    <hr>
+                @endif
+                <div class="products">
+                    <a class="edit" data-id="{{ $product->product_id }}"><img class="edit_drinks" src='../images/edit_icon_active.png'></a>
+                    <div>
+                        <p class="drink_name">
+                            {{ $product->name }} 
+                            <small style="font-style: italic;">{{ $product->grade }}</small>    
+                        </p>
+                        <p class="drink_price">{{ $product->price }}</p>
+                        <p class="bottle_size">
+                            @if(!empty ($product->size))    
+                                <small>{{ $product->size }}ml</small>
+                            @endif
+                            @if(!empty ($product->second_price)  )  
+                                {{ $product->second_price }} / 
+                            @endif
+                        </p>
+                        <div class="drink_details">
+                            <p>
+                                {{ $product->production_area }}  
+                                @if(!empty ($product->rice))            
+                                    / {{ $product->rice }} 
+                                @endif
+                                @if(!empty ($product->sweetness))       
+                                / {{ $product->sweetness }}
+                                @endif
+                            </p>
+                            <p>{{ $product->description }}</p>
+                            <span>{{ $product->description2 }}</span>
+                        </div><!--end of drink_details-->
+                    </div>
+                </div><!--end of products-->
+            
+                @php
+                    {{  $last_title = $product->title_id;
+                        if(in_array($last_title, $titles)){
+                            $k = array_search($last_title, $titles);
+                            unset($titles[$k]);
+                        }
+                    }}
+                @endphp
+            @endforeach<!--$category as $products -->
+        @endforeach<!--$category_array as $category -->
+    </div><!--end of menu-->  
+</div><!-- end of drink_container div -->    
+
 
 @if(session('status'))
 <div id="notification" style="display: none;">
@@ -212,7 +154,7 @@ $(document).on("click", ".edit", function(event){
 
     $.ajax({
         type : 'get',
-        url : '{{URL::to('sake/edit')}}',
+        url : '{{URL::to('drinks/sake/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
@@ -268,7 +210,7 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('sake/edit')}}',
+        url : '{{URL::to('drinks/sake/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),

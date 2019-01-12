@@ -58,35 +58,35 @@
         Route::post('/lunch/save_order', 'lunch_controller@save_order')->name('lunch_save_order');
 
         //Cocktails and beer
-        Route::get('/cocktail', 'cocktail_controller@show')->name('cocktail');
-        Route::post('/cocktail', 'cocktail_controller@add_new')->name('cocktail_add_new');
-        Route::get('/cocktail/edit', 'cocktail_controller@show_edit_form')->name('cocktail_edit');
-        Route::post('/cocktail/edit', 'cocktail_controller@edit_menu')->name('cocktail_edit_submit');
+        Route::get('/drinks/cocktail', 'cocktail_controller@show')->name('cocktail');
+        Route::post('/drinks/cocktail', 'cocktail_controller@add_new')->name('cocktail_add_new');
+        Route::get('/drinks/cocktail/edit', 'cocktail_controller@show_edit_form')->name('cocktail_edit');
+        Route::post('/drinks/cocktail/edit', 'cocktail_controller@edit_menu')->name('cocktail_edit_submit');
 
         //Sake
-        Route::get('/sake', 'sake_controller@show')->name('sake');
-        Route::post('/sake', 'sake_controller@add_new')->name('sake_add_new');
-        Route::get('/sake/edit', 'sake_controller@show_edit_form')->name('sake_edit');
-        Route::post('/sake/edit', 'sake_controller@edit_menu')->name('sake_edit_submit');
-        // Route::post('/sake/delete', 'sake_controller@delete')->name('delete');
+        Route::get('/drinks/sake', 'sake_controller@show')->name('sake');
+        Route::post('/drinks/sake', 'sake_controller@add_new')->name('sake_add_new');
+        Route::get('/drinks/sake/edit', 'sake_controller@show_edit_form')->name('sake_edit');
+        Route::post('/drinks/sake/edit', 'sake_controller@edit_menu')->name('sake_edit_submit');
+        // Route::post('/drinks/sake/delete', 'sake_controller@delete')->name('delete');
         
         //Wine
-        Route::get('/wine', 'wine_controller@show')->name('wine');
-        Route::post('/wine', 'wine_controller@add_new')->name('wine_add_new');
-        Route::get('/wine/edit', 'wine_controller@show_edit_form')->name('wine_edit');
-        Route::post('/wine/edit', 'wine_controller@edit_menu')->name('wine_edit_submit');
+        Route::get('/drinks/wine', 'wine_controller@show')->name('wine');
+        Route::post('/drinks/wine', 'wine_controller@add_new')->name('wine_add_new');
+        Route::get('/drinks/wine/edit', 'wine_controller@show_edit_form')->name('wine_edit');
+        Route::post('/drinks/wine/edit', 'wine_controller@edit_menu')->name('wine_edit_submit');
         
         //Shochu
-        Route::get('/shochu', 'shochu_controller@show')->name('shochu');
-        Route::post('/shochu', 'shochu_controller@add_new')->name('shochu_add_new');
-        //Route::get('/shochu/edit', 'shochu_controller@show_edit_form')->name('shochu_edit');
-        Route::post('/shochu/edit', 'shochu_controller@edit_menu')->name('shochu_edit_submit');
+        Route::get('/drinks/shochu', 'shochu_controller@show')->name('shochu');
+        Route::post('/drinks/shochu', 'shochu_controller@add_new')->name('shochu_add_new');
+        //Route::get('/drinks/shochu/edit', 'shochu_controller@show_edit_form')->name('shochu_edit');
+        Route::post('/drinks/shochu/edit', 'shochu_controller@edit_menu')->name('shochu_edit_submit');
 
         //Happey hour and Current Specials
-        Route::get('/special', 'special_controller@show')->name('special');
-        Route::post('/special', 'special_controller@add_new')->name('special_add_new');
-        Route::get('/special/edit', 'special_controller@show_edit_form')->name('special_edit');
-        Route::post('/special/edit', 'special_controller@edit_menu')->name('special_edit_submit');
+        Route::get('/drinks/special', 'special_controller@show')->name('special');
+        Route::post('/drinks/special', 'special_controller@add_new')->name('special_add_new');
+        Route::get('/drinks/special/edit', 'special_controller@show_edit_form')->name('special_edit');
+        Route::post('/drinks/special/edit', 'special_controller@edit_menu')->name('special_edit_submit');
 
         //print preview
         Route::get('/drinks/print', 'drink_view_controller@print')->name('print');

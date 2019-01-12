@@ -8,9 +8,9 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css" media="screen">
-    @if(Request::is('cocktail') || Request::is('special'))
+    @if(Request::is('drinks/cocktail') || Request::is('drinks/special'))
         <link rel="stylesheet" href="{{ asset('css/app_drink_print_4.25in.css') }}" type="text/css" media="print">
-    @elseif(Request::is('sake') || Request::is('wine') || Request::is('shochu'))
+    @elseif(Request::is('drinks/sake') || Request::is('drinks/wine') || Request::is('drinks/shochu'))
         <link rel="stylesheet" href="{{ asset('css/app_drink_print.css') }}" type="text/css" media="print">
     @else
         <link rel="stylesheet" href="{{ asset('css/app_print.css') }}" type="text/css" media="print">
@@ -32,11 +32,11 @@
                 <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="images/printer.png"></a><span>Print</span></li>
                 <!-- <li id="print"><a href="javascript: setTimeout(function(){window.print();},3000)"><img class="header_icons" src="images/printer.png"></a><span>Print</span></li> -->
             @else
-                <li><a href='{{ URL::to('sb')}}'><img class="home_icons header_icons" src="images/arrow.png"></a><span>Go to Sushi Bar</span></li>   
-                @if(Request::is('cocktail') || Request::is('special'))
-                    <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="images/printer.png"></a><span>Print</span></li>
+                <li><a href='{{ URL::to('sb')}}'><img class="home_icons header_icons" src="../images/arrow.png"></a><span>Go to Sushi Bar</span></li>   
+                @if(Request::is('drinks/cocktail') || Request::is('drinks/special'))
+                    <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
                 @else
-                    <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img class="header_icons" src="images/printer.png"></a><span>Print Preview</span></li>
+                    <li id="print"><a href='{{ URL::to('/drinks/print')}}' target="_blank"><img class="header_icons" src="../images/printer.png"></a><span>Print Preview</span></li>
                 @endif
             @endif
             <li class="nav-item dropdown">
@@ -88,19 +88,21 @@
                 <p class="{{ Request::is('lunch') == 'lunch' ? 'nav_active' : 'nav_name' }}">Lunch</p>
                 </a>
             </li>
+        </ul>
+    </div>
         @else
             <li>
-                <a href='{{ URL::to('cocktail')}}' class='nav_links'>
-                    <img src='{{ Request::is('cocktail') ? 'images/cocktail_icon_active.png' : 'images/cocktail_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                    <p class="{{ Request::is('cocktail') == 'cocktail' ? 'nav_active' : 'nav_name' }} line_height_08">Cocktail<br>Beer<br>Non-Alcoholic</p>
+                <a href='{{ URL::to('drinks/cocktail')}}' class='nav_links'>
+                    <img src='{{ Request::is('drinks/cocktail') ? '../images/cocktail_icon_active.png' : '../images/cocktail_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('drinks/cocktail') == 'cocktail' ? 'nav_active' : 'nav_name' }} line_height_08">Cocktail<br>Beer<br>Non-Alcoholic</p>
                 </a>
             </li>
             <li>
-                <a href='{{ URL::to('sake')}}' class='nav_links'>
-                    <img src='{{ Request::is('sake') ? 'images/sake_icon.png' : 'images/sake_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                    <p class="{{ Request::is('sake') ? 'nav_active' : 'nav_name' }}">Sake</p>
+                <a href='{{ URL::to('drinks/sake')}}' class='nav_links'>
+                    <img src='{{ Request::is('drinks/sake') ? '../images/sake_icon.png' : '../images/sake_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('drinks/sake') ? 'nav_active' : 'nav_name' }}">Sake</p>
                 </a>
-                @if(Request::is('sake'))
+                @if(Request::is('drinks/sake'))
                 <ul>
                      <li><a href='#sake_by_glass'>Sake by the Glass</a></li>
                      <li><a href='#sake_bottles'>Sake Bottles</a></li>
@@ -108,11 +110,11 @@
                 @endif
             </li>     
             <li>
-                <a href='{{ URL::to('wine')}}' class='nav_links'>
-                    <img src='{{ Request::is('wine') ? 'images/wine_icon_active.png' : 'images/wine_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                    <p class="{{ Request::is('wine') == 'wine' ? 'nav_active' : 'nav_name' }}">Wine</p>
+                <a href='{{ URL::to('drinks/wine')}}' class='nav_links'>
+                    <img src='{{ Request::is('drinks/wine') ? '../images/wine_icon_active.png' : '../images/wine_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('drinks/wine') == 'wine' ? 'nav_active' : 'nav_name' }}">Wine</p>
                 </a>
-                @if(Request::is('wine'))
+                @if(Request::is('drinks/wine'))
                 <ul>
                      <li><a href='#wine_by_glass'>Wine by the Glass</a></li>
                      <li><a href='#wine_bottles'>Wine Bottles</a></li>
@@ -120,11 +122,11 @@
                 @endif
             </li>
             <li>
-                <a href='{{ URL::to('shochu')}}' class='nav_links'>
-                    <img src='{{ Request::is('shochu') ? 'images/shochu_icon_active.png' : 'images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                    <p class="{{ Request::is('shochu') == 'shochu' ? 'nav_active' : 'nav_name' }} line_height_08">Shochu<br> Whiskey<br>Spirits</p>
+                <a href='{{ URL::to('drinks/shochu')}}' class='nav_links'>
+                    <img src='{{ Request::is('drinks/shochu') ? '../images/shochu_icon_active.png' : '../images/shochu_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('drinks/shochu') == 'shochu' ? 'nav_active' : 'nav_name' }} line_height_08">Shochu<br> Whiskey<br>Spirits</p>
                 </a>
-                @if(Request::is('shochu'))
+                @if(Request::is('drinks/shochu'))
                 <ul>
                      <li><a href='#shochu'>Shochu</a></li>
                      <li><a href='#whisky'>Whisky</a></li>
@@ -133,14 +135,74 @@
                 @endif
             </li>
             <li>
-                <a href='{{ URL::to('special')}}' class='nav_links'>
-                    <img src='{{ Request::is('special') ? 'images/special_icon_active.png' : 'images/special_icon_no_active.png' }} '.png'}}' class='nav_icons'>
-                    <p class="{{ Request::is('special') == 'special' ? 'nav_active' : 'nav_name' }} line_height_08">Specials</p>
+                <a href='{{ URL::to('drinks/special')}}' class='nav_links'>
+                    <img src='{{ Request::is('drinks/special') ? '../images/special_icon_active.png' : '../images/special_icon_no_active.png' }} '.png'}}' class='nav_icons'>
+                    <p class="{{ Request::is('drinks/special') == 'special' ? 'nav_active' : 'nav_name' }} line_height_08">Specials</p>
                 </a>
             </li>
-        @endif
         </ul>
     </div>
+    <div id='add_new_modal' class='modal'>
+    <div class='modal_content'>
+        <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
+        <span class="close">&times;</span>
+        @if(Request::is('drinks/cocktail'))
+        {!! Form::open(['route' => 'cocktail_add_new']) !!}
+
+        @elseif(Request::is('drinks/sake'))
+        {!! Form::open(['route' => 'sake_add_new']) !!}
+
+        @elseif(Request::is('drinks/wine'))
+        {!! Form::open(['route' => 'wine_add_new']) !!}
+
+        @elseif(Request::is('drinks/shochu'))
+        {!! Form::open(['route' => 'shochu_add_new']) !!}
+
+        @elseif(Request::is('drinks/special'))
+        {!! Form::open(['route' => 'special_add_new']) !!}
+
+        @endif
+        {!! Form::hidden('category_id') !!}
+        {!! Form::text('category_name', null, ['placeholder' => 'Category Name', 'class' => 'form_column_long']) !!}
+        {!! Form::text('category_desc', null, ['placeholder' => 'Category Description', 'class' => 'form_column_long']) !!}
+        @include('layouts.forms.form_drink')
+        {!! Form::submit('Save') !!}
+        {!! Form::close() !!}
+    </div>
+    </div>
+
+    <div id='edit_modal' class='modal'>
+        <div class='modal_content'>
+            <!-- <button id='close_edit_tab' onclick='hide_edit_div()'>X</button> -->
+            <span class="close">&times;</span>
+            @if(Request::is('drinks/cocktail'))
+            {!! Form::open(['route' => 'cocktail_edit_submit']) !!}
+
+            @elseif(Request::is('drinks/sake'))
+            {!! Form::open(['route' => 'sake_edit_submit']) !!}
+
+            @elseif(Request::is('drinks/wine'))
+            {!! Form::open(['route' => 'wine_edit_submit']) !!}
+
+            @elseif(Request::is('drinks/shochu'))
+            {!! Form::open(['route' => 'shochu_add_new']) !!}
+
+            @elseif(Request::is('drinks/special'))
+            {!! Form::open(['route' => 'special_edit_submit']) !!}
+
+            @endif
+            {!! Form::hidden('product_id') !!}
+            @include('layouts.forms.form_drink')
+            <div class="buttons">
+                <input value="Update" type="submit" name="submit">
+                <input value="Delete" type="submit" name="submit">
+                <!-- <a href="#">Delete</a> -->
+            </div>
+            {!! Form::close() !!} 
+        </div>    
+    </div>
+        @endif
+    
 @yield('content')
 
 </body>

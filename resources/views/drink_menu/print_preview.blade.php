@@ -23,7 +23,7 @@
         <ul id="header">
             <li id="logout"><a href ="logout.php">Logout</a></li>
             <li class="icon"><a href="javascript:void(0)">&#9776;</a></li>
-            <li><a href='{{ URL::to('sake')}}'><img class="home_icon header_icons" src="../images/arrow.png"></a><span>Go back to edit page</span></li>   
+            <li><a href='{{ URL::to('drinks/sake')}}'><img class="home_icon header_icons" src="../images/arrow.png"></a><span>Go back to edit page</span></li>   
             <li id="print"><a href="javascript: window.print()"><img class="header_icons" src="../images/printer.png"></a><span>Print</span></li>
             <!-- <li id="print"><a href="javascript: window.print()"><img id="header_icons" src="../images/printer.png"></a><span>print</span></li> -->
             

@@ -3,66 +3,54 @@
 @section('title', 'Cocktails')
 
 @section('content')
-<div id='add_new_modal' class='modal'>
-    <div class='modal_content'>
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'cocktail_add_new']) !!}
-        {!! Form::hidden('category_id') !!}
-        @include('layouts.forms.form_drink')
-        {!! Form::submit('Save') !!} 
-        {!! Form::close() !!}
-    </div>
- </div>
-
- <div id='edit_modal' class='modal'>
-    <div class='modal_content'>
-        <span class="close">&times;</span>
-        {!! Form::open(['route' => 'cocktail_edit_submit']) !!}
-        {!! Form::hidden('product_id') !!}
-        @include('layouts.forms.form_drink')
-        <div class="buttons">
-            <input value="Save" type="submit" name="submit">
-            <input value="Delete" type="submit" name="submit">
-        </div>
-        {!! Form::close() !!}
-    </div>    
- </div>
 
 <div id="container">
-    <div id="menu">        
-        @foreach($categories as $category)
-            <div id="" class="drink_title" data-id="{{ $category->category_id }}" data-category="{{ $category->category }}">
-                <!-- <h2 style="color: #CF671F; clear:both"> -->
-                <h2>
-                @if($category->category_id == 37)   
-                    Non-Alcoholic, 
-                @endif    
-                {{ $category->category }}</h2>
-                <a class="add_new_drink"> 
-                    <img class="add_drinks" src='images/add_icon_active.png'>
-                </a>
-                <hr>
-                @foreach($drinks as $drink)
-                    @if($drink->category->category == $category->category)
-                        <div class="products">
-                            <a class="edit" data-id="{{ $drink->product_id }}">
-                                <img class="edit_drinks" src='images/edit_icon_active.png'>
-                            </a>
-                            <div>
-                                <p class="drink_name">{{ $drink->name }} 
-                                <p class="drink_price">{{ $drink->price }}</p>
-                                <div class="drink_details">
-                                    <p>{{ $drink->production_area }} 
-                                    <p>{{ $drink->description }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    @endif
-                @endforeach
-            </div>    
-        @endforeach
-    </div>
+    <div id="menu">
+        @foreach($category_array as $category)
+            @foreach($category as $product)
+                @if(in_array($product->title_id, $titles))
+                    <div class='title_div'>
+                        <h1 class="title">{{ $product->title_name}}</h1>
+                        <p>{{ $product->title_description}}</p>
+                        <p>{{ $product->title_size}}</p>
+                    </div>
+                @endif  
+                @if ($loop->first)
+                    <div id="" class="drink_title" data-id="{{ $product->category_id }}" data-category="{{ $product->category }}">
+                        <p style="color: #CF671F; clear:both">{{ $product->category }}</p>
+                        <p style="color: #ccc; font-size: 0.8em; padding-top: 2%;">{{ $product->category_description }}</p>
+                        <a class="add_new_drink"> 
+                            <img class="add_drinks" src='../images/add_icon_active.png'>
+                        </a>
+                    </div>
+                    <hr>
+                @endif
+                <div class="products">
+                    <a class="edit" data-id="{{ $product->product_id }}"><img class="edit_drinks" src='../images/edit_icon_active.png'></a>
+                    <div>
+                        <p class="drink_name">{{ $product->name }} 
+                        <p class="drink_price">{{ $product->price }}</p>
+                        <div class="drink_details">
+                            <p>{{ $product->production_area }} 
+                            <p>{{ $product->description }}</p>
+                        <span>{{ $product->description2 }}</span>
+                        </div><!--end of drink_details-->
+                    </div>
+                </div><!--end of products-->
+            
+                @php
+                    {{  $last_title = $product->title_id;
+                        if(in_array($last_title, $titles)){
+                            $k = array_search($last_title, $titles);
+                            unset($titles[$k]);
+                        }
+                    }}
+                @endphp
+            @endforeach<!--$category as $products -->
+        @endforeach<!--$category_array as $category -->
+    </div><!--end of menu-->  
+</div><!-- end of drink_container div -->   
+
 
 @if(session('status'))
 <div id="notification" style="display: none;">
