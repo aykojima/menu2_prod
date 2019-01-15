@@ -24,6 +24,7 @@
                         </a>
                     </div>
                     <hr>
+                    <div class="drink_categories">
                 @endif
                 <div class="products">
                     <a class="edit" data-id="{{ $product->product_id }}"><img class="edit_drinks" src='../images/edit_icon_active.png'></a>
@@ -46,6 +47,9 @@
                         }
                     }}
                 @endphp
+                @if($loop->last)
+                    </div>
+                @endif
             @endforeach<!--$category as $products -->
         @endforeach<!--$category_array as $category -->
     </div><!--end of menu-->  
@@ -122,7 +126,7 @@ $(document).on("click", ".edit", function(event){
     $('#edit_modal').css('display', 'block');
     $.ajax({
         type : 'get',
-        url : '{{URL::to('cocktail/edit')}}',
+        url : '{{URL::to('drinks/cocktail/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
@@ -138,7 +142,7 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('cocktail/edit')}}',
+        url : '{{URL::to('drinks/cocktail/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),

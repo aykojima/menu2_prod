@@ -46,31 +46,31 @@
         </ul>
         <ul id="drink_menu">
                 <li>
-                    <a href='{{ URL::to('sake')}}' class='links'>Sake
+                    <a href='{{ URL::to('drinks/sake')}}' class='links'>Sake
                         <!-- <img src='{{ 'images/sushi_icon_no_active.png' }}' class='icons'> -->
                         <!-- <p class="icon_name">Sushi Bar</p> -->
                     </a>
                 </li>     
                 <li>
-                    <a href='{{ URL::to('wine')}}' class='links'>Wine
+                    <a href='{{ URL::to('drinks/wine')}}' class='links'>Wine
                         <!-- <img src='{{ 'images/ippin_icon_no_active.png' }}' class='icons'> -->
                         <!-- <p class="icon_name">Ippin</p> -->
                     </a>
                 </li>
                 <li>
-                    <a href='{{ URL::to('shochu')}}' class='links'>Shochu, Whisky, Spirits
+                    <a href='{{ URL::to('drinks/shochu')}}' class='links'>Shochu, Whisky, Spirits
                         <!-- <img src='{{ 'images/ippin_icon_no_active.png' }}' class='icons'> -->
                         <!-- <p class="icon_name">Ippin</p> -->
                     </a>
                 </li>
                 <li>
-                    <a href='{{ URL::to('cocktail')}}' class='links'>Cocktail, Beer, Non-Alcoholic
+                    <a href='{{ URL::to('drinks/cocktail')}}' class='links'>Cocktail, Beer, Non-Alcoholic
                         <!-- <img src='{{ 'images/ippin_icon_no_active.png' }}' class='icons'> -->
                         <!-- <p class="icon_name">Ippin</p> -->
                     </a>
                 </li>
                 <li>
-                    <a href='{{ URL::to('special')}}' class='links'>Specials
+                    <a href='{{ URL::to('drinks/special')}}' class='links'>Specials
                         <!-- <img src='{{ 'images/ippin_icon_no_active.png' }}' class='icons'> -->
                         <!-- <p class="icon_name">Ippin</p> -->
                     </a>

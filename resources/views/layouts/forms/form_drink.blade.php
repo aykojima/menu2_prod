@@ -93,4 +93,5 @@
 
     {!! Form::text('production_area', null, ['placeholder' => 'Production Area and year (e.g. Hiroshima)', 'class' => 'form_column_long']) !!}
 
+    {!! Form::text('description2', null, ['placeholder' => 'Description / Grade (e.g. Daiginjo)', 'class' => 'form_column_long']) !!}
 @endif

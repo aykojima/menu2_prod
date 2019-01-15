@@ -147,19 +147,19 @@
         <!-- <button id='close_add_new_tab' onclick='hide_add_new_div()'>X</button> -->
         <span class="close">&times;</span>
         @if(Request::is('drinks/cocktail'))
-        {!! Form::open(['route' => 'cocktail_add_new']) !!}
+        {!! Form::open(array('action' => array('drink_controller@add_new', 'cocktail'))) !!}
 
         @elseif(Request::is('drinks/sake'))
-        {!! Form::open(['route' => 'sake_add_new']) !!}
+        {!! Form::open(array('action' => array('drink_controller@add_new', 'sake'))) !!}
 
         @elseif(Request::is('drinks/wine'))
-        {!! Form::open(['route' => 'wine_add_new']) !!}
+        {!! Form::open(array('action' => array('drink_controller@add_new', 'wine'))) !!}
 
         @elseif(Request::is('drinks/shochu'))
-        {!! Form::open(['route' => 'shochu_add_new']) !!}
+        {!! Form::open(array('action' => array('drink_controller@add_new', 'shochu'))) !!}
 
         @elseif(Request::is('drinks/special'))
-        {!! Form::open(['route' => 'special_add_new']) !!}
+        {!! Form::open(array('action' => array('drink_controller@add_new', 'special'))) !!}
 
         @endif
         {!! Form::hidden('category_id') !!}
@@ -176,19 +176,19 @@
             <!-- <button id='close_edit_tab' onclick='hide_edit_div()'>X</button> -->
             <span class="close">&times;</span>
             @if(Request::is('drinks/cocktail'))
-            {!! Form::open(['route' => 'cocktail_edit_submit']) !!}
-
+            
+            {!! Form::open(array('action' => array('drink_controller@edit_menu', 'cocktail'))) !!}
             @elseif(Request::is('drinks/sake'))
-            {!! Form::open(['route' => 'sake_edit_submit']) !!}
+            {!! Form::open(array('action' => array('drink_controller@edit_menu', 'sake'))) !!}
 
             @elseif(Request::is('drinks/wine'))
-            {!! Form::open(['route' => 'wine_edit_submit']) !!}
+            {!! Form::open(array('action' => array('drink_controller@edit_menu', 'wine'))) !!}
 
             @elseif(Request::is('drinks/shochu'))
-            {!! Form::open(['route' => 'shochu_add_new']) !!}
+            {!! Form::open(array('action' => array('drink_controller@edit_menu', 'shochu'))) !!}
 
             @elseif(Request::is('drinks/special'))
-            {!! Form::open(['route' => 'special_edit_submit']) !!}
+            {!! Form::open(array('action' => array('drink_controller@edit_menu', 'special'))) !!}
 
             @endif
             {!! Form::hidden('product_id') !!}

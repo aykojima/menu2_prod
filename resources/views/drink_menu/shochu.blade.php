@@ -114,10 +114,21 @@ $(window).click(function(event) {
 });
 
 $(document).on("click", ".add_new_drink", function(event){
-    $("#add_new_modal .modal_content input[name='category_id']")
+    const modal = $("#add_new_modal .modal_content");
+    modal.find("input[name='category_id']").val($(this).parent().data("id"));
+    
+    modal.find("input[name='category_id']")
         .val($(this).parent().data("id"));
-    $("#add_new_modal .modal_content .form_category")
+
+    modal.find(".form_category")
         .text($(this).parent().data("category")); 
+    
+    modal.find("input[name='category_name']")
+        .val($(this).parent().data("category"))
+        .css("color", "red"); 
+    
+    modal.find("input[name='category_desc']")
+        .val($(this).prev().text()); 
 });
 
 //Edit Modal

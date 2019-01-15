@@ -14,82 +14,72 @@
     Route::get('/login', 'HomeController@index')->name('login');
 
     Route::middleware('auth')->group( function(){
-        //sushi bar pages
-        Route::get('/sb', 'sb_controller@show')->name('sb');
-        Route::post('/sb', 'sb_controller@add_new')->name('add_new');
-        Route::get('/sb/search', 'sb_controller@search')->name('search');
-        Route::get('/sb/update', 'sb_controller@update')->name('update');
-        Route::get('/sb/edit', 'sb_controller@show_edit_form')->name('edit');
-        Route::post('/sb/edit', 'sb_controller@edit_menu')->name('edit_submit');
+        Route::group(['prefix' => 'sb'], function () { 
+            //sushi bar pages
+            Route::get('/', 'sb_controller@show')->name('sb');
+            Route::post('/', 'sb_controller@add_new')->name('add_new');
+            Route::get('/search', 'sb_controller@search')->name('search');
+            Route::get('/update', 'sb_controller@update')->name('update');
+            Route::get('/edit', 'sb_controller@show_edit_form')->name('edit');
+            Route::post('/edit', 'sb_controller@edit_menu')->name('edit_submit');
+        });
+
+        Route::group(['prefix' => 'ippin'], function () { 
+            //ippin
+            Route::get('/', 'ippin_controller@show')->name('ippin');
+            Route::post('/', 'ippin_controller@add_new')->name('ippin_add_new');
+            Route::get('/search', 'ippin_controller@search')->name('ippin_search');
+            Route::get('/update', 'ippin_controller@update')->name('ippin_update');
+            Route::get('/edit', 'ippin_controller@show_edit_form')->name('ippin_edit');
+            Route::post('/edit', 'ippin_controller@edit_menu')->name('ippin_edit_submit');
+            Route::post('/delete', 'ippin_controller@delete')->name('delete_course_item');
+        });
+        Route::group(['prefix' => 'roll'], function () { 
+            //roll
+            Route::get('/', 'roll_controller@show')->name('roll');
+            Route::post('/', 'roll_controller@add_new')->name('roll_add_new');
+            Route::get('/search', 'roll_controller@search')->name('roll_search');
+            Route::get('/update', 'roll_controller@update')->name('roll_update');
+            Route::get('/edit', 'roll_controller@show_edit_form')->name('roll_edit');
+            Route::post('/edit', 'roll_controller@edit_menu')->name('roll_edit_submit');
+        });
+        Route::group(['prefix' => 'lunch'], function () { 
+            //course
+            Route::get('/', 'course_controller@show')->name('course');
+            //Route::post('/edit', 'course_controller@save_content')->name('save_content');
+            Route::post('/', 'course_controller@add_new')->name('course_add_new');
+            Route::get('/edit/{course_id}', 'course_controller@show_edit_form')->name('course_edit');
+            Route::post('/edit/{course_id}', 'course_controller@edit_menu')->name('course_edit_submit');
+            Route::get('/delete/{course_id}', 'course_controller@delete')->name('delete');
+            Route::post('/save_order', 'course_controller@save_order')->name('save_order');
+        });
+
+        Route::group(['prefix' => 'lunch'], function () { 
+            //lunch
+            Route::get('/', 'lunch_controller@show')->name('lunch');
+            Route::post('/', 'lunch_controller@add_new')->name('lunch_add_new');
+            Route::get('/edit/{lunch_id}', 'lunch_controller@show_edit_form')->name('lunch_edit');
+            Route::post('/edit/{lunch_id}', 'lunch_controller@edit_menu')->name('lunch_edit_submit');
+            Route::get('/delete/{lunch_id}', 'lunch_controller@delete')->name('lunch_delete');
+            Route::post('/save_order', 'lunch_controller@save_order')->name('lunch_save_order');
+
+        });
+
+        Route::group(['prefix' => 'drinks'], function () { 
+            //print preview
+            Route::get('/print', 'drink_controller@print')->name('print');
+            //Drink views
+            Route::get('/{page}', 'drink_controller@show')->name('drink_view');
+            //Drink Get data for form
+            Route::get('/{page}/edit', 'drink_controller@show_edit_form')->name('drink_edit');
+            //Drink Create New Items
+            Route::post('/{page}', 'drink_controller@add_new')->name('drink_add_new');
+            //Drink Edit items
+            Route::post('/{page}/edit', 'drink_controller@edit_menu')->name('drink_edit_submit');
+            
+        });
+
         
-
-        //ippin
-        Route::get('/ippin', 'ippin_controller@show')->name('ippin');
-        Route::post('/ippin', 'ippin_controller@add_new')->name('ippin_add_new');
-        Route::get('/ippin/search', 'ippin_controller@search')->name('ippin_search');
-        Route::get('/ippin/update', 'ippin_controller@update')->name('ippin_update');
-        Route::get('/ippin/edit', 'ippin_controller@show_edit_form')->name('ippin_edit');
-        Route::post('/ippin/edit', 'ippin_controller@edit_menu')->name('ippin_edit_submit');
-        Route::post('/ippin/delete', 'ippin_controller@delete')->name('delete_course_item');
-        
-        //roll
-        Route::get('/roll', 'roll_controller@show')->name('roll');
-        Route::post('/roll', 'roll_controller@add_new')->name('roll_add_new');
-        Route::get('/roll/search', 'roll_controller@search')->name('roll_search');
-        Route::get('/roll/update', 'roll_controller@update')->name('roll_update');
-        Route::get('/roll/edit', 'roll_controller@show_edit_form')->name('roll_edit');
-        Route::post('/roll/edit', 'roll_controller@edit_menu')->name('roll_edit_submit');
-
-        //course
-        Route::get('/course', 'course_controller@show')->name('course');
-        //Route::post('/course/edit', 'course_controller@save_content')->name('save_content');
-        Route::post('/course', 'course_controller@add_new')->name('course_add_new');
-        Route::get('/course/edit/{course_id}', 'course_controller@show_edit_form')->name('course_edit');
-        Route::post('/course/edit/{course_id}', 'course_controller@edit_menu')->name('course_edit_submit');
-        Route::get('/course/delete/{course_id}', 'course_controller@delete')->name('delete');
-        Route::post('/course/save_order', 'course_controller@save_order')->name('save_order');
-
-        //lunch
-        Route::get('/lunch', 'lunch_controller@show')->name('lunch');
-        Route::post('/lunch', 'lunch_controller@add_new')->name('lunch_add_new');
-        Route::get('/lunch/edit/{lunch_id}', 'lunch_controller@show_edit_form')->name('lunch_edit');
-        Route::post('/lunch/edit/{lunch_id}', 'lunch_controller@edit_menu')->name('lunch_edit_submit');
-        Route::get('/lunch/delete/{lunch_id}', 'lunch_controller@delete')->name('lunch_delete');
-        Route::post('/lunch/save_order', 'lunch_controller@save_order')->name('lunch_save_order');
-
-        //Cocktails and beer
-        Route::get('/drinks/cocktail', 'cocktail_controller@show')->name('cocktail');
-        Route::post('/drinks/cocktail', 'cocktail_controller@add_new')->name('cocktail_add_new');
-        Route::get('/drinks/cocktail/edit', 'cocktail_controller@show_edit_form')->name('cocktail_edit');
-        Route::post('/drinks/cocktail/edit', 'cocktail_controller@edit_menu')->name('cocktail_edit_submit');
-
-        //Sake
-        Route::get('/drinks/sake', 'sake_controller@show')->name('sake');
-        Route::post('/drinks/sake', 'sake_controller@add_new')->name('sake_add_new');
-        Route::get('/drinks/sake/edit', 'sake_controller@show_edit_form')->name('sake_edit');
-        Route::post('/drinks/sake/edit', 'sake_controller@edit_menu')->name('sake_edit_submit');
-        // Route::post('/drinks/sake/delete', 'sake_controller@delete')->name('delete');
-        
-        //Wine
-        Route::get('/drinks/wine', 'wine_controller@show')->name('wine');
-        Route::post('/drinks/wine', 'wine_controller@add_new')->name('wine_add_new');
-        Route::get('/drinks/wine/edit', 'wine_controller@show_edit_form')->name('wine_edit');
-        Route::post('/drinks/wine/edit', 'wine_controller@edit_menu')->name('wine_edit_submit');
-        
-        //Shochu
-        Route::get('/drinks/shochu', 'shochu_controller@show')->name('shochu');
-        Route::post('/drinks/shochu', 'shochu_controller@add_new')->name('shochu_add_new');
-        //Route::get('/drinks/shochu/edit', 'shochu_controller@show_edit_form')->name('shochu_edit');
-        Route::post('/drinks/shochu/edit', 'shochu_controller@edit_menu')->name('shochu_edit_submit');
-
-        //Happey hour and Current Specials
-        Route::get('/drinks/special', 'special_controller@show')->name('special');
-        Route::post('/drinks/special', 'special_controller@add_new')->name('special_add_new');
-        Route::get('/drinks/special/edit', 'special_controller@show_edit_form')->name('special_edit');
-        Route::post('/drinks/special/edit', 'special_controller@edit_menu')->name('special_edit_submit');
-
-        //print preview
-        Route::get('/drinks/print', 'drink_view_controller@print')->name('print');
 
     });
 
@@ -105,3 +95,15 @@ Route::get('/generate/password', function(){ return bcrypt('goriki'); });
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+
+//passing parameters to controller
+// Route::get('/test/{squirrel}', ['uses' =>'SomeController@doSomething']);
+// SomeController:
+
+// public function doSomething($squirrel)
+// {
+//   $data['squirrel'] = $squirrel;
+//   return View::make('simple', $data);
+// }
+

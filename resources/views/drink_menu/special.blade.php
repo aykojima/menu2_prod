@@ -6,6 +6,7 @@
 
 
 <!-- 1/12/19 Need to correct form for this page         -->
+<!-- 1/14/19 Wine and shochu queries in show controller         -->
 <div id="container">
     <div id="menu">
         @foreach($category_array as $category)
@@ -26,6 +27,7 @@
                         </a>
                     </div>
                     <hr>
+                    <div class="drink_categories">
                 @endif
                 <div class="products">
                     <a class="edit" data-id="{{ $product->product_id }}"><img class="edit_drinks" src='../images/edit_icon_active.png'></a>
@@ -78,6 +80,9 @@
                         }
                     }}
                 @endphp
+                @if($loop->last)
+                    </div>
+                @endif
             @endforeach<!--$category as $products -->
         @endforeach<!--$category_array as $category -->
 
@@ -138,15 +143,32 @@ $(document).ready(function(){
 
 // Add New Modal
 
-$(document).on("click", ".add_new_drink", function(){   
+$(document).on("click", ".add_new_drink", function(event){   
     $('#add_new_modal').css('display', 'block');
+
+    const modal = $("#add_new_modal .modal_content");
+    modal.find("input[name='category_id']").val($(this).parent().data("id"));
+
+    modal.find("input[name='category_name']")
+        .val($(this).parent().data("category"))
+        .css("color", "red"); 
+    
+    modal.find("input[name='category_desc']")
+        .val($(this).prev().text()); 
+    
+    modal.find ("input[name='category_id']")
+        .val($(this).parent().data("id"));
+
+    modal.find(".form_category")
+        .text($(this).parent().data("category")); 
+
 });
 
 $(document).on("click", ".close", function(){
     $('#add_new_modal').css('display', 'none');
     $('#edit_modal').css('display', 'none');
 });
-
+        
 
 $(window).click(function(event) {
     if (event.target == $('#add_new_modal')[0]) {
@@ -156,19 +178,12 @@ $(window).click(function(event) {
     }
 });
 
-$(document).on("click", ".add_new_drink", function(event){
-    $("#add_new_modal .modal_content input[name='category_id']")
-        .val($(this).parent().data("id"));
-    $("#add_new_modal .modal_content .form_category")
-        .text($(this).parent().data("category")); 
-});
-
 //Edit Modal
 $(document).on("click", ".edit", function(event){   
     $('#edit_modal').css('display', 'block');
     $.ajax({
         type : 'get',
-        url : '{{URL::to('special/edit')}}',
+        url : '{{URL::to('drinks/special/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
@@ -176,7 +191,8 @@ $(document).on("click", ".edit", function(event){
                 $("#edit_modal .modal_content input[name='name']").val(data.name),
                 $("#edit_modal .modal_content input[name='price']").val(data.price),
                 $("#edit_modal .modal_content input[name='production_area']").val(data.production_area),
-                $("#edit_modal .modal_content input[name='description']").val(data.description);
+                $("#edit_modal .modal_content input[name='description']").val(data.description),
+                $("#edit_modal .modal_content input[name='description2']").val(data.description2);
                 }
             });
     });
@@ -185,12 +201,13 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('special/edit')}}',
+        url : '{{URL::to('drinks/special/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),
                 'production_area': $("#edit_form input[name='production_area']").val(),
                 'description': $("#edit_form input[name='description']").val(),
+                'description2': $("#edit_form input[name='description2']").val(),
                 'submit': $("#edit_form input[name='submit']").val()
         }
     });

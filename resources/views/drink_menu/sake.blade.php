@@ -93,10 +93,6 @@ $(".dismiss").click(function(){
 
 // Add New Modal
 
-$(document).on("click", ".add_new_drink", function(){   
-    $('#add_new_modal').css('display', 'block');
-});
-
 $(document).on("click", ".close", function(){
     $('#add_new_modal').css('display', 'none');
     $('#edit_modal').css('display', 'none');
@@ -113,6 +109,8 @@ $(window).click(function(event) {
 
 
 $(document).on("click", ".add_new_drink", function(event){
+    $('#add_new_modal').css('display', 'block');
+
     const modal = $("#add_new_modal .modal_content");
     modal.find("input[name='category_id']").val($(this).parent().data("id"));
     
@@ -210,7 +208,7 @@ $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
         type: 'patch',
-        url : '{{URL::to('drinks/sake/edit')}}',
+        url : '{{URL::to('drinks/{sake}/edit')}}',
         data: {'product_id': $("#edit_form input[name='product_id']").val(),
                 'name': $("#edit_form input[name='name']").val(),
                 'price': $("#edit_form input[name='price']").val(),
