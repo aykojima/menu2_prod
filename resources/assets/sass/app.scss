@@ -1526,6 +1526,7 @@ input.add_price, input.item_prices {
   margin-bottom: 2%;
   clear: both;
   padding-top: 3%;
+  position: relative;
   hr{
     width: 80%; 
   }
@@ -1614,10 +1615,22 @@ img.add_drinks, .edit_drinks{
   }
 }
 
-a.add_new_drink{
+a.add_new_category {
   @extend %drink_icon_links;
   top: 0;
+  left: -25px;
+}
+
+a.edit_category {
+  @extend %drink_icon_links;
+  top: 10px;
   right: 0;
+}
+
+a.add_new_drink{
+  @extend %drink_icon_links;
+  top: 10px;
+  left: -25px;
   padding: 0;
 }
 
@@ -1741,6 +1754,7 @@ div.page2, .page4, .page6, .page8,
 
 .title_div {
   padding-bottom: 10%;
+  position: relative;
   p {
     color: #cccccc;
     &:nth-child(2){

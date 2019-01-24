@@ -1106,10 +1106,10 @@ input.add_price, input.item_prices {
   position: relative;
   margin: 0 0 1% 0; }
 
-a.add_new_drink, a.edit {
+a.add_new_category, a.edit_category, a.add_new_drink, a.edit {
   position: absolute;
   width: 20px; }
-  a.add_new_drink:hover, a.edit:hover {
+  a.add_new_category:hover, a.edit_category:hover, a.add_new_drink:hover, a.edit:hover {
     cursor: pointer;
     background-color: inherit; }
 
@@ -1142,7 +1142,8 @@ a.add_new_drink, a.edit {
 .drink_title {
   margin-bottom: 2%;
   clear: both;
-  padding-top: 3%; }
+  padding-top: 3%;
+  position: relative; }
   .drink_title hr {
     width: 80%; }
   .drink_title h2 {
@@ -1203,9 +1204,17 @@ img.add_drinks, .edit_drinks {
   img.add_drinks:hover, .edit_drinks:hover {
     width: 23px; }
 
-a.add_new_drink {
+a.add_new_category {
   top: 0;
-  right: 0;
+  left: -25px; }
+
+a.edit_category {
+  top: 10px;
+  right: 0; }
+
+a.add_new_drink {
+  top: 10px;
+  left: -25px;
   padding: 0; }
 
 a.edit {
@@ -1258,7 +1267,8 @@ div.page2, .page4, .page6, .page8,
   border: solid #cccccc 1px; }
 
 .title_div {
-  padding-bottom: 10%; }
+  padding-bottom: 10%;
+  position: relative; }
   .title_div p {
     color: #cccccc; }
     .title_div p:nth-child(2) {

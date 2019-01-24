@@ -152,7 +152,7 @@ $(window).click(function(event) {
 });
 
 $(document).on("click", ".add_new_drink", function(event){
-    const modal = $("#add_new_modal .modal_content");
+    let modal = $("#add_new_modal .modal_content");
     modal.find("input[name='category_id']").val($(this).parent().data("id"));
 
     modal.find("input[name='category_id']")
@@ -172,30 +172,33 @@ $(document).on("click", ".add_new_drink", function(event){
 //Edit Modal
 $(document).on("click", ".edit", function(event){   
     $('#edit_modal').css('display', 'block');
+    let modal = $("#edit_modal .modal_content");
     $.ajax({
         type : 'get',
         url : '{{URL::to('drinks/wine/edit')}}',
         data:{'product_id':$(this).data('id')},
         success:function(data){
             console.log(data);
-                $("#edit_modal .modal_content input[name='product_id']").val(data.product.product_id),
-                $("#edit_modal .modal_content input[name='name']").val(data.product.name),
-                $("#edit_modal .modal_content input[name='price']").val(data.product.price),
-                $("#edit_modal .modal_content input[name='production_area']").val(data.product.production_area),
-                $("#edit_modal .modal_content input[name='type']").val(data.wine.type),
-                $("#edit_modal .modal_content input[name='year']").val(data.wine.year),
-                $("#edit_modal .modal_content input[name='description']").val(data.product.description);
+                modal.find("input[name='product_id']").val(data.product.product_id),
+                modal.find("input[name='name']").val(data.product.name),
+                modal.find("input[name='price']").val(data.product.price),
+                modal.find("input[name='production_area']").val(data.product.production_area);
+                if(data.wine){
+                    modal.find("input[name='type']").val(data.wine.type),
+                    modal.find("input[name='year']").val(data.wine.year);
+                }
+                modal.find("input[name='description']").val(data.product.description);
                 if(data.bottle){
-                    $('#edit_modal .modal_content .bottle_size_hide').show(),
-                    $("#edit_modal .modal_content input[name='size_checkbox']").prop('checked', true),
-                    $("#edit_modal .modal_content input[name='size']").val(data.bottle.size);
+                    modal.find('.bottle_size_hide').show(),
+                    modal.find("input[name='size_checkbox']").prop('checked', true),
+                    modal.find("input[name='size']").val(data.bottle.size);
                     if(data.bottle.second_price){
-                        $("#edit_modal .modal_content input[name='second_price']").val(data.bottle.second_price);
+                        modal.find("input[name='second_price']").val(data.bottle.second_price);
                     }
                 }else{
-                    $('#edit_modal .modal_content .bottle_size_hide').hide(),
-                    $("#edit_modal .modal_content input[name='size_checkbox']").prop('checked', false),
-                    $("#edit_modal .modal_content input[name='size']").val('');
+                    modal.find('.bottle_size_hide').hide(),
+                    modal.find("input[name='size_checkbox']").prop('checked', false),
+                    modal.find("input[name='size']").val('');
                 }
             }
         });

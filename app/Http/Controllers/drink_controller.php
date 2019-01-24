@@ -83,12 +83,12 @@ class drink_controller extends Controller
                 ->where('products.category_id', $category->category_id)
                 ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id');
                 
-                $query->when($page == 'sake', function($q){
+                $query->when('products.product_id' == 'sakes.product_id', function($q){
                     return $q->leftJoin('sakes', 'products.product_id', '=', 'sakes.product_id')
                             ->leftJoin('bottles', 'sakes.sake_id', '=', 'bottles.sake_id');
                 });
 
-                $query->when($page == 'wine', function($q){
+                $query->when('products.product_id' == 'wines.product_id', function($q){
                     return $q->leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
                             ->leftJoin('bottles', 'wines.wine_id', '=', 'bottles.wine_id');;
                 });
@@ -100,6 +100,7 @@ class drink_controller extends Controller
             array_push($category_array, $products);
         }//end of foreach
 
+        // dd($category_array);
             return view('drink_menu/' . $page, compact('category_array', 'titles'));
         
     }
@@ -108,85 +109,104 @@ class drink_controller extends Controller
     public function add_new(Request $request, $page) 
     { 
         $input = $request->all();
-        
-        $category = category::findOrFail ( $request->category_id );
-        
-        if($category->category != strtoupper($input['category_name']))
-        {
-            $category->category = strtoupper($input['category_name']);
-            $category->save();
-        }
 
-        if($category->category_description != $input['category_desc'])
-        {
-            $category->category_description = $input['category_desc'];
-            $category->save();
-        }
-        
-        if(!empty($input['name'])){
-            $new_product['name'] = ucfirst($input['name']);
-            $new_product['price'] = $input['price']; 
-            if($page != 'cocktail'){
-                $new_product['production_area'] = ucfirst($input['production_area']);
-                $new_product['description2'] = lcfirst($input['description2']);
-            }
-            $new_product['description'] = lcfirst($input['description']);
-            $new_product['category_id'] = $input['category_id'];
-            //$data = $this->validate_form($input);
-            
-            
-            $product = product::create($new_product);
+        switch($request->submit) {
+            case 'Create': 
+                $new_category['category'] = strtoupper($input['category_name']);
+                $new_category['category_description'] = $input['category_desc']; 
+                $new_category['title_id'] = ($input['title_id']);
+                $new_category['page_id'] = ($input['page_id']);
 
-            if($page == 'sake'){
-                if($new_product['category_id'] != 38)
-                {
-                    $new_sake['rice'] = ucfirst($input['rice']);
-                    $new_sake['grade'] = ucfirst($input['grade']);
+                $category = category::create($new_category);
 
-                    if($input['sweetness'] == 'other')
-                    { $new_sake['sweetness'] = $input['sweetness_other']; }
-                    else { $new_sake['sweetness'] = $input['sweetness']; }
+                // $new_category_id = category::findOrFail ( $category->category_id );
+                $new_product['name'] = 'Edit to add a name';
+                $new_product['price'] = 'Edit to add a price'; 
+                $new_product['category_id'] = $category->category_id; 
 
-                    $new_sake['product_id'] = $product->product_id;
-                    
-                    $sake = sake::create($new_sake);
+                $product = product::create($new_product);
 
-                    if($input['size_checkbox'] == "Size is not 720ml"
-                        && $input['size'] != null)
-                    {
-                        $new_bottle['size'] = $input['size'];
-                        $new_bottle['second_price'] = $input['second_price'];
-                        $new_bottle['sake_id'] = $sake->sake_id;
-
-                        $bottle = bottle::create($new_bottle);
+                $new_item = $input['category_name'] . " was successfully created!"; 
+                return redirect('drinks/' . $page)->with('status', $new_item );
+            break;
+            case 'Update': 
+                $category = category::findOrFail ( $request->category_id );
+                $category->category = strtoupper($input['category_name']);
+                $category->category_description = $input['category_desc'];
+                $category->save();
+                $new_item = $input['category_name'] . " was successfully edited!"; 
+                return redirect('drinks/' . $page)->with('status', $new_item );
+            break;
+            case 'Save':
+                // if(!empty($input['name'])){
+                    $new_product['name'] = ucfirst($input['name']);
+                    $new_product['price'] = $input['price']; 
+                    if($page != 'cocktail'){
+                        $new_product['production_area'] = ucfirst($input['production_area']);
+                        $new_product['description2'] = lcfirst($input['description2']);
                     }
-                }
-            }elseif($page == 'wine'){
-                $new_wine['type'] = ucfirst($input['type']);
-                $new_wine['year'] = $input['year'];
+                    $new_product['description'] = lcfirst($input['description']);
+                    $new_product['category_id'] = $input['category_id'];
+                    //$data = $this->validate_form($input);
+                    
+                    
+                    $product = product::create($new_product);
+                    
 
-                $new_wine['product_id'] = $product->product_id;
-                
-                $wine = wine::create($new_wine);
+                    if($page == 'sake'){
+                        if($new_product['category_id'] != 38)
+                        {
+                            $new_sake['rice'] = ucfirst($input['rice']);
+                            $new_sake['grade'] = ucfirst($input['grade']);
 
-                if($input['size_checkbox'] == "Size is not 750ml"
-                    && $input['size'] != null)
-                {
-                    $new_bottle['size'] = $input['size'];
-                    $new_bottle['second_price'] = $input['second_price'];
-                    $new_bottle['wine_id'] = $wine->wine_id;
+                            if($input['sweetness'] == 'other')
+                            { $new_sake['sweetness'] = $input['sweetness_other']; }
+                            else { $new_sake['sweetness'] = $input['sweetness']; }
 
-                    $bottle = bottle::create($new_bottle);
-                }
-            }
-            $new_item = $new_product['name'] . " was successfully created!";
-            return redirect('drinks/' . $page)->with('status', $new_item );
-        }//end of if !empty($input['name'])
+                            $new_sake['product_id'] = $product->product_id;
+                            
+                            $sake = sake::create($new_sake);
 
-        $new_item = $input['category_name'] . " was successfully edited!"; 
-        return redirect('drinks/' . $page)->with('status', $new_item );
+                            if($input['size_checkbox'] == "Size is not 720ml"
+                                && $input['size'] != null)
+                            {
+                                $new_bottle['size'] = $input['size'];
+                                $new_bottle['second_price'] = $input['second_price'];
+                                $new_bottle['sake_id'] = $sake->sake_id;
+
+                                $bottle = bottle::create($new_bottle);
+                            }
+                        }
+                    }elseif($page == 'wine'){
+                        $new_wine['type'] = ucfirst($input['type']);
+                        $new_wine['year'] = $input['year'];
+
+                        $new_wine['product_id'] = $product->product_id;
+                        
+                        $wine = wine::create($new_wine);
+
+                        if($input['size_checkbox'] == "Size is not 750ml"
+                            && $input['size'] != null)
+                        {
+                            $new_bottle['size'] = $input['size'];
+                            $new_bottle['second_price'] = $input['second_price'];
+                            $new_bottle['wine_id'] = $wine->wine_id;
+
+                            $bottle = bottle::create($new_bottle);
+                        }
+                    }
+                    $new_item = $new_product['name'] . " was successfully created!";
+                    return redirect('drinks/' . $page)->with('status', $new_item );
+                // }//end of if !empty($input['name'])
+            break;
+            case 'Delete':
+                $category = category::findOrFail ( $request->category_id );
+                $category->delete();
+                $edited_item = $input['category_name'] . " was deleted!";
+                return redirect('drinks/' . $page)->with('status', $edited_item );
+            break;
+        }
     }
-
     public function show_edit_form(Request $request, $page)
     {
         if($request->ajax()){
@@ -199,6 +219,7 @@ class drink_controller extends Controller
                     $bottle = $product->sake->bottle;
                     return Response(compact('product', 'sake', 'bottle'));
                 }          
+                
                 return Response(compact('product', 'sake'));
             }elseif($product->wine)
             {
@@ -213,10 +234,11 @@ class drink_controller extends Controller
                 return Response(compact('product', 'wine'));
             
             }
-            if($page == 'sake' || $page == 'wine'){
-                return Response(compact($product));
-            }else{
-                return Response($product);
+            // if($page == 'sake' || $page == 'wine'){
+            //     return Response(compact($product));
+            // }
+            else{
+                return Response(compact('product'));
             }
         }
         
