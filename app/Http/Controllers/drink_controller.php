@@ -53,10 +53,7 @@ class drink_controller extends Controller
         //     return $query .= "ELSE 0 END ASC";
         // }
 
-        // $query = write_query($types);
-
-        
-
+        // $order_shochu_whisky = write_query($types);
 
         if($page == 'sake'){
             $titles = [1, 2]; //titles for sake
@@ -78,31 +75,39 @@ class drink_controller extends Controller
         $category_array = [];
         
         foreach($categories as $category){
-            // $products = [];
+            
             $query = product::leftJoin('categories', 'categories.category_id', '=', 'products.category_id')
                 ->where('products.category_id', $category->category_id)
                 ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id');
-                
-                $query->when('products.product_id' == 'sakes.product_id', function($q){
+            
+            if($page == 'sake'){
+                $query->when('sakes.product_id' != null, function($q){
                     return $q->leftJoin('sakes', 'products.product_id', '=', 'sakes.product_id')
-                            ->leftJoin('bottles', 'sakes.sake_id', '=', 'bottles.sake_id');
+                    ->leftJoin('bottles', 'sakes.sake_id', '=', 'bottles.sake_id');
                 });
-
-                $query->when('products.product_id' == 'wines.product_id', function($q){
+            }
+            
+            else if($page == 'wine'){
+                $query->when('wines.product_id' != null, function($q){
                     return $q->leftJoin('wines', 'products.product_id', '=', 'wines.product_id')
-                            ->leftJoin('bottles', 'wines.wine_id', '=', 'bottles.wine_id');;
+                    ->leftJoin('bottles', 'wines.wine_id', '=', 'bottles.wine_id');   
                 });
+            }else if($page == 'shochu'){
+                $query->when('name' != null, function($q){
+                    return $q->orderBy('name');
+                });
+            }
 
-                $products = $query->orderByRaw('CHAR_LENGTH(price)')
-                        ->orderBy('price')
-                        ->get();
-        
+            $products = $query->orderByRaw('CHAR_LENGTH(price)')
+                    ->orderBy('price')
+                    ->get();
+                    // ->toSql();
+            // dd($products);
             array_push($category_array, $products);
         }//end of foreach
-
         // dd($category_array);
-            return view('drink_menu/' . $page, compact('category_array', 'titles'));
-        
+            return view('drink_menu/view', compact('page', 'category_array', 'titles'));
+            
     }
 
 
@@ -115,7 +120,7 @@ class drink_controller extends Controller
                 $new_category['category'] = strtoupper($input['category_name']);
                 $new_category['category_description'] = $input['category_desc']; 
                 $new_category['title_id'] = ($input['title_id']);
-                $new_category['page_id'] = ($input['page_id']);
+                $new_category['page_number'] = ($input['page_id']);
 
                 $category = category::create($new_category);
 
@@ -133,6 +138,7 @@ class drink_controller extends Controller
                 $category = category::findOrFail ( $request->category_id );
                 $category->category = strtoupper($input['category_name']);
                 $category->category_description = $input['category_desc'];
+                $category->page_number = $input['page_id'];
                 $category->save();
                 $new_item = $input['category_name'] . " was successfully edited!"; 
                 return redirect('drinks/' . $page)->with('status', $new_item );
@@ -344,6 +350,7 @@ class drink_controller extends Controller
                 return redirect('drinks/' . $page)->with('status', $edited_item );
             break;
             case 'Delete':
+            //dd($product);
                 $product->delete();
                 $edited_item = $input['name'] . " was deleted!";
                 return redirect('drinks/' . $page)->with('status', $edited_item );
@@ -357,36 +364,36 @@ class drink_controller extends Controller
         $categories = category::all();
         //$categories = category::whereBetween('category_id', [28, 32])->get();
 
-        function write_query($types, $column){
-            $array = [];
-            if($types == 'shochu'){
-                $array = ["Mugi", "Kome", "Imo", "Ume"];
-            }else if($types == 'whisky'){
-                $array = ["Suntory", "Hibiki", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano"];
-            }else if($types == 'white'){
-                $array = ["Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
-                "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
-                "Riesling", "Gruner Veltliner"];
-            }else if($types == 'red'){
-                $array = ["Pinot Noir", "Tempranillo", "Cab Franc", 
-                "Cabernet Sauvignon", "Malbec", "Zinfandel"];
-            }
-            foreach($array as $key=>$type){
-                if($key == 0){
-                    $query = "CASE WHEN $column LIKE '%" . $type . "%' THEN 1 ";
-                }else{
-                    $order_number = $key + 1;
-                    $query .= "WHEN $column LIKE '%" . $type ."%' THEN " . $order_number . " ";
-                }
-            }
-            $order_number = $order_number + 1;
-            return $query .= "ELSE " . $order_number . " END ASC";
-        }
+        // function write_query($types, $column){
+        //     $array = [];
+        //     if($types == 'shochu'){
+        //         $array = ["Mugi", "Kome", "Imo", "Ume"];
+        //     }else if($types == 'whisky'){
+        //         $array = ["Suntory", "Hibiki", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano"];
+        //     }else if($types == 'white'){
+        //         $array = ["Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
+        //         "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
+        //         "Riesling", "Gruner Veltliner"];
+        //     }else if($types == 'red'){
+        //         $array = ["Pinot Noir", "Tempranillo", "Cab Franc", 
+        //         "Cabernet Sauvignon", "Malbec", "Zinfandel"];
+        //     }
+        //     foreach($array as $key=>$type){
+        //         if($key == 0){
+        //             $query = "CASE WHEN $column LIKE '%" . $type . "%' THEN 1 ";
+        //         }else{
+        //             $order_number = $key + 1;
+        //             $query .= "WHEN $column LIKE '%" . $type ."%' THEN " . $order_number . " ";
+        //         }
+        //     }
+        //     $order_number = $order_number + 1;
+        //     return $query .= "ELSE " . $order_number . " END ASC";
+        // }
 
-        $query_shochu = write_query('shochu', 'name');
-        $query_whisky = write_query('whisky', 'name');
-        $query_white = write_query('white', 'type');
-        $query_red = write_query('red', 'type');
+        // $query_shochu = write_query('shochu', 'name');
+        // $query_whisky = write_query('whisky', 'name');
+        // $query_white = write_query('white', 'type');
+        // $query_red = write_query('red', 'type');
 
 //8 page
 //page 1 == 2 page + 1 || total -6 (Sake by the glass)
@@ -432,18 +439,20 @@ class drink_controller extends Controller
                 $page_array[7] = [];
             }
 
-            $title_length = page_title::all()->count();
+            //$title_length = page_title::all()->count();
             $category_length = category::all()->count();
  
             for($page_number = 1; $page_number <= $page_length; $page_number++){
                 $category_array = [];
-                $categories = category::where('page_number', $page_number)->get();
+                $categories = category::where('page_number', $page_number)
+                                ->orderBy('title_id')
+                                ->get();
 
                 foreach( $categories as $category ){
                     $product_array = [];
-                    for($title_id = 1; $title_id <= $title_length; $title_id++){
+                    for($title_id = 1; $title_id <= 7; $title_id++){
                         if($category->title_id == $title_id){
-                            $products = product::leftJoin('categories', 'products.category_id', '=', 'categories.category_id')
+                            $query = product::leftJoin('categories', 'products.category_id', '=', 'categories.category_id')
                                 ->where('products.category_id', $category->category_id)
                                 ->leftJoin('page_titles', 'page_titles.title_id', '=', 'categories.title_id')
                                 ->leftJoin('sakes', 'products.product_id', '=', 'sakes.product_id')
@@ -451,11 +460,17 @@ class drink_controller extends Controller
                                 ->leftJoin('bottles', function ($join) {
                                     $join->on('wines.wine_id', '=', 'bottles.wine_id')
                                             ->orOn('sakes.sake_id', '=', 'bottles.sake_id');
-                                })
-                                // ->where('products.product_id', $id)
-                                // if($category_id == 25)//shochu
-                                // ->orderByRaw(write_query($shochu_types, 'name'))
-                                ->orderByRaw('CHAR_LENGTH(price)')
+                                });
+                                if(strpos($category->category, 'WHISKY')){
+                                    $query->when('name' != null, function($q){
+                                        return $q->orderBy('name');
+                                    });
+                                }else if(strpos($category->category, 'SHOCHU')){
+                                    $query->when('description2' != null, function($q){
+                                        return $q->orderBy('description2');
+                                    });
+                                }
+                                $products = $query->orderByRaw('CHAR_LENGTH(price)')
                                 ->orderBy('price')
                                 ->get();
 
@@ -466,7 +481,6 @@ class drink_controller extends Controller
                     array_push($category_array, $product_array);
                     
                 }//end of foreach
-
                 if($page_length == 7){
                     switch($page_number){
                         case 1:
@@ -498,9 +512,8 @@ class drink_controller extends Controller
         if(count($page_array) % 2 == 1){
             array_unshift($page_array, [[[]]]);
         }
-       
 
-        
+        // dd($page_array);
         return view('drink_menu/print_preview', compact('page_array', 'titles_array'));
     }
 

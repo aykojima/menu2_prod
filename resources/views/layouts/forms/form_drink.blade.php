@@ -1,7 +1,7 @@
 <!-- <h2 class="form_category"> -->
 
 <!-- </h2> -->
-@if(Request::is('drinks/cocktail'))
+@if($page == 'cocktail')
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Asahi "Super Dry")', 'class' => 'form_column_long']) !!}
 
@@ -9,7 +9,7 @@
 
     {!! Form::text('description', null, ['placeholder' => 'Description (e.g. Toronto, Canada 21.4 oz bottle)', 'class' => 'form_column_long']) !!}
 
-@elseif(Request::is('drinks/sake'))
+@elseif($page == 'sake')
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Miyasaka "Yawaraka" "Sake Matinee")', 'class' => 'form_column_long']) !!}
 
@@ -23,7 +23,7 @@
         <div class="bottle_size_hide">
             {!! Form::text('size', null, ['placeholder' => 'Bottle size (e.g. 300)', 'class' => 'form_column_long']) !!} 
             <p>ml</p>
-            <label>There a price for the different sized bottle</label>
+            <label>Price for the different sized bottle</label>
             {!! Form::text('second_price', null, ['placeholder' => 'Price (e.g. 15)', 'class' => 'form_column_long']) !!}
         </div>
     </div>    
@@ -42,14 +42,9 @@
     </div>
     {!! Form::text('description', null, ['placeholder' => 'Description (e.g. light and sweet; raspverry, roses)', 'class' => 'form_column_long']) !!}
     {!! Form::text('description2', null, ['placeholder' => 'Additional Description ( Will be discplayed in red under description)', 'class' => 'form_column_long']) !!}
-
     
 
-
-
-
-
-@elseif(Request::is('drinks/wine'))
+@elseif($page == 'wine')
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Gruet "Sauvage")', 'class' => 'form_column_long']) !!}
     {!! Form::text('type', null, ['placeholder' => 'Type of Wine (e.g. Blanc de Blancs)', 'class' => 'form_column_long']) !!}
@@ -61,7 +56,7 @@
     <div class="bottle_size_hide">
         {!! Form::text('size', null, ['placeholder' => 'Bottle size (e.g. 300)', 'class' => 'form_column_long']) !!} 
         <p>ml</p>
-        <label>There a price for the different sized bottle</label>
+        <label>Price for the different sized bottle</label>
         {!! Form::text('second_price', null, ['placeholder' => 'Price (e.g. 15)', 'class' => 'form_column_long']) !!}
     </div>
 
@@ -71,7 +66,7 @@
     {!! Form::text('description2', null, ['placeholder' => 'Additional Description ( Will be discplayed in red under description)', 'class' => 'form_column_long']) !!}
 
 
-@elseif(Request::is('drinks/shochu'))
+@elseif($page == 'shochu')
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Kakushigura Mugi)', 'class' => 'form_column_long']) !!}
     
@@ -82,16 +77,16 @@
     {!! Form::text('description', null, ['placeholder' => 'Description (e.g. 24%abv light weight oak aged shochu; refined)', 'class' => 'form_column_long']) !!}
     {!! Form::text('description2', null, ['placeholder' => 'Type ( e.g. Kome/ Mugi for Shochu, Single Malt/Blended for Whisky)', 'class' => 'form_column_long']) !!}
 
-@elseif(Request::is('drinks/special'))
+@elseif($page == 'special')
 
     
     {!! Form::text('name', null, ['placeholder' => 'Name (e.g. Joto)', 'class' => 'form_column_long']) !!}
 
     {!! Form::text('price', null, ['placeholder' => 'Price (e.g. 88)', 'class' => 'form_column_long']) !!}
 
-    {!! Form::text('description', null, ['placeholder' => 'Description / Grade (e.g. Daiginjo)', 'class' => 'form_column_long']) !!}
+    {!! Form::text('description', null, ['placeholder' => 'Grade/ Type (e.g. Daiginjo / Pinot Gris)', 'class' => 'form_column_long']) !!}
 
-    {!! Form::text('production_area', null, ['placeholder' => 'Production Area and year (e.g. Hiroshima)', 'class' => 'form_column_long']) !!}
+    {!! Form::text('production_area', null, ['placeholder' => 'Production Area / rice / year (e.g. Hiroshima / Hitomebore / +1)', 'class' => 'form_column_long']) !!}
 
-    {!! Form::text('description2', null, ['placeholder' => 'Description / Grade (e.g. Daiginjo)', 'class' => 'form_column_long']) !!}
+    {!! Form::text('description2', null, ['placeholder' => 'Description', 'class' => 'form_column_long']) !!}
 @endif

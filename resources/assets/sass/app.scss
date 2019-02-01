@@ -1534,10 +1534,12 @@ input.add_price, input.item_prices {
     margin: 4% 2% 4% 0;
     padding-left: 0;
     float: none;
+    font-weight: lighter;
   }
   h3{
     color: $skt_color; 
     clear: both;
+    font-weight: lighter;
     // padding-top: 5%;
   }
   p{
@@ -1786,13 +1788,39 @@ div.page2, .page4, .page6, .page8,
   font-size: 1.05em;
 }
 
-.no_padding_top{
-  padding-top: 0;
+.font1_1em{ 
+  font-size: 1.1em;
+}
+
+.font1_3em{ 
+  font-size: 1.3em;
+}
+
+.no_padding{
+  padding: 0;
+}
+
+.margin_bottom3{
+  margin-bottom: 3%;
 }
 
 .large_margin{
   margin-bottom: 8%;
 }
+
+.margin_bottom12{
+  margin-bottom: 12%;
+}
+
+.no_margin_bottom{
+  margin-bottom: 0;
+}
+
+.breaks{
+  display: block;
+}
+
+
 @media only screen 
 and (max-device-width : 765px)  { 
   div.nav{

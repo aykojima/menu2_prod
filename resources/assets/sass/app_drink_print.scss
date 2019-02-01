@@ -90,10 +90,12 @@ div.page_right, .page_left{
     margin: 4% 2% 4% 0;
     padding-left: 0;
     float: none;
+    font-weight: lighter;
   }
   h3{
     color: $skt_color; 
     clear: both;
+    font-weight: lighter;
   }
   // p{
   //   line-height: 10px;
@@ -234,14 +236,38 @@ h2{
   padding-top: 6%;
 }
 
+.font1_1em{ 
+  font-size: 1.1em;
+}
+
+.font1_3em{ 
+  font-size: 1.3em;
+}
+
 .small_font{
   font-size: 0.9em;
 }
 
-.no_padding_top{
-  padding-top: 0;
+.no_padding{
+  padding: 0;
 }
 
 .large_margin{
   margin-bottom: 8%;
+}
+
+.margin_bottom3{
+  margin-bottom: 3%;
+}
+
+.margin_bottom12{
+  margin-bottom: 12%;
+}
+
+.no_margin_bottom{
+  margin-bottom: 0;
+}
+
+.breaks{
+  display: block;
 }

@@ -51,8 +51,10 @@
                             </div>
                         @endif
                         @if ($loop->first)
-                            <div  class="drink_title" >
+                            <div  class="drink_title">
+                            @if($product->title_name != $product->category)
                                 <h3>{{ $product->category }}</h3>
+                            @endif
                                 <p style="color: #CCCCCC; font-size: 0.8em; line-height: 1em;">{{ $product->category_description }}</p>
                             </div>
                             <div class="drink_categories">
@@ -61,11 +63,13 @@
                             <div>
                                 <p class="drink_name">
                                     {{ $product->name }} 
-                                    <small style="font-style: italic;">{{ $product->grade }}</small>    
+                                    <small  style="font-style: italic;">{{ $product->grade }}</small>    
                                     <small style="font-style: italic;">{{ $product->type }}</small>
-                                    @if($product->category == 'SHOCHU 焼酎' || $product->category == 'JAPANESE WHISKY ウイスキー')   
-                                    <small style="font-style: italic;">{{ $product->description2 }}</small> 
-                                    <span style="color: #CF671F;">{{ $product->production_area }}</span>
+                                    @if($product->category == 'SHOCHU 焼酎' || $product->category == 'JAPANESE WHISKY ウィスキー')   
+                                    <small  style="font-style: italic;">{{ $product->description2 }}
+                                        <span style="color: #CF671F; font-style: normal;">{{ $product->production_area }}</span>
+                                    </small> 
+                                    
                                     @endif
                                 </p>
                                 <p class="drink_price">{{ $product->price }}</p>
@@ -79,7 +83,7 @@
                                 </p>
                                 <div class="drink_details">
                                     <p>
-                                        @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウイスキー')
+                                        @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウィスキー')
                                         {{ $product->production_area }}  
                                         @endif
                                         @if(!empty ($product->rice))            
@@ -92,7 +96,7 @@
                                         @endif
                                     </p>
                                     <p>{{ $product->description }}</p>
-                                    @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウイスキー')
+                                    @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウィスキー')
                                     <span>{{ $product->description2 }}</span>
                                     @endif
                                 </div><!--end of drink_details-->
@@ -127,19 +131,97 @@
 <script>
 
 $(document).ready(function(){
+    $(".title").each(function(){
+        if($(this).outerHeight() >= 50){
+            $(this).addClass("small_title_font");
+        }
+    })
 
+    $("h3").each(function(){
+        if($(this).outerHeight() >= 30){
+            $(this).addClass("small_font");
+        }
+    })
+
+    $(".drink_name").each(function(){
+        // console.log($(this).text() + $(this).outerWidth());
+        if($(this).outerWidth() >= 330)
+        {
+            $(this).addClass("small_font");
+        }
+    })
     //Need to fix here
     //Make each if statement callback function so that it checks the height each time the function is called.
 const menus = document.querySelectorAll(".menu");
 menus.forEach(menu => {
-    console.log(menu.offsetHeight);
-    if(menu.offsetHeight >= 1120){
-        const drink_titles = menu.querySelectorAll(".drink_title");
-        drink_titles.forEach(title => title.classList.add("no_padding_top"))
-    }else if(menu.offsetHeight <= 800){
-        const products = menu.querySelectorAll(".products");
-        products.forEach(product => product.classList.add("large_margin"))
+    let num_products = menu.querySelectorAll('.products').length;
+    let num_titles = menu.querySelectorAll('.drink_title').length;
+    // console.log(num_products);
+    // console.warn(num_titles);
+    const title_divs = menu.querySelectorAll(".title_div");
+    const drink_titles = menu.querySelectorAll(".drink_title");
+    const products = menu.querySelectorAll(".products");
+    const drink_categories = menu.querySelectorAll(".drink_categories");
+    const drink_names = menu.querySelectorAll(".drink_name");
+    const smalls = menu.querySelectorAll("small");
+    if(num_titles >= 5){
+        title_divs.forEach(function(div, key){
+                key == 0 && div.classList.add("no_padding");
+                key >= 1 && div.classList.add("margin_top");
+            });
+        if(num_products >= 15){
+            // console.log(num_products);
+            // console.warn(num_titles);
+            // title_divs.forEach(div => div.classList.add("no_padding"));
+            
+            drink_categories.forEach(categories => categories.classList.add("no_margin_bottom"));
+            drink_titles.forEach(title => title.classList.add("no_padding"));
+            products.forEach(product => product.classList.add("no_margin_bottom"));
+        }else if(num_products >= 12){
+            drink_categories.forEach(categories => categories.classList.add("no_margin_bottom"));
+            drink_titles.forEach(title => title.classList.add("no_padding"));
+            // products.forEach(product => product.classList.add("no_margin_bottom"));
+        }
+    }else if(num_titles >= 3){
+        if(num_products <= 12){
+            // console.log(num_products);
+            // console.warn(num_titles);
+            drink_categories.forEach(categories => categories.classList.add("margin_bottom12"));
+            drink_titles.forEach(drink_title => drink_title.classList.add("font1_1em"));
+        }
+    }else if(num_titles >= 1){
+            console.log(num_products);
+            console.warn(num_titles);
+            drink_categories.forEach(categories => categories.classList.add("margin_bottom12"));
+            drink_titles.forEach(drink_title => drink_title.classList.add("font1_1em"));
+            products.forEach(product => product.classList.add("margin_bottom3"));
+            drink_names.forEach(drink_name => drink_name.classList.remove("small_font"));
+            smalls.forEach(small => small.classList.add("breaks"));
+            drink_names.forEach(drink_name => {
+                drink_name.classList.add("font1_3em");
+            });
+            if(num_products >= 14){
+                drink_categories.forEach(categories => categories.classList.remove("margin_bottom12"));
+                drink_titles.forEach(drink_title => drink_title.classList.remove("font1_1em"));
+                products.forEach(product => product.classList.remove("margin_bottom3"));
+            }
     }
+    // console.log(menu.offsetHeight);
+    
+
+
+
+
+    // if(menu.offsetHeight >= 1120){
+    //     title_divs.forEach(div => div.classList.add("no_padding"));
+    //     drink_categories.forEach(categories => categories.classList.add("no_margin_bottom"));
+    //     drink_titles.forEach(title => title.classList.add("no_padding"));
+    // // }else if(menu.offsetHeight >= 1300){
+    // //     drink_titles.forEach(title => title.classList.add("no_padding"));
+    // }else if(menu.offsetHeight <= 800){
+        
+    //     products.forEach(product => product.classList.add("large_margin"))
+    // }
 })
 
 
@@ -175,25 +257,7 @@ menus.forEach(menu => {
 //         smallMargin(current_page);
 //     });
     
-    $(".title").each(function(){
-        if($(this).outerHeight() >= 50){
-            $(this).addClass("small_title_font");
-        }
-    })
-
-    $("h3").each(function(){
-        if($(this).outerHeight() >= 30){
-            $(this).addClass("small_font");
-        }
-    })
-
-    $(".drink_name").each(function(){
-        // console.log($(this).text() + $(this).outerWidth());
-        if($(this).outerWidth() >= 330)
-        {
-            $(this).addClass("small_font");
-        }
-    })
+    
 });
 
 $(".header_icons").mouseover(function(e) {

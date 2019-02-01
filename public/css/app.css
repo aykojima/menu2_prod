@@ -1149,10 +1149,12 @@ a.add_new_category, a.edit_category, a.add_new_drink, a.edit {
   .drink_title h2 {
     margin: 4% 2% 4% 0;
     padding-left: 0;
-    float: none; }
+    float: none;
+    font-weight: lighter; }
   .drink_title h3 {
     color: #CF671F;
-    clear: both; }
+    clear: both;
+    font-weight: lighter; }
   .drink_title p {
     line-height: 10px; }
   .drink_title .drink_price {
@@ -1292,11 +1294,29 @@ div.page2, .page4, .page6, .page8,
 .small_font {
   font-size: 1.05em; }
 
-.no_padding_top {
-  padding-top: 0; }
+.font1_1em {
+  font-size: 1.1em; }
+
+.font1_3em {
+  font-size: 1.3em; }
+
+.no_padding {
+  padding: 0; }
+
+.margin_bottom3 {
+  margin-bottom: 3%; }
 
 .large_margin {
   margin-bottom: 8%; }
+
+.margin_bottom12 {
+  margin-bottom: 12%; }
+
+.no_margin_bottom {
+  margin-bottom: 0; }
+
+.breaks {
+  display: block; }
 
 @media only screen and (max-device-width: 765px) {
   div.nav {

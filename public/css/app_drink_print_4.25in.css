@@ -47,10 +47,12 @@ body {
   .drink_title h2 {
     margin: 4% 2% 2% 0;
     padding-left: 0;
-    float: none; }
+    float: none;
+    font-weight: lighter; }
   .drink_title h3 {
     color: #CF671F;
-    clear: both; }
+    clear: both;
+    font-weight: lighter; }
 
 .small_margin {
   margin-bottom: 1%; }
@@ -63,7 +65,8 @@ body {
 
 .drink_name, .drink_price {
   font-size: 1.1em;
-  line-height: 1em; }
+  line-height: 1em;
+  margin-bottom: 3px; }
 
 .drink_name {
   float: left; }
@@ -77,10 +80,11 @@ p.bottle_size {
   font-size: small; }
 
 .drink_details {
+  width: 90%;
   color: #ccc;
   clear: both;
   font-size: 0.8em;
-  line-height: 1em; }
+  line-height: 1.2em; }
 
 img.add_drinks {
   width: 20px; }
@@ -114,11 +118,18 @@ h2 {
 .margin_top {
   margin-top: 6%; }
 
+.title_div {
+  padding-top: 2%;
+  padding-bottom: 4%; }
+
 .title {
   padding-left: 0;
   margin: 0;
   float: none;
   line-height: 1em; }
+
+.drink_categories {
+  margin-bottom: 5%; }
 
 .small_title_font {
   font-size: 1.5em;
@@ -126,5 +137,21 @@ h2 {
 
 .small_font {
   font-size: 0.9em; }
+
+.big_font {
+  font-size: 1.3em; }
+
+.bigger_font {
+  font-size: 1.1em; }
+
+.no_padding_no_margin {
+  padding-top: 0;
+  margin-bottom: 0; }
+
+.big_margin_top {
+  margin-top: 15%; }
+
+.big_margin_bottom {
+  margin-bottom: 15%; }
 
 /*# sourceMappingURL=app_drink_print_4.25in.css.map */
