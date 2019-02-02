@@ -65,7 +65,8 @@
                                     {{ $product->name }} 
                                     <small  style="font-style: italic;">{{ $product->grade }}</small>    
                                     <small style="font-style: italic;">{{ $product->type }}</small>
-                                    @if($product->category == 'SHOCHU 焼酎' || $product->category == 'JAPANESE WHISKY ウィスキー')   
+                                    @if($product->title_id == 5 || $product->title_id == 6 || $product->title_id == 7)
+                                    <!-- Japanese Whiskey, Shochu, and Spirits page -->
                                     <small  style="font-style: italic;">{{ $product->description2 }}
                                         <span style="color: #CF671F; font-style: normal;">{{ $product->production_area }}</span>
                                     </small> 
@@ -83,7 +84,8 @@
                                 </p>
                                 <div class="drink_details">
                                     <p>
-                                        @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウィスキー')
+                                        @if($product->title_id != 5 && $product->title_id != 6 && $product->title_id != 7)
+                                        <!-- Japanese Whiskey, Shochu, and Spirits page -->   
                                         {{ $product->production_area }}  
                                         @endif
                                         @if(!empty ($product->rice))            
@@ -96,7 +98,8 @@
                                         @endif
                                     </p>
                                     <p>{{ $product->description }}</p>
-                                    @if($product->category != 'SHOCHU 焼酎' && $product->category != 'JAPANESE WHISKY ウィスキー')
+                                    @if($product->title_id != 5 && $product->title_id != 6 && $product->title_id != 7)   
+                                    <!-- Japanese Whiskey, Shochu, and Spirits page -->
                                     <span>{{ $product->description2 }}</span>
                                     @endif
                                 </div><!--end of drink_details-->
@@ -156,8 +159,8 @@ const menus = document.querySelectorAll(".menu");
 menus.forEach(menu => {
     let num_products = menu.querySelectorAll('.products').length;
     let num_titles = menu.querySelectorAll('.drink_title').length;
-    // console.log(num_products);
-    // console.warn(num_titles);
+    console.log(num_products);
+    console.warn(num_titles);
     const title_divs = menu.querySelectorAll(".title_div");
     const drink_titles = menu.querySelectorAll(".drink_title");
     const products = menu.querySelectorAll(".products");
@@ -176,7 +179,7 @@ menus.forEach(menu => {
             
             drink_categories.forEach(categories => categories.classList.add("no_margin_bottom"));
             drink_titles.forEach(title => title.classList.add("no_padding"));
-            products.forEach(product => product.classList.add("no_margin_bottom"));
+            // products.forEach(product => product.classList.add("no_margin_bottom"));
         }else if(num_products >= 12){
             drink_categories.forEach(categories => categories.classList.add("no_margin_bottom"));
             drink_titles.forEach(title => title.classList.add("no_padding"));
@@ -190,20 +193,20 @@ menus.forEach(menu => {
             drink_titles.forEach(drink_title => drink_title.classList.add("font1_1em"));
         }
     }else if(num_titles >= 1){
-            console.log(num_products);
-            console.warn(num_titles);
+            // console.log(num_products);
+            // console.warn(num_titles);
             drink_categories.forEach(categories => categories.classList.add("margin_bottom12"));
             drink_titles.forEach(drink_title => drink_title.classList.add("font1_1em"));
             products.forEach(product => product.classList.add("margin_bottom3"));
             drink_names.forEach(drink_name => drink_name.classList.remove("small_font"));
             smalls.forEach(small => small.classList.add("breaks"));
-            drink_names.forEach(drink_name => {
-                drink_name.classList.add("font1_3em");
-            });
+            drink_names.forEach(drink_name => drink_name.classList.add("font1_3em"));
             if(num_products >= 14){
                 drink_categories.forEach(categories => categories.classList.remove("margin_bottom12"));
                 drink_titles.forEach(drink_title => drink_title.classList.remove("font1_1em"));
                 products.forEach(product => product.classList.remove("margin_bottom3"));
+                drink_names.forEach(drink_name => drink_name.classList.remove("font1_3em"));
+                smalls.forEach(small => small.classList.remove("breaks"));
             }
     }
     // console.log(menu.offsetHeight);

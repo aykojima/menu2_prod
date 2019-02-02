@@ -160,8 +160,8 @@ class drink_controller extends Controller
                     
 
                     if($page == 'sake'){
-                        if($new_product['category_id'] != 38)
-                        {
+                        // if($new_product['category_id'] != 38)
+                        // {
                             $new_sake['rice'] = ucfirst($input['rice']);
                             $new_sake['grade'] = ucfirst($input['grade']);
 
@@ -182,7 +182,7 @@ class drink_controller extends Controller
 
                                 $bottle = bottle::create($new_bottle);
                             }
-                        }
+                        // }
                     }elseif($page == 'wine'){
                         $new_wine['type'] = ucfirst($input['type']);
                         $new_wine['year'] = $input['year'];
@@ -272,8 +272,8 @@ class drink_controller extends Controller
                 $product->update($edit_product);
 
                 if($page == 'sake'){
-                    if($request->product_id != 38)
-                    {
+                    // if($request->product_id != 38)
+                    // {
                         $edit_sake['rice'] = $input['rice'];
                         $edit_sake['grade'] = $input['grade'];
 
@@ -309,7 +309,7 @@ class drink_controller extends Controller
                                 && $input['size'] == null)){
                             $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
                             $bottle->delete();
-                        }
+                        // }
                     }//end of if(category_id !=38)
                 }else if($page == 'wine'){
                     $edit_wine['type'] = $input['type'];
@@ -461,7 +461,7 @@ class drink_controller extends Controller
                                     $join->on('wines.wine_id', '=', 'bottles.wine_id')
                                             ->orOn('sakes.sake_id', '=', 'bottles.sake_id');
                                 });
-                                if(strpos($category->category, 'WHISKY')){
+                                if(strpos($category->category, 'WHISKEY')){
                                     $query->when('name' != null, function($q){
                                         return $q->orderBy('name');
                                     });

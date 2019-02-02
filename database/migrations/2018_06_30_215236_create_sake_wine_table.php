@@ -88,8 +88,22 @@ class CreateSakeWineTable extends Migration
      */
     public function down()
     {
+
+        Schema::table('products', function($table) { 
+            $table->dropForeign(['category_id']);
+        });
+        Schema::table('sakes', function($table) { 
+            $table->dropForeign(['product_id']);
+        });
+        Schema::table('wines', function($table) { 
+            $table->dropForeign(['product_id']);
+        });
+        Schema::table('bottles', function($table) { 
+            $table->dropForeign(['sake_id']);
+            $table->dropForeign(['wine_id']);
+        });
+        
         Schema::dropIfExists('products');
-        Schema::dropIfExists('categories');
         Schema::dropIfExists('sakes');
         Schema::dropIfExists('wines');
         Schema::dropIfExists('bottles');

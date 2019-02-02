@@ -37,11 +37,14 @@ class AddPageTitlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_titles');
+
 
         Schema::table('categories', function($table) {
-            $table->dropColumn('page_number');
+            $table->dropForeign('title_id');
             $table->dropColumn('title_id');
+            $table->dropColumn('page_number');
         });
+
+        Schema::dropIfExists('page_titles');
     }
 }
