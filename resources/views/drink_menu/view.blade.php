@@ -279,8 +279,9 @@ $(document).on("click", ".edit_category", function(event){
 });
 
 const path_array = window.location.pathname.split('/');
-const page = path_array[2];
+const page = path_array[4];
 
+console.log(page);
 //Edit Modal
 $(document).on("click", ".edit", function(event){   
     $('#edit_modal').css('display', 'block');
@@ -345,6 +346,96 @@ $(document).on("click", ".edit", function(event){
     });
 });
 
+
+$(document).ready(function(){
+    //Styling page
+    const number_of_products = document.querySelectorAll('.products').length;
+    const number_of_categories = document.querySelectorAll('.drink_title').length;    
+
+    if(page == 'cocktail'){
+        console.log(number_of_products);
+        if(number_of_products >=26){
+            $('.products').addClass('no_padding_no_margin');
+            $('.drink_title').addClass('no_padding_no_margin');
+            $('.drink_name').addClass('no_padding_no_margin');
+            $('.drink_price').addClass('no_padding_no_margin');
+        }else if(number_of_products >=23){
+            $('.drink_name').addClass('no_padding_no_margin');
+            $('.drink_price').addClass('no_padding_no_margin');
+            $('.products').addClass('small_margin');
+            $('.drink_title').addClass('no_padding_no_margin');
+        }else if(number_of_products >=20){
+            $('.products').addClass('small_margin');
+        }
+    }else if(page == 'special'){
+    // const number_of_products = document.querySelectorAll('.products').length;
+    console.log(number_of_products);
+    console.log(number_of_categories);
+    if(number_of_categories >= 5){
+        if(number_of_products >= 19){
+            $('.products').addClass('no_padding_no_margin');
+            $('.drink_title').addClass('no_padding_no_margin');
+            $('.drink_name').addClass('no_padding_no_margin');
+            $('.drink_price').addClass('no_padding_no_margin');
+        }else if(number_of_products >=16){
+            $('.products').addClass('no_padding_no_margin');
+            $('.drink_title').addClass('no_padding_no_margin');
+            $('.drink_name').addClass('no_padding_no_margin');
+            $('.drink_price').addClass('no_padding_no_margin');
+            $('.hh').addClass('big_margin_top');
+        }else if(number_of_products >=10){
+            $( "<br>" ).insertBefore( ".drink_name span" );
+            $('.drink_title').addClass('big_font');
+            $('.drink_name').addClass('big_font');
+            $('.drink_details').addClass('bigger_font');
+            $('.hh').addClass('big_margin_top');
+        }else if(number_of_products >=7){
+            $( "<br>" ).insertBefore( ".drink_name span" );
+            $('.drink_title').addClass('big_font');
+            $('.drink_name').addClass('big_font');
+            $('.drink_details').addClass('bigger_font');
+            $('.hh').addClass('big_margin_top');
+            $('.title_div').addClass('big_margin_top big_margin_bottom');
+        }
+    }else if(number_of_categories >= 2){
+        if(number_of_products >= 19){
+            $('.products').addClass('no_padding_no_margin');
+            $('.drink_title').addClass('no_padding_no_margin');
+            $('.drink_name').addClass('no_padding_no_margin');
+            $('.drink_price').addClass('no_padding_no_margin');
+        }else if(number_of_products >=16){
+            $('.products').addClass('no_padding_no_margin');
+            $('.drink_title').addClass('no_padding_no_margin');
+            $('.drink_name').addClass('no_padding_no_margin');
+            $('.drink_price').addClass('no_padding_no_margin');
+            $('.title_div').addClass('big_margin_bottom');
+            $('.hh').addClass('big_margin_top');
+        }else if(number_of_products >=14){
+            $('.drink_title').addClass('big_font');
+            $('.hh').addClass('big_margin_top');
+        }else if(number_of_products >=11){
+            $( "<br>" ).insertBefore( ".drink_name span" );
+            $('.drink_title').addClass('big_font');
+            $('.hh').addClass('big_margin_top');
+            
+        }else if(number_of_products >=10){
+            $( "<br>" ).insertBefore( ".drink_name span" );
+            $('.drink_title').addClass('big_font');
+            $('.drink_name').addClass('big_font');
+            $('.drink_details').addClass('bigger_font');
+            $('.hh').addClass('big_margin_top');
+            $('.title_div').addClass('big_margin_bottom');
+        }else if(number_of_products >=5){
+            $( "<br>" ).insertBefore( ".drink_name span" );
+            $('.drink_title').addClass('big_font');
+            $('.drink_name').addClass('big_font');
+            $('.drink_details').addClass('bigger_font');
+            $('.hh').addClass('big_margin_top');
+            $('.title_div').addClass('big_margin_top big_margin_bottom');
+        }
+    }
+}
+});
 
 if(page == 'cocktail'){
     $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
@@ -412,6 +503,7 @@ if(page == 'cocktail'){
     });
 });
 }else if(page == 'special'){
+// console.log("ready in special!");
     $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
     //var form_data = $('#edit_form').serialize();
         $.ajax({
@@ -424,100 +516,10 @@ if(page == 'cocktail'){
                 'description': $("#edit_form input[name='description']").val(),
                 'description2': $("#edit_form input[name='description2']").val(),
                 'submit': $("#edit_form input[name='submit']").val()
-        }
+            }
+        });
     });
-});
-}
-
-
-
-//Styling page
-if(page == 'cocktail'){
-    let number_of_products = document.querySelectorAll('.products').length;
-    console.log(number_of_products);
-    if(number_of_products >=26){
-        $('.products').addClass('no_padding_no_margin');
-        $('.drink_title').addClass('no_padding_no_margin');
-        $('.drink_name').addClass('no_padding_no_margin');
-        $('.drink_price').addClass('no_padding_no_margin');
-    }else if(number_of_products >=23){
-        $('.drink_name').addClass('no_padding_no_margin');
-        $('.drink_price').addClass('no_padding_no_margin');
-        $('.products').addClass('small_margin');
-        $('.drink_title').addClass('no_padding_no_margin');
-    }else if(number_of_products >=20){
-        $('.products').addClass('small_margin');
-    }
-}
-
-if(page == 'special'){
-    let number_of_products = document.querySelectorAll('.products').length;
-    let number_of_categories = document.querySelectorAll('.drink_title').length;
-    console.log(number_of_products);
-    console.log(number_of_categories);
-    if(number_of_categories >= 5){
-        if(number_of_products >= 19){
-            $('.products').addClass('no_padding_no_margin');
-            $('.drink_title').addClass('no_padding_no_margin');
-            $('.drink_name').addClass('no_padding_no_margin');
-            $('.drink_price').addClass('no_padding_no_margin');
-        }else if(number_of_products >=16){
-            $('.products').addClass('no_padding_no_margin');
-            $('.drink_title').addClass('no_padding_no_margin');
-            $('.drink_name').addClass('no_padding_no_margin');
-            $('.drink_price').addClass('no_padding_no_margin');
-            $('.hh').addClass('big_margin_top');
-        }else if(number_of_products >=10){
-            $( "<br>" ).insertBefore( ".drink_name span" );
-            $('.drink_title').addClass('big_font');
-            $('.drink_name').addClass('big_font');
-            $('.drink_details').addClass('bigger_font');
-            $('.hh').addClass('big_margin_top');
-        }else if(number_of_products >=7){
-            $( "<br>" ).insertBefore( ".drink_name span" );
-            $('.drink_title').addClass('big_font');
-            $('.drink_name').addClass('big_font');
-            $('.drink_details').addClass('bigger_font');
-            $('.hh').addClass('big_margin_top');
-            $('.title_div').addClass('big_margin_top big_margin_bottom');
-        }
-    }else if(number_of_categories >= 2){
-        if(number_of_products >= 19){
-            $('.products').addClass('no_padding_no_margin');
-            $('.drink_title').addClass('no_padding_no_margin');
-            $('.drink_name').addClass('no_padding_no_margin');
-            $('.drink_price').addClass('no_padding_no_margin');
-        }else if(number_of_products >=16){
-            $('.products').addClass('no_padding_no_margin');
-            $('.drink_title').addClass('no_padding_no_margin');
-            $('.drink_name').addClass('no_padding_no_margin');
-            $('.drink_price').addClass('no_padding_no_margin');
-            $('.title_div').addClass('big_margin_bottom');
-            $('.hh').addClass('big_margin_top');
-        }else if(number_of_products >=14){
-            $('.drink_title').addClass('big_font');
-            $('.hh').addClass('big_margin_top');
-        }else if(number_of_products >=11){
-            $( "<br>" ).insertBefore( ".drink_name span" );
-            $('.drink_title').addClass('big_font');
-            $('.hh').addClass('big_margin_top');
-            
-        }else if(number_of_products >=10){
-            $( "<br>" ).insertBefore( ".drink_name span" );
-            $('.drink_title').addClass('big_font');
-            $('.drink_name').addClass('big_font');
-            $('.drink_details').addClass('bigger_font');
-            $('.hh').addClass('big_margin_top');
-            $('.title_div').addClass('big_margin_bottom');
-        }else if(number_of_products >=5){
-            $( "<br>" ).insertBefore( ".drink_name span" );
-            $('.drink_title').addClass('big_font');
-            $('.drink_name').addClass('big_font');
-            $('.drink_details').addClass('bigger_font');
-            $('.hh').addClass('big_margin_top');
-            $('.title_div').addClass('big_margin_top big_margin_bottom');
-        }
-    }
+    
 }
 </script>
 

@@ -1176,6 +1176,12 @@ a.add_new_category, a.edit_category, a.add_new_drink, a.edit {
 .small_margin_top {
   margin-top: 2% !important; }
 
+.float_span {
+  margin-left: 5px; }
+
+.no_margin_top {
+  margin-top: 0 !important; }
+
 .drink_name {
   float: left; }
 

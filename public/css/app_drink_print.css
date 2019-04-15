@@ -172,4 +172,10 @@ h2 {
 .breaks {
   display: block; }
 
+.float_span {
+  margin-left: 5px; }
+
+.no_margin_top {
+  margin-top: 0 !important; }
+
 /*# sourceMappingURL=app_drink_print.css.map */

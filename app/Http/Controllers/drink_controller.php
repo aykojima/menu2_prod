@@ -124,12 +124,23 @@ class drink_controller extends Controller
 
                 $category = category::create($new_category);
 
-                // $new_category_id = category::findOrFail ( $category->category_id );
                 $new_product['name'] = 'Edit to add a name';
                 $new_product['price'] = 'Edit to add a price'; 
                 $new_product['category_id'] = $category->category_id; 
 
                 $product = product::create($new_product);
+
+                if($page == 'sake'){
+                        $new_sake['rice'] = "rice";
+                        $new_sake['grade'] = "grade";
+                        $new_sake['product_id'] = $product->product_id;
+                        $sake = sake::create($new_sake);
+                }elseif($page == 'wine'){
+                    $new_wine['type'] = "type";
+                    $new_wine['year'] = "year";
+                    $new_wine['product_id'] = $product->product_id;
+                    $wine = wine::create($new_wine);
+                }
 
                 $new_item = $input['category_name'] . " was successfully created!"; 
                 return redirect('drinks/' . $page)->with('status', $new_item );

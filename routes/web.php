@@ -43,7 +43,7 @@
             Route::get('/edit', 'roll_controller@show_edit_form')->name('roll_edit');
             Route::post('/edit', 'roll_controller@edit_menu')->name('roll_edit_submit');
         });
-        Route::group(['prefix' => 'lunch'], function () { 
+        Route::group(['prefix' => 'course'], function () { 
             //course
             Route::get('/', 'course_controller@show')->name('course');
             //Route::post('/edit', 'course_controller@save_content')->name('save_content');

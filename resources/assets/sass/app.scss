@@ -1575,7 +1575,14 @@ input.add_price, input.item_prices {
   margin-top: 2% !important;
 }
 
+.float_span{
+ // float: right;
+  margin-left: 5px;
+}
 
+.no_margin_top{
+  margin-top: 0 !important;
+}
 .drink_name{
   float: left;
   @extend %name_price_font_size;

@@ -148,6 +148,7 @@
 
 </body>
 <script>
+
     $( ".icon" ).click(function() {
         $( "#nav" ).toggleClass( "responsive" );
     });
@@ -166,6 +167,7 @@
     $("#navbarDropdown").click(function(){
         $(".dropdown-menu").toggle("slow");
     })
+
 
 </script>
 </html>

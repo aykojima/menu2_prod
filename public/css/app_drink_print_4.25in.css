@@ -107,7 +107,7 @@ h2 {
   color: #CF671F; }
 
 .title_div {
-  padding-bottom: 10%; }
+  padding: 3% 0 7% 0; }
   .title_div p {
     color: #cccccc; }
     .title_div p:nth-child(2) {
@@ -117,10 +117,6 @@ h2 {
 
 .margin_top {
   margin-top: 6%; }
-
-.title_div {
-  padding-top: 2%;
-  padding-bottom: 4%; }
 
 .title {
   padding-left: 0;
