@@ -23,6 +23,6 @@ class ChangeLunchTableName extends Migration
      */
     public function down()
     {
-        Schema::rename('lunchs', 'lunches');
+        Schema::rename('lunches', 'lunchs');
     }
 }

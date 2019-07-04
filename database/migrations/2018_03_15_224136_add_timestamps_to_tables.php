@@ -53,34 +53,34 @@ class AddTimestampsToTables extends Migration
     public function down()
     {
         Schema::table('ippins', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('rolls', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('courses', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('c_items', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('c_add_on_items', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('c_omakases', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('lunchs', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('l_items', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('l_displays', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
         Schema::table('updates', function($table) {
-            $table->dropTimestamps();
+            $table->timestamps();
         });
     }
 }

@@ -13,6 +13,13 @@ class CreateSakeWineTable extends Migration
      */
     public function up()
     {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('category_id');
+            $table->string('category', 500)->nullable();
+            $table->text('description')->nullable();
+            $table->timestamps();
+         });
+ 
         Schema::create('products', function (Blueprint $table) {
             $table->increments('product_id');
             $table->string('name', 500)->nullable();
@@ -28,12 +35,7 @@ class CreateSakeWineTable extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('categories', function (Blueprint $table) {
-            $table->increments('category_id');
-            $table->string('category', 500)->nullable();
-            $table->text('description')->nullable();
-            $table->timestamps();
-         });
+        
 
          Schema::create('sakes', function (Blueprint $table) {
             $table->increments('sake_id');
