@@ -76,6 +76,8 @@
             Route::post('/{page}', 'drink_controller@add_new')->name('drink_add_new');
             //Drink Edit items
             Route::post('/{page}/edit', 'drink_controller@edit_menu')->name('drink_edit_submit');
+            //Update category orders
+            Route::post('/{page}/edit/order', 'drink_controller@edit_order')->name('order_edit');
             
         });
 

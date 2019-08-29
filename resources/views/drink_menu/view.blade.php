@@ -60,9 +60,12 @@
 
 <div id="container">
     <div id="menu">
-        @foreach($category_array as $category)
+        @foreach($category_array as $key => $category)
             @foreach($category as $product)
                 @if(in_array($product->title_id, $titles))
+                    @if($key > 0)
+                        </ul><!--this is in if statement-->
+                    @endif
                     <div class='title_div' data-title="{{ $product->title_id }}">
                         <h1 class="title">{{ $product->title_name}}</h1>
                         <p>{{ $product->title_description}}</p>
@@ -71,11 +74,17 @@
                             <img class="add_drinks" src='../images/add_icon_active.png'>
                         </a>
                     </div>
+                    <ul class="sortable">
                 @endif  
                 @if ($loop->first)
-                    <div id="" class="drink_title" data-id="{{ $product->category_id }}" data-category="{{ $product->category }}" data-page_number="{{ $product->page_number }}">
+                <li id="catid_{{ $product->category_id }}">
+                    <div class="drink_title" data-id="{{ $product->category_id }}" data-category="{{ $product->category }}" data-page_number="{{ $product->page_number }}">
                     @if($product->title_name != $product->category)
                         <p style="color: #CF671F; clear:both">{{ $product->category }}</p>
+                    @else
+                        <div class="warning">The category name for this group won't be displayed because it is the same name as the title above.
+                            To display, change the category name so that it is not the same as the title.
+                        </div>
                     @endif
                         <p style="color: #ccc; font-size: 0.8em; padding-top: 2%;">{{ $product->category_description }}</p>
                         <a class="edit_category" data-category="{{ $product->category_id }}">
@@ -148,13 +157,16 @@
                             $k = array_search($last_title, $titles);
                             unset($titles[$k]);
                         }
+
                     }}
                 @endphp
                 @if ($loop->last)
                     </div>
                 @endif
             @endforeach<!--$category as $products -->
+                </li>
         @endforeach<!--$category_array as $category -->
+
         @if(Request::is('drinks/special'))
         <div class="hh">
             <h1>Happy Hour</h1>
@@ -170,6 +182,7 @@
             </div>
         </div>
         @endif
+        </ul>
     </div><!--end of menu-->  
 </div><!-- end of drink_container div -->    
 
@@ -187,6 +200,31 @@
 
 
 <script>
+let path_array = window.location.pathname.split('/');
+let page = path_array[path_array.length -1];
+
+    $(document).ready(function(){
+        var url = `{{URL::to('drinks/${page}/edit/order')}}`;
+        console.log(url);
+        $(".sortable").sortable({
+            update: function(event, ui){
+                var order = $(this).sortable('toArray');
+                $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    data: {order: order, page: page},
+                    type: 'POST',
+                    url : url,
+                    success:function(data){  
+                        console.log(data)
+                    }
+                });
+            }
+        });
+    });
 // Notification box
 $("#notification").fadeIn("slow");
 $(".dismiss").click(function(){
@@ -278,10 +316,6 @@ $(document).on("click", ".edit_category", function(event){
 
 });
 
-const path_array = window.location.pathname.split('/');
-const page = path_array[4];
-
-console.log(page);
 //Edit Modal
 $(document).on("click", ".edit", function(event){   
     $('#edit_modal').css('display', 'block');
@@ -291,41 +325,43 @@ $(document).on("click", ".edit", function(event){
         type : 'get',
         url: url, 
         data:{'product_id':$(this).data('id')},
-        success:function(data){
-        // console.log(data);            
-            modal.find("input[name='product_id']").val(data.product.product_id),
-            modal.find("input[name='name']").val(data.product.name),
-            modal.find("input[name='price']").val(data.product.price),
-            modal.find("input[name='production_area']").val(data.product.production_area), 
-            modal.find("input[name='description']").val(data.product.description),
-            modal.find("input[name='description2']").val(data.product.description2); 
-            if(data.product.category_id == 38)
-            {
-                modal.find(".hide_when_flight").hide(),
-                modal.find("input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");   
-            }else
-            {
-                modal.find(".hide_when_flight").show(),
-                modal.find("input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)");
-                if(data.wine){
-                    modal.find("input[name='type']").val(data.wine.type),
-                    modal.find("input[name='year']").val(data.wine.year);
-                }else if(data.sake){
-                    modal.find("input[name='grade']").val(data.sake.grade),
-                    modal.find("input[name='rice']").val(data.sake.rice),
-                    modal.find("select[name='sweetness']").val(data.sake.sweetness);
+        success:function(data){        
+            modal.find('.sweetness_hide').hide(),
+            modal.find(".hide_when_flight").show(),
+            modal.find("input[name='production_area']").attr("placeholder", "Production Area e.g.(Nagano)"),
+            modal.find('.bottle_size_hide').hide(),
+            modal.find("input[name='size_checkbox']").prop('checked', false),
+            modal.find("input[name='size']").val('');
+            modal.find("input[name='second_price']").val('');
+            for (let [key, value] of Object.entries(data.product)) {
+                modal.find(`input[name=${key}]`).val(value);       
+                // if(key == 'category_id' && value == 38)
+                // {
+                //     console.log('flight');
+                //     modal.find(".hide_when_flight").hide(),
+                //     modal.find("input[name='production_area']").attr("placeholder", "Amount e.g.(6 oz tokkuri)");   
+                // }else
+                // {
+                if(typeof value == 'object' && value != null){
+                    for (let [k, v] of Object.entries(value)) {
+                        modal.find(`input[name=${k}]`).val(v);
+                        if(k == 'sweetness' && v < 10 && v > -10 && Number.isInteger(Number(v))){
+                            modal.find(`select[name=${k}]`).val(v);
+                            modal.find('.sweetness_hide').find("input[name='sweetness_other']").val('');
+                        }else if(k == 'sweetness'){
+                            console.log(k, v);
+                            modal.find('.sweetness_hide').show();
+                            modal.find(`select[name=${k}]`).val('other');
+                            modal.find('.sweetness_hide').find("input[name='sweetness_other']").val(v);
+                        }
+                    }
                 }
-                if(data.bottle){
+            }
+            if(data.bottle){
+                for(let [key, value] of Object.entries(data.bottle)){
                     modal.find('.bottle_size_hide').show(),
                     modal.find("input[name='size_checkbox']").prop('checked', true),
-                    modal.find("input[name='size']").val(data.bottle.size);
-                    if(data.bottle.second_price){
-                        modal.find("input[name='second_price']").val(data.bottle.second_price);
-                    }
-                }else{
-                    modal.find('.bottle_size_hide').hide(),
-                    modal.find("input[name='size_checkbox']").prop('checked', false),
-                    modal.find("input[name='size']").val('');
+                    modal.find(`input[name=${key}]`).val(value);
                 }
             }
         }
@@ -345,6 +381,7 @@ $(document).on("click", ".edit", function(event){
             modal.find('.sweetness_hide').fadeOut('slow');
     });
 });
+
 
 
 $(document).ready(function(){
@@ -437,90 +474,43 @@ $(document).ready(function(){
 }
 });
 
-if(page == 'cocktail'){
+
     $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
-        //var form_data = $('#edit_form').serialize();
-            $.ajax({
-            type: 'patch',
-            url : '{{URL::to('drinks/{cocktail}/edit')}}',
-            data: {'product_id': $("#edit_form input[name='product_id']").val(),
-                    'name': $("#edit_form input[name='name']").val(),
-                    'price': $("#edit_form input[name='price']").val(),
-                    'description': $("#edit_form input[name='description']").val(),
-                    'submit': $("#edit_form input[name='submit']").val()
-            }
-        });
-    });
-}else if(page == 'sake'){
-    $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
-        //var form_data = $('#edit_form').serialize();
-            $.ajax({
-            type: 'patch',
-            url : '{{URL::to('drinks/{sake}/edit')}}',
-            data: {'product_id': $("#edit_form input[name='product_id']").val(),
-                    'name': $("#edit_form input[name='name']").val(),
-                    'price': $("#edit_form input[name='price']").val(),
-                    'production_area': $("#edit_form input[name='production_area']").val(),
-                    'rice': $("#edit_form input[name='rice']").val(),
-                    'sweetness': $("#edit_form input[name='sweetness']").val(),
-                    'description': $("#edit_form input[name='description']").val(),
-                    'description2': $("#edit_form input[name='description2']").val(),
-                    'submit': $("#edit_form input[name='submit']").val()
-            }
-        });
-    });
-}else if(page == 'wine'){
-    $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
-    //var form_data = $('#edit_form').serialize();
-        $.ajax({
-        type: 'patch',
-        url : '{{URL::to('drinks/{wine}/edit')}}',
-        data: {'product_id': $("#edit_form input[name='product_id']").val(),
-                'name': $("#edit_form input[name='name']").val(),
-                'price': $("#edit_form input[name='price']").val(),
-                'production_area': $("#edit_form input[name='production_area']").val(),
-                'type': $("#edit_form input[name='type']").val(),
-                'year': $("#edit_form input[name='year']").val(),
-                'description': $("#edit_form input[name='description']").val(),
-                'submit': $("#edit_form input[name='submit']").val()
+        var data_to_submit = {
+            'product_id': $("#edit_form input[name='product_id']").val(),
+            'name': $("#edit_form input[name='name']").val(),
+            'price': $("#edit_form input[name='price']").val(),
+            'description': $("#edit_form input[name='description']").val(),
+            'submit': $("#edit_form input[name='submit']").val()
+        };
+        var url = `{{URL::to('drinks/${page}/edit')}}`;
+                
+        switch(page){
+            case 'sake':
+                data_to_submit.production_area = $("#edit_form input[name='production_area']").val(),    
+                data_to_submit.rice = $("#edit_form input[name='rice']").val(),
+                data_to_submit.sweetness = $("#edit_form input[name='sweetness']").val(),
+                data_to_submit.description2 = $("#edit_form input[name='description2']").val()
+            break;
+            case 'wine':
+                data_to_submit.production_area = $("#edit_form input[name='production_area']").val(),    
+                data_to_submit.type = $("#edit_form input[name='type']").val(),
+                data_to_submit.year = $("#edit_form input[name='year']").val(),
+                data_to_submit.description2 = $("#edit_form input[name='description2']").val()
+            break;
+            case 'shochu':
+            case 'special':
+                data_to_submit.production_area = $("#edit_form input[name='production_area']").val(),    
+                data_to_submit.description2 = $("#edit_form input[name='description2']").val()
+            break;
         }
-    });
-});
-}else if(page == 'shochu'){
-    $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
-    //var form_data = $('#edit_form').serialize();
         $.ajax({
-        type: 'post',
-        url : '{{URL::to('drinks/{shochu}/edit')}}',
-        data: {'product_id': $("#edit_form input[name='product_id']").val(),
-                'name': $("#edit_form input[name='name']").val(),
-                'description2': $("#edit_form input[name='description2']").val(),
-                'price': $("#edit_form input[name='price']").val(),
-                'production_area': $("#edit_form input[name='production_area']").val(),
-                'description': $("#edit_form input[name='description']").val(),
-                'submit': $("#edit_form input[name='submit']").val()
-        }
-    });
-});
-}else if(page == 'special'){
-// console.log("ready in special!");
-    $('#edit_modal .modal_content').on('click', 'input[type=submit]', function() {
-    //var form_data = $('#edit_form').serialize();
-        $.ajax({
-        type: 'patch',
-        url : '{{URL::to('drinks/{special}/edit')}}',
-        data: {'product_id': $("#edit_form input[name='product_id']").val(),
-                'name': $("#edit_form input[name='name']").val(),
-                'price': $("#edit_form input[name='price']").val(),
-                'production_area': $("#edit_form input[name='production_area']").val(),
-                'description': $("#edit_form input[name='description']").val(),
-                'description2': $("#edit_form input[name='description2']").val(),
-                'submit': $("#edit_form input[name='submit']").val()
-            }
+            type: 'patch',
+            url : url,
+            data: data_to_submit
         });
     });
-    
-}
+
 </script>
 
 @endsection

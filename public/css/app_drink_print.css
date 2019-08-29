@@ -1,87 +1,108 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @font-face {
-  font-family: 'TheSans Plain';
+  font-family: "TheSans Plain";
   src: url("/fonts/TheSans Plain.ttf");
-  font-weight: lighter; }
+  font-weight: lighter;
+}
 @page {
   size: 8.5in 14in;
-  margin: 0; }
+  margin: 0;
+}
 header, #nav, #new_item, .right_div,
 .modal, .search-box, .commands, #notification, #update,
 .add_drinks, .edit_drinks {
-  display: none; }
+  display: none;
+}
 
 * {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 body {
   font-family: TheSans Plain;
   font-weight: lighter;
-  font-size: 1em; }
+  font-size: 1em;
+}
 
 div.page_right, .page_left {
   width: 49%;
   display: inline-block;
   vertical-align: top;
   bottom: 0;
-  margin-top: 0 !important; }
+  margin-top: 0 !important;
+}
 
 .pages {
   width: 100%;
   page-break-after: always;
-  clear: both; }
+  clear: both;
+}
 
 .page_right {
-  right: 0; }
+  right: 0;
+}
 
-.drink_title, .products {
+.products, .drink_title {
   position: relative;
-  margin: 0 0 3% 0; }
+  margin: 0 0 3% 0;
+}
 
 .drink_title {
   margin-bottom: 2%;
   clear: both;
-  padding-top: 3%; }
-  .drink_title h2 {
-    margin: 4% 2% 4% 0;
-    padding-left: 0;
-    float: none;
-    font-weight: lighter; }
-  .drink_title h3 {
-    color: #CF671F;
-    clear: both;
-    font-weight: lighter; }
-  .drink_title .drink_price {
-    padding-top: 2%; }
+  padding-top: 3%;
+}
+.drink_title h2 {
+  margin: 4% 2% 4% 0;
+  padding-left: 0;
+  float: none;
+  font-weight: lighter;
+}
+.drink_title h3 {
+  color: #CF671F;
+  clear: both;
+  font-weight: lighter;
+}
+.drink_title .drink_price {
+  padding-top: 2%;
+}
 
 .drink_categories {
-  margin-bottom: 5%; }
+  margin-bottom: 5%;
+}
 
 .rotating_wine {
   color: #CCCCCC;
-  line-height: 1em; }
+  line-height: 1em;
+}
 
 .small_margin {
-  margin-bottom: 1%; }
+  margin-bottom: 1%;
+}
 
 .no_margin {
-  margin-bottom: 0%; }
+  margin-bottom: 0%;
+}
 
 .small_margin_top {
-  margin-top: 2% !important; }
+  margin-top: 2% !important;
+}
 
-.drink_name, .drink_price {
+.drink_price, .drink_name {
   font-size: 1.1em;
-  line-height: 1em; }
+  line-height: 1em;
+}
 
 .drink_name {
   float: left;
-  color: #000000; }
+  color: #000000;
+}
 
 .drink_price {
   float: right;
-  position: relative; }
+  position: relative;
+}
 
 p.bottle_size {
   float: right;
@@ -89,16 +110,20 @@ p.bottle_size {
   position: absolute;
   right: 0px;
   top: 12px;
-  font-size: small; }
+  font-size: small;
+}
 
 .drink_details {
   width: 90%;
   color: #CCCCCC;
   clear: both;
   font-size: 1em;
-  line-height: 1em; }
-  .drink_details span {
-    color: #CF671F; }
+  line-height: 1em;
+  overflow-wrap: break-word;
+}
+.drink_details span {
+  color: #CF671F;
+}
 
 div.menu {
   display: block;
@@ -107,75 +132,97 @@ div.menu {
   margin: 3%;
   margin-top: 10%;
   padding: 2%;
-  margin-left: 4%; }
+  margin-left: 4%;
+}
 
 h1 {
   text-align: left;
-  color: #CF671F; }
+  color: #CF671F;
+}
 
 h2 {
   text-align: left;
-  color: #CF671F; }
+  color: #CF671F;
+}
 
 #showResult {
   display: block;
   margin: auto;
   width: 100%;
-  clear: both; }
+  clear: both;
+}
 
 .title_div {
-  padding-bottom: 10%; }
-  .title_div p {
-    color: #CCCCCC; }
-    .title_div p:nth-child(2) {
-      float: left; }
-    .title_div p:nth-child(3) {
-      float: right; }
+  padding-bottom: 10%;
+}
+.title_div p {
+  color: #CCCCCC;
+}
+.title_div p:nth-child(2) {
+  float: left;
+}
+.title_div p:nth-child(3) {
+  float: right;
+}
 
 .margin_top {
-  margin-top: 6%; }
+  margin-top: 6%;
+}
 
 .title {
   padding-left: 0;
   margin: 0;
   float: none;
-  line-height: 1em; }
+  line-height: 1em;
+}
 
 .small_title_font {
   font-size: 1.5em;
-  padding-top: 6%; }
+  padding-top: 6%;
+}
 
 .font1_1em {
-  font-size: 1.1em; }
+  font-size: 1.1em;
+}
 
 .font1_3em {
-  font-size: 1.3em; }
+  font-size: 1.3em;
+}
 
 .small_font {
-  font-size: 0.9em; }
+  font-size: 0.9em;
+}
 
 .no_padding {
-  padding: 0; }
+  padding: 0;
+}
 
 .large_margin {
-  margin-bottom: 8%; }
+  margin-bottom: 8%;
+}
 
 .margin_bottom3 {
-  margin-bottom: 3%; }
+  margin-bottom: 3%;
+}
 
 .margin_bottom12 {
-  margin-bottom: 12%; }
+  margin-bottom: 12%;
+}
 
 .no_margin_bottom {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+}
 
 .breaks {
-  display: block; }
+  display: block;
+}
 
 .float_span {
-  margin-left: 5px; }
+  margin-left: 5px;
+}
 
 .no_margin_top {
-  margin-top: 0 !important; }
+  margin-top: 0 !important;
+}
 
 /*# sourceMappingURL=app_drink_print.css.map */

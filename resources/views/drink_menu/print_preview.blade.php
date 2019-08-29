@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
 
 </head>
 <body>
@@ -168,6 +169,7 @@ menus.forEach(menu => {
     const drink_names = menu.querySelectorAll(".drink_name");
     const smalls = menu.querySelectorAll("small");
     const drink_details = menu.querySelectorAll(".drink_details");
+        
     if(num_titles >= 5){
         title_divs.forEach(function(div, key){
                 key == 0 && div.classList.add("no_padding");

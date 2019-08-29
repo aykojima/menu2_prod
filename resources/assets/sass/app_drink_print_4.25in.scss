@@ -51,7 +51,7 @@ $skt_color: #CF671F;
 
 header, #nav, #new_item, .right_div,
 .modal, .search-box, .commands, #notification, #update,
-.add_drinks, .edit_drinks, hr{
+.add_drinks, .warning, .edit_drinks, hr{
     display: none;
 }
 *{
@@ -158,6 +158,7 @@ p.bottle_size {
   clear: both;
   font-size: 0.8em;
   line-height: 1.2em;
+  overflow-wrap: break-word;
 }
 
 img.add_drinks{

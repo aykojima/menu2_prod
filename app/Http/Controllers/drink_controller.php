@@ -18,43 +18,6 @@ class drink_controller extends Controller
         if($page != 'sake' && $page != 'wine' && $page != 'cocktail' && $page != 'shochu' && $page != 'special'){ return redirect('/');}
         $titles = [];
 
-        // $types = array("Pinot Gris", "Txakoli", "Albarino", "Sauvignon Blanc",
-        //                 "Carricante", "Chardonnay", "Chenin Blanc", "Viognier", 
-        //                 "Riesling", "Gruner Veltliner",
-        //                 "Pinot Noir", "Tempranillo", "Cab Franc", "Cabernet Sauvignon", "Malbec", "Zinfandel");
-
-        // function write_query($types){
-        //     foreach($types as $key=>$type){
-        //         if($key == 0){
-        //             $query = "CASE WHEN type LIKE '%" . $type . "%' THEN 1 ";
-        //         }else{
-        //             $order_number = $key + 1;
-        //             $query .= "WHEN type LIKE '%" . $type ."%' THEN " . $order_number . " ";
-        //         }
-        //     }
-        //     $order_number = $order_number + 1;
-        //     return $query .= "ELSE " . $order_number . " END ASC";
-        // }
-
-        // $query = write_query($types);
-        
-        // $types = array("Mugi", "Kome", "Imo", "Ume",
-        //                 "Suntory", "Yamazaki", "Hakushu", "Nikka", "Mars", "Akashi", "Ichiro", "Ohishi", "Fukano");
-        
-        // function write_query($types){
-        //     foreach($types as $key=>$type){
-        //         if($key == 0){
-        //             $query = "CASE WHEN name LIKE '%" . $type . "%' THEN 1 ";
-        //         }else{
-        //             $order_number = $key + 1;
-        //             $query .= "WHEN name LIKE '%" . $type ."%' THEN " . $order_number . " ";
-        //         }
-        //     }
-        //     return $query .= "ELSE 0 END ASC";
-        // }
-
-        // $order_shochu_whisky = write_query($types);
-
         if($page == 'sake'){
             $titles = [1, 2]; //titles for sake
         }else if($page == 'wine'){
@@ -70,7 +33,12 @@ class drink_controller extends Controller
         $first_el = array_values($titles)[0];
         $last_el = array_values($titles)[count($titles) - 1];
 
-        $categories = category::whereBetween('title_id', [$first_el, $last_el])->select('category_id')->get();
+        $categories = category::whereBetween('title_id', [$first_el, $last_el])
+            ->select('category_id')
+            ->orderBy('title_id')
+            ->orderBy('order')
+            ->get();
+
 
         $category_array = [];
         
@@ -105,7 +73,6 @@ class drink_controller extends Controller
             // dd($products);
             array_push($category_array, $products);
         }//end of foreach
-        // dd($category_array);
             return view('drink_menu/view', compact('page', 'category_array', 'titles'));
             
     }
@@ -251,9 +218,7 @@ class drink_controller extends Controller
                 return Response(compact('product', 'wine'));
             
             }
-            // if($page == 'sake' || $page == 'wine'){
-            //     return Response(compact($product));
-            // }
+
             else{
                 return Response(compact('product'));
             }
@@ -263,113 +228,122 @@ class drink_controller extends Controller
 
     public function edit_menu(Request $request, $page)
     {        
-
-        $product = product::findOrFail ( $request->product_id );
         $input = $request->all();
-        switch($request->submit) {
-            case 'Update': 
-                $input = $request->all();
-                $edit_product['name'] = $input['name'];
-                $edit_product['price'] = $input['price']; 
-                if($page != 'cocktail'){
-                    $edit_product['production_area'] = $input['production_area'];
-                    $edit_product['description2'] = $input['description2'];
-                }    
-                $edit_product['description'] = $input['description'];
-                
-                //$edit_product['category_id'] = $input['category_id'];
-                //$data = $this->validate_form($input);
+            $product = product::findOrFail ( $request->product_id );
+            
+            switch($request->submit) {
+                case 'Update': 
+                    $input = $request->all();
+                    $edit_product['name'] = $input['name'];
+                    $edit_product['price'] = $input['price']; 
+                    if($page != 'cocktail'){
+                        $edit_product['production_area'] = $input['production_area'];
+                        $edit_product['description2'] = $input['description2'];
+                    }    
+                    $edit_product['description'] = $input['description'];
 
-                $product->update($edit_product);
+                    $product->update($edit_product);
 
-                if($page == 'sake'){
-                    // if($request->product_id != 38)
-                    // {
-                        $edit_sake['rice'] = $input['rice'];
-                        $edit_sake['grade'] = $input['grade'];
+                    if($page == 'sake'){
+                        // if($request->product_id != 38)
+                        // {
+                            $edit_sake['rice'] = $input['rice'];
+                            $edit_sake['grade'] = $input['grade'];
 
-                        if($input['sweetness'] == 'other')
-                        { $edit_sake['sweetness'] = $input['sweetness_other']; }
-                        else { $edit_sake['sweetness'] = $input['sweetness']; }
+                            if($input['sweetness'] == 'other')
+                            { $edit_sake['sweetness'] = $input['sweetness_other']; }
+                            else { $edit_sake['sweetness'] = $input['sweetness']; }
 
-                        if($product->sake){
-                            $sake = sake::findOrFail ( $product->sake->sake_id );
-                            $sake->update($edit_sake);
+                            if($product->sake){
+                                $sake = sake::findOrFail ( $product->sake->sake_id );
+                                $sake->update($edit_sake);
+
+                            }else
+                            {
+                                $edit_sake['product_id'] = $product->product_id;
+                                $sake = sake::create($edit_sake);
+                            }
+
+                            if($input['size_checkbox'] == "Size is not 720ml"
+                                && $input['size'] != null){
+                                $edit_bottle['size'] = $input['size'];
+                                $edit_bottle['second_price'] = $input['second_price'];
+                                if($sake->bottle){
+                                    $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
+                                    $bottle->update($edit_bottle);
+                                }else
+                                {
+                                    $edit_bottle['sake_id'] = $sake->sake_id;
+                                    bottle::create($edit_bottle);
+                                }
+                            }else if(
+                                ($sake->bottle && $input['size_checkbox'] == "720ml" && $sake->bottle)
+                                    || ($sake->bottle && $input['size_checkbox'] == "Size is not 720ml"
+                                    && $input['size'] == null)){
+                                $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
+                                $bottle->delete();
+                            // }
+                        }//end of if(category_id !=38)
+                    }else if($page == 'wine'){
+                        $edit_wine['type'] = $input['type'];
+                        $edit_wine['year'] = $input['year'];
+
+                        if($product->wine){
+                            $wine = wine::findOrFail ( $product->wine->wine_id );
+                            $wine->update($edit_wine);
 
                         }else
                         {
-                            $edit_sake['product_id'] = $product->product_id;
-                            $sake = sake::create($edit_sake);
+                            $edit_wine['product_id'] = $product->product_id;
+                            $wine = wine::create($edit_wine);
                         }
 
-                        if($input['size_checkbox'] == "Size is not 720ml"
+                        if($input['size_checkbox'] == "Size is not 750ml"
                             && $input['size'] != null){
                             $edit_bottle['size'] = $input['size'];
                             $edit_bottle['second_price'] = $input['second_price'];
-                            if($sake->bottle){
-                                $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
+                            
+                            if($wine->bottle){
+                                $bottle = bottle::findOrFail ( $wine->bottle->bottle_id );
                                 $bottle->update($edit_bottle);
                             }else
                             {
-                                $edit_bottle['sake_id'] = $sake->sake_id;
+                                $edit_bottle['wine_id'] = $wine->wine_id;
                                 bottle::create($edit_bottle);
-                            }
+                            }    
                         }else if(
-                            ($sake->bottle && $input['size_checkbox'] == "720ml" && $sake->bottle)
-                                || ($sake->bottle && $input['size_checkbox'] == "Size is not 720ml"
-                                && $input['size'] == null)){
-                            $bottle = bottle::findOrFail ( $sake->bottle->bottle_id );
-                            $bottle->delete();
-                        // }
-                    }//end of if(category_id !=38)
-                }else if($page == 'wine'){
-                    $edit_wine['type'] = $input['type'];
-                    $edit_wine['year'] = $input['year'];
-
-                    if($product->wine){
-                        $wine = wine::findOrFail ( $product->wine->wine_id );
-                        $wine->update($edit_wine);
-
-                    }else
-                    {
-                        $edit_wine['product_id'] = $product->product_id;
-                        $wine = wine::create($edit_wine);
+                            ($wine->bottle && $input['size_checkbox'] == "750ml" && $wine->bottle)
+                            || ($wine->bottle && $input['size_checkbox'] == "Size is not 750ml"
+                            && $input['size'] == null)){
+                                $bottle = bottle::findOrFail ( $wine->bottle->bottle_id );
+                                $bottle->delete();
+                        }
                     }
-
-                    if($input['size_checkbox'] == "Size is not 750ml"
-                        && $input['size'] != null){
-                        $edit_bottle['size'] = $input['size'];
-                        $edit_bottle['second_price'] = $input['second_price'];
-                        
-                        if($wine->bottle){
-                            $bottle = bottle::findOrFail ( $wine->bottle->bottle_id );
-                            $bottle->update($edit_bottle);
-                        }else
-                        {
-                            $edit_bottle['wine_id'] = $wine->wine_id;
-                            bottle::create($edit_bottle);
-                        }    
-                    }else if(
-                        ($wine->bottle && $input['size_checkbox'] == "750ml" && $wine->bottle)
-                        || ($wine->bottle && $input['size_checkbox'] == "Size is not 750ml"
-                        && $input['size'] == null)){
-                            $bottle = bottle::findOrFail ( $wine->bottle->bottle_id );
-                            $bottle->delete();
-                    }
-                }
-                $edited_item = $input['name'] . " was successfully edited!";
-                return redirect('drinks/' . $page)->with('status', $edited_item );
-            break;
-            case 'Delete':
-            //dd($product);
-                $product->delete();
-                $edited_item = $input['name'] . " was deleted!";
-                return redirect('drinks/' . $page)->with('status', $edited_item );
-            break;
-            
-        }
+                    $edited_item = $input['name'] . " was successfully edited!";
+                    return redirect('drinks/' . $page)->with('status', $edited_item );
+                break;
+                case 'Delete':
+                //dd($product);
+                    $product->delete();
+                    $edited_item = $input['name'] . " was deleted!";
+                    return redirect('drinks/' . $page)->with('status', $edited_item );
+                break;
+            }//end of swtch
     }
 
+    public function edit_order(Request $request)
+    {
+        if($request->ajax()){
+            
+            $orders = ($request->order);
+            foreach($orders as $key => $order){
+                $catid = str_replace('catid_', '', $order);
+                DB::table('categories')->where('category_id', $catid)->update(['order' => $key]);
+            }
+            //Here need to send back session status for confirmation message
+            // return Response()->with('status', 'Order Updated!');
+        }
+    }
     public function print()
     {
         $categories = category::all();
@@ -433,12 +407,9 @@ class drink_controller extends Controller
 
         function get_products(){
             $page_array = [];
-            
-            //Get row count of category table
+            //Get page length
             $page_length = category::max('page_number');
                             
-            // $total_page = $page_length; 
-            // echo $page_length;
             if($page_length == 7 ){
                 // $page_array[0] = [];
                 $page_array[1] = [];
@@ -450,13 +421,14 @@ class drink_controller extends Controller
                 $page_array[7] = [];
             }
 
-            //$title_length = page_title::all()->count();
+            //get row count of category
             $category_length = category::all()->count();
  
             for($page_number = 1; $page_number <= $page_length; $page_number++){
                 $category_array = [];
                 $categories = category::where('page_number', $page_number)
                                 ->orderBy('title_id')
+                                ->orderBy('order')
                                 ->get();
 
                 foreach( $categories as $category ){

@@ -162,6 +162,7 @@ p.bottle_size {
   clear: both;
   font-size: 1em;
   line-height: 1em;
+  overflow-wrap: break-word;
   span{
     color: $skt_color;
   }

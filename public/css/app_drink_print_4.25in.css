@@ -1,153 +1,195 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @font-face {
-  font-family: 'TheSans Plain';
+  font-family: "TheSans Plain";
   src: url("/fonts/TheSans Plain.ttf");
-  font-weight: lighter; }
+  font-weight: lighter;
+}
 @page {
-  size: 4.25in 14in; }
+  size: 4.25in 14in;
+}
 header, #nav, #new_item, .right_div,
 .modal, .search-box, .commands, #notification, #update,
-.add_drinks, .edit_drinks, hr {
-  display: none; }
+.add_drinks, .warning, .edit_drinks, hr {
+  display: none;
+}
 
 * {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 body {
   font-family: TheSans Plain;
   font-weight: lighter;
-  font-size: 1em; }
+  font-size: 1em;
+}
 
 .hh {
-  margin: 5% 0 5% 0; }
-  .hh h1 {
-    margin-left: 0;
-    padding-left: 0; }
-  .hh div {
-    line-height: 1em;
-    clear: both; }
-    .hh div:nth-child(3) {
-      color: #cccccc; }
+  margin: 5% 0 5% 0;
+}
+.hh h1 {
+  margin-left: 0;
+  padding-left: 0;
+}
+.hh div {
+  line-height: 1em;
+  clear: both;
+}
+.hh div:nth-child(3) {
+  color: #cccccc;
+}
 
 .specials_title {
   margin: 2% 2% 0 0;
   padding-left: 0;
-  line-height: 1em; }
-  .specials_title ~ p {
-    clear: both;
-    color: #cccccc; }
+  line-height: 1em;
+}
+.specials_title ~ p {
+  clear: both;
+  color: #cccccc;
+}
 
-.drink_title, .products {
-  margin: 0 0 3% 0; }
+.products, .drink_title {
+  margin: 0 0 3% 0;
+}
 
 .drink_title {
   margin-bottom: 2%;
-  clear: both; }
-  .drink_title h2 {
-    margin: 4% 2% 2% 0;
-    padding-left: 0;
-    float: none;
-    font-weight: lighter; }
-  .drink_title h3 {
-    color: #CF671F;
-    clear: both;
-    font-weight: lighter; }
+  clear: both;
+}
+.drink_title h2 {
+  margin: 4% 2% 2% 0;
+  padding-left: 0;
+  float: none;
+  font-weight: lighter;
+}
+.drink_title h3 {
+  color: #CF671F;
+  clear: both;
+  font-weight: lighter;
+}
 
 .small_margin {
-  margin-bottom: 1%; }
+  margin-bottom: 1%;
+}
 
 .no_margin {
-  margin-bottom: 0%; }
+  margin-bottom: 0%;
+}
 
 .small_margin_top {
-  margin-top: 2% !important; }
+  margin-top: 2% !important;
+}
 
-.drink_name, .drink_price {
+.drink_price, .drink_name {
   font-size: 1.1em;
   line-height: 1em;
-  margin-bottom: 3px; }
+  margin-bottom: 3px;
+}
 
 .drink_name {
-  float: left; }
+  float: left;
+}
 
 .drink_price {
-  float: right; }
+  float: right;
+}
 
 p.bottle_size {
   float: right;
   margin-right: 3px;
-  font-size: small; }
+  font-size: small;
+}
 
 .drink_details {
   width: 90%;
   color: #ccc;
   clear: both;
   font-size: 0.8em;
-  line-height: 1.2em; }
+  line-height: 1.2em;
+  overflow-wrap: break-word;
+}
 
 img.add_drinks {
-  width: 20px; }
+  width: 20px;
+}
 
 div.menu {
   display: block;
   width: 90%;
   margin: auto;
   margin: 3%;
-  margin-top: 10%;
+  margin-top: 15%;
   padding: 2%;
-  margin-left: 4%; }
+  margin-left: 4%;
+}
 
 h1 {
   text-align: left;
-  color: #CF671F; }
+  color: #CF671F;
+}
 
 h2 {
   text-align: left;
-  color: #CF671F; }
+  color: #CF671F;
+}
 
 .title_div {
-  padding: 3% 0 7% 0; }
-  .title_div p {
-    color: #cccccc; }
-    .title_div p:nth-child(2) {
-      float: left; }
-    .title_div p:nth-child(3) {
-      float: right; }
+  padding: 3% 0 7% 0;
+}
+.title_div p {
+  color: #cccccc;
+}
+.title_div p:nth-child(2) {
+  float: left;
+}
+.title_div p:nth-child(3) {
+  float: right;
+}
 
 .margin_top {
-  margin-top: 6%; }
+  margin-top: 6%;
+}
 
 .title {
   padding-left: 0;
   margin: 0;
   float: none;
-  line-height: 1em; }
+  line-height: 1em;
+}
 
 .drink_categories {
-  margin-bottom: 5%; }
+  margin-bottom: 5%;
+}
 
 .small_title_font {
   font-size: 1.5em;
-  padding-top: 6%; }
+  padding-top: 6%;
+}
 
 .small_font {
-  font-size: 0.9em; }
+  font-size: 0.9em;
+}
 
 .big_font {
-  font-size: 1.3em; }
+  font-size: 1.3em;
+}
 
 .bigger_font {
-  font-size: 1.1em; }
+  font-size: 1.1em;
+}
 
 .no_padding_no_margin {
   padding-top: 0;
-  margin-bottom: 0; }
+  margin-bottom: 0;
+}
 
 .big_margin_top {
-  margin-top: 15%; }
+  margin-top: 15%;
+}
 
 .big_margin_bottom {
-  margin-bottom: 15%; }
+  margin-bottom: 15%;
+}
 
 /*# sourceMappingURL=app_drink_print_4.25in.css.map */

@@ -38,6 +38,36 @@ $skt_color: #CF671F;
 // Bootstrap
 // @import '~bootstrap/scss/bootstrap';
 
+@mixin grab-cursor {
+  cursor: url('https://www.google.com/intl/en_ALL/mapfiles/openhand.cur'), all-scroll;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: -ms-grab;
+  cursor: grab;
+}
+
+@mixin grabbing-cursor {
+  cursor: url('https://www.google.com/intl/en_ALL/mapfiles/closedhand.cur'), all-scroll;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -o-grabbing;
+  cursor: -ms-grabbing;
+  cursor: grabbing;
+}
+
+@mixin warning {
+  background-color: #ccc;
+  font-family: sans-serif;
+}
+.warning {
+  @include warning;
+  z-index: 999;
+  padding: 2%;
+  margin: 0 7% 0 0px;
+  
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -49,7 +79,7 @@ $skt_color: #CF671F;
   
 }
 body{
-      // font-family: $font;
+      //@include font-face;
       font-family: TheSans Plain;
       font-size: 1em;
       font-weight: lighter;
@@ -144,24 +174,11 @@ li#print{
   display: none;
 } 
 
-
-div.nav{
-  position: fixed;
-  top:40px;
-  left:0;
-  padding-top:50px;
-  width: 10%;
-  border-right-style:ridge;
-  height: 100%;
-  z-index: 2;
-  background-color: #FFF;
-}
-
 .nav_icons{
   width: 50px;
   display: block;
   margin: auto;
-  margin-top: 28%;
+  margin-top: 20%;
 }
 
 p.nav_active{
@@ -192,7 +209,16 @@ a.nav_links{
       }
   }
 
-div#nav{ 
+div.nav{ 
+  position: fixed;
+  top:40px;
+  left:0;
+  padding-top:50px;
+  width: 10%;
+  border-right-style:ridge;
+  height: 100%;
+  z-index: 2;
+  background-color: #FFF;
   ul{
     list-style: none; 
     a{
@@ -202,6 +228,13 @@ div#nav{
     }
     li{
       position: relative;
+      /* INNER UL SHOW */
+      &:hover > ul{
+        left:100%;
+        visibility:visible;
+        opacity:1;
+        transform: translateX(0px);
+      }
     }
     ul{
       position:absolute;
@@ -228,13 +261,7 @@ div#nav{
     }
   }
 }
-/* INNER UL SHOW */
-div#nav li:hover > ul{
-  left:100%;
-  visibility:visible;
-  opacity:1;
-  transform: translateX(0px);
-}
+
 
 
 
@@ -1471,7 +1498,13 @@ input.add_price, input.item_prices {
 
 //********drink pages**********//
 
-
+.ui-sortable-handle{
+  list-style: none;
+  @include grab-cursor;
+  &:active{
+    @include grabbing-cursor;
+  }
+}
 
 %drink_divs{
   position: relative;
@@ -1612,6 +1645,7 @@ p.bottle_size {
   font-size: 0.8em;
   line-height: 1em;
   width: 90%;
+  overflow-wrap: break-word;
   span{
     color: $skt_color;
   }
